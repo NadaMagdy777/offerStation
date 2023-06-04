@@ -25,6 +25,8 @@ namespace offerStation_BackEnd
                     builder.Configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddCors(opt =>
             {
                 opt.AddPolicy("MainPolicy", builder =>
@@ -52,6 +54,11 @@ namespace offerStation_BackEnd
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            ///summery ================= Auto mapper ==============
+            /// builder.Services.AddAutoMapper(typeof(ProfileName));
+            ///////////////////////////////////////////////////////
+            ///
 
             var app = builder.Build();
 

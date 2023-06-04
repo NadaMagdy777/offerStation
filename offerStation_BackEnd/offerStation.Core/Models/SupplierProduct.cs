@@ -14,7 +14,7 @@ namespace offerStation.Core.Models
 
         [ForeignKey("SupplierMenu")]
         public int SupplierMenueId { get; set; }
-        public virtual SupplierMenu SupplierMenu { get; set; }
+        public virtual SupplierMenuCategory SupplierMenu { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
         

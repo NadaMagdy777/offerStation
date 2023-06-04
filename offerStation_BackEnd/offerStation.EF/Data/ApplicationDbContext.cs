@@ -19,32 +19,32 @@ namespace offerStation.EF.Data
         {
             optionsBuilder.EnableSensitiveDataLogging();
         }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<CustomerCart> CustomerCarts { get; set; }
-        public DbSet<CustomerOrder> CustomerOrders { get; set; }
-        public DbSet<CustomerReview> CustomerReviews { get; set; }
-        public DbSet<CustomerCartProduct> CustomerCartProducts { get; set; }
-        public DbSet<CustomerOrderProduct> CustomerOrderProducts { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<CustomerCart> CustomerCart { get; set; }
+        public DbSet<CustomerOrder> CustomerOrder { get; set; }
+        public DbSet<CustomerReview> CustomerReview { get; set; }
+        public DbSet<CustomerCartProduct> CustomerCartProduct { get; set; }
+        public DbSet<CustomerOrderProduct> CustomerOrderProduct { get; set; }
 
-        public DbSet<Owner> Owners { get; set; }
-        public DbSet<OwnerCart> OwnerCarts { get; set; }
-        public DbSet<OwnerMenu> OwnerMenus { get; set; }
+        public DbSet<Owner> Owner { get; set; }
+        public DbSet<OwnerCart> OwnerCart { get; set; }
+        public DbSet<OwnerMenu> OwnerMenue { get; set; }
         public DbSet<OwnerOrder> OwnerOrder { get; set; }
-        public DbSet<OwnerOffer> OwnerOffers { get; set; }
-        public DbSet<OwnerReview> OwnerReviews { get; set; }
-        public DbSet<OwnerProduct> OwnerProducts { get; set; }
-        public DbSet<OwnerCategory> OwnerCategories { get; set; }
-        public DbSet<OwnerCartProduct> OwnerCartProducts { get; set; }
-        public DbSet<OwnerOrderProduct> OwnerOrderProducts { get; set; }
-        public DbSet<OwnerOfferProduct> OwnerOfferProducts { get; set; }
+        public DbSet<OwnerOffer> OwnerOffer { get; set; }
+        public DbSet<OwnerReview> OwnerReview { get; set; }
+        public DbSet<OwnerProduct> OwnerProduct { get; set; }
+        public DbSet<OwnerCategory> OwnerCategory { get; set; }
+        public DbSet<OwnerCartProduct> OwnerCartProduct { get; set; }
+        public DbSet<OwnerOrderProduct> OwnerOrderProduct { get; set; }
+        public DbSet<OwnerOfferProduct> OwnerOfferProduct { get; set; }
 
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<SupplierMenu> SupplierMenus { get; set; }
-        public DbSet<SupplierOffer> SupplierOffers { get; set; }
-        public DbSet<SupplierProduct> SupplierProducts { get; set; }
-        public DbSet<SupplierCategory> SupplierCategories { get; set; }
-        public DbSet<SupplierOfferProduct> SupplierOfferProducts { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<SupplierMenuCategory> SupplierMenuCategory { get; set; }
+        public DbSet<SupplierOffer> SupplierOffer { get; set; }
+        public DbSet<SupplierProduct> SupplierProduct { get; set; }
+        public DbSet<SupplierCategory> SupplierCategory { get; set; }
+        public DbSet<SupplierOfferProduct> SupplierOfferProduct { get; set; }
         
     }
 }
