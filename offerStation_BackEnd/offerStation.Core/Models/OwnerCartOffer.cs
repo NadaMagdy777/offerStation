@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerCartProduct
+    public class OwnerCartOffer
     {
         [Key]
         public int Id { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("Cart")]
         public int CartId { get; set; }
         public OwnerCart Cart { get; set; }
-        
-        [ForeignKey("SupplierProduct")]
-        public int SupplierProductId { get; set; }
-        public virtual SupplierProduct SupplierProduct { get; set; }
-        public int Quantity { get; set; }
 
+        [ForeignKey("SupplierOffer")]
+        public int SupplierOffertId { get; set; }
+        public virtual SupplierOffer SupplierOffer { get; set; }
+       
     }
 }
