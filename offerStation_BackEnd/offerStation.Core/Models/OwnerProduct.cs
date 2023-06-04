@@ -15,13 +15,13 @@ namespace offerStation.Core.Models
         public double Price { get; set; }
         public string Description { get; set; }
        
-        [ForeignKey("owner")]
+        [ForeignKey("Owner")]
         public int OwnerId { get; set; }
-        public virtual Owner owner { get; set; }
+        public virtual Owner Owner { get; set; }
 
-        [ForeignKey("ownerMenu")]
+        [ForeignKey("OwnerMenu")]
         public int OwnerMenuId { get; set; }
-        public virtual OwnerMenu ownerMenu { get; set; }
+        public virtual OwnerMenu OwnerMenu { get; set; }
 
 
     }
