@@ -10,8 +10,8 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int OwnerId { get; set; }
-        public OwnerCategory Category { get; set; }
+        public int OwnerCategoryId { get; set; }
+        public OwnerCategory OwnerCategory { get; set; }
         public List<OwnerOffer> OwnerOffers { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace offerStation.Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int SupplierCategoryId { get; set; }
-        public SupplierCategory Category { get; set; }
+        public SupplierCategory SupplierCategory { get; set; }
     }
 }
