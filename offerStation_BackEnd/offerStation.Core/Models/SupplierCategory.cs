@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class SupplierOffer
+    public class SupplierCategory
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+
 
         [ForeignKey("Supplier")]
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public string OfferName { get; set; }
-        public string OfferDescription { get; set; }
-        public virtual List<SupplierOfferProduct> Products { get; set; }    
-
 
     }
 }

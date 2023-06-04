@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    internal class OwnerMenu
+    public class OwnerMenu
     {
         public int ID { get; set; }
-        public int OwnerID { get; set; }
+
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+        public virtual Owner Owner { get; set; }
         public string MenuName { get; set; }
         public string Description { get; set; }
 
         public virtual List<OwnerProduct> OwnerProducts { get; set; }
-
 
 
     }
