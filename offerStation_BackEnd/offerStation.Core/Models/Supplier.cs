@@ -8,9 +8,8 @@ namespace offerStation.Core.Models
 {
     public class Supplier
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int SupplierCategoryId { get; set; }
-        public SupplierCategory Category { get; set; }
+        public virtual List<SupplierCategory> Categories { get; set; }
     }
 }

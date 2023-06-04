@@ -9,7 +9,7 @@ namespace offerStation.Core.Models
 {
     public class SupplierProduct
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         [ForeignKey("SupplierMenu")]
