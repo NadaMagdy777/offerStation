@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerProduct
+    public class CustomerCartProduct
     {
-        int Id { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public string Description { get; set; }
-        // MenueOwner id
-
+        [Key]
+        public int d { get; set; }
+        public int CartId { get; set; }
+        public int OwnerProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
