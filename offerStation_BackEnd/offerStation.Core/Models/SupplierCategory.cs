@@ -10,7 +10,7 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<SupplierCategory> Suppliers { get; set; }
+        public List<Supplier> Suppliers { get; set; }
 
     }
 }
