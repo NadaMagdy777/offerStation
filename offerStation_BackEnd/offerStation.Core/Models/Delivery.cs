@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class Owner
+    public class Delivery
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int OwnerCategoryId { get; set; }
-        public OwnerCategory OwnerCategory { get; set; }
-        public List<OwnerOffer> OwnerOffers { get; set; }
-        public List<OwnerReview> OwnerReviews { get; set; }
+        public int Phone { get; set; }
+        public List<OwnerOrder> OwnerOrders { get; set; }
+        public List<CustomerOrder> CustomerOrders { get; set; }
+
     }
 }
