@@ -13,5 +13,6 @@ namespace offerStation.Core.Models
         public int OwnerCategoryId { get; set; }
         public OwnerCategory OwnerCategory { get; set; }
         public List<OwnerOffer> OwnerOffers { get; set; }
+        public virtual List<OwnerProduct> OwnerProducts { get; set; }
     }
 }
