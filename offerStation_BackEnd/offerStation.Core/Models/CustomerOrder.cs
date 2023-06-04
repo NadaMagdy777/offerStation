@@ -20,12 +20,15 @@ namespace offerStation.Core.Models
         public int OwnerId { get; set; }
         public virtual Owner Owner { get; set; }
 
-        public string PaymentMethod { get; set; } //=> Enum of PaymentMethod
-        public string CreditCarNumber { get; set; }
+        public string PaymentMethod { get; set; } // enum paymnet method
+
+        public virtual CustomerCardDetails CardDetails { get; set; }
+
+        //public bool HasDelivary { get; set; }
+        public virtual Delivery Delivery { get; set; }
 
         public virtual List<CustomerOrderProduct> Products { get; set; }
         public virtual List<CustomerOrderOffer> Offers { get; set; }
-        public virtual OwnerReview OwnerReview { get; set; }
         public double Total { get; set; }
 
 

@@ -14,15 +14,16 @@ namespace offerStation.Core.Models
         public string Name { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
+        public int Discount { get; set; }
        
-        [ForeignKey("Owner")]
-        public int OwnerId { get; set; }
-        public virtual Owner Owner { get; set; }
+        //[ForeignKey("Owner")]
+        //public int OwnerId { get; set; }
+        //public virtual Owner Owner { get; set; }
 
-        [ForeignKey("OwnerMenu")]
-        public int OwnerMenuId { get; set; }
-        public virtual OwnerMenu OwnerMenu { get; set; }
-
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public virtual OwnerMenuCategory Category { get; set; }
+        public virtual List<OwnerOfferProduct> Offers { get; set; }
 
     }
 }

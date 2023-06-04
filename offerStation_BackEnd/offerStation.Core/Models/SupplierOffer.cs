@@ -10,14 +10,13 @@ namespace offerStation.Core.Models
     public class SupplierOffer
     {
         public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierID { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public string OfferName { get; set; }
-        public string OfferDescription { get; set; }
-        public virtual List<SupplierOfferProduct> Products { get; set; }    
-
+        public virtual List<SupplierOfferProduct> Products { get; set; }         
 
     }
 }

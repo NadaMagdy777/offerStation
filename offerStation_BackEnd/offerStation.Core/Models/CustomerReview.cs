@@ -15,10 +15,10 @@ namespace offerStation.Core.Models
 
         [ForeignKey("customer")]
         public int CustomerId { get; set; }
-        public  Customer customer { get; set; }
+        public virtual Customer customer { get; set; }
 
-        [ForeignKey ("customerOrder")]
-        public int OrderId { get; set; }
-         public  CustomerOrder customerOrder { get; set; } 
+        [ForeignKey ("Owner")]
+        public int OwnerId { get; set; }
+        public virtual  Owner Owner { get; set; } 
     }
 }

@@ -9,16 +9,15 @@ namespace offerStation.Core.Models
 {
     public class SupplierOfferProduct
     {
-        public  int ID { get; set; }
+        public  int Id { get; set; }
+        public int Quantity { get; set; }
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }
+        public virtual SupplierProduct Product { get; set; }
 
-        [ForeignKey("suppliermenu")]
-        public int SupplierMenuID { get; set; }
-        public virtual SupplierMenuCategory suppliermenu { get; set; }
-    
-        [ForeignKey("supplieroffer")]
-        public int SupplierOfferID { get; set; }
-        public virtual SupplierOffer supplieroffer { get; set; }
-       
+        [ForeignKey("Offer")]
+        public int OfferId { get; set; }
+        public virtual SupplierOffer Offer { get; set; }
 
     }
 }

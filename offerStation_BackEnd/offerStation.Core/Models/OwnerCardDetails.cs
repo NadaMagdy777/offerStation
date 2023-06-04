@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class SupplierMenuCategory
+    public class OwnerCardDetails
     {
+        [ForeignKey("OwnerOrder")]
         public int Id { get; set; }
+        public virtual OwnerOrder OwnerOrder { get; set; }
+
         public string Name { get; set; }
+        public string CardNumber { get; set; }
 
-        [ForeignKey("Supplier")]
-        public int SupplierId { get; set; }
-        public virtual Supplier Supplier { get; set; }
-        public virtual List<SupplierProduct> Products { get; set; }
-
-    }   
+    }
 }

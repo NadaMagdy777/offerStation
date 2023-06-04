@@ -9,7 +9,7 @@ namespace offerStation.Core.Models
 {
     public class OwnerReview
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
        
         public int Rating { get; set; }
         public string Comment { get; set; }
@@ -18,8 +18,8 @@ namespace offerStation.Core.Models
         public int OwnerId { get; set; }
         public  Owner Owner { get; set; }
 
-        [ForeignKey("OwnerOrder")]
-        public int OrderId { get; set; }
-        public  OwnerOrder OwnerOrder { get; set; }
+        [ForeignKey("Supplier")]
+        public int SupplierId { get; set; }
+        public  Supplier Supplier { get; set; }
     }
 }

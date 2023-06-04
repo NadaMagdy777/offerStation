@@ -10,7 +10,6 @@ namespace offerStation.Core.Models
 {
     public class OwnerCartProduct
     {
-        [Key]
         public int Id { get; set; }
 
         [ForeignKey("Cart")]

@@ -26,7 +26,7 @@ namespace offerStation.EF
 
         public IBaseRepository<Owner> Owners { get; private set; }
         public IBaseRepository<OwnerCart> OwnerCarts { get; private set; }
-        public IBaseRepository<OwnerMenu> OwnerMenus { get; private set; }
+        public IBaseRepository<OwnerMenuCategory> OwnerMenus { get; private set; }
         public IBaseRepository<OwnerOrder> OwnerOrders { get; private set; }
         public IBaseRepository<OwnerOffer> OwnerOffers { get; private set; }
         public IBaseRepository<OwnerReview> OwnerReviews { get; private set; }
@@ -57,7 +57,7 @@ namespace offerStation.EF
 
             Owners = new BaseRepository<Owner>(_context);
             OwnerCarts = new BaseRepository<OwnerCart>(_context);
-            OwnerMenus = new BaseRepository<OwnerMenu>(_context);
+            OwnerMenus = new BaseRepository<OwnerMenuCategory>(_context);
             OwnerOrders = new BaseRepository<OwnerOrder>(_context);
             OwnerOffers = new BaseRepository<OwnerOffer>(_context);
             OwnerReviews = new BaseRepository<OwnerReview>(_context);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,17 @@ namespace offerStation.Core.Models
 {
     public class Owner
     {
+        public int Id { get; set; }
+        [ForeignKey("AppUser")]
+        public string AppUserId { get; set; }
+        public virtual ApplicationUser? AppUser { get; set; }
         public int OwnerCategoryId { get; set; }
         public virtual OwnerCategory OwnerCategory { get; set; }
-        public List<OwnerOffer> OwnerOffers { get; set; }
-        public List<OwnerReview> OwnerReviews { get; set; }
-        public virtual List<OwnerProduct> OwnerProducts { get; set; }
+        public virtual List<OwnerOffer> Offers { get; set; }
+        public virtual List<OwnerMenuCategory> MenuCategories { get; set; }
+        //public virtual List<OwnerProduct> OwnerProducts { get; set; }
+        public virtual List<OwnerReview> SuppliersReviews { get; set; }
+        public virtual List<CustomerReview> CustomersReviews { get; set; }
+
     }
 }

@@ -10,7 +10,6 @@ namespace offerStation.Core.Models
 {
     public class OwnerCartOffer
     {
-        [Key]
         public int Id { get; set; }
         public int Quantity { get; set; }
 
