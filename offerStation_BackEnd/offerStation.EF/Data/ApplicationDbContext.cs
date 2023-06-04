@@ -38,9 +38,8 @@ namespace offerStation.EF.Data
         public DbSet<OwnerCartProduct> OwnerCartProducts { get; set; }
         public DbSet<OwnerOrderProduct> OwnerOrderProducts { get; set; }
         public DbSet<OwnerOfferProduct> OwnerOfferProducts { get; set; }
-
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<SupplierMenu> SupplierMenus { get; set; }
+        public DbSet<SupplierMenuCategory> SupplierMenuCategory { get; set; }
         public DbSet<SupplierOffer> SupplierOffers { get; set; }
         public DbSet<SupplierProduct> SupplierProducts { get; set; }
         public DbSet<SupplierCategory> SupplierCategories { get; set; }
