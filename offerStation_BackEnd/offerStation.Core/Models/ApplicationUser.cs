@@ -9,6 +9,7 @@ namespace offerStation.Core.Models
 {
     public class ApplicationUser :IdentityUser
     {
+        public virtual List<Address> Addresses { get; set; }
             
     }
 }
