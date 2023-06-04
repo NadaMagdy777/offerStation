@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class SupplierMenu
+    public class SupplierMenuCategory
     {
-        [Key]
         public int Id { get; set; }
+
+        [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-        public string MenuName { get; set; }
-        public string Description { get; set; }
+        public virtual Supplier Supplier { get; set; }
+
+        public string Category { get; set; }
+
+        public virtual List<SupplierProduct> Products { get; set; }
 
     }   
 }
