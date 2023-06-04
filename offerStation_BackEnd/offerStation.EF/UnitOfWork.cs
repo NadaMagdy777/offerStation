@@ -39,10 +39,9 @@ namespace offerStation.EF
         public IBaseRepository<Supplier> Suppliers { get; private set; }
         public IBaseRepository<SupplierOffer> SupplierOffers { get; private set; }
         public IBaseRepository<SupplierProduct> SupplierProducts { get; private set; }
-        public IBaseRepository<SupplierMenuCategory> SupplierMenus { get; private set; }
         public IBaseRepository<SupplierCategory> SupplierCategories { get; private set; }
         public IBaseRepository<SupplierOfferProduct> SupplierOfferProducts { get; private set; }
-
+        public IBaseRepository<SupplierMenuCategory> SupplierMenuCategories { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -66,14 +65,14 @@ namespace offerStation.EF
             OwnerCategories = new BaseRepository<OwnerCategory>(_context);
             OwnerCartProducts = new BaseRepository<OwnerCartProduct>(_context);
             OwnerOrderProducts = new BaseRepository<OwnerOrderProduct>(_context);
-            OwnerOfferProducts = new BaseRepository<OwnerOfferProduct>(_context)
-                ;
+            OwnerOfferProducts = new BaseRepository<OwnerOfferProduct>(_context);
+
             Suppliers = new BaseRepository<Supplier>(_context);
             SupplierOffers = new BaseRepository<SupplierOffer>(_context);
             SupplierProducts = new BaseRepository<SupplierProduct>(_context);
-            SupplierMenus = new BaseRepository<SupplierMenuCategory>(_context);
             SupplierCategories = new BaseRepository<SupplierCategory>(_context);
             SupplierOfferProducts = new BaseRepository<SupplierOfferProduct>(_context);
+            SupplierMenuCategories = new BaseRepository<SupplierMenuCategory>(_context);
         }
         public int Complete()
         {
