@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class SupplierMenu
+    public class City
     {
         [Key]
         public int Id { get; set; }
-        public int SupplierId { get; set; }
-        public string MenuName { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } 
+        public virtual List<Address> Address { get; set; }
 
-    }   
+    }
 }
