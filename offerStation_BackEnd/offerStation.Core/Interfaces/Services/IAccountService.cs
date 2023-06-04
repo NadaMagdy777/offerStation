@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace offerStation.Core.Models
+namespace offerStation.Core.Interfaces.Services
 {
-    public class Admin
+    public interface IAccountService
     {
+        
     }
 }
