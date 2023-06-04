@@ -12,28 +12,27 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("Supplier")]
-        public int SupplierId { get; set; }
-        public virtual Supplier Supplier { get; set; }
-
-        [ForeignKey("Owner")]
-        public int OwnerId { get; set; }
-        public virtual Owner Owner { get; set; }
-        
-        public string PaymentMethod { get; set; } //=> Enum of PaymentMethod
-        public string CreditCarNumber { get; set; }
-
-        public virtual List<OwnerOrderProduct> Products { get; set; }
-        public virtual List<OwnerOrderOffer> Offers { get; set; }
-        public virtual OwnerReview OwnerReview { get; set; }
-        public double Total { get; set; }
-        public int SupplierId { get; set; }
-        public string PaymentMethod { get; set; }
-        public int OwnerReviewId { get; set; }
+      
 
         [ForeignKey("Delivery")]
         public int DeliveryId { get; set; }
         public Delivery Delivery { get; set; }
 
+        [ForeignKey("Supplier")]
+        public int SupplierId { get; set; }
+
+        public  Supplier Supplier { get; set; }
+
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+        public  Owner Owner { get; set; }
+        
+        public string PaymentMethod { get; set; } //=> Enum of PaymentMethod
+        public string CreditCarNumber { get; set; }
+
+        public  List<OwnerOrderProduct> Products { get; set; }
+        public  List<OwnerOrderOffer> Offers { get; set; }
+        public  OwnerReview OwnerReview { get; set; }
+        public double Total { get; set; }
     }
 }
