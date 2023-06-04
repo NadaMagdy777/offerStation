@@ -34,6 +34,7 @@ namespace offerStation_BackEnd
                     builder.AllowAnyOrigin();
                 });
             });
+            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
