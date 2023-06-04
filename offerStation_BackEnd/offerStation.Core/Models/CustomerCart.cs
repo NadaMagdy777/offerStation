@@ -11,6 +11,8 @@ namespace offerStation.Core.Models
     {
         [Key]
         public int Id { get; set; }
-        
+        public int CustomerId { get; set; }
+        public int OwnerId { get; set; }
+
     }
 }
