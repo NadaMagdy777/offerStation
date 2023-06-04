@@ -22,7 +22,7 @@ namespace offerStation.Core.Interfaces
         public IBaseRepository <Owner> Owners { get;  }
         public IBaseRepository <OwnerCart> OwnerCarts { get; }
         public IBaseRepository <OwnerMenu> OwnerMenus { get;  }
-        public IBaseRepository <OwnerOrder> OwnerOrder { get;  }
+        public IBaseRepository <OwnerOrder> OwnerOrders { get;  }
         public IBaseRepository<OwnerOffer> OwnerOffers { get;  }
         public IBaseRepository<OwnerReview> OwnerReviews { get;  }
         public IBaseRepository <OwnerProduct> OwnerProducts { get;  }
