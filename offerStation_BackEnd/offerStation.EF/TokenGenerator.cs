@@ -1,5 +1,4 @@
-﻿using MedEase.Core.Interfaces;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using offerStation.Core.Interfaces;

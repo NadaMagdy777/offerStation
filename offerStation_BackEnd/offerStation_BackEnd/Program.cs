@@ -1,5 +1,3 @@
-using MedEase.Core.Interfaces;
-using MedEase.EF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
