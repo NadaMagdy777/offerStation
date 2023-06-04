@@ -14,6 +14,8 @@ namespace offerStation.Core.Models
         public string MenuName { get; set; }
         public string Description { get; set; }
 
+        public virtual List<OwnerProduct> OwnerProducts { get; set; }
+
 
 
     }
