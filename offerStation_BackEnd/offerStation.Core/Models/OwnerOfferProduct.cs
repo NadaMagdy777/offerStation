@@ -19,6 +19,6 @@ namespace offerStation.Core.Models
         [ForeignKey("Offer")]
         public int OfferId { get; set; }
         public virtual OwnerOffer Offer { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

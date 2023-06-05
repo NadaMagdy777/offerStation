@@ -17,6 +17,6 @@ namespace offerStation.Core.Models
         public int SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual List<SupplierProduct> Products { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }   
 }

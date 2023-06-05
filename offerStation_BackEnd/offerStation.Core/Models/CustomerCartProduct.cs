@@ -23,6 +23,6 @@ namespace offerStation.Core.Models
         public int Quantity { get; set; }
         public double Total { get; set; }
 
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

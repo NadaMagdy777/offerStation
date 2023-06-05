@@ -21,5 +21,6 @@ namespace offerStation.Core.Models
         public virtual SupplierOffer Offer { get; set; }
         
         public int Quantity { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

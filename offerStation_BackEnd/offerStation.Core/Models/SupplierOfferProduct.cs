@@ -18,6 +18,6 @@ namespace offerStation.Core.Models
         [ForeignKey("Offer")]
         public int OfferId { get; set; }
         public virtual SupplierOffer Offer { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

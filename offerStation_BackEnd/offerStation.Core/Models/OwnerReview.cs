@@ -21,5 +21,6 @@ namespace offerStation.Core.Models
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
         public  Supplier Supplier { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

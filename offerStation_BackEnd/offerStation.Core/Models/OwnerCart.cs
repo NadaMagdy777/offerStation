@@ -20,6 +20,6 @@ namespace offerStation.Core.Models
         public virtual Supplier Supplier { get; set; }
         public virtual List<OwnerCartProduct> Products { get; set; }
         public virtual List<OwnerCartOffer> offers { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

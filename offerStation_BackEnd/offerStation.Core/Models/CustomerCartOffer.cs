@@ -22,6 +22,6 @@ namespace offerStation.Core.Models
         public virtual OwnerOffer OwnerOffer { get; set; }
         public int Quantity { get; set; }
 
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

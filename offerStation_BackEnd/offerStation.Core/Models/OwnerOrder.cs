@@ -29,7 +29,7 @@ namespace offerStation.Core.Models
 
         public  List<OwnerOrderProduct> Products { get; set; }
         public  List<OwnerOrderOffer> Offers { get; set; }
-        public  OwnerReview OwnerReview { get; set; }
         public double Total { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

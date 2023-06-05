@@ -20,6 +20,6 @@ namespace offerStation.Core.Models
         public int SupplierProductId { get; set; }
         public virtual SupplierProduct SupplierProduct { get; set; }
         public int Quantity { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

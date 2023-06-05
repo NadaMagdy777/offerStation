@@ -19,6 +19,6 @@ namespace offerStation.Core.Models
         public virtual List<SupplierMenuCategory> MenuCategories { get; set; }
         //public virtual List<SupplierProduct> OwnerProducts { get; set; }
         public virtual List<OwnerReview> Reviews { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

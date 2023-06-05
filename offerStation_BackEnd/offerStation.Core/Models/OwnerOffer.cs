@@ -18,5 +18,6 @@ namespace offerStation.Core.Models
         public virtual Owner Owner { get; set; }
 
         public virtual List<OwnerOfferProduct> Products { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

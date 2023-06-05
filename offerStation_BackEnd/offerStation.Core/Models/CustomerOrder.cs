@@ -31,6 +31,6 @@ namespace offerStation.Core.Models
         public virtual List<CustomerOrderOffer> Offers { get; set; }
         public double Total { get; set; }
 
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

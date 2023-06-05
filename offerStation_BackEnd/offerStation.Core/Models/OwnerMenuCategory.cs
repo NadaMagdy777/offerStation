@@ -17,7 +17,6 @@ namespace offerStation.Core.Models
         public string MenuName { get; set; }
 
         public virtual List<OwnerProduct> OwnerProducts { get; set; }
-
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

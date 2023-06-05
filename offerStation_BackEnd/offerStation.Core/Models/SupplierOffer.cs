@@ -16,7 +16,7 @@ namespace offerStation.Core.Models
         [ForeignKey("Supplier")]
         public int SupplierID { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public virtual List<SupplierOfferProduct> Products { get; set; }         
-
+        public virtual List<SupplierOfferProduct> Products { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -12,6 +12,7 @@ namespace offerStation.Core.Models
         public int Id { get; set; }
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
-        public virtual ApplicationUser? AppUser { get; set; }    
+        public virtual ApplicationUser? AppUser { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

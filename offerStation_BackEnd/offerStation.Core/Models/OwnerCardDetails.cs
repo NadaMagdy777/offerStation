@@ -16,6 +16,6 @@ namespace offerStation.Core.Models
 
         public string Name { get; set; }
         public string CardNumber { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

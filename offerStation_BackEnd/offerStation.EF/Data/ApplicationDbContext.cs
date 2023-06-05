@@ -19,16 +19,17 @@ namespace offerStation.EF.Data
         {
             optionsBuilder.EnableSensitiveDataLogging();
         }
-        public DbSet<Address> Address{ get; set; }
-        public DbSet<Admin> Admin { get; set; }
         public DbSet<City> City { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<Address> Address{ get; set; }
+
         public DbSet<Customer> Customer { get; set; }
-        public DbSet<CustomerCardDetails> CustomerCardDetails { get; set; }
         public DbSet<CustomerCart> CustomerCart { get; set; }
-        public DbSet<CustomerCartOffer> CustomerCartOffer { get; set; }
-        public DbSet<CustomerCartProduct> CustomerCartProduct { get; set; }
         public DbSet<CustomerOrder> CustomerOrder { get; set; }
+        public DbSet<CustomerCardDetails> CustomerCardDetails { get; set; }
+        public DbSet<CustomerCartProduct> CustomerCartProduct { get; set; }
         public DbSet<CustomerOrderOffer> CustomerOrderOffer { get; set; }
+        public DbSet<CustomerCartOffer> CustomerCartOffer { get; set; }
         public DbSet<CustomerOrderProduct> CustomerOrderProduct { get; set; }
         public DbSet<CustomerReview> CustomerReview { get; set; }
         public DbSet<Delivery> Delivery { get; set; }
@@ -54,5 +55,9 @@ namespace offerStation.EF.Data
         public DbSet<SupplierOffer> SupplierOffer { get; set; }
         public DbSet<SupplierOfferProduct> SupplierOfferProduct { get; set; }
         public DbSet<SupplierProduct> SupplierProduct { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }

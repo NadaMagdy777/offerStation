@@ -9,11 +9,10 @@ namespace offerStation.Core.Models
 {
     public class City
     {
-        [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; } 
         public virtual List<Address> Address { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
     }
 }
