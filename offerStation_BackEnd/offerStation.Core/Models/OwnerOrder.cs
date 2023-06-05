@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerOrder
+    public class OwnerOrder : BaseModel
     {
         public int Id { get; set; }
 
@@ -30,6 +30,5 @@ namespace offerStation.Core.Models
         public  List<OwnerOrderProduct> Products { get; set; }
         public  List<OwnerOrderOffer> Offers { get; set; }
         public double Total { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

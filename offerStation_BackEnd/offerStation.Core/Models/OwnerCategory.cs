@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerCategory
+    public class OwnerCategory : BaseModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Owner> Owners { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

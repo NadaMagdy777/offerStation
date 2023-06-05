@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerCart
+    public class OwnerCart : BaseModel
     {
         public int Id { get; set; }
-       
         [ForeignKey("Owner")]
         public int OwnerId { get; set; }
         public virtual Owner Owner { get; set; }
@@ -20,6 +19,5 @@ namespace offerStation.Core.Models
         public virtual Supplier Supplier { get; set; }
         public virtual List<OwnerCartProduct> Products { get; set; }
         public virtual List<OwnerCartOffer> offers { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

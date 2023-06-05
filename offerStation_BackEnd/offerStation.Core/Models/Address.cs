@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class Address
+    public class Address : BaseModel
     {
         public int Id { get; set; }
         public string details { get; set; }
@@ -19,8 +19,6 @@ namespace offerStation.Core.Models
 
         [ForeignKey("User")]
         public string UserId { get; set; }
-        public virtual ApplicationUser User { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        
+        public virtual ApplicationUser User { get; set; }        
     }
 }

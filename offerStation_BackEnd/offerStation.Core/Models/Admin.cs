@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class Admin
+    public class Admin : BaseModel
     {
         public int Id { get; set; }
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
         public virtual ApplicationUser? AppUser { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

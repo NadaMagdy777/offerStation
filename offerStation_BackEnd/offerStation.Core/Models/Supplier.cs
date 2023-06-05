@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class Supplier
+    public class Supplier : BaseModel
     {
         public int Id { get; set; }
+
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
         public virtual ApplicationUser? AppUser { get; set; }
@@ -19,6 +20,5 @@ namespace offerStation.Core.Models
         public virtual List<SupplierMenuCategory> MenuCategories { get; set; }
         //public virtual List<SupplierProduct> OwnerProducts { get; set; }
         public virtual List<OwnerReview> Reviews { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }
