@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerCardDetails
+    public class OwnerCardDetails : BaseModel
     {
         [ForeignKey("OwnerOrder")]
         public int Id { get; set; }
         public virtual OwnerOrder OwnerOrder { get; set; }
-
         public string Name { get; set; }
         public string CardNumber { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

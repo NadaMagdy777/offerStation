@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class SupplierOffer
+    public class SupplierOffer : BaseModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -17,6 +17,5 @@ namespace offerStation.Core.Models
         public int SupplierID { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual List<SupplierOfferProduct> Products { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

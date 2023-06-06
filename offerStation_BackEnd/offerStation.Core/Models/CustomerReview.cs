@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class CustomerReview
+    public class CustomerReview : BaseModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
 
@@ -20,6 +20,5 @@ namespace offerStation.Core.Models
         [ForeignKey ("Owner")]
         public int OwnerId { get; set; }
         public virtual  Owner Owner { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

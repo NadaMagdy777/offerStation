@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerProduct
+    public class OwnerProduct : BaseModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,6 +24,5 @@ namespace offerStation.Core.Models
         public int CategoryId { get; set; }
         public virtual OwnerMenuCategory Category { get; set; }
         public virtual List<OwnerOfferProduct> Offers { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

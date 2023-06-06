@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+
 
 @Component({
   selector: 'app-root',

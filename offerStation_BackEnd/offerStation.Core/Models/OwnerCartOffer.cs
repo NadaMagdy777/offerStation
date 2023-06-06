@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Models
 {
-    public class OwnerCartOffer
+    public class OwnerCartOffer : BaseModel
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
@@ -20,6 +20,5 @@ namespace offerStation.Core.Models
         [ForeignKey("SupplierOffer")]
         public int SupplierOffertId { get; set; }
         public virtual SupplierOffer SupplierOffer { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }
