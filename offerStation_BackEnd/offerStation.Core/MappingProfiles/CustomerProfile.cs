@@ -13,8 +13,7 @@ namespace offerStation.Core.MappingProfiles
     {
         public CustomerProfile()
         {
-            
-       CreateMap<Customer, CustomerRegestrationDto>().ReverseMap();
+            CreateMap<Customer, CustomerRegestrationDto>().ReverseMap();
         }
     }
 }

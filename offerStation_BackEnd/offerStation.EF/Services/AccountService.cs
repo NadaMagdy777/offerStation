@@ -119,7 +119,6 @@ namespace offerStation.EF
                     details = OAddressd.details,
                 }).ToList();
 
-
             IdentityResult result;
             try
             {
@@ -132,7 +131,7 @@ namespace offerStation.EF
 
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
 
-            await _userManager.AddToRoleAsync(user, Role.Customer);
+            await _userManager.AddToRoleAsync(user, Role.Owner);
 
             return new ApiResponse(200, true, new UserDto
             {
@@ -142,37 +141,44 @@ namespace offerStation.EF
             });
         }
 
-        public Task<ApiResponse> SupplierRegister(SupplierRegestrationDto dto)
+        public async Task<ApiResponse> SupplierRegister(SupplierRegestrationDto supplierDto)
         {
-            throw new NotImplementedException();
+            ApplicationUser user = _mapper.Map<ApplicationUser>(supplierDto);
+            Supplier supplier = _mapper.Map<Supplier>(supplierDto);
+            user.Supplier = supplier;
+            supplier.AppUser = user;
+
+
+            user.Addresses = supplierDto.Address
+                .Select(OAddressd => new Address
+                {
+                    CityId = OAddressd.CityId,
+                    details = OAddressd.details,
+                }).ToList();
+
+            IdentityResult result;
+            try
+            {
+                result = await _userManager.CreateAsync(user, supplierDto.Password);
+            }
+            catch (Exception)
+            {
+                return new ApiResponse(400, false, null, "InValid Inputs");
+            }
+
+            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
+
+            await _userManager.AddToRoleAsync(user, Role.Owner);
+
+            return new ApiResponse(200, true, new UserDto
+            {
+                Name = $"{supplierDto.FirstName} {supplierDto.LastName}",
+                Email = supplierDto.Email,
+                Token = await _tokenGenerator.GenerateToken(user, supplier.Id),
+            });
         }
-          //public async Task<ApiResponse> RegisterPatient(UserRegisterDto dto)
-                 //{
-                 //    AppUser user = _mapper.Map<AppUser>(dto);
-                 //    Patient patient = new() { AppUser = user };
-                 //    user.Patient = patient;
 
-    //    IdentityResult result;
-    //    try
-    //    {
-    //        result = await _userManager.CreateAsync(user, dto.Password);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return new ApiResponse(400, false, null, "InValid Inputs");
-    //    }
-
-    //    if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      
-
-    //    await _userManager.AddToRoleAsync(user, Roles.Patient);
-
-    //    return new ApiResponse(200, true, new UserDto
-    //    {
-    //        Name = $"{dto.FirstName} {dto.LastName}",
-    //        Email = user.Email,
-    //        Token = await _tokenGenerator.GenerateToken(user, patient.ID),
-    //    });
-    //}
+       
 
     private async Task<int> GetUserTypeId(ApplicationUser user)
         {
