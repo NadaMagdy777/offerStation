@@ -24,6 +24,7 @@ namespace offerStation_BackEnd
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -33,6 +34,8 @@ namespace offerStation_BackEnd
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
             builder.Services.AddScoped<IAdressService, AddressService>();
+            builder.Services.AddScoped<IOwnerOfferService, RestaurantOwnerOffersService>();
+
 
             builder.Services.AddCors(opt =>
             {

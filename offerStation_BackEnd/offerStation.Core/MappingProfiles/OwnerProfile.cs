@@ -14,7 +14,8 @@ namespace offerStation.Core.MappingProfiles
         public OwnerProfile()
         {
             
-       CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();
+        CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();
+        CreateMap<OwnerOffer, OwnerOfferDto>().ReverseMap();
         }
     }
 }
