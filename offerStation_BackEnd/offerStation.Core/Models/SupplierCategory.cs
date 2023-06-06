@@ -12,8 +12,6 @@ namespace offerStation.Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [ForeignKey("Supplier")]
-        public int SupplierId { get; set; }
-        public virtual Supplier Supplier { get; set; }
+        public virtual List<Supplier> Suppliers { get; set; }
     }
 }

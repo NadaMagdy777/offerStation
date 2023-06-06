@@ -6,12 +6,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
-    ResturantOffersPageComponent
+    ResturantOffersPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+using Autofac.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace offerStation_BackEnd
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             builder.Services.AddCors(opt =>
             {
@@ -67,6 +69,7 @@ namespace offerStation_BackEnd
             builder.Services.AddAutoMapper(typeof(OwnerProfile));
             builder.Services.AddAutoMapper(typeof(CustomerProfile));
             builder.Services.AddAutoMapper(typeof(SupplierProfile));
+            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile));
 
 
 
