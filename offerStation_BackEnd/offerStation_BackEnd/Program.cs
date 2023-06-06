@@ -21,6 +21,8 @@ namespace offerStation_BackEnd
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(
@@ -29,6 +31,8 @@ namespace offerStation_BackEnd
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+            builder.Services.AddScoped<IAdressService, AddressService>();
 
             builder.Services.AddCors(opt =>
             {
@@ -39,8 +43,7 @@ namespace offerStation_BackEnd
                     builder.AllowAnyOrigin();
                 });
             });
-            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
-            builder.Services.AddScoped<IAdressService, AddressService>();
+           
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
             {
@@ -81,6 +84,8 @@ namespace offerStation_BackEnd
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("MainPolicy");
 
             app.UseHttpsRedirection();
 
