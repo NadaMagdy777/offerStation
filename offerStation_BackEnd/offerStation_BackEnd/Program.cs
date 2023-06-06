@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using offerStation.Core.Interfaces;
+using offerStation.Core.Interfaces.Services;
 using offerStation.Core.MappingProfiles;
 using offerStation.Core.Models;
 using offerStation.EF;
 using offerStation.EF.Data;
+using offerStation.EF.Services;
 
 namespace offerStation_BackEnd
 {
@@ -36,6 +38,7 @@ namespace offerStation_BackEnd
                 });
             });
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+            builder.Services.AddScoped<IAdressService, AddressService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
             {
