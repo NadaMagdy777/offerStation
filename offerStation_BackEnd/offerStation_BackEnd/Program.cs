@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using offerStation.Core.Interfaces;
+using offerStation.Core.MappingProfiles;
 using offerStation.Core.Models;
 using offerStation.EF;
 using offerStation.EF.Data;
@@ -53,10 +54,12 @@ namespace offerStation_BackEnd
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            ///summery ================= Auto mapper ==============
-            /// builder.Services.AddAutoMapper(typeof(ProfileName));
-            ///////////////////////////////////////////////////////
-            ///
+           
+            builder.Services.AddAutoMapper(typeof(OwnerProfile));
+            builder.Services.AddAutoMapper(typeof(CustomerProfile));
+            builder.Services.AddAutoMapper(typeof(SupplierProfile));
+
+
 
             var app = builder.Build();
 

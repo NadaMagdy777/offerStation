@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
 
 namespace offerStation.API.Controllers
@@ -8,28 +9,36 @@ namespace offerStation.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        //private readonly IAccountService _accountService;
+        private readonly IAccountService _accountService;
 
-        //public AccountController(IAccountService accountService)
-        //{
-        //    this._accountService = accountService;
-        //}
+        public AccountController(IAccountService accountService)
+        {
+            this._accountService = accountService;
+        }
 
-        //[HttpPost("login")]
-        //public async Task<ActionResult<ApiResponse>> Login(UserLoginDto dto)
-        //{
-        //    if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+        [HttpPost("login")]
+        public async Task<ActionResult<ApiResponse>> Login(UserLoginDto dto)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
-        //    return Ok(await _accountService.LoginUser(dto));
-        //}
+            return Ok(await _accountService.LoginUser(dto));
+        }
 
-        //[HttpPost("Doctor/register")]
-        //public async Task<ActionResult<ApiResponse>> DoctorRegister(DoctorRegisterDto dto)
-        //{
-        //    if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+        [HttpPost("Customer/register")]
+        public async Task<ActionResult<ApiResponse>> CustomerRegister(CustomerRegestrationDto dto)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
-        //    return Ok(await _accountService.RegisterDoctor(dto));
-        //}
+            return Ok(await _accountService.CustomerRegister(dto));
+        }
+
+        [HttpPost("Owner/register")]
+        public async Task<ActionResult<ApiResponse>> OwnerRegister(OwnerRegestrationDto dto)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+
+            return Ok(await _accountService.OwnerRegister(dto));
+        }
 
         //[HttpPost("Patient/register")]
         //public async Task<ActionResult<ApiResponse>> PatientRegister(UserRegisterDto dto)
