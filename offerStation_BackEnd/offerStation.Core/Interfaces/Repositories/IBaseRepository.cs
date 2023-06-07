@@ -17,6 +17,8 @@ namespace offerStation.Core.Interfaces.Repositories
         T Find(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);
         Task<T> FindAsync(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);
+        Task<object> FindWithSelectAsync(Expression<Func<T, bool>> criteria,
+           Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, int? take, int? skip,
             Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending);
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);

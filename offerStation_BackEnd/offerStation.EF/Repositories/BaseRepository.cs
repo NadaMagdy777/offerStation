@@ -105,6 +105,20 @@ namespace offerStation.EF.Repositories
 
             return await query.Where(criteria).ToListAsync();
         }
+        public async Task<object> FindWithSelectAsync(Expression<Func<T, bool>> criteria,
+            Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (includes != null)
+                foreach (var incluse in includes)
+                    query = query.Include(incluse);
+
+            if (selects != null)
+                return await query.Where(criteria).Select(selects).FirstOrDefaultAsync();
+
+            return await query.FirstOrDefaultAsync(criteria);
+        }
 
         public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? take, int? skip,
             Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending)

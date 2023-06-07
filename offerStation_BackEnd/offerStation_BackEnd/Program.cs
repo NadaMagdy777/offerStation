@@ -1,11 +1,15 @@
 using Autofac.Extensions.DependencyInjection;
+using Autofac.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using offerStation.Core.Interfaces;
+using offerStation.Core.Interfaces.Services;
+using offerStation.Core.MappingProfiles;
 using offerStation.Core.Models;
 using offerStation.EF;
 using offerStation.EF.Data;
+using offerStation.EF.Services;
 
 namespace offerStation_BackEnd
 {
@@ -18,6 +22,9 @@ namespace offerStation_BackEnd
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(
@@ -25,6 +32,11 @@ namespace offerStation_BackEnd
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+            builder.Services.AddScoped<IAdressService, AddressService>();
+            builder.Services.AddScoped<IOwnerOfferService, RestaurantOwnerOffersService>();
+
 
             builder.Services.AddCors(opt =>
             {
@@ -35,7 +47,7 @@ namespace offerStation_BackEnd
                     builder.AllowAnyOrigin();
                 });
             });
-            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+           
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
             {
@@ -66,6 +78,13 @@ namespace offerStation_BackEnd
             /// builder.Services.AddAutoMapper(typeof(ProfileName));
             ///////////////////////////////////////////////////////
             ///
+           
+            builder.Services.AddAutoMapper(typeof(OwnerProfile));
+            builder.Services.AddAutoMapper(typeof(CustomerProfile));
+            builder.Services.AddAutoMapper(typeof(SupplierProfile));
+            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile));
+
+
 
             var app = builder.Build();
 
@@ -75,6 +94,8 @@ namespace offerStation_BackEnd
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("MainPolicy");
 
             app.UseHttpsRedirection();
 

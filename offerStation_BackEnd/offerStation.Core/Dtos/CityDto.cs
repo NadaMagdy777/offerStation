@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace offerStation.Core.Models
+namespace offerStation.Core.Dtos
 {
-    public class SupplierCategory : BaseModel
+    public class CityDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public virtual List<Supplier> Suppliers { get; set; }
     }
 }
