@@ -76,6 +76,8 @@ namespace offerStation_BackEnd
             builder.Services.AddAutoMapper(typeof(CustomerProfile));
             builder.Services.AddAutoMapper(typeof(SupplierProfile));
             builder.Services.AddAutoMapper(typeof(ApplicationUserProfile));
+            builder.Services.AddAutoMapper(typeof(AddreesProfile));
+
 
 
 
