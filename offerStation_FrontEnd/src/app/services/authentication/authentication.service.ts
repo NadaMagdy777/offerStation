@@ -1,0 +1,52 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { ApiResponce } from '../classes/ApiResponce';
+import { Base } from '../classes/Base';
+import { Owner } from '../classes/Owner';
+import { Supplier } from '../classes/Supplier';
+import { User } from '../classes/User';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthenticationService {
+
+
+  constructor(private _httpClient: HttpClient, private router: Router) { }
+
+  url = Base.apiUrl + 'Account';
+
+  // userData =new BehaviorSubject(null);
+
+  login(formData: object): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(`/login`, formData);
+  }
+
+  registerUser(user: User): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(this.url + `Customer/register`, user);
+  }
+  registerOwner(owner: Owner): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(``, owner);
+  }
+  registerSupplier(supplier: Supplier): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(``, supplier);
+  }
+
+  // saveUserData()
+  // {
+  //   let encodedUserData= JSON.stringify(localStorage.getItem('usarToken'))
+  //   this.userData.next(jwtDecode(encodedUserData))
+  //   this.router.navigate(['login']);
+  // }
+
+  // logout()
+  // {
+  //   localStorage.removeItem('userToken');
+  //   this.userData.next(null)
+  // }
+
+}
