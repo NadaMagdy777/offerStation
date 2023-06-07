@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using Autofac.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -80,6 +81,9 @@ namespace offerStation_BackEnd
 
 
 
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile).Assembly);
 
             var app = builder.Build();
 
