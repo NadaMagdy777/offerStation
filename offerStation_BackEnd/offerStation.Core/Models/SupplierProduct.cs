@@ -14,6 +14,7 @@ namespace offerStation.Core.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public int Discount { get; set; }
+        public byte[]? Image { get; set; }
         //[ForeignKey("Supplier")]
         //public int SupplierId { get; set; }
         //public virtual Supplier Supplier { get; set; }

@@ -22,7 +22,7 @@ namespace offerStation.EF.Services
         }
         public async Task<List<City>> GetAllCities()
         {
-            List<City> cities = (List<City>)await _unitOfWork.Cities.GetAllAsync();
+            List<City> cities = (List<City>)await _unitOfWork.Cities.FindAllAsync(c=>c.IsDeleted==false);
             return cities;
         }
     }
