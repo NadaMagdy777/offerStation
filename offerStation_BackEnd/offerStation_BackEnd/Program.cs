@@ -72,15 +72,6 @@ namespace offerStation_BackEnd
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-           
-            builder.Services.AddAutoMapper(typeof(OwnerProfile));
-            builder.Services.AddAutoMapper(typeof(CustomerProfile));
-            builder.Services.AddAutoMapper(typeof(SupplierProfile));
-            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile));
-            builder.Services.AddAutoMapper(typeof(AddreesProfile));
-
-
-
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
             builder.Services.AddAutoMapper(typeof(ApplicationUserProfile).Assembly);
