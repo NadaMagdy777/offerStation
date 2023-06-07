@@ -74,17 +74,7 @@ namespace offerStation_BackEnd
 
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-            ///summery ================= Auto mapper ==============
-            /// builder.Services.AddAutoMapper(typeof(ProfileName));
-            ///////////////////////////////////////////////////////
-            ///
-           
-            builder.Services.AddAutoMapper(typeof(OwnerProfile));
-            builder.Services.AddAutoMapper(typeof(CustomerProfile));
-            builder.Services.AddAutoMapper(typeof(SupplierProfile));
-            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile));
-
-
+            builder.Services.AddAutoMapper(typeof(ApplicationUserProfile).Assembly);
 
             var app = builder.Build();
 

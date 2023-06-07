@@ -13,7 +13,7 @@ namespace offerStation.API.Config
             builder.RegisterType(typeof(ApplicationDbContext)).InstancePerLifetimeScope();  
             builder.RegisterType(typeof(UnitOfWork)).InstancePerLifetimeScope();  
             builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>)).InstancePerLifetimeScope();
-            //builder.RegisterAssemblyTypes(typeof().Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(AccountService).Assembly).InstancePerLifetimeScope();
         }
     }
 }
