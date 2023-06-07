@@ -1,3 +1,3 @@
 export const Base = {
-    apiUrl:"http://localhost:7017/api/",
+    apiUrl:"https://localhost:7017/api/",
 };

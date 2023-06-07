@@ -1,8 +1,8 @@
 export class ApiResponce{
     constructor(
-        public code:number,
-        public Status:boolean,
+        public statusCode:number,
         public message:string,
-        public Data:any,
+        public success:boolean,
+        public data:any,
     ){}
 }

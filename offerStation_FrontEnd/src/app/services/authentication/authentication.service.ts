@@ -16,37 +16,39 @@ import { User } from '../classes/User';
 export class AuthenticationService {
 
 
-  constructor(private _httpClient: HttpClient, private router: Router) { }
+  constructor(private _httpClient: HttpClient,private router:Router) { }
 
   url = Base.apiUrl + 'Account';
 
-  // userData =new BehaviorSubject(null);
+  userData =new BehaviorSubject(null);
 
   login(formData: object): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(`/login`, formData);
+    return this._httpClient.post<ApiResponce>( this.url + `/login`, formData);
   }
 
   registerUser(user: User): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(this.url + `Customer/register`, user);
+    return this._httpClient.post<ApiResponce>(this.url + `/Customer/register`, user);
   }
   registerOwner(owner: Owner): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(``, owner);
+    return this._httpClient.post<ApiResponce>(this.url + ``, owner);
   }
   registerSupplier(supplier: Supplier): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(``, supplier);
+    return this._httpClient.post<ApiResponce>(this.url + ``, supplier);
   }
 
-  // saveUserData()
-  // {
-  //   let encodedUserData= JSON.stringify(localStorage.getItem('usarToken'))
-  //   this.userData.next(jwtDecode(encodedUserData))
-  //   this.router.navigate(['login']);
-  // }
+  saveUserData()
+  {
+    
+    let encodedUserData= JSON.stringify(localStorage.getItem('usarToken'))
+    this.userData.next(jwtDecode(encodedUserData))
+    
+    // this.router.navigate(['login']);
+  }
 
-  // logout()
-  // {
-  //   localStorage.removeItem('userToken');
-  //   this.userData.next(null)
-  // }
+  logout()
+  {
+    localStorage.removeItem('userToken');
+    this.userData.next(null)
+  }
 
 }

@@ -34,9 +34,15 @@
         <button type="button" class="btn btn-primary" (click)="addAddress()">Add Address</button>
         <ng-container formArrayName="Address" *ngFor="let adress of AddressControls; let i=index">
             <ng-container [formGroup]="adress">
-                <div class="input-group input-group-outline">
-                    <input type="text" class="form-control" placeholder="CityId" formControlName="CityId">
+                <div class="from-group">
+                    <select class="custom-select" formControlName="CityId">
+                        <option *ngFor="let city of Cities" value="{{city.id}}">
+                            {{city.name}}
+                        </option>
+                    </select>
                 </div>
+
+
                 <div class="input-group input-group-outline">
                     <input type="text" class="form-control" placeholder="Details" formControlName="details">
                 </div>
@@ -61,7 +67,7 @@
             <input formControlName="Confirm" type="password" class="form-control">
             <small class="text-danger" *ngIf="registerForm?.errors?.['misMatch']">Password and confirm password not match</small>
         </div>
-{{Confirm?.errors?.['misMatch']}}
+
         <!-- Password input -->
         <div class="form-outline mb-4">
             <label class="form-label">Email</label>
