@@ -10,6 +10,7 @@ namespace offerStation.Core.Models
     public class Owner : BaseModel
     {
         public int Id { get; set; }
+        public byte[]? Image { get; set; }
 
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }

@@ -55,6 +55,8 @@ namespace offerStation.EF
         {
             _context = context;
 
+            BeginTransaction();
+
             Admins = new BaseRepository<Admin>(_context);
             Cities = new BaseRepository<City>(_context);
             Addresses = new BaseRepository<Address>(_context);
@@ -91,9 +93,39 @@ namespace offerStation.EF
             SupplierOfferProducts = new BaseRepository<SupplierOfferProduct>(_context);
             SupplierMenuCategories = new BaseRepository<SupplierMenuCategory>(_context);
         }
+
+        private void BeginTransaction()
+        {
+            if(_context.Database.CurrentTransaction is null)
+            {
+                _context.Database.BeginTransaction();   
+              }
+        }
+
         public int Complete()
         {
-            return _context.SaveChanges();
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                _context.Database.CurrentTransaction.Rollback();
+                 
+                return 0;
+            }
+        }
+        public void CommitChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                _context.Database.CurrentTransaction.Commit();
+            }
+            catch
+            {
+                _context.Database.CurrentTransaction.Rollback();
+            }
         }
 
         public void Dispose()

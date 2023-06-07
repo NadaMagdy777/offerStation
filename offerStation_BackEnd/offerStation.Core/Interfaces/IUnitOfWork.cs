@@ -48,5 +48,6 @@ namespace offerStation.Core.Interfaces
         public IBaseRepository <SupplierMenuCategory> SupplierMenuCategories { get; }
 
         int Complete();
+        void CommitChanges();
     }
 }
