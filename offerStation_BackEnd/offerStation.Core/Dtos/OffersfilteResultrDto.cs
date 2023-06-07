@@ -8,7 +8,7 @@ namespace offerStation.Core.Dtos
 {
     public class OffersfilteResultrDto
     {
-       public  List<OwnerOfferDto> ownerOfferList;
-       public long itemsCount;
+       public List<OwnerOfferDto> List { get; set; }
+       public long itemsCount { get; set; }
     }
 }
