@@ -19,7 +19,7 @@ namespace offerStation.Core.Models
         public virtual OwnerCategory OwnerCategory { get; set; }
         public virtual List<OwnerOffer> Offers { get; set; }
         public virtual List<OwnerMenuCategory> MenuCategories { get; set; }
-        //public virtual List<OwnerProduct> OwnerProducts { get; set; }
+        public virtual List<OwnerProduct> OwnerProducts { get; set; }
         public virtual List<OwnerReview> SuppliersReviews { get; set; }
         public virtual List<CustomerReview> CustomersReviews { get; set; }
     }

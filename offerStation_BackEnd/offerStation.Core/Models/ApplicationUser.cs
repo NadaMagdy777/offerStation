@@ -18,7 +18,7 @@ namespace offerStation.Core.Models
         public virtual Customer? Customer { get; set; }
         public virtual Owner? Owner{ get; set; }
         public virtual Supplier? Supplier { get; set; }
-        public virtual List<Address> Addresses { get; set; }
+        public virtual List<Address>? Addresses { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }
