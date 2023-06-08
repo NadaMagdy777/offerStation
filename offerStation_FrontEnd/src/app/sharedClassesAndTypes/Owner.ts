@@ -7,11 +7,5 @@ export class Owner{
         Password:string,
         Email:string,
         OwnerCategoryId:number
-
-
-     
-      
-
-
     ){}
 }

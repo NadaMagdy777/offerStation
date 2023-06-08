@@ -18,6 +18,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
 
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,7 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     OwnerOffersFilterComponent,
     RegestrationComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatTabsModule,
     NgxPaginationModule
   ],
 

@@ -4,6 +4,8 @@ import { ResturantOffersPageComponent } from './pages/resturant-offers-page/rest
 
 const routes: Routes = [
   {path:'Resturant/Offers', component:ResturantOffersPageComponent },
+  {path:"customer",loadChildren:()=>import('./modules/customer/customer.module').then(mod=>mod.CustomerModule)},
+  
 ];
 
 @NgModule({
