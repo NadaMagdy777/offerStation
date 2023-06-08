@@ -16,6 +16,11 @@ namespace offerStation.API.Controllers
             this._ownerService = ownerService;
         }
 
+        [HttpGet("id")]
+        public async Task<ActionResult<ApiResponse>> GetOwner(int id)
+        {
+
+        }
         //[HttpGet("id")]
 
         //public async Task<IActionResult> getAllProductsByOwner(int ID)
