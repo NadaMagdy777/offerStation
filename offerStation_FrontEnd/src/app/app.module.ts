@@ -17,7 +17,11 @@ import { OwnerFilterComponent } from './components/owner-filter/owner-filter.com
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component'
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { AllordersComponent } from './pages/allorders/allorders.component';
+import { AddressesComponent } from './pages/addresses/addresses.component';
+import { CustomerInfoComponent } from './pages/customer-info/customer-info.component';
+import { CustomerProfileComponent } from './pages/customer-profile/customer-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +37,11 @@ import { FooterComponent } from './components/footer/footer.component';
     OwnerOffersFilterComponent,
     RegestrationComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CustomerProfileComponent,
+    CustomerInfoComponent,
+    AddressesComponent,
+    AllordersComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +49,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatTabsModule,
     NgxPaginationModule
   ],
 
