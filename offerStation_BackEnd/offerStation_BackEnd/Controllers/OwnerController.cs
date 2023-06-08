@@ -13,16 +13,32 @@ namespace offerStation.API.Controllers
         private readonly IOwnerService _ownerOfferService;
 
         public OwnerController(IOwnerService ownerOfferService)
+        private readonly IOwnerService _ownerService;
+        public OwnerController(IOwnerService ownerService)
         {
-            this._ownerOfferService = ownerOfferService;
+            this._ownerService = ownerService;
         }
 
+        [HttpGet("id")]
+        //public async Task<ActionResult<ApiResponse>> GetOwner(int id)
+        //{
 
+        //}
+        //[HttpGet("id")]
+
+        //public async Task<IActionResult> getAllProductsByOwner(int ID)
+        //{
+
+        //}
+        [HttpGet("Categories")]
+
+        public async Task<IActionResult> GetAllCategories()
         [HttpGet("All/Offers")]
         public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, String SortBy = "")
         {
             var data = await _ownerOfferService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
             return Ok(new ApiResponse(200, true,data));
+            return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
 
         }
     }

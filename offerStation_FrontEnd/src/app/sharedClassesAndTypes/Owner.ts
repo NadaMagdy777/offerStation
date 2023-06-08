@@ -1,4 +1,4 @@
-export class Supplier{
+export class Owner{
     constructor(
         FirstName:string,
         LastName:string,
@@ -6,8 +6,6 @@ export class Supplier{
         Address:string[],
         Password:string,
         Email:string,
-        SupplierCategoryId:number
-
-
+        OwnerCategoryId:number
     ){}
 }

@@ -20,7 +20,7 @@ namespace offerStation.EF.Services
         private readonly IMapper _mapper;
         public OwnerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
+           this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
 
@@ -107,11 +107,13 @@ namespace offerStation.EF.Services
 
             return offerFilterResult;
         }
-        
+        //public async Task<>
+        public async Task<List<OwnerCategoryDto>> GetAllCategories()
+
         public  double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
             List <OwnerOfferProduct> ownerOffers  = (List<OwnerOfferProduct>)  _unitOfWork.OwnerOfferProducts.FindAll(o=>o.OfferId == ownerOffer.Id, new List<Expression<Func<OwnerOfferProduct, object>>>()
-               {
+        {
                    o=>o.Offer.Owner,
                    o=>o.Product
                });
@@ -119,6 +121,9 @@ namespace offerStation.EF.Services
 
 
             return PrefPrice;
+            List<OwnerCategory> ownerCategories = (List<OwnerCategory>) _unitOfWork.OwnerCategories.GetAll();
+            List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
+            return ownerCategoriesDto;
         }
     }
 }

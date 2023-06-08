@@ -6,15 +6,22 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import {  ownerOffersPageComponent } from './pages/owner-offers-page/owner-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegestrationComponent } from './components/regestration/regestration.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
+import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BannerComponent } from './components/banner/banner.component';
 import { OwnerFilterComponent } from './components/owner-filter/owner-filter.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +36,11 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     BannerComponent,
     OwnerFilterComponent,
     OwnerOffersFilterComponent,
-    
+    RegestrationComponent,
+    HeaderComponent,
+    FooterComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -37,9 +48,11 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    MatTabsModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })

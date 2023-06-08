@@ -60,7 +60,7 @@ namespace offerStation.EF
 
             return new ApiResponse(200, true, new UserDto
             {
-                Name = $"{user.FirstName} {user.LastName}",
+                Name = $"{user.Name}",
                 Email = user.Email,
                 Token = await _tokenGenerator.GenerateToken(user, Id),
             });
@@ -101,7 +101,7 @@ namespace offerStation.EF
 
             return new ApiResponse(200, true, new UserDto
             {
-                Name = $"{customerDto.FirstName} {customerDto.LastName}",
+                Name = $"{customerDto.Name} ",
                 Email = customerDto.Email,
                 Token = await _tokenGenerator.GenerateToken(user, customer.Id),
             });
@@ -140,7 +140,7 @@ namespace offerStation.EF
 
             return new ApiResponse(200, true, new UserDto
             {
-                Name = $"{ownerDto.FirstName} {ownerDto.LastName}",
+                Name = $"{ownerDto.Name} ",
                 Email = ownerDto.Email,
                 Token = await _tokenGenerator.GenerateToken(user, owner.Id),
             });
@@ -179,7 +179,7 @@ namespace offerStation.EF
 
             return new ApiResponse(200, true, new UserDto
             {
-                Name = $"{supplierDto.FirstName} {supplierDto.LastName}",
+                Name = $"{supplierDto.Name} ",
                 Email = supplierDto.Email,
                 Token = await _tokenGenerator.GenerateToken(user, supplier.Id),
             });

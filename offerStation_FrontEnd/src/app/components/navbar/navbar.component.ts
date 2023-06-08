@@ -7,20 +7,25 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  
-  userdata:any;
 
-  constructor(private authenticationservice:AuthenticationService) {
-    
+  userdata: any;
+
+  constructor(private authenticationservice: AuthenticationService) {
+
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    if (localStorage.getItem('userToken'))
+      this.authenticationservice.saveUserData()
+
     this.authenticationservice.userData.subscribe({
-      next:data=>this.userdata = data,
-      error:error=>console.log(error)
+      next: data => this.userdata = data,
+      error: error => console.log(error)
     })
+
   }
-  LogOut(){
+  
+  LogOut() {
     this.authenticationservice.logout();
   }
 }
