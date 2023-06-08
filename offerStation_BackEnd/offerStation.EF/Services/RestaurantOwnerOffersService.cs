@@ -38,18 +38,21 @@ namespace offerStation.EF.Services
             List<OwnerOffer> offers;
             if (CityID != 0)
             {
-              offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false, new List<Expression<Func<OwnerOffer, object>>>()
+              offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false &&o.Owner.OwnerCategory.Name == "Restaurant", new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
+                   o=>o.Owner.OwnerCategory
                });
                 offers = offers.Where(o => checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
                 return offers;
             }
             else
             {
-                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false, new List<Expression<Func<OwnerOffer, object>>>()
+                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name== "Restaurant", new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
+                   o=>o.Owner.OwnerCategory
+
                });
 
             }
@@ -100,7 +103,7 @@ namespace offerStation.EF.Services
                 ownerOfferDtos.Add(ownerOffer);
 
             });
-            offerFilterResult.ownerOfferList = ownerOfferDtos;
+            offerFilterResult.List = ownerOfferDtos;
 
             return offerFilterResult;
         }
