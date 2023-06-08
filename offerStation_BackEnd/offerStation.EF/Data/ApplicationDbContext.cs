@@ -59,6 +59,53 @@ namespace offerStation.EF.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+
+            builder.Entity<City>().HasData(
+                new List<City>{
+                    new City
+                    {
+                        Id = 1,
+                        Name = "Assiut"
+                    },
+                    new City
+                    {
+                        Id = 2,
+                        Name = "Sohag"
+                    }
+                }
+            );
+
+            builder.Entity<OwnerCategory>().HasData(
+                new List<OwnerCategory>{
+                    new OwnerCategory
+                    {
+                        Id = 1,
+                        Name = "Clothes"
+                    },
+                    new OwnerCategory
+                    {
+                        Id = 2,
+                        Name = "restaurent"
+                    }
+                }
+            );
+
+            builder.Entity<SupplierCategory>().HasData(
+                new List<SupplierCategory>{
+                    new SupplierCategory
+                    {
+                        Id = 1,
+                        Name = "Clothes"
+                    },
+                    new SupplierCategory
+                    {
+                        Id = 2,
+                        Name = "restaurent"
+                    }
+                }
+            );
+
         }
     }
 }

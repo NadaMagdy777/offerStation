@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressServiceService } from 'src/app/services/address';
+// import { AddressServiceService } from 'src/app/services/address';
 
 @Component({
   selector: 'app-resturant-offers-page',
@@ -10,5 +10,4 @@ import { AddressServiceService } from 'src/app/services/address';
 export class ResturantOffersPageComponent  {
 
   
-
-}
+  }

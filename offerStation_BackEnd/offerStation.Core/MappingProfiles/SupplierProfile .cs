@@ -15,6 +15,8 @@ namespace offerStation.Core.MappingProfiles
         {
             
        CreateMap<Supplier, SupplierRegestrationDto>().ReverseMap();
+       CreateMap<SupplierCategory, SupplierCategoryDto>().ReverseMap();
+
         }
     }
 }

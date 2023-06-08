@@ -34,7 +34,7 @@ namespace offerStation.EF
             {
                 new(ClaimTypes.Email, user.Email),
                 new(ClaimTypes.NameIdentifier, ID.ToString()),
-                new(ClaimTypes.Name, user.FirstName+" "+user.LastName),
+                new(ClaimTypes.Name, user.Name),
             };
 
             var roles = await userManager.GetRolesAsync(user);

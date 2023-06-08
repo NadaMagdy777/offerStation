@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
         public byte[]? Image { get; set; }
+        public bool Approved { get; set; }
 
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }

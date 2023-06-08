@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CityService } from 'src/app/services/city/city.service';
-import { User } from 'src/app/services/classes/User';
 import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.validation';
 
 @Component({

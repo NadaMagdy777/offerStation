@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiResponce } from 'src/app/sharedClassesAndTypes/ApiResponce';
+import { Base } from 'src/app/sharedClassesAndTypes/Base';
+import { Owner } from 'src/app/sharedClassesAndTypes/Owner';
+import { Supplier } from 'src/app/sharedClassesAndTypes/Supplier';
+import { User } from 'src/app/sharedClassesAndTypes/User';
 
-import { ApiResponce } from '../classes/ApiResponce';
-import { Base } from '../classes/Base';
-import { Owner } from '../classes/Owner';
-import { Supplier } from '../classes/Supplier';
-import { User } from '../classes/User';
 
 @Injectable({
   providedIn: 'root'
