@@ -8,13 +8,17 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
     ResturantOffersPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
