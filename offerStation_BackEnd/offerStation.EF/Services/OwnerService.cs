@@ -108,7 +108,11 @@ namespace offerStation.EF.Services
             return offerFilterResult;
         }
         //public async Task<>
-        public async Task<List<OwnerCategoryDto>> GetAllCategories()
+        public async Task<List<OwnerCategoryDto>> GetAllCategories() {
+            List<OwnerCategory> ownerCategories = (List<OwnerCategory>)_unitOfWork.OwnerCategories.GetAll();
+            List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
+            return ownerCategoriesDto;
+        }
 
         public  double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
@@ -121,9 +125,7 @@ namespace offerStation.EF.Services
 
 
             return PrefPrice;
-            List<OwnerCategory> ownerCategories = (List<OwnerCategory>) _unitOfWork.OwnerCategories.GetAll();
-            List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
-            return ownerCategoriesDto;
+           
         }
     }
 }

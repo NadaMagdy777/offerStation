@@ -9,10 +9,7 @@ namespace offerStation.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class OwnerController : ControllerBase
-    {
-        private readonly IOwnerService _ownerOfferService;
-
-        public OwnerController(IOwnerService ownerOfferService)
+    {        
         private readonly IOwnerService _ownerService;
         public OwnerController(IOwnerService ownerService)
         {
@@ -33,12 +30,16 @@ namespace offerStation.API.Controllers
         [HttpGet("Categories")]
 
         public async Task<IActionResult> GetAllCategories()
+        {
+            return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
+
+        }
+
         [HttpGet("All/Offers")]
         public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, String SortBy = "")
         {
-            var data = await _ownerOfferService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
+            var data = await _ownerService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
             return Ok(new ApiResponse(200, true,data));
-            return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
 
         }
     }
