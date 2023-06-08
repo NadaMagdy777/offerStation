@@ -15,6 +15,7 @@ namespace offerStation.Core.Models
         [Required, MaxLength(100)]
         public string Name { get; set; }
         public byte[]? Image { get; set; }
+        public bool Approved { get; set; }
 
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
