@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
+import {  ownerOffersPageComponent } from './pages/owner-offers-page/owner-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegestrationComponent } from './components/regestration/regestration.component';
@@ -14,13 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BannerComponent } from './components/banner/banner.component';
 import { OwnerFilterComponent } from './components/owner-filter/owner-filter.component';
-import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component'
+import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
-    ResturantOffersPageComponent,
+    ownerOffersPageComponent,
     NavbarComponent,
     LoginComponent,
     RegestrationComponent,
@@ -28,7 +28,8 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     SupplierregestrationComponent,
     BannerComponent,
     OwnerFilterComponent,
-    OwnerOffersFilterComponent
+    OwnerOffersFilterComponent,
+    
   ],
   imports: [
     BrowserModule,
