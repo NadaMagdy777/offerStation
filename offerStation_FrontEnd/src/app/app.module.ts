@@ -14,9 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BannerComponent } from './components/banner/banner.component';
 import { OwnerFilterComponent } from './components/owner-filter/owner-filter.component';
-import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component'
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
 
 @NgModule({
   declarations: [
