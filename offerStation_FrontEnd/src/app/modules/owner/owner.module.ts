@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { OwnerProductComponent } from 'src/app/pages/owner-product/owner-product/owner-product.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { OwnerMenuComponent } from 'src/app/pages/menu/owner-menu/owner-menu.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     OwnerProductComponent,
+    OwnerMenuComponent
   ],
   imports: [
     CommonModule,
