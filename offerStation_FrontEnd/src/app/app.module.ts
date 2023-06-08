@@ -8,10 +8,10 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegestrationComponent } from './components/regestration/regestration.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
+import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 
 @NgModule({
   declarations: [
