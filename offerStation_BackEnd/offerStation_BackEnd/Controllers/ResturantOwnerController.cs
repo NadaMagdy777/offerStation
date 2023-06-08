@@ -21,8 +21,8 @@ namespace offerStation.API.Controllers
         [HttpGet("All/Offers")]
         public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, int cityId=0,String SortBy="")
         {
-
-            return Ok(new ApiResponse(200, true, await _ownerOfferService.GetAllOffers(PageNumber,pageSize, cityId, SortBy)));
+            var data = await _ownerOfferService.GetAllOffers(PageNumber, pageSize, cityId, SortBy);
+            return Ok(new ApiResponse(200, true,data));
 
         }
     }

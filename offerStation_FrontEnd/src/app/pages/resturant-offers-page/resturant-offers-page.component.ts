@@ -7,23 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './resturant-offers-page.component.html',
   styleUrls: ['./resturant-offers-page.component.css']
 })
-export class ResturantOffersPageComponent implements OnInit {
+export class ResturantOffersPageComponent  {
 
-  constructor(
-    // private addressService:AddressServiceService,private router:Router ,
-    private route: ActivatedRoute) {
-
-
-
-
-  }
-  ngOnInit(): void {
-    // this.addressService.GetAllDoctors().subscribe({
-    //   next: data => {
-    //     console.log(data)
-    //   },
-    //   error: error => { console.log(error) }
-    // })
+  
   }
 
 }

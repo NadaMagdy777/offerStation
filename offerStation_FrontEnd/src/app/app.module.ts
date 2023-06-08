@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
@@ -12,6 +10,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { BannerComponent } from './components/banner/banner.component';
+import { OwnerFilterComponent } from './components/owner-filter/owner-filter.component';
+import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component'
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,13 @@ import { RegestrationComponent } from './components/regestration/customerregestr
     LoginComponent,
     RegestrationComponent,
     OwnerregestrationComponent,
-    SupplierregestrationComponent
+    SupplierregestrationComponent,
+    BannerComponent,
+    OwnerFilterComponent,
+    OwnerOffersFilterComponent,
+    RegestrationComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +43,7 @@ import { RegestrationComponent } from './components/regestration/customerregestr
     HttpClientModule,
     NgxPaginationModule
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })
