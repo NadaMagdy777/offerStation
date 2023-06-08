@@ -17,8 +17,8 @@ import { OwnerFilterComponent } from './components/owner-filter/owner-filter.com
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
-
 import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -45,7 +45,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ReactiveFormsModule,
     HttpClientModule,
     MatTabsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule
   ],
 
   providers: [],
