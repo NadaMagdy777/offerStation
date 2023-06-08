@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { city } from '../sharedClassesAndTypes/city';
+import { city } from 'src/app/sharedClassesAndTypes/city';
 
 @Injectable({
   providedIn: 'root'
