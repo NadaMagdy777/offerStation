@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressServiceService } from 'src/app/services/address';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { Product } from 'src/app/sharedClassesAndTypes/product';
 
