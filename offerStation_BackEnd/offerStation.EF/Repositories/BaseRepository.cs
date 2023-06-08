@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using offerStation.Core.Constants;
 using offerStation.Core.Interfaces.Repositories;
+using offerStation.Core.Models;
 using offerStation.EF.Data;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.EF.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class 
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel 
     {
         protected ApplicationDbContext _context;
 
@@ -22,7 +23,7 @@ namespace offerStation.EF.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().Where(x => !x.IsDeleted).ToList();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

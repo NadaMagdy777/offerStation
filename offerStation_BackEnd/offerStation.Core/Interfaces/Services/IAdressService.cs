@@ -1,4 +1,5 @@
-﻿using offerStation.Core.Models;
+﻿using offerStation.Core.Dtos;
+using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface IAdressService
     {
-        Task<List<City>> GetAllCities();
+        Task<List<CityDto>> GetAllCities();
     }
 }

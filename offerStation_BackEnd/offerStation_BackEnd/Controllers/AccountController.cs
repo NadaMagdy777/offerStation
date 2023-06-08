@@ -66,7 +66,6 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(400, false, ModelState));
         }
 
-
         //[HttpPost("Patient/register")]
         //public async Task<ActionResult<ApiResponse>> PatientRegister(UserRegisterDto dto)
         //{
