@@ -25,8 +25,7 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     LoginComponent,
     RegestrationComponent,
     OwnerregestrationComponent,
-    SupplierregestrationComponent
-    RegestrationComponent,
+    SupplierregestrationComponent,
     BannerComponent,
     OwnerFilterComponent,
     OwnerOffersFilterComponent
