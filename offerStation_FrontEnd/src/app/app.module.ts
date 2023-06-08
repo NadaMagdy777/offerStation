@@ -9,7 +9,6 @@ import { ResturantOffersPageComponent } from './pages/resturant-offers-page/rest
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegestrationComponent } from './components/regestration/regestration.component';
-import { NgxPaginationModule } from 'ngx-pagination'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -21,8 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ResturantOffersPageComponent,
     NavbarComponent,
     LoginComponent,
-    RegestrationComponent
-    NavbarComponent,
+    RegestrationComponent,
     HeaderComponent,
     FooterComponent
   ],
@@ -34,7 +32,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     NgxPaginationModule
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })
