@@ -10,6 +10,8 @@ namespace offerStation.Core.Models
 {
     public class ApplicationUser :IdentityUser
     {
+        [Required, MaxLength(100)]
+        public string Name { get; set; }
         public virtual Admin? Admin { get; set; }
         public virtual Customer? Customer { get; set; }
         public virtual Owner? Owner{ get; set; }

@@ -12,12 +12,6 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
 
-        [Required, MaxLength(100)]
-        public string FirstName { get; set; }
-
-        [Required, MaxLength(100)]
-        public string LastName { get; set; }
-
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
         public virtual ApplicationUser? AppUser { get; set; }

@@ -52,8 +52,7 @@ namespace offerStation.EF.Services
 
             if (customer is not null)
             {
-                customer.AppUser.FirstName = customerInfoDto.FirstName;
-                customer.AppUser.LastName = customerInfoDto.LastName;
+                customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
 
                 if(customerInfoDto.Addresses is not null)

@@ -8,8 +8,7 @@ namespace offerStation.Core.Dtos
 {
     public class CustomerInfoDto
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public List<AddressDTO> Addresses { get; set; }
 

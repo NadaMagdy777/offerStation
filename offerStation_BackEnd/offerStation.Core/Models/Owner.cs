@@ -11,9 +11,6 @@ namespace offerStation.Core.Models
     public class Owner : BaseModel
     {
         public int Id { get; set; }
-
-        [Required, MaxLength(100)]
-        public string Name { get; set; }
         public byte[]? Image { get; set; }
         public bool Approved { get; set; }
         [ForeignKey("AppUser")]

@@ -60,7 +60,7 @@ namespace offerStation.EF
 
             return new ApiResponse(200, true, new UserDto
             {
-                Name = $"{user.FirstName} {user.LastName}",
+                Name = $"{user.Name}",
                 Email = user.Email,
                 Token = await _tokenGenerator.GenerateToken(user, Id),
             });
