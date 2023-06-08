@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { CityService } from 'src/app/services/city/city.service';
 import { User } from 'src/app/services/classes/User';
 import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.validation';
 
@@ -12,8 +13,13 @@ import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.val
 })
 export class RegestrationComponent {
 
-  constructor(private _AuthService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+  constructor(private _AuthService: AuthenticationService, 
+              private fb: FormBuilder,
+              private cityService:CityService) { 
+
+  }
   
+  Cities:any;
   error: string = ''
   registerForm = this.fb.group({
     FirstName: ['', [Validators.required]],
@@ -49,6 +55,13 @@ export class RegestrationComponent {
   get Email() {
     return this.registerForm.get('Email');
   }
+  
+  ngOnInit(){    
+    this.cityService.GetAllCities().subscribe({
+      next:data=>this.Cities=data.data,
+      error:error=>console.log(error)
+    })
+  }
 
   addAddress()
   {
@@ -65,7 +78,7 @@ export class RegestrationComponent {
    this.Address.removeAt(index);
   }
 
-  submitData() {
+  submitData() {    
     this._AuthService.registerUser(this.registerForm.value).subscribe({
       next:data=>console.log(data),
       error:error=>console.log(error)     

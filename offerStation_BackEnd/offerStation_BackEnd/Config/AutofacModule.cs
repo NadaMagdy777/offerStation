@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using offerStation.Core.Interfaces.Repositories;
+using offerStation.Core.Interfaces.Services;
 using offerStation.EF;
 using offerStation.EF.Data;
 using offerStation.EF.Repositories;

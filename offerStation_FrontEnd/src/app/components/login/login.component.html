@@ -3,7 +3,7 @@
           <!-- Email input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form2Example1">Email address</label>
-            <input type="email" id="form2Example1" formControlName="email" class="form-control" [class.is-invalid]="email?.errors && email?.touched" />
+            <input type="email" formControlName="email" class="form-control" [class.is-invalid]="email?.errors && email?.touched" />
             <small *ngIf="email?.errors?.['required'] && (email?.dirty || email?.touched)" class="text-danger">
               Email Is Required
             </small>
@@ -12,7 +12,7 @@
           <!-- Password input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form2Example2">Password</label>
-            <input type="email" id="form2Example1" formControlName="password" class="form-control" [class.is-invalid]="password?.errors && password?.touched" />
+            <input type="email" formControlName="password" class="form-control" [class.is-invalid]="password?.errors && password?.touched" />
             <small *ngIf="password?.errors?.['required'] && (password?.dirty || password?.touched)" class="text-danger">
               Password Is Required
             </small>
@@ -35,7 +35,7 @@
           </div>
         
           <!-- Submit button -->
-          <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
         
           <!-- Register buttons -->
           <div class="text-center">

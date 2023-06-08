@@ -5,9 +5,11 @@ import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {NgxPaginationModule} from 'ngx-pagination';
 import { LoginComponent } from './components/login/login.component';
 import { RegestrationComponent } from './components/regestration/regestration.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
+import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BannerComponent } from './components/banner/banner.component';
@@ -22,6 +24,9 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     NavbarComponent,
     LoginComponent,
     RegestrationComponent,
+    OwnerregestrationComponent,
+    SupplierregestrationComponent
+    RegestrationComponent,
     BannerComponent,
     OwnerFilterComponent,
     OwnerOffersFilterComponent
@@ -32,9 +37,9 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
     NgxPaginationModule
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })
