@@ -7,7 +7,5 @@ export class Supplier{
         Password:string,
         Email:string,
         SupplierCategoryId:number
-
-
     ){}
 }

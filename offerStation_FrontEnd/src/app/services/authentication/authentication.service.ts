@@ -23,6 +23,9 @@ export class AuthenticationService {
   userData =new BehaviorSubject(null);
 
   login(formData: object): Observable<ApiResponce> {
+    console.log(formData);
+    console.log(this.url + `/login`, formData);
+    
     return this._httpClient.post<ApiResponce>( this.url + `/login`, formData);
   }
 
@@ -38,10 +41,8 @@ export class AuthenticationService {
 
   saveUserData()
   {
-    
-    let encodedUserData= JSON.stringify(localStorage.getItem('usarToken'))
+    let encodedUserData= JSON.stringify(localStorage.getItem('userToken'))
     this.userData.next(jwtDecode(encodedUserData))
-    
     // this.router.navigate(['login']);
   }
 
