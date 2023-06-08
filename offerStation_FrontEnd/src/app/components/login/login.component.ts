@@ -27,9 +27,13 @@ export class LoginComponent {
   error: string = ''
 
   submitData() {    
+    console.log(this.loginForm.value);
+    
     this._AuthenticationService.login(this.loginForm.value).subscribe({
       next:data=>{        
         if (data.success == true) {
+          
+          localStorage.setItem("userToken",data.data.token);
           this._AuthenticationService.saveUserData()
           // this.router.navigate(['home'])
         }

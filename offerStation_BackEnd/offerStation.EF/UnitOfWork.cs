@@ -130,6 +130,7 @@ namespace offerStation.EF
 
         public void Dispose()
         {
+            CommitChanges();
             _context.Dispose();
         }
     }
