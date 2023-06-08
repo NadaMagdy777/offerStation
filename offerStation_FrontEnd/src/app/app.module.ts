@@ -9,7 +9,9 @@ import { ResturantOffersPageComponent } from './pages/resturant-offers-page/rest
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegestrationComponent } from './components/regestration/regestration.component';
-import { NgxPaginationModule } from 'ngx-pagination'
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
+import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { NgxPaginationModule } from 'ngx-pagination'
     ResturantOffersPageComponent,
     NavbarComponent,
     LoginComponent,
-    RegestrationComponent
+    RegestrationComponent,
+    OwnerregestrationComponent,
+    SupplierregestrationComponent
   ],
   imports: [
     BrowserModule,
