@@ -19,6 +19,7 @@ namespace offerStation.EF.Services
            this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
+        public async Task<>
         public async Task<List<OwnerCategoryDto>> GetAllCategories()
 
         {

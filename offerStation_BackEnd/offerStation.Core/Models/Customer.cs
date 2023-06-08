@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,12 @@ namespace offerStation.Core.Models
     public class Customer : BaseModel
     {
         public int Id { get; set; }
+
+        [Required, MaxLength(100)]
+        public string FirstName { get; set; }
+
+        [Required, MaxLength(100)]
+        public string LastName { get; set; }
 
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
