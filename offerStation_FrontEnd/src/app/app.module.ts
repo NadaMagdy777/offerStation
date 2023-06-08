@@ -7,22 +7,28 @@ import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { LoginComponent } from './components/login/login.component';
+import { RegestrationComponent } from './components/regestration/regestration.component';
+import { NgxPaginationModule } from 'ngx-pagination'
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
     ResturantOffersPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    RegestrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     NgxPaginationModule
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

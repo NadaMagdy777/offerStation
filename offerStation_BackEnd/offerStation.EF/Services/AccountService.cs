@@ -96,6 +96,9 @@ namespace offerStation.EF
 
             await _userManager.AddToRoleAsync(user, Role.Customer);
 
+            _unitOfWork.Complete();
+            _unitOfWork.CommitChanges();
+
             return new ApiResponse(200, true, new UserDto
             {
                 Name = $"{customerDto.FirstName} {customerDto.LastName}",
@@ -132,6 +135,8 @@ namespace offerStation.EF
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
 
             await _userManager.AddToRoleAsync(user, Role.Owner);
+            _unitOfWork.Complete();
+            _unitOfWork.CommitChanges();
 
             return new ApiResponse(200, true, new UserDto
             {
@@ -169,6 +174,8 @@ namespace offerStation.EF
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
 
             await _userManager.AddToRoleAsync(user, Role.Owner);
+
+            _unitOfWork.CommitChanges();
 
             return new ApiResponse(200, true, new UserDto
             {
