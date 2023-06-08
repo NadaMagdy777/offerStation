@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Interfaces.Services
 {
-    public interface IOwnerOfferService
+    public interface IOwnerService
     {
-        Task<OffersfilteResultrDto> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy);
+        Task<OffersfilteResultrDto> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy,string Category);
     }
 }

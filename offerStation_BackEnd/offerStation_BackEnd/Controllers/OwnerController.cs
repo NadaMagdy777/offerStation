@@ -8,20 +8,20 @@ namespace offerStation.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResturantOwnerController : ControllerBase
+    public class OwnerController : ControllerBase
     {
-        private readonly IOwnerOfferService _ownerOfferService;
+        private readonly IOwnerService _ownerOfferService;
 
-        public ResturantOwnerController(IOwnerOfferService ownerOfferService)
+        public OwnerController(IOwnerService ownerOfferService)
         {
             this._ownerOfferService = ownerOfferService;
         }
 
 
         [HttpGet("All/Offers")]
-        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, int cityId=0,String SortBy="")
+        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, String SortBy = "")
         {
-            var data = await _ownerOfferService.GetAllOffers(PageNumber, pageSize, cityId, SortBy);
+            var data = await _ownerOfferService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
             return Ok(new ApiResponse(200, true,data));
 
         }

@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace offerStation.EF.Services
 {
-    public class RestaurantOwnerOffersService:IOwnerOfferService
+    public class OwnerService:IOwnerService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public RestaurantOwnerOffersService(IUnitOfWork unitOfWork, IMapper mapper)
+        public OwnerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
@@ -33,12 +33,12 @@ namespace offerStation.EF.Services
             }
             return false;
         } 
-        public async Task<List<OwnerOffer>> filterOffersByCity(int CityID)
+        public async Task<List<OwnerOffer>> filterOffersByCity(int CityID,string categoryName)
         {
             List<OwnerOffer> offers;
             if (CityID != 0)
             {
-              offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false &&o.Owner.OwnerCategory.Name == "Restaurant", new List<Expression<Func<OwnerOffer, object>>>()
+              offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false &&o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
                    o=>o.Owner.OwnerCategory
@@ -48,7 +48,7 @@ namespace offerStation.EF.Services
             }
             else
             {
-                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name== "Restaurant", new List<Expression<Func<OwnerOffer, object>>>()
+                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name== categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
                    o=>o.Owner.OwnerCategory
@@ -76,11 +76,11 @@ namespace offerStation.EF.Services
                 return offers;
             }
         }
-        public async Task<OffersfilteResultrDto> GetAllOffers(int PageNumber,int pageSize, int cityId , String SortBy)
+        public async Task<OffersfilteResultrDto> GetAllOffers(int PageNumber,int pageSize, int cityId , String SortBy,string Category)
         {
             List<OwnerOffer> offers;
            
-            offers =await  filterOffersByCity(cityId);
+            offers =await  filterOffersByCity(cityId, Category);
             
             if(SortBy!= "") {
               offers=  sortingData(offers, SortBy);
@@ -93,7 +93,7 @@ namespace offerStation.EF.Services
             offers= offers.Skip(recSkip).Take(pageSize).ToList();
 
             List<OwnerOfferDto> ownerOfferDtos = new List<OwnerOfferDto>();
-            offers.ForEach( async o =>
+            offers.ForEach( o =>
             {
                 OwnerOfferDto ownerOffer = new OwnerOfferDto();
                 ownerOffer = _mapper.Map<OwnerOfferDto>(o);
