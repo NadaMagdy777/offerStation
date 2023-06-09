@@ -1,0 +1,65 @@
+#update{
+    color:white;
+   border: 0.5px solid gray;
+   background-color: rgb(0, 165, 60);
+   height: 2.2rem;
+   width: 10rem;
+ }
+ .changeEmail{
+   color:rgb(0, 165, 60); 
+   text-decoration: none;
+   margin-left: 2rem;
+   cursor: pointer;
+   text-transform: uppercase;
+ }
+.modal-title,.changeEmail:hover{
+   color: rgb(255, 90, 0);
+ }
+ .form-control{
+   display: inline;
+   width: 78%;
+ }
+ .col-sm-3{
+   font-size: 15px;
+ }
+ .mb-0{
+   font-family: cursive;
+   display: block;
+ }
+ .modal-header{
+   display: inline;
+ }
+ .modal {
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1; /* Sit on top */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgb(0,0,0); /* Fallback color */
+   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+ 
+ /* Modal Content/Box */
+ .modal-content {
+   background-color: #fefefe;
+   margin: 15% auto; /* 15% from the top and centered */
+   border: 1px solid #888;
+ }
+ 
+ /* The Close Button */
+ .close {
+   color: #aaa;
+   float: right;
+   font-size: 28px;
+ }
+ 
+ .close:hover,
+ .close:focus {
+   color: black;
+   text-decoration: none;
+   cursor: pointer;
+ }
+ 
