@@ -22,12 +22,11 @@
            <div class="col-8" id="productDiv">
             <div class="row p-3">
                 <div class="d-flex justify-content-between">
-                    <span class="mr-md-auto">{{totalItems}} Items found </span>
-                    <select class="mr-2 form-control" id="sortDropDown">
-                        <option>Latest items</option>
-                        <option>Trending</option>
-                        <option>Most Popular</option>
-                        <option>Cheapest</option>
+                    <h5 class="mr-md-auto">{{totalItems}} Items found </h5>
+                    <select class="mr-2 form-control" id="sortDropDown" (change)="changeSorting($event)" >
+                        <option selected value="">Best Match</option>
+                        <option  value="MostPopular">Most Popular</option>
+                        <option  value="Cheapest">Cheapest</option>
                     </select>
                    
                 </div>
