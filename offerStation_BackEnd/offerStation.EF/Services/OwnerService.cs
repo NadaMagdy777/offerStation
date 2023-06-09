@@ -26,9 +26,9 @@ namespace offerStation.EF.Services
             _unitOfWork = unitOfWork;
             _helperService = helperService;
         }
-        public async Task<OwnerInfoDto?> GetOwner(int id)
+        public async Task<PublicInfoDto?> GetOwner(int id)
         {
-            OwnerInfoDto? ownerInfo = null;
+            PublicInfoDto? ownerInfo = null;
 
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
@@ -39,13 +39,13 @@ namespace offerStation.EF.Services
 
             if (owner is not null)
             {
-                ownerInfo = new OwnerInfoDto();
-                ownerInfo = _mapper.Map<OwnerInfoDto>(owner);
+                ownerInfo = new PublicInfoDto();
+                ownerInfo = _mapper.Map<PublicInfoDto>(owner);
             }
 
             return ownerInfo;
         }
-        public async Task<bool> EditOwner(int id, OwnerInfoDto ownerInfo)
+        public async Task<bool> EditOwner(int id, PublicInfoDto ownerInfo)
         {
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
