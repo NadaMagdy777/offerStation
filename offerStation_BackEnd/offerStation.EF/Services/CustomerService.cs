@@ -62,7 +62,6 @@ namespace offerStation.EF.Services
 
                 _unitOfWork.Customers.Update(customer);
                 _unitOfWork.Complete();
-                _unitOfWork.CommitChanges();
 
                 return true;
             }

@@ -15,8 +15,6 @@ using System.Threading.Tasks;
 
 namespace offerStation.EF.Services
 {
-
-
     public class OwnerService : IOwnerService
     {
         private readonly IMapper _mapper;
@@ -55,24 +53,23 @@ namespace offerStation.EF.Services
                     o => o.AppUser.Addresses,
                 });
 
-            if (owner.IsDeleted is not true) 
+            if (owner.IsDeleted is not true)
             {
                 owner.Image = ownerInfo.Image;
                 owner.AppUser.Name = ownerInfo.Name;
                 owner.AppUser.Email = ownerInfo.Email;
                 owner.AppUser.PhoneNumber = ownerInfo.PhoneNumber;
                 owner.AppUser.Addresses = await _helperService.GetAddresses(ownerInfo.Addresses, owner.AppUserId);
-                
+
                 _unitOfWork.Owners.Update(owner);
                 _unitOfWork.Complete();
-                _unitOfWork.CommitChanges();
 
                 return true;
             }
             return false;
         }
 
-        public bool checkAddress(List<Address> addresses,int CityID)
+        public bool checkAddress(List<Address> addresses, int CityID)
         {
             Address address = addresses.FirstOrDefault(a => a.CityId == CityID);
             if (address != null)
@@ -80,13 +77,13 @@ namespace offerStation.EF.Services
                 return true;
             }
             return false;
-        } 
-        public async Task<List<OwnerOffer>> filterOffersByCity(int CityID,string categoryName)
+        }
+        public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
             List<OwnerOffer> offers;
             if (CityID != 0)
             {
-              offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false &&o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
+                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
                    o=>o.Owner.OwnerCategory
@@ -96,7 +93,7 @@ namespace offerStation.EF.Services
             }
             else
             {
-                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name== categoryName, new List<Expression<Func<OwnerOffer, object>>>()
+                offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
                    o=>o.Owner.OwnerCategory
@@ -111,9 +108,8 @@ namespace offerStation.EF.Services
             if (sortBy == "priceDesc")
             {
                 return offers.OrderByDescending(O => O.Price).ToList();
-                    ;
             }
-            else if(sortBy == "priceAsce")
+            else if (sortBy == "priceAsce")
             {
                 return offers.OrderBy(O => O.Price).ToList();
             }
@@ -122,30 +118,31 @@ namespace offerStation.EF.Services
                 return offers;
             }
         }
-        public async Task<OffersfilteResultrDto> GetAllOffers(int PageNumber,int pageSize, int cityId , String SortBy,string Category)
+        public async Task<OffersfilteResultrDto> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy, string Category)
         {
             List<OwnerOffer> offers;
-           
-            offers =await  filterOffersByCity(cityId, Category);
-            
-            if(SortBy!= "") {
-              offers=  sortingData(offers, SortBy);
-            }
-           
 
-            OffersfilteResultrDto  offerFilterResult=new OffersfilteResultrDto();
+            offers = await filterOffersByCity(cityId, Category);
+
+            if (SortBy != "")
+            {
+                offers = sortingData(offers, SortBy);
+            }
+
+
+            OffersfilteResultrDto offerFilterResult = new OffersfilteResultrDto();
             offerFilterResult.itemsCount = offers.Count();
             int recSkip = (PageNumber - 1) * pageSize;
-            offers= offers.Skip(recSkip).Take(pageSize).ToList();
+            offers = offers.Skip(recSkip).Take(pageSize).ToList();
 
             List<OwnerOfferDto> ownerOfferDtos = new List<OwnerOfferDto>();
-            offers.ForEach( o =>
+            offers.ForEach(o =>
             {
                 OwnerOfferDto ownerOffer = new OwnerOfferDto();
                 ownerOffer = _mapper.Map<OwnerOfferDto>(o);
-                
+
                 ownerOffer.PrefPrice = GetPriceBeforeOffer(o);
-                
+
                 ownerOfferDtos.Add(ownerOffer);
 
             });
@@ -153,28 +150,22 @@ namespace offerStation.EF.Services
 
             return offerFilterResult;
         }
-        //public async Task<>
-        public async Task<List<OwnerCategoryDto>> GetAllCategories() {
-            List<OwnerCategory> ownerCategories = (List<OwnerCategory>)_unitOfWork.OwnerCategories.GetAll();
         public async Task<List<OwnerCategoryDto>> GetAllCategories()
         {
             List<OwnerCategory> ownerCategories = (List<OwnerCategory>)_unitOfWork.OwnerCategories.GetAll();
             List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
             return ownerCategoriesDto;
         }
-
-        public  double GetPriceBeforeOffer(OwnerOffer ownerOffer)
+        public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
-            List <OwnerOfferProduct> ownerOffers  = (List<OwnerOfferProduct>)  _unitOfWork.OwnerOfferProducts.FindAll(o=>o.OfferId == ownerOffer.Id, new List<Expression<Func<OwnerOfferProduct, object>>>()
-        {
+            List<OwnerOfferProduct> ownerOffers = (List<OwnerOfferProduct>)_unitOfWork.OwnerOfferProducts.FindAll(o => o.OfferId == ownerOffer.Id, new List<Expression<Func<OwnerOfferProduct, object>>>()
+            {
                    o=>o.Offer.Owner,
                    o=>o.Product
-               });
-            double PrefPrice= ownerOffers.Select(o=>o.Product.Price* o.Quantity).Sum();
-
+            });
+            double PrefPrice = ownerOffers.Select(o => o.Product.Price * o.Quantity).Sum();
 
             return PrefPrice;
-           
         }
     }
 }
