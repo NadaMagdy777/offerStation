@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
+import {  ownerOffersPageComponent } from './pages/owner-offers-page/owner-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -17,12 +17,17 @@ import { OwnerFilterComponent } from './components/owner-filter/owner-filter.com
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
-    ResturantOffersPageComponent,
+    ownerOffersPageComponent,
     NavbarComponent,
     LoginComponent,
     RegestrationComponent,
@@ -33,7 +38,9 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     OwnerOffersFilterComponent,
     RegestrationComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +48,9 @@ import { OwnerOffersFilterComponent } from './components/owner-offers-filter/own
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    MatTabsModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule
   ],
 
   providers: [],

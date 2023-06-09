@@ -36,7 +36,6 @@ namespace offerStation_BackEnd
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
-            builder.Services.AddScoped<IOwnerOfferService, RestaurantOwnerOffersService>();
             builder.Services.AddScoped<IOwnerService, OwnerService>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
             builder.Services.AddScoped<IHelperService, HelperService>();

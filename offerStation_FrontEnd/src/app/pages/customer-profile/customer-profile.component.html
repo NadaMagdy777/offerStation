@@ -1,0 +1,26 @@
+<div class="w-100 mx-auto py-1">
+   
+    <mat-tab-group>
+      <mat-tab >
+        <ng-template mat-tab-label>
+             Account Info
+        </ng-template>
+       <app-customer-info></app-customer-info>
+      </mat-tab>
+  
+      <mat-tab>
+        <ng-template mat-tab-label>
+          Saved Addresses
+        </ng-template>
+        <app-addresses></app-addresses>
+      </mat-tab>
+  
+      <mat-tab style="font-size: 26px;">
+        <ng-template mat-tab-label >
+          My Orders
+        </ng-template>
+       <app-allorders></app-allorders>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  
