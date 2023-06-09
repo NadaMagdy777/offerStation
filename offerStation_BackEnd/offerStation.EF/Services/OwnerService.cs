@@ -27,5 +27,6 @@ namespace offerStation.EF.Services
             List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
             return ownerCategoriesDto;
         }
+
     }
 }
