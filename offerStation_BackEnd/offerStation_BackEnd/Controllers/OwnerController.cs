@@ -9,7 +9,7 @@ namespace offerStation.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class OwnerController : ControllerBase
-    {
+    {        
         private readonly IOwnerService _ownerService;
         public OwnerController(IOwnerService ownerService)
         {
@@ -17,10 +17,26 @@ namespace offerStation.API.Controllers
         }
 
         [HttpGet("id")]
-        //public async Task<ActionResult<ApiResponse>> GetOwner(int id)
-        //{
+        public async Task<ActionResult<ApiResponse>> GetOwner(int id)
+        {
+            OwnerInfoDto owner = await _ownerService.GetOwner(id);
 
-        //}
+            if (owner is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));     
+            }
+            return Ok(new ApiResponse(200, true, owner));
+        }
+        [HttpPut("id")]
+        public async Task<ActionResult<ApiResponse>> EditOwner(int id, OwnerInfoDto owner)
+        {
+            var success = await _ownerService.EditOwner(id, owner);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         //[HttpGet("id")]
 
         //public async Task<IActionResult> getAllProductsByOwner(int ID)
@@ -32,6 +48,14 @@ namespace offerStation.API.Controllers
         public async Task<IActionResult> GetAllCategories()
         {
             return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
+
+        }
+
+        [HttpGet("All/Offers")]
+        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, String SortBy = "")
+        {
+            var data = await _ownerService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
+            return Ok(new ApiResponse(200, true,data));
 
         }
     }

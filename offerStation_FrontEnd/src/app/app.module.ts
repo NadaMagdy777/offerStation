@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ResturantOffersPageComponent } from './pages/resturant-offers-page/resturant-offers-page.component';
+import {  ownerOffersPageComponent } from './pages/owner-offers-page/owner-offers-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -21,11 +21,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
-    ResturantOffersPageComponent,
+    ownerOffersPageComponent,
     NavbarComponent,
     LoginComponent,
     RegestrationComponent,
@@ -37,6 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegestrationComponent,
     HeaderComponent,
     FooterComponent,
+
+
   ],
   imports: [
     BrowserModule,

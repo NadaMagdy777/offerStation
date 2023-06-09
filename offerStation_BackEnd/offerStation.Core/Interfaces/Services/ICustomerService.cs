@@ -10,6 +10,6 @@ namespace offerStation.Core.Interfaces.Services
     public interface ICustomerService
     {
         Task<CustomerInfoDto?> GetCustomer(int id);
-        Task<bool> EditCustomer(CustomerInfoDto customerInfoDto, int id);
+        Task<bool> EditCustomer(int id, CustomerInfoDto customerInfoDto);
     }
 }

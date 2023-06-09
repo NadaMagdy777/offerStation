@@ -9,6 +9,10 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface IOwnerService
     {
-         Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<OwnerInfoDto?> GetOwner(int id);
+        Task<bool> EditOwner(int id, OwnerInfoDto ownerInfo);
+        Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<OffersfilteResultrDto> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy,string Category);
+
     }
 }
