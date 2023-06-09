@@ -32,13 +32,14 @@ namespace offerStation_BackEnd
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAdressService, AddressService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
-            builder.Services.AddScoped<IAdressService, AddressService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IOwnerOfferService, RestaurantOwnerOffersService>();
             builder.Services.AddScoped<IOwnerService, OwnerService>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
+            builder.Services.AddScoped<IHelperService, HelperService>();
 
 
             builder.Services.AddCors(opt =>

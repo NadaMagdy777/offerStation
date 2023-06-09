@@ -1,4 +1,5 @@
 ﻿using offerStation.Core.Dtos;
+using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Interfaces.Services
 {
-    public interface IOwnerService
+    public interface IHelperService
     {
-        Task<OwnerInfoDto?> GetOwner(int id);
-        Task<bool> EditOwner(int id, OwnerInfoDto ownerInfo);
-        Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<List<Address>> GetAddresses(List<AddressDTO> addressesDto, string userId);
     }
 }
