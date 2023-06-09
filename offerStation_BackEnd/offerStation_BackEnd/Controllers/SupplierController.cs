@@ -16,12 +16,29 @@ namespace offerStation.API.Controllers
             this._supplierService = supplierService;
         }
 
-        //[HttpGet("id")]
+        [HttpGet("id")]
+        public async Task<ActionResult<ApiResponse>> GetSupplier(int id)
+        {
+            PublicInfoDto supplier = await _supplierService.GetSupplier(id);
 
-        //public async Task<IActionResult> getAllProductsByOwner(int ID)
-        //{
+            if (supplier is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
 
-        //}
+            return Ok(new ApiResponse(200, true, supplier));
+        }
+        [HttpPut("id")]
+        public async Task<ActionResult<ApiResponse>> EditSupplier(int id, PublicInfoDto supplierDto)
+        {
+            var success = await _supplierService.EditSupplier(id, supplierDto);
+
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         [HttpGet("Categories")]
 
         public async Task<IActionResult> GetAllCategories()
