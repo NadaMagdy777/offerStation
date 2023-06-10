@@ -50,7 +50,7 @@ namespace offerStation.EF.Services
                     c => c.AppUser.Addresses
                 });
 
-            if (customer.IsDeleted is not false)
+            if (customer.IsDeleted is false)
             {
                 customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
