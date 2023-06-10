@@ -49,6 +49,17 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, product));
         }
+        [HttpGet("AllProductsByOwnerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int id)
+        {
+            List<OwnerProductDTO> product = await _ownerService.GetAllProductsByOwmerID(id);
+
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)
         {

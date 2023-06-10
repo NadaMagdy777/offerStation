@@ -16,4 +16,16 @@ export class OwnerService {
   GetProducts(pageNumber:number,pagesize:number,ownerCategory:string,cityId:number,SortBy:string):Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>( this.url + "/All/Offers?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy);
   }
+  getMenuCategorybyOwnerId(id:number):Observable<any>
+  {
+    return this._httpClient.get<any>(this.url+"/AllMenuCategoriesByOwnerId/id?id="+id);
+  }
+  getProductsByCategoryId(id:number):Observable<any>
+  {
+return this._httpClient.get<any>(this.url+"/AllProductsByMenuCategoryID/id?id="+id);
+  }
+  getAllProductsByOwnerId(id:number):Observable<any>
+  {
+    return this._httpClient.get<any>(this.url+"/AllProductsByOwnerID/id?id="+id);
+  }
 }

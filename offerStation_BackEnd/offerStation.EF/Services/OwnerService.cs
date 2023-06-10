@@ -245,7 +245,31 @@ namespace offerStation.EF.Services
             return OwnerProductsDTOs;
 
         }
+        public async Task<List<OwnerProductDTO>> GetAllProductsByOwmerID(int id)
 
+        {
+            List<OwnerProductDTO> OwnerProductsDTOs;
+
+            OwnerProductsDTOs = new List<OwnerProductDTO>();
+            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.OwnerId == id);
+
+
+            foreach (OwnerProduct product in result)
+            {
+                OwnerProductDTO ProductDTO = new OwnerProductDTO();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Image = product.Image;
+                ProductDTO.Discount = product.Discount;
+
+
+                OwnerProductsDTOs.Add(ProductDTO);
+            }
+            return OwnerProductsDTOs;
+
+        }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
             List<OwnerOfferProduct> ownerOffers = (List<OwnerOfferProduct>)_unitOfWork.OwnerOfferProducts.FindAll(o => o.OfferId == ownerOffer.Id, new List<Expression<Func<OwnerOfferProduct, object>>>()
