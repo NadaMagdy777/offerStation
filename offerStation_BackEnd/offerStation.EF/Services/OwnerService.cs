@@ -141,7 +141,13 @@ namespace offerStation.EF.Services
         {
            int ratingSum= owner.CustomersReviews.Select(r => r.Rating).Sum();
            int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
-           return ratingSum / ratingcount;
+            if(ratingcount != 0)
+            {
+                return ratingSum / ratingcount;
+
+            }
+            return 0;
+           
         }
         public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
         {
@@ -223,7 +229,7 @@ namespace offerStation.EF.Services
                 owners = sortingOwnerData(owners, SortBy);
             }
 
-            if(name != null)
+            if(name != "")
             {
                owners= owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
             }
@@ -249,5 +255,7 @@ namespace offerStation.EF.Services
             return ownerResult;
 
         }
+
+        
     }
 }

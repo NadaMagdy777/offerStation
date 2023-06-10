@@ -13,6 +13,8 @@ namespace offerStation.Core.Dtos
         public string Description { get; set; }
         public double Price { get; set; }
         public double PrefPrice { get; set; }
+        public byte[]? Image { get; set; }
+        public byte[]? ownerImage { get; set; }
 
 
     }
