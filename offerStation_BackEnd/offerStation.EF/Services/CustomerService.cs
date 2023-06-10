@@ -29,11 +29,11 @@ namespace offerStation.EF.Services
         {
             CustomerInfoDto customerInfoDto = null;
 
-            Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,
+            Customer? customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,
                 new List<Expression<Func<Customer, object>>>()
                 {
-                    c => c.AppUser.Addresses
-                });
+                    c => c.AppUser,
+                }); 
 
             if (customer is not null)
             {
@@ -44,21 +44,17 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditCustomer(int id, CustomerInfoDto customerInfoDto)
         {
-            Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,
+            Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id, 
                 new List<Expression<Func<Customer, object>>>()
                 {
-                    c => c.AppUser.Addresses
+                    c => c.AppUser
                 });
 
             if (customer.IsDeleted is false)
             {
                 customer.AppUser.Name = customerInfoDto.Name;
+                customer.AppUser.Email = customerInfoDto.Email;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
-
-                if(customerInfoDto.Addresses is not null)
-                {
-                    customer.AppUser.Addresses = await _helperService.GetAddresses(customerInfoDto.Addresses, customer.AppUserId);
-                }
 
                 _unitOfWork.Customers.Update(customer);
                 _unitOfWork.Complete();

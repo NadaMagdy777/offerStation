@@ -33,7 +33,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
 
@@ -50,7 +50,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
             if (owner.IsDeleted is false)
@@ -59,7 +59,6 @@ namespace offerStation.EF.Services
                 owner.AppUser.Name = ownerInfo.Name;
                 owner.AppUser.Email = ownerInfo.Email;
                 owner.AppUser.PhoneNumber = ownerInfo.PhoneNumber;
-                owner.AppUser.Addresses = await _helperService.GetAddresses(ownerInfo.Addresses, owner.AppUserId);
 
                 _unitOfWork.Owners.Update(owner);
                 _unitOfWork.Complete();

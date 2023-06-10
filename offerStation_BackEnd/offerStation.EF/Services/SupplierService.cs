@@ -26,10 +26,10 @@ namespace offerStation.EF.Services
         {
             PublicInfoDto? supplierInfo = null;
 
-            Supplier supplier = await _unitOfWork.Suppliers.FindAsync(o => o.Id == id,
+            Supplier supplier = await _unitOfWork.Suppliers.FindAsync(s => s.Id == id,
                 new List<Expression<Func<Supplier, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    s => s.AppUser,
                 });
 
 
@@ -43,10 +43,10 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo)
         {
-            Supplier supplier = await _unitOfWork.Suppliers.FindAsync(o => o.Id == id,
+            Supplier supplier = await _unitOfWork.Suppliers.FindAsync(s => s.Id == id,
                 new List<Expression<Func<Supplier, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    s => s.AppUser,
                 });
 
             if (supplier.IsDeleted is false)
@@ -55,7 +55,6 @@ namespace offerStation.EF.Services
                 supplier.AppUser.Name = supplierInfo.Name;
                 supplier.AppUser.Email = supplierInfo.Email;
                 supplier.AppUser.PhoneNumber = supplierInfo.PhoneNumber;
-                supplier.AppUser.Addresses = await _helperService.GetAddresses(supplierInfo.Addresses, supplier.AppUserId);
 
                 _unitOfWork.Suppliers.Update(supplier);
                 _unitOfWork.Complete();
