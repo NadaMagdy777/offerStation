@@ -19,14 +19,8 @@ export class AddressServiceService {
 
   constructor(private http: HttpClient) { }
 
-  GetAllCities() {
-    return this.http.get(this._url + "/cities").pipe(catchError((err: any) => {
-      return throwError(() => err.message || "Server Error");
-    }));
-  }
 
-
-  GetAllDoctors(): Observable<city[]> {
+  GetAllCities(): Observable<city[]> {
     return this.http.get<city[]>(this._url + "/cities").pipe(
       catchError((err) => {
 

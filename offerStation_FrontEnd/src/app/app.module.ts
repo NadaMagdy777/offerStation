@@ -21,6 +21,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllOwnerComponent } from './pages/all-owner/all-owner.component';
 import { OwnersIndexComponent } from './pages/owners-index/owners-index.component';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 
 
@@ -43,6 +45,7 @@ import { OwnersIndexComponent } from './pages/owners-index/owners-index.componen
     FooterComponent,
     AllOwnerComponent,
     OwnersIndexComponent,
+    
 
 
   ],
@@ -54,7 +57,8 @@ import { OwnersIndexComponent } from './pages/owners-index/owners-index.componen
     HttpClientModule,
     MatTabsModule,
     NgxPaginationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
 
   providers: [],

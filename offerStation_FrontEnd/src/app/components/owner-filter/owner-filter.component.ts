@@ -32,7 +32,7 @@ export class OwnerFilterComponent {
     this.OwnerName.emit(name);
   }
   ngOnInit(): void {
-    this.addressService.GetAllDoctors().subscribe({
+    this.addressService.GetAllCities().subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.cities=dataJson.data

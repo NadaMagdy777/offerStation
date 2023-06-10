@@ -26,7 +26,7 @@ export class OwnerOffersFilterComponent implements OnInit{
   
   }
   ngOnInit(): void {
-    this.addressService.GetAllDoctors().subscribe({
+    this.addressService.GetAllCities().subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.cities=dataJson.data
