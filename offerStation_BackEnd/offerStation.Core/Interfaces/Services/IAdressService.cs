@@ -10,6 +10,12 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface IAdressService
     {
+        Task<List<AddressCityNameDto>?> GetAllAddresses(string id);
+        Task<bool> AddAddress(string userId, AddressDTO addressDTO);
+        Task<bool> EditAddress(int id, AddressDTO addressDTO);
+        Task<bool> DeleteAddress(int id);
         Task<List<CityDto>> GetAllCities();
+
+        //Task<List<AddressDTO>> GetAddresses();
     }
 }

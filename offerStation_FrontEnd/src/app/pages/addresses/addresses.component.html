@@ -1,11 +1,24 @@
-<!-- <div class="container address-contenr">
-  <div class="d-flex">
-    <div class="mt-4 ms-3 address-container ">
-      <div *ngFor="let add of AddressList">
-        <div>Details :  {{add.details}}</div>
-        <div>City Name: {{add.cityId}}</div>
-        <hr>
+<!-- <div formGroupName="addresses">
+  <div class="row mt-2">
+    <div class="col-6 mt-2">
+      <label>City</label>
+      <select class="form-control" formControlName="city">
+        <option selected [value]="city" *ngFor="let city of CitiesList">
+          {{city}}
+        </option>
+      </select>
+    </div>
+    <div class="col-6 mt-2">
+      <label>Details</label>
+      <input type="text" class="form-control" formControlName="details"
+      [class.is-invalid]="details?.touched &&details?.invalid">
+
+      <div *ngIf="details?.errors &&details?.touched">
+        <small *ngIf="details?.errors?.['required']" class="text-danger">Details is required</small>
       </div>
     </div>
   </div>
-</div> -->
+</div>
+ -->
+
+ 

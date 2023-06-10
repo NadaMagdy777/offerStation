@@ -7,26 +7,26 @@ import { city } from 'src/app/sharedClassesAndTypes/city';
   templateUrl: './owner-offers-filter.component.html',
   styleUrls: ['./owner-offers-filter.component.css']
 })
-export class OwnerOffersFilterComponent implements OnInit{
-  cities!:city[]
-  selectedCityId:number=0
+export class OwnerOffersFilterComponent implements OnInit {
+  cities!: city[]
+  selectedCityId: number = 0
 
-  @Output() cityId:EventEmitter<number>=new EventEmitter<number>()
+  @Output() cityId: EventEmitter<number> = new EventEmitter<number>()
 
 
-  constructor(private addressService:AddressServiceService){
+  constructor(private addressService: AddressServiceService) {
 
   }
-  setIndex(selectedcity:number){
-    if(selectedcity!=this.selectedCityId){
-      this.selectedCityId=selectedcity
+  setIndex(selectedcity: number) {
+    if (selectedcity != this.selectedCityId) {
+      this.selectedCityId = selectedcity
       this.cityId.emit(selectedcity)
       console.log(this.selectedCityId)
     }
-  
+
   }
   ngOnInit(): void {
-    this.addressService.GetAllDoctors().subscribe({
+    this.addressService.GetAllCities().subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.cities=dataJson.data
@@ -35,7 +35,7 @@ export class OwnerOffersFilterComponent implements OnInit{
       },
       error:error=>{console.log(error)}
     }
-      
+
       )
   }
 

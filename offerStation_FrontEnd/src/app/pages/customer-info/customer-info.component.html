@@ -1,7 +1,8 @@
 <div class="container">
   <div class="mb-3 mt-5 border-style">
     <div class="p-3 row">
-      <form [formGroup]="CustomerInfoForm" (ngSubmit)="updateCustomerInfo()">
+      <form [formGroup]="CustomerInfoForm" (ngSubmit)="SubmitData()">
+        {{CustomerInfoForm.value|json}}
         <div class="container">
           <div class="row">
             <div class="col-6">
@@ -24,25 +25,14 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-6">
+              <label>Email</label>
+              <input type="text" class="form-control" formControlName="email"
+                [class.is-invalid]="email?.touched &&email?.invalid">
 
-          <div formGroupName="addresses">
-            <div class="row mt-2">
-              <div class="col-6 mt-2">
-                <label>City</label>
-                <select class="form-control" formControlName="city">
-                  <option selected [value]="city" *ngFor="let city of CitiesList">
-                    {{city}}
-                  </option>
-                </select>
-              </div>
-              <div class="col-6 mt-2">
-                <label>Details</label>
-                <input type="text" class="form-control" formControlName="details"
-                [class.is-invalid]="details?.touched &&details?.invalid">
-
-                <div *ngIf="details?.errors &&details?.touched">
-                  <small *ngIf="details?.errors?.['required']" class="text-danger">Details is required</small>
-                </div>
+              <div *ngIf="email?.errors &&email?.touched">
+                <small *ngIf="email?.errors?.['required']" class="text-danger">Email is required</small>
               </div>
             </div>
           </div>
@@ -52,12 +42,8 @@
               <button type="submit" class="btn btn-success w-100 me-2"
                 [disabled]="!CustomerInfoForm.valid">Save</button>
             </div>
-            <!-- <div class="col-6">
-              <button type="button" class="btn btn-default w-100 ms-2" (click)="Cancel()">Cancel</button>
-            </div> -->
           </div>
         </div>
-
       </form>
     </div>
   </div>

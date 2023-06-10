@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace offerStation.Core.Models
+namespace offerStation.Core.Dtos
 {
-    public class OwnerCategory : BaseModel
+    public class OwnerCategoryWithOffer
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public byte[]? Image { get; set; }
-        public List<Owner> Owners { get; set; }
+        List<OwnerOfferDto> offers { get; set; }
     }
 }

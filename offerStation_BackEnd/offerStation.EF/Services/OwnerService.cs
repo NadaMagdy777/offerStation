@@ -33,7 +33,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
 
@@ -50,7 +50,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
             if (owner.IsDeleted is false)
@@ -59,7 +59,6 @@ namespace offerStation.EF.Services
                 owner.AppUser.Name = ownerInfo.Name;
                 owner.AppUser.Email = ownerInfo.Email;
                 owner.AppUser.PhoneNumber = ownerInfo.PhoneNumber;
-                owner.AppUser.Addresses = await _helperService.GetAddresses(ownerInfo.Addresses, owner.AppUserId);
 
                 _unitOfWork.Owners.Update(owner);
                 _unitOfWork.Complete();
@@ -141,7 +140,13 @@ namespace offerStation.EF.Services
         {
            int ratingSum= owner.CustomersReviews.Select(r => r.Rating).Sum();
            int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
-           return ratingSum / ratingcount;
+            if(ratingcount != 0)
+            {
+                return ratingSum / ratingcount;
+
+            }
+            return 0;
+           
         }
         public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
         {
@@ -293,7 +298,7 @@ namespace offerStation.EF.Services
                 owners = sortingOwnerData(owners, SortBy);
             }
 
-            if(name != null)
+            if(name != "")
             {
                owners= owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
             }
@@ -319,5 +324,7 @@ namespace offerStation.EF.Services
             return ownerResult;
 
         }
+
+        
     }
 }

@@ -19,10 +19,6 @@ export class ownerOffersPageComponent implements OnInit {
   OwnerCategory:string="Clothes"
 
   constructor(private OwnerService:OwnerService,private route:ActivatedRoute){
-     
-      
-      
-  
   }
 
   cityIdChanges(value:any){
@@ -33,12 +29,12 @@ export class ownerOffersPageComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.OwnerCategory= this.route.snapshot.params['category']
     this.getproduct(1,this.pagesize,this.OwnerCategory,this.selectedcityId,this.sortBy)
   }
   
   getproduct(pgNum:number,pageSize:number,ownerCategory:string,cityId:number,sortingBy:string){
-    this.OwnerService.GetProducts(pgNum,pageSize,ownerCategory,cityId,sortingBy).subscribe({
+    console.log(ownerCategory)
+    this.OwnerService.GetOwnerOffer(pgNum,pageSize,ownerCategory,cityId,sortingBy).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         console.log(dataJson.data)

@@ -10,6 +10,5 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface IHelperService
     {
-        Task<List<Address>> GetAddresses(List<AddressDTO> addressesDto, string userId);
     }
 }

@@ -10,7 +10,6 @@ namespace offerStation.Core.Dtos
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public List<AddressDTO> Addresses { get; set; }
-
+        public string Email { get; set; }
     }
 }
