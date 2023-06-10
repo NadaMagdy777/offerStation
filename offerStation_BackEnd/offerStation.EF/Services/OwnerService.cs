@@ -53,7 +53,7 @@ namespace offerStation.EF.Services
                     o => o.AppUser.Addresses,
                 });
 
-            if (owner.IsDeleted is not true)
+            if (owner.IsDeleted is false)
             {
                 owner.Image = ownerInfo.Image;
                 owner.AppUser.Name = ownerInfo.Name;
@@ -105,11 +105,12 @@ namespace offerStation.EF.Services
         }
         public List<OwnerOffer> sortingData(List<OwnerOffer> offers, string sortBy)
         {
-            if (sortBy == "priceDesc")
+            if (sortBy == "MostPopular")
             {
                 return offers.OrderByDescending(O => O.Price).ToList();
+                
             }
-            else if (sortBy == "priceAsce")
+            else if (sortBy == "Cheapest")
             {
                 return offers.OrderBy(O => O.Price).ToList();
             }
