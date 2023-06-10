@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using System.Runtime.CompilerServices;
 
 namespace offerStation.API.Controllers
 {
@@ -25,7 +26,16 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, addresses));
         }
-
+        [HttpPost("id")]
+        public async Task<ActionResult<ApiResponse>> AddAddress(string userId, AddressDTO address)
+        {
+            bool success = await _addressService.AddAddress(userId, address);
+            if (success)
+            {
+                return new ApiResponse(201, true, success);
+            }
+            return new ApiResponse(500, false, success);
+        } 
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditAddress(int id, AddressDTO address)
         {

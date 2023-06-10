@@ -12,8 +12,4 @@ namespace offerStation.Core.Dtos
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
     }
-    public class CustomerAddressDto: CustomerInfoDto
-    {
-        public List<AddressCityNameDto> Addresses { get; set; }
-    }
 }

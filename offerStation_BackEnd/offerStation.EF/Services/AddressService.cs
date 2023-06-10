@@ -41,6 +41,24 @@ namespace offerStation.EF.Services
             }
             return null;
         }
+        public async Task<bool> AddAddress(string userId, AddressDTO addressDTO)
+        {
+            if(addressDTO is not null) 
+            {
+                Address address = new Address
+                {
+                    UserId = userId,
+                    CityId = addressDTO.CityId,
+                    details = addressDTO.details,
+                };
+
+                _unitOfWork.Addresses.Add(address);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> EditAddress(int id, AddressDTO addressDTO)
         {
             Address address = await _unitOfWork.Addresses.GetByIdAsync(id);
