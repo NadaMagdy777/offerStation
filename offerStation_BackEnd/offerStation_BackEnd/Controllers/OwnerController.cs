@@ -74,10 +74,17 @@ namespace offerStation.API.Controllers
         }
 
         [HttpGet("All/Offers")]
-        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, String SortBy = "")
+        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {
             var data = await _ownerService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
             return Ok(new ApiResponse(200, true,data));
+
+        }
+        [HttpGet("All")]
+        public async Task<IActionResult> getAllOwners(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "",string name="")
+        {
+            var data = await _ownerService.getOwnersByCategory(PageNumber, pageSize, cityId, name,SortBy, category);
+            return Ok(new ApiResponse(200, true, data));
 
         }
     }
