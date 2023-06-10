@@ -23,6 +23,8 @@ import { LandingNewestComponent } from './pages/landing-newest/landing-newest.co
 import { LandingBestSellerComponent } from './pages/landing-best-seller/landing-best-seller.component';
 import { LandingTopRateComponent } from './pages/landing-top-rate/landing-top-rate.component';
 import { LandingTapsComponent } from './pages/landing-taps/landing-taps.component';
+import { AllOwnerComponent } from './pages/all-owner/all-owner.component';
+import { OwnersIndexComponent } from './pages/owners-index/owners-index.component';
 
 
 
@@ -47,6 +49,8 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
+    AllOwnerComponent,
+    OwnersIndexComponent,
 
 
   ],

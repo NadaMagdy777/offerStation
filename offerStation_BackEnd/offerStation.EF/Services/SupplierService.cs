@@ -49,7 +49,7 @@ namespace offerStation.EF.Services
                     o => o.AppUser.Addresses,
                 });
 
-            if (supplier.IsDeleted is not true)
+            if (supplier.IsDeleted is false)
             {
                 supplier.Image = supplierInfo.Image;
                 supplier.AppUser.Name = supplierInfo.Name;

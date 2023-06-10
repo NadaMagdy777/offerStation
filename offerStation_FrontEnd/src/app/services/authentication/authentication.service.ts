@@ -16,17 +16,17 @@ import { User } from 'src/app/sharedClassesAndTypes/User';
 export class AuthenticationService {
 
 
-  constructor(private _httpClient: HttpClient,private router:Router) { }
+  constructor(private _httpClient: HttpClient, private router: Router) { }
 
   url = Base.apiUrl + 'Account';
 
-  userData =new BehaviorSubject(null);
+  userData = new BehaviorSubject(null);
 
   login(formData: object): Observable<ApiResponce> {
     console.log(formData);
     console.log(this.url + `/login`, formData);
-    
-    return this._httpClient.post<ApiResponce>( this.url + `/login`, formData);
+
+    return this._httpClient.post<ApiResponce>(this.url + `/login`, formData);
   }
 
   registerUser(user: User): Observable<ApiResponce> {
@@ -39,15 +39,13 @@ export class AuthenticationService {
     return this._httpClient.post<ApiResponce>(this.url + ``, supplier);
   }
 
-  saveUserData()
-  {
-    let encodedUserData= JSON.stringify(localStorage.getItem('userToken'))
+  saveUserData() {
+    let encodedUserData = JSON.stringify(localStorage.getItem('userToken'))
     this.userData.next(jwtDecode(encodedUserData))
     // this.router.navigate(['login']);
   }
 
-  logout()
-  {
+  logout() {
     localStorage.removeItem('userToken');
     this.userData.next(null)
   }

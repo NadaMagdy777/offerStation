@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OffersfilteResultrDto
+    public class ResultrDto<T>
     {
-       public List<OwnerOfferDto> List { get; set; }
+       public List<T> List { get; set; }
        public long itemsCount { get; set; }
     }
 }

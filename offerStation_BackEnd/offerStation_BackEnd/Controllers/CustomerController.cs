@@ -30,6 +30,7 @@ namespace offerStation.API.Controllers
 
             return Ok(new ApiResponse(200, true, customer));
         }
+
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditCustomer(int id, CustomerInfoDto customerDto)
         {

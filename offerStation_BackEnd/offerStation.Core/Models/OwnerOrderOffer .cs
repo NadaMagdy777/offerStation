@@ -12,9 +12,9 @@ namespace offerStation.Core.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("Oeder")]
+        [ForeignKey("Order")]
         public int OrderId { get; set; }
-        public virtual OwnerOrder Oeder { get; set; }
+        public virtual OwnerOrder Order { get; set; }
 
         [ForeignKey("Offer")]
         public int SupplierOffertId { get; set; }
