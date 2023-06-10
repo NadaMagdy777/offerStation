@@ -4,12 +4,11 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
 import { Product } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
-  selector: 'app-owner-offers-page',
-  templateUrl: './owner-offers-page.component.html',
-  styleUrls: ['./owner-offers-page.component.css']
+  selector: 'app-all-owner',
+  templateUrl: './all-owner.component.html',
+  styleUrls: ['./all-owner.component.css']
 })
-export class ownerOffersPageComponent implements OnInit {
- 
+export class AllOwnerComponent implements OnInit{
   ProductList!:Product[]
   selectedcityId:number=0
   pageNumber:number=1
