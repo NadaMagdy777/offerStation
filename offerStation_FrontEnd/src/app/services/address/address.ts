@@ -20,16 +20,14 @@ export class AddressServiceService {
 
   constructor(private http: HttpClient) { }
 
-  GetAllCities() {
-    return this.http.get(this._url + "/cities").pipe(catchError((err: any) => {
-      return throwError(() => err.message || "Server Error");
-    }));
-  }
 
-  GetCustomerAdresses(ApplicationUserId: string) {
-    return this.http.get(`http://localhost:59638/api/Address?ApplicationUserId=` + ApplicationUserId).pipe(catchError((err: any) => {
-      return throwError(() => err.message || "Server Error");
-    }));
+  GetAllCities(): Observable<city[]> {
+    return this.http.get<city[]>(this._url + "/cities").pipe(
+      catchError((err) => {
+
+        return throwError(() => err.message || 'server error');
+      })
+    );
   }
 
 }

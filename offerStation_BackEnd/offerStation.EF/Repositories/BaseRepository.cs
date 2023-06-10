@@ -62,6 +62,20 @@ namespace offerStation.EF.Repositories
 
             return await query.SingleOrDefaultAsync(criteria);
         }
+        public async Task<object> FindWithSelectAsync(Expression<Func<T, bool>> criteria,
+            Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (includes != null)
+                foreach (var incluse in includes)
+                    query = query.Include(incluse);
+
+            if (selects != null)
+                return await query.Where(criteria).Select(selects).FirstOrDefaultAsync();
+
+            return await query.FirstOrDefaultAsync(criteria);
+        }
         public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -105,21 +119,6 @@ namespace offerStation.EF.Repositories
 
             return await query.Where(criteria).ToListAsync();
         }
-        public async Task<object> FindWithSelectAsync(Expression<Func<T, bool>> criteria,
-            Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
-        {
-            IQueryable<T> query = _context.Set<T>();
-
-            if (includes != null)
-                foreach (var incluse in includes)
-                    query = query.Include(incluse);
-
-            if (selects != null)
-                return await query.Where(criteria).Select(selects).FirstOrDefaultAsync();
-
-            return await query.FirstOrDefaultAsync(criteria);
-        }
-
         public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? take, int? skip,
             Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending)
         {
@@ -140,6 +139,20 @@ namespace offerStation.EF.Repositories
             }
 
             return await query.ToListAsync();
+        }
+        public async Task<IEnumerable<object>> FindAllWithSelectAsync(Expression<Func<T, bool>> criteria,
+           Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (includes != null)
+                foreach (var include in includes)
+                    query = query.Include(include);
+
+            if (selects != null)
+                return await query.Where(criteria).Select(selects).ToListAsync();
+
+            return await query.Where(criteria).ToListAsync();
         }
         public async Task<T> Add(T entity)
         {

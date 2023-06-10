@@ -19,6 +19,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { OwnerOffersFilterComponent } from './components/owner-offers-filter/owner-offers-filter.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingNewestComponent } from './pages/landing-newest/landing-newest.component';
+import { LandingBestSellerComponent } from './pages/landing-best-seller/landing-best-seller.component';
+import { LandingTopRateComponent } from './pages/landing-top-rate/landing-top-rate.component';
+import { LandingTapsComponent } from './pages/landing-taps/landing-taps.component';
+import { AllOwnerComponent } from './pages/all-owner/all-owner.component';
+import { OwnersIndexComponent } from './pages/owners-index/owners-index.component';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 
 
@@ -39,6 +47,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegestrationComponent,
     HeaderComponent,
     FooterComponent,
+    LandingNewestComponent,
+    LandingBestSellerComponent,
+    LandingTopRateComponent,
+    LandingTapsComponent,
+    AllOwnerComponent,
+    OwnersIndexComponent,
+    
 
 
   ],
@@ -50,7 +65,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatTabsModule,
     NgxPaginationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
 
   providers: [],

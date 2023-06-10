@@ -16,8 +16,12 @@ namespace offerStation.Core.MappingProfiles
             CreateMap<Owner, PublicInfoDto>()
                 .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
                 .ForMember(des => des.Email, a => a.MapFrom(src => src.AppUser.Email))
-                .ForMember(des => des.Addresses, a => a.MapFrom(src => src.AppUser.Addresses))
                 .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
+                .ReverseMap();
+
+            CreateMap<Owner, OwnerDto>()
+                .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
+                .ForMember(des => des.Addresses, a => a.MapFrom(src => src.AppUser.Addresses))
                 .ReverseMap();
 
             CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();

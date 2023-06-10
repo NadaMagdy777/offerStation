@@ -33,7 +33,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
 
@@ -50,7 +50,7 @@ namespace offerStation.EF.Services
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
                 new List<Expression<Func<Owner, object>>>()
                 {
-                    o => o.AppUser.Addresses,
+                    o => o.AppUser,
                 });
 
             if (owner.IsDeleted is false)
@@ -59,7 +59,6 @@ namespace offerStation.EF.Services
                 owner.AppUser.Name = ownerInfo.Name;
                 owner.AppUser.Email = ownerInfo.Email;
                 owner.AppUser.PhoneNumber = ownerInfo.PhoneNumber;
-                owner.AppUser.Addresses = await _helperService.GetAddresses(ownerInfo.Addresses, owner.AppUserId);
 
                 _unitOfWork.Owners.Update(owner);
                 _unitOfWork.Complete();
@@ -103,23 +102,72 @@ namespace offerStation.EF.Services
             }
             return offers;
         }
-        public List<OwnerOffer> sortingData(List<OwnerOffer> offers, string sortBy)
+
+        public async Task<List<Owner>> filterOwnersByCity(int CityID, string categoryName)
+        {
+            List<Owner> owners;
+            owners = (List<Owner>)await _unitOfWork.Owners.FindAllAsync(o => o.IsDeleted == false && o.OwnerCategory.Name == categoryName && o.Approved == true, new List<Expression<Func<Owner, object>>>()
+               {
+                   o=>o.AppUser.Addresses,
+                   o=>o.OwnerCategory,
+                   o=>o.CustomersReviews
+
+            });
+            if (CityID != 0)
+            {  
+                owners = owners.Where(o => checkAddress(o.AppUser.Addresses, CityID)).ToList();
+                return owners;
+            }
+           
+            return owners;
+        }
+
+        public List<OwnerOffer> sortingOwnerOfferData(List<OwnerOffer> offers, string sortBy)
         {
             if (sortBy == "MostPopular")
             {
-                return offers.OrderByDescending(O => O.Price).ToList();
+                return offers.OrderByDescending(o=>o.Orders.Count).ToList();
                 
             }
             else if (sortBy == "Cheapest")
             {
                 return offers.OrderBy(O => O.Price).ToList();
             }
-            else
-            {
-                return offers;
-            }
+            
+            return offers;
         }
-        public async Task<OffersfilteResultrDto> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy, string Category)
+        public async Task<int> calucaluteOwnerRating(Owner owner)
+        {
+           int ratingSum= owner.CustomersReviews.Select(r => r.Rating).Sum();
+           int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
+            if(ratingcount != 0)
+            {
+                return ratingSum / ratingcount;
+
+            }
+            return 0;
+           
+        }
+        public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
+        {
+            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
+            return OwnerOrders.Count();
+        }
+        public List<Owner> sortingOwnerData(List<Owner> owners, string sortBy)
+        {
+            if (sortBy == "MostPopular")
+            {
+                return owners.OrderByDescending(o => calucaluteOwnerOrdersNumber(0)).ToList();
+
+            }
+            else if (sortBy == "TopRated")
+            {
+                return owners.OrderBy(o => calucaluteOwnerRating(o)).ToList();
+            }
+
+            return owners;
+        }
+        public async Task<ResultrDto<OwnerOfferDto>> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy, string Category)
         {
             List<OwnerOffer> offers;
 
@@ -127,11 +175,11 @@ namespace offerStation.EF.Services
 
             if (SortBy != "")
             {
-                offers = sortingData(offers, SortBy);
+                offers = sortingOwnerOfferData(offers, SortBy);
             }
 
 
-            OffersfilteResultrDto offerFilterResult = new OffersfilteResultrDto();
+            ResultrDto<OwnerOfferDto> offerFilterResult = new ResultrDto<OwnerOfferDto>();
             offerFilterResult.itemsCount = offers.Count();
             int recSkip = (PageNumber - 1) * pageSize;
             offers = offers.Skip(recSkip).Take(pageSize).ToList();
@@ -168,5 +216,45 @@ namespace offerStation.EF.Services
 
             return PrefPrice;
         }
+
+        public async Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId,string name ,string SortBy, string Category)
+        {
+            List<Owner> owners;
+
+            owners = await filterOwnersByCity(cityId, Category);
+
+            if (SortBy != "")
+            {
+                owners = sortingOwnerData(owners, SortBy);
+            }
+
+            if(name != "")
+            {
+               owners= owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
+            }
+
+            ResultrDto<OwnerDto> ownerResult = new ResultrDto<OwnerDto>();
+            ownerResult.itemsCount = owners.Count();
+            int recSkip = (PageNumber - 1) * pageSize;
+            owners = owners.Skip(recSkip).Take(pageSize).ToList();
+
+            List<OwnerDto> ownerDtos = new List<OwnerDto>();
+            owners.ForEach(async o =>
+            {
+                OwnerDto owner = new OwnerDto();
+                owner = _mapper.Map<OwnerDto>(o);
+
+                owner.Rating = await calucaluteOwnerRating(o);
+
+                ownerDtos.Add(owner);
+
+            });
+            ownerResult.List = ownerDtos;
+
+            return ownerResult;
+
+        }
+
+        
     }
 }

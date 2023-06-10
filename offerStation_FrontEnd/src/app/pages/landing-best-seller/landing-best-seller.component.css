@@ -1,0 +1,49 @@
+.category-container
+{
+  background-color: white;
+  border: 20px gray;
+ /* height: 90%; */
+}
+.cards-container{
+  width: 320px;
+  height: 250px;
+}
+.card{
+  height: 380px;
+}
+/* .img-fluid{
+width: 150px;
+height: 150px;
+} */
+.showAll{
+  text-decoration: none;
+  font-size: 23px;
+}
+.testimonial-card .card-up {
+  height: 120px;
+  overflow: hidden;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.aqua-gradient {
+
+}
+
+
+
+@keyframes animatedBackground {
+
+    from {background-size:contain}
+  to   {background-size:cover}
+  }
+
+.testimonial-card .avatar {
+  width: 120px;
+  margin-top: -60px;
+  overflow: hidden;
+  border: 5px solid rgb(200, 193, 202);
+  border-radius: 50%;
+}
+
+/* new*/
