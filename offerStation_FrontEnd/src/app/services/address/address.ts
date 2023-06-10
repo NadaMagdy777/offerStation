@@ -7,7 +7,7 @@ import { city } from 'src/app/sharedClassesAndTypes/city';
   providedIn: 'root'
 })
 export class AddressServiceService {
-  
+
   _url: string = 'https://localhost:7017/api/Address';
   errorMessage: any;
 
@@ -16,13 +16,20 @@ export class AddressServiceService {
       'Content-Type': 'application/json',
     }),
   };
-  
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
+
+  GetAllCities() {
+    return this.http.get(this._url + "/cities").pipe(catchError((err: any) => {
+      return throwError(() => err.message || "Server Error");
+    }));
+  }
+
 
   GetAllDoctors(): Observable<city[]> {
-    return this.http.get<city[]>(this._url+"/cities").pipe(
+    return this.http.get<city[]>(this._url + "/cities").pipe(
       catchError((err) => {
-       
+
         return throwError(() => err.message || 'server error');
       })
     );

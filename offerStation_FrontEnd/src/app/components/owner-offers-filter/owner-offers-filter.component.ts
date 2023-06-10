@@ -15,9 +15,7 @@ export class OwnerOffersFilterComponent implements OnInit{
 
 
   constructor(private addressService:AddressServiceService){
-     
-      
-  
+
   }
   setIndex(selectedcity:number){
     if(selectedcity!=this.selectedCityId){

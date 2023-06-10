@@ -53,7 +53,7 @@ namespace offerStation.EF.Services
                     o => o.AppUser.Addresses,
                 });
 
-            if (owner.IsDeleted is not true)
+            if (owner.IsDeleted is false)
             {
                 owner.Image = ownerInfo.Image;
                 owner.AppUser.Name = ownerInfo.Name;
