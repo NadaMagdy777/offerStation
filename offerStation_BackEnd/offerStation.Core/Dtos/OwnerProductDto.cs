@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OwnerProductDto
+    public class OwnerProductDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
