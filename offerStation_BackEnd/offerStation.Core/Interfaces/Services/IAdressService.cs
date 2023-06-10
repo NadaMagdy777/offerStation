@@ -11,5 +11,7 @@ namespace offerStation.Core.Interfaces.Services
     public interface IAdressService
     {
         Task<List<CityDto>> GetAllCities();
+
+        //Task<List<AddressDTO>> GetAddresses();
     }
 }

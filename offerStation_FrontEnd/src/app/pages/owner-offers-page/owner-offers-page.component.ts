@@ -19,10 +19,6 @@ export class ownerOffersPageComponent implements OnInit {
   OwnerCategory:string=""
 
   constructor(private OwnerService:OwnerService,private route:ActivatedRoute){
-     
-      
-      
-  
   }
 
   cityIdChanges(value:any){
