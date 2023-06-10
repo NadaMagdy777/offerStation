@@ -13,7 +13,7 @@
       
       <div class="row justify-content-center mt-5">
            <div class="col-3">
-            <app-owner-offers-filter  (cityId)="cityIdChanges($event)"  ></app-owner-offers-filter>
+            <app-owner-filter  (cityId)="cityIdChanges($event)"  ></app-owner-filter>
            
            </div>
            <div class="col-8" id="productDiv">
@@ -23,7 +23,7 @@
                     <select class="mr-2 form-control" id="sortDropDown" (change)="changeSorting($event)" >
                         <option selected value="">Best Match</option>
                         <option  value="MostPopular">Most Popular</option>
-                        <option  value="Cheapest">Cheapest</option>
+                        <option  value="TopRated">Top Rated</option>
                     </select>
                    
                 </div>
