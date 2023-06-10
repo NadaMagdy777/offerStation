@@ -11,9 +11,12 @@ namespace offerStation.Core.MappingProfiles
 {
     public class AddressProfile : Profile
     {
-        public AddressProfile() 
+        public AddressProfile()
         {
             CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<Address, AddressCityNameDto>()
+                .ForMember(des => des.CityName, a => a.MapFrom(src => src.City.Name))
+                .ReverseMap();
             CreateMap<City, CityDto>().ReverseMap();
         }
     }
