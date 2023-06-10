@@ -13,10 +13,12 @@ export class ownerOffersPageComponent implements OnInit {
   ProductList!:Product[]
   selectedcityId:number=0
   pageNumber:number=1
-  totalItems!:number
+  totalItems:number=0
   pagesize:number=4
+  sortBy:string=""
+  OwnerCategory:string=""
 
-  constructor(private OwnerService:OwnerService){
+  constructor(private OwnerService:OwnerService,private route:ActivatedRoute){
      
       
       
@@ -25,17 +27,18 @@ export class ownerOffersPageComponent implements OnInit {
 
   cityIdChanges(value:any){
     this.selectedcityId=value;
-    this.getproduct(this.pageNumber,this.pagesize,this.selectedcityId," ")
+    this.getproduct(this.pageNumber,this.pagesize,this.OwnerCategory,this.selectedcityId," ")
     this.pageNumber=1
 
 
   }
   ngOnInit(): void {
-    this.getproduct(1,this.pagesize,0,"")
+    this.OwnerCategory= this.route.snapshot.params['category']
+    this.getproduct(1,this.pagesize,this.OwnerCategory,this.selectedcityId,this.sortBy)
   }
   
-  getproduct(pgNum:number,pageSize:number,cityId:number,sortingBy:string){
-    this.OwnerService.GetProducts(pgNum,pageSize,cityId,sortingBy).subscribe({
+  getproduct(pgNum:number,pageSize:number,ownerCategory:string,cityId:number,sortingBy:string){
+    this.OwnerService.GetProducts(pgNum,pageSize,ownerCategory,cityId,sortingBy).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         console.log(dataJson.data)
@@ -50,9 +53,15 @@ export class ownerOffersPageComponent implements OnInit {
   }
   pageNumberChanged(value:any){
     this.pageNumber=value
-    this.getproduct(this.pageNumber,this.pagesize,this.selectedcityId," ")
+    this.getproduct(this.pageNumber,this.pagesize,this.OwnerCategory,this.selectedcityId,this.sortBy)
     this.pageNumber=1
     console.log(value);
+
+  }
+  changeSorting(selectObject:any){
+    this.sortBy=selectObject.target.value
+    this.getproduct(this.pageNumber,this.pagesize,this.OwnerCategory,this.selectedcityId,this.sortBy)
+
 
   }
 

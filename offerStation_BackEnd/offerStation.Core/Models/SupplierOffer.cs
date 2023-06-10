@@ -18,5 +18,7 @@ namespace offerStation.Core.Models
         public int SupplierID { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual List<SupplierOfferProduct> Products { get; set; }
+        public virtual List<OwnerOrderOffer> orders { get; set; }
+
     }
 }
