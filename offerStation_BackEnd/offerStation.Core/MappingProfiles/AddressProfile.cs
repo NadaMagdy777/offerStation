@@ -14,6 +14,7 @@ namespace offerStation.Core.MappingProfiles
         public AddressProfile() 
         {
             CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<City, CityDto>().ReverseMap();
         }
     }
 }

@@ -14,13 +14,15 @@ namespace offerStation.EF.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHelperService _helperService;
 
-        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CustomerService(IMapper mapper, IUnitOfWork unitOfWork, IHelperService helperService)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _helperService = helperService;
         }
 
         public async Task<CustomerInfoDto?> GetCustomer(int id)
@@ -37,12 +39,10 @@ namespace offerStation.EF.Services
             {
                 customerInfoDto = new CustomerInfoDto();
                 customerInfoDto = _mapper.Map<CustomerInfoDto>(customer);
-
-                return customerInfoDto;
             }
-            return null;
+            return customerInfoDto;
         }
-        public async Task<bool> EditCustomer(CustomerInfoDto customerInfoDto, int id)
+        public async Task<bool> EditCustomer(int id, CustomerInfoDto customerInfoDto)
         {
             Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,
                 new List<Expression<Func<Customer, object>>>()
@@ -50,41 +50,22 @@ namespace offerStation.EF.Services
                     c => c.AppUser.Addresses
                 });
 
-            if (customer is not null)
+            if (customer.IsDeleted is not false)
             {
-                customer.AppUser.FirstName = customerInfoDto.FirstName;
-                customer.AppUser.LastName = customerInfoDto.LastName;
+                customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
 
                 if(customerInfoDto.Addresses is not null)
                 {
-
-                    customer.AppUser.Addresses = await GetAddresses(customerInfoDto.Addresses, customer.AppUserId);
+                    customer.AppUser.Addresses = await _helperService.GetAddresses(customerInfoDto.Addresses, customer.AppUserId);
                 }
 
                 _unitOfWork.Customers.Update(customer);
                 _unitOfWork.Complete();
-                _unitOfWork.CommitChanges();
 
                 return true;
             }
             return false;
-        }
-        private async Task<List<Address>> GetAddresses(List<AddressDTO> addressesDto, string userId)
-        {
-            List<Address> addresses = new List<Address>();
-
-            foreach(var address in addressesDto)
-            {
-                addresses.Add(new Address
-                {
-                    CityId = address.CityId,
-                    details = address.details,
-                    UserId = userId
-                });
-            }
-
-            return addresses;
         }
     }
 }

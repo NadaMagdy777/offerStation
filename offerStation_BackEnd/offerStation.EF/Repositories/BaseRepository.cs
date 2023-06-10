@@ -28,7 +28,7 @@ namespace offerStation.EF.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>().Where(x => !x.IsDeleted).ToList();
         }
 
         public T GetById(int id)

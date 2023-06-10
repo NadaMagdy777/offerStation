@@ -99,7 +99,7 @@ namespace offerStation.EF
             if(_context.Database.CurrentTransaction is null)
             {
                 _context.Database.BeginTransaction();   
-              }
+            }
         }
 
         public int Complete()
@@ -110,8 +110,7 @@ namespace offerStation.EF
             }
             catch
             {
-                _context.Database.CurrentTransaction.Rollback();
-                 
+                _context.Database.CurrentTransaction.Rollback();             
                 return 0;
             }
         }
@@ -130,6 +129,7 @@ namespace offerStation.EF
 
         public void Dispose()
         {
+            CommitChanges();
             _context.Dispose();
         }
     }

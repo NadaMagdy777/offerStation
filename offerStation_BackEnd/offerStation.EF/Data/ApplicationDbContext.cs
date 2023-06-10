@@ -59,6 +59,152 @@ namespace offerStation.EF.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+
+            builder.Entity<City>().HasData(
+                new List<City>{
+                    new City
+                    {
+                        Id = 1,
+                        Name = "Assiut"
+                    },
+                    new City
+                    {
+                        Id = 2,
+                        Name = "Sohag"
+                    }
+                }
+            );
+
+            builder.Entity<OwnerCategory>().HasData(
+                new List<OwnerCategory>{
+                    new OwnerCategory
+                    {
+                        Id = 1,
+                        Name = "Clothes"
+                    },
+                    new OwnerCategory
+                    {
+                        Id = 2,
+                        Name = "restaurent"
+                    }
+                }
+            );
+
+
+
+            builder.Entity<SupplierCategory>().HasData(
+                new List<SupplierCategory>{
+                    new SupplierCategory
+                    {
+                        Id = 1,
+                        Name = "Clothes"
+                    },
+                    new SupplierCategory
+                    {
+                        Id = 2,
+                        Name = "restaurent"
+                    }
+                }
+            );
+            //remove when we project recieve
+            builder.Entity<ApplicationUser>().HasData(
+                new List<ApplicationUser>{
+                    new ApplicationUser
+                    {
+                        Id = "1",
+                        Name = " slasa",
+                        Email="salsa@gmail.com",
+                        NormalizedEmail="salsa@gmail.com",
+                        IsDeleted=false,
+                        UserName="salsa",
+                        NormalizedUserName="salsa",
+                        EmailConfirmed=true,
+                        PasswordHash="salsa",
+                        SecurityStamp="salsa",
+                        ConcurrencyStamp="salsa",
+                        PhoneNumber="01111111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+
+
+
+
+                    },
+                   
+                }
+            ); ;
+            builder.Entity<Owner>().HasData(
+               new List<Owner>{
+                    new Owner
+                    {
+                       AppUserId="1",
+                       Id=1,
+                       OwnerCategoryId=1,
+                       IsDeleted=false,
+
+
+
+
+                    },
+
+               }
+           ); ;
+
+            builder.Entity<OwnerOffer>().HasData(
+              new List<OwnerOffer>{
+                    new OwnerOffer
+                    {
+                    
+                       Id=1,
+                       Name="OFFER1",
+                       Description="new offer",
+                       OwnerId=1,
+                       IsDeleted=false,
+                       Price=300,
+
+
+
+
+
+                    },
+                     new OwnerOffer
+                    {
+
+                       Id=2,
+                       Name="OFFER2",
+                       Description="new offer",
+                       OwnerId=1,
+                       IsDeleted=false,
+                       Price=100,
+
+
+
+
+
+                    },
+                      new OwnerOffer
+                    {
+
+                       Id=3,
+                       Name="OFFER3",
+                       Description="new offer",
+                       OwnerId=1,
+                       IsDeleted=false,
+                       Price=500,
+
+
+
+
+
+                    },
+
+              }
+          ); ;
+
         }
     }
 }

@@ -15,12 +15,16 @@ namespace offerStation.Core.Models
         public string Description { get; set; }
         public int Discount { get; set; }
         public byte[]? Image { get; set; }
-        //[ForeignKey("Supplier")]
-        //public int SupplierId { get; set; }
-        //public virtual Supplier Supplier { get; set; }
+       
+        [ForeignKey("Supplier")]
+        public int SupplierId { get; set; }
+        public virtual Supplier Supplier { get; set; }
+        
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public virtual SupplierMenuCategory Category { get; set; }
         public virtual List<SupplierOfferProduct> Offers { get; set; }
+        public virtual List<OwnerOrderProduct> orders { get; set; }
+
     }
 }

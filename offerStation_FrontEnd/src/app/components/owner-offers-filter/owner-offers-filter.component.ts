@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AddressServiceService } from 'src/app/services/address';
+import { AddressServiceService } from 'src/app/services/address/address';
 import { city } from 'src/app/sharedClassesAndTypes/city';
 
 @Component({
@@ -16,7 +16,6 @@ export class OwnerOffersFilterComponent implements OnInit{
 
   constructor(private addressService:AddressServiceService){
      
-      
       
   
   }

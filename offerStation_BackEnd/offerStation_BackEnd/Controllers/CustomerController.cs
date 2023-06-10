@@ -25,15 +25,21 @@ namespace offerStation.API.Controllers
             
             if (customer is null)
             {
-                return BadRequest(new ApiResponse(401, false, "null object"));
+                return BadRequest(new ApiResponse(404, false, "null object"));
             }
 
             return Ok(new ApiResponse(200, true, customer));
         }
         [HttpPut("id")]
-        public async Task<ActionResult<ApiResponse>> Edit(CustomerInfoDto customerDto, int id)
+        public async Task<ActionResult<ApiResponse>> EditCustomer(int id, CustomerInfoDto customerDto)
         {
-            return Ok(await _customerService.EditCustomer(customerDto, id));
+            var success = await _customerService.EditCustomer(id, customerDto);
+
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
         }
     }
 }
