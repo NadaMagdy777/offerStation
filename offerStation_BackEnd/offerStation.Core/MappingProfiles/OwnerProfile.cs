@@ -13,7 +13,7 @@ namespace offerStation.Core.MappingProfiles
     {
         public OwnerProfile()
         {
-            CreateMap<Owner, OwnerInfoDto>()
+            CreateMap<Owner, PublicInfoDto>()
                 .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
                 .ForMember(des => des.Email, a => a.MapFrom(src => src.AppUser.Email))
                 .ForMember(des => des.Addresses, a => a.MapFrom(src => src.AppUser.Addresses))

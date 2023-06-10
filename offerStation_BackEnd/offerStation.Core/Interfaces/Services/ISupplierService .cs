@@ -10,6 +10,8 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface ISupplierService
     {
-         Task<List<SupplierCategory>> GetAllCategories();
+        Task<PublicInfoDto?> GetSupplier(int id);
+        Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
+        Task<List<SupplierCategory>> GetAllCategories();
     }
 }

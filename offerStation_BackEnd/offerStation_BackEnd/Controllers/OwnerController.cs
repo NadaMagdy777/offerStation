@@ -19,7 +19,7 @@ namespace offerStation.API.Controllers
         [HttpGet("id")]
         public async Task<ActionResult<ApiResponse>> GetOwner(int id)
         {
-            OwnerInfoDto owner = await _ownerService.GetOwner(id);
+            PublicInfoDto owner = await _ownerService.GetOwner(id);
 
             if (owner is null)
             {
@@ -28,7 +28,7 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, owner));
         }
         [HttpPut("id")]
-        public async Task<ActionResult<ApiResponse>> EditOwner(int id, OwnerInfoDto owner)
+        public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)
         {
             var success = await _ownerService.EditOwner(id, owner);
             if (success)

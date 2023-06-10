@@ -11,9 +11,9 @@ export class OwnerService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  url = Base.apiUrl + 'ResturantOwner';
+  url = Base.apiUrl + 'Owner';
 
-  GetProducts(pageNumber:number,pagesize:number,cityId:number,SortBy:string):Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>( this.url + "/All/Offers?PageNumber="+pageNumber+"&pageSize="+pagesize+"&cityId="+cityId+"&SortBy="+SortBy);
+  GetProducts(pageNumber:number,pagesize:number,ownerCategory:string,cityId:number,SortBy:string):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>( this.url + "/All/Offers?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy);
   }
 }
