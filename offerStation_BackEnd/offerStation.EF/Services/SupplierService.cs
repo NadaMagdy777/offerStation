@@ -63,6 +63,21 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> PermanentDeleteSupplier(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                supplier.Approved = false;
+                supplier.IsDeleted = true;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> SuspendSupplier(int id)
         {
             Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);

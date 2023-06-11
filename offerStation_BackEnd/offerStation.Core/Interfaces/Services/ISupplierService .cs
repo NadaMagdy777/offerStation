@@ -12,6 +12,7 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetSupplier(int id);
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
+        Task<bool> PermanentDeleteSupplier(int id);
         Task<bool> SuspendSupplier(int id);
         Task<bool> RemoveSupplierSuspension(int id);
         Task<bool> ApproveSupplier(int id);

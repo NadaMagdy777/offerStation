@@ -68,6 +68,22 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> PermanentDeleteOwner(int id)
+        {
+            Owner owner = await _unitOfWork.Owners.GetByIdAsync(id);
+
+            if (owner is not null)
+            {
+                owner.Approved = false;
+                owner.IsDeleted = true;
+
+                _unitOfWork.Owners.Update(owner);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> SuspendOwner(int id)
         {
             Owner owner = await _unitOfWork.Owners.GetByIdAsync(id);

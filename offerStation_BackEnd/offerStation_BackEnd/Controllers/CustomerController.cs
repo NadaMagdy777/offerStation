@@ -51,7 +51,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpPut("id")]
+        [HttpPut("RemoveCustomerSuspension/id")]
         public async Task<ActionResult<ApiResponse>> RemoveCustomerSuspension(int id)
         {
             bool success = await _customerService.RemoveCustomerSuspension(id);

@@ -39,6 +39,16 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpDelete("id")]
+        public async Task<ActionResult<ApiResponse>> DeleteOwner(int id)
+        {
+            bool success = await _ownerService.PermanentDeleteOwner(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpDelete("SuspendOwner/id")]
         public async Task<ActionResult<ApiResponse>> SuspendOwner(int id)
         {
             bool success = await _ownerService.SuspendOwner(id);
