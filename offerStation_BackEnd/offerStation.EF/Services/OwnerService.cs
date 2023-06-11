@@ -9,7 +9,6 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Numerics;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
@@ -118,15 +117,6 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        public bool checkAddress(List<Address> addresses, int CityID)
-        {
-            Address address = addresses.FirstOrDefault(a => a.CityId == CityID);
-            if (address != null)
-            {
-                return true;
-            }
-            return false;
-        }
       
         public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
@@ -140,7 +130,7 @@ namespace offerStation.EF.Services
             if (CityID != 0)
             {
               
-                offers = offers.Where(o =>_helperService.checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
+                offers = offers.Where(o => _helperService.checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
                 return offers;
             }
            
@@ -374,9 +364,6 @@ namespace offerStation.EF.Services
 
         }
        
-
-
-
 
     }
 }
