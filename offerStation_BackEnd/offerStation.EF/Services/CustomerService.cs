@@ -91,5 +91,18 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> DeleteReview(int id)
+        {
+            CustomerReview review = await _unitOfWork.CustomerReviews.GetByIdAsync(id);
+
+            if(review is not null)
+            {
+                _unitOfWork.CustomerReviews.Delete(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
     }
 }

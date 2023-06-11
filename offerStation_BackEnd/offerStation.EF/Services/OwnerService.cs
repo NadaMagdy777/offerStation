@@ -217,7 +217,19 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-      
+        public async Task<bool> DeleteReview(int id)
+        {
+            OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
+
+            if (review is not null)
+            {
+                _unitOfWork.OwnerReviews.Delete(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
             List<OwnerOffer> offers;

@@ -140,6 +140,16 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
+        } 
+        [HttpDelete("DeleteOwnerReview/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteOwnerReview(int id)
+        {
+            bool success = await _ownerService.DeleteReview(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpGet("AllMenuCategoriesByOwnerId/id")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategory(int id)
