@@ -11,6 +11,9 @@ namespace offerStation.Core.Interfaces.Services
     public interface ISupplierService
     {
         Task<PublicInfoDto?> GetSupplier(int id);
+        Task<List<SupplierDto>?> GetAllSuppliers();
+        Task<List<SupplierDto>?> GetWaitingSuppliers();
+        Task<List<SupplierDto>?> GetSuspendedSuppliers();
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
         Task<bool> PermanentDeleteSupplier(int id);
         Task<bool> SuspendSupplier(int id);

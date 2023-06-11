@@ -41,6 +41,48 @@ namespace offerStation.EF.Services
 
             return supplierInfo;
         }
+        public async Task<List<SupplierDto>?> GetAllSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => !o.IsDeleted && o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
+        public async Task<List<SupplierDto>?> GetSuspendedSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => o.IsDeleted && o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
+        public async Task<List<SupplierDto>?> GetWaitingSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => !o.IsDeleted && !o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
         public async Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo)
         {
             Supplier supplier = await _unitOfWork.Suppliers.FindAsync(s => s.Id == id,

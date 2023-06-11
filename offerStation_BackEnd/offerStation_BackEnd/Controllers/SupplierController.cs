@@ -28,6 +28,40 @@ namespace offerStation.API.Controllers
 
             return Ok(new ApiResponse(200, true, supplier));
         }
+        [HttpGet("GetAllSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetAllSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetAllSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+        [HttpGet("GetWaitingSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetWaitingSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetWaitingSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+        [HttpGet("GetSuspendedSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetSuspendedSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetSuspendedSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditSupplier(int id, PublicInfoDto supplierDto)
         {
