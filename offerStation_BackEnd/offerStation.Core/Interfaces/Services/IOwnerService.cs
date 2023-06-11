@@ -11,12 +11,14 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetOwner(int id);
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
+        Task<bool> DeleteProduct(int id);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<List<OwnerCategoryDto>> GetAllCategories();
         Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
-        Task<List<OwnerProductDTO>> GetProductsByMenuCategoryID(int id);
-        Task<List<OwnerProductDTO>> GetAllProductsByOwmerID(int id);
+        Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
+        Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id);
         Task<ResultrDto<OwnerOfferDto>> GetAllOffers(int PageNumber, int pageSize, int cityId, String SortBy,string Category);
-
         Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
 
     }

@@ -27,6 +27,48 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, owner));
         }
+
+        [HttpPut("id")]
+        public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)
+        {
+            var success = await _ownerService.EditOwner(id, owner);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+
+        [HttpPost("Product/id")]
+        public async Task<ActionResult<ApiResponse>> AddProduct(int ownerId, ProductDto product)
+        {
+            bool success = await _ownerService.AddProduct(ownerId, product);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPut("Product/id")]
+        public async Task<ActionResult<ApiResponse>> EditProduct(int id, ProductDto product)
+        {
+            bool success = await _ownerService.EditProduct(id, product);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("Product/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteProduct(int id)
+        {
+            bool success = await _ownerService.DeleteProduct(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         [HttpGet("AllMenuCategoriesByOwnerId/id")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategory(int id)
         {
@@ -41,7 +83,7 @@ namespace offerStation.API.Controllers
         [HttpGet("AllProductsByMenuCategoryID/id")]
         public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID(int id)
         {
-            List<OwnerProductDTO> product = await _ownerService.GetProductsByMenuCategoryID(id);
+            List<ProductInfoDto> product = await _ownerService.GetProductsByMenuCategoryID(id);
 
             if (product is null)
             {
@@ -50,32 +92,17 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, product));
         }
         [HttpGet("AllProductsByOwnerID/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int id)
+        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int ownerid)
         {
-            List<OwnerProductDTO> product = await _ownerService.GetAllProductsByOwmerID(id);
+            List<ProductInfoDto> products = await _ownerService.GetAllProductsByOwmerID(ownerid);
 
-            if (product is null)
+            if (products is null)
             {
                 return BadRequest(new ApiResponse(404, false, "null object"));
             }
-            return Ok(new ApiResponse(200, true, product));
+            return Ok(new ApiResponse(200, true, products));
         }
-        [HttpPut("id")]
-        public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)
-        {
-            var success = await _ownerService.EditOwner(id, owner);
-            if (success)
-            {
-                return Ok(new ApiResponse(200, true, success));
-            }
-            return BadRequest(new ApiResponse(500, false, "server error"));
-        }
-        //[HttpGet("id")]
-
-        //public async Task<IActionResult> getAllProductsByOwner(int ID)
-        //{
-
-        //}
+       
         [HttpGet("Categories")]
 
         public async Task<IActionResult> GetAllCategories()

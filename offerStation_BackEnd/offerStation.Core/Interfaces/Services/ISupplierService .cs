@@ -12,6 +12,10 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetSupplier(int id);
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
+        Task<bool> DeleteProduct(int id);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> AddProduct(int supplierId, ProductDto productDto);
+        Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
     }
 }

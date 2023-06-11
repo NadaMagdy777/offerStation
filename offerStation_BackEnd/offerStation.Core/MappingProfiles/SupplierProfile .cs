@@ -19,6 +19,11 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
                 .ReverseMap();
 
+            CreateMap<ProductDto, SupplierProduct>()
+                .ForMember(des => des.SupplierId, a => a.MapFrom(src => src.TraderId))
+                .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
+                .ReverseMap();
+
             CreateMap<Supplier, SupplierRegestrationDto>().ReverseMap();
             CreateMap<SupplierCategory, SupplierCategoryDto>().ReverseMap();
         }
