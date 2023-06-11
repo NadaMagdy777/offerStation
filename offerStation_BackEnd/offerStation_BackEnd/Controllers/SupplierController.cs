@@ -49,10 +49,20 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpPut("id")]
+        [HttpPut("RemoveSupplierSuspension/id")]
         public async Task<ActionResult<ApiResponse>> RemoveSupplierSuspension(int id)
         {
             bool success = await _supplierService.RemoveSupplierSuspension(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPut("Approve/id")]
+        public async Task<ActionResult<ApiResponse>> ApproveSupplier(int id)
+        {
+            bool success = await _supplierService.ApproveSupplier(id);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));

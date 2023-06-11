@@ -81,7 +81,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-         public async Task<bool> RemoveOwnerSuspension(int id)
+        public async Task<bool> RemoveOwnerSuspension(int id)
         {
             Owner owner = await _unitOfWork.Owners.GetByIdAsync(id);
 
@@ -96,7 +96,21 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> ApproveOwner(int id)
+        {
+            Owner owner = await _unitOfWork.Owners.GetByIdAsync(id);
 
+            if (owner is not null)
+            {
+                owner.Approved = true;
+
+                _unitOfWork.Owners.Update(owner);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> AddProduct(int ownerId, ProductDto productDto)
         {
             if(productDto is not null)

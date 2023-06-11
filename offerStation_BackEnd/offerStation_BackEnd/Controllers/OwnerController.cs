@@ -48,10 +48,20 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpPut("id")]
+        [HttpPut("RemoveOwnerSuspension/id")]
         public async Task<ActionResult<ApiResponse>> RemoveOwnerSuspension(int id)
         {
             bool success = await _ownerService.RemoveOwnerSuspension(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPut("Approve/id")]
+        public async Task<ActionResult<ApiResponse>> ApproveOwner(int id)
+        {
+            bool success = await _ownerService.ApproveOwner(id);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));

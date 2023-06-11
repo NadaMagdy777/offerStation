@@ -14,6 +14,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
         Task<bool> SuspendSupplier(int id);
         Task<bool> RemoveSupplierSuspension(int id);
+        Task<bool> ApproveSupplier(int id);
         Task<bool> DeleteProduct(int id);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
