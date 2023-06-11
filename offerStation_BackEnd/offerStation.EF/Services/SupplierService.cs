@@ -70,5 +70,190 @@ namespace offerStation.EF.Services
             List<SupplierCategory> supplierCategoriesDto = _mapper.Map<List<SupplierCategory>>(supplierCategories);
             return supplierCategoriesDto;
         }
+
+       
+        public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
+        {
+
+            List<SupplierOffer> offers;
+            offers = (List<SupplierOffer>)await _unitOfWork.SupplierOffers.FindAllAsync(s => s.IsDeleted == false && s.Supplier.SupplierCategory.Name == categoryName, new List<Expression<Func<SupplierOffer, object>>>()
+               {
+                   o=>o.Supplier.AppUser.Addresses,
+                   o=>o.Supplier.SupplierCategory
+            });
+            if (CityID != 0)
+            {
+               
+                offers = offers.Where(s => _helperService.checkAddress(s.Supplier.AppUser.Addresses, CityID)).ToList();
+                return offers;
+            }
+              return offers;
+
+            
+          
+        }
+
+        public async Task<List<Supplier>> filterSupplierByCity(int CityID, string categoryName)
+        {
+            List<Supplier> suppliers;
+            suppliers = (List<Supplier>)await _unitOfWork.Suppliers.FindAllAsync(s => s.IsDeleted == false && s.SupplierCategory.Name == categoryName && s.Approved == true, new List<Expression<Func<Supplier, object>>>()
+               {
+                   o=>o.AppUser.Addresses,
+                   o=>o.SupplierCategory,
+                   o=>o.Reviews
+
+            });
+            if (CityID != 0)
+            {
+                suppliers = suppliers.Where(s => _helperService.checkAddress(s.AppUser.Addresses, CityID)).ToList();
+                return suppliers;
+            }
+
+            return suppliers;
+        }
+
+        public List<SupplierOffer> sortingOfferData(List<SupplierOffer> offers, string sortBy)
+        {
+            if (sortBy == "MostPopular")
+            {
+                return offers.OrderByDescending(o => o.orders.Count).ToList();
+
+            }
+            else if (sortBy == "Cheapest")
+            {
+                return offers.OrderBy(O => O.Price).ToList();
+            }
+
+            return offers;
+        }
+        public async Task<int> calucaluteSupplierRating(Supplier supplier)
+        {
+            int ratingSum = supplier.Reviews.Select(r => r.Rating).Sum();
+            int ratingcount = supplier.Reviews.Select(r => r.Rating).Count();
+            if (ratingcount != 0)
+            {
+                return ratingSum / ratingcount;
+
+            }
+            return 0;
+
+        }
+        public async Task<int> calucaluteOrdersNumber(int supId)
+        {
+            List<OwnerOrder> SupplierOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.FindAllAsync(o=>o.SupplierId == supId);
+            return SupplierOrders.Count();
+        }
+        public List<Supplier> sortingSupplierData(List<Supplier> suppliers, string sortBy)
+        {
+            if (sortBy == "MostPopular")
+            {
+                return suppliers.OrderByDescending(s => calucaluteOrdersNumber(s.Id)).ToList();
+
+            }
+            else if (sortBy == "TopRated")
+            {
+                return suppliers.OrderBy(s => calucaluteSupplierRating(s)).ToList();
+            }
+
+            return suppliers;
+        }
+
+ 
+        public double GetPriceBeforeOffer(SupplierOffer supplierOffer)
+        {
+            List<SupplierOfferProduct> supplierOffers = (List<SupplierOfferProduct>) _unitOfWork.SupplierOfferProducts.FindAll(o => o.OfferId == supplierOffer.Id, new List<Expression<Func<SupplierOfferProduct, object>>>()
+            {
+                   o=>o.Offer.Supplier,
+                   o=>o.Product
+            });
+            double PrefPrice = supplierOffers.Select(o => o.Product.Price * o.Quantity).Sum();
+
+            return PrefPrice;
+        }
+
+        public async Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, string SortBy, string Category)
+        {
+            List<Supplier> suppliers;
+
+            suppliers = await filterSupplierByCity(cityId, Category);
+
+            if (SortBy != "")
+            {
+                suppliers = sortingSupplierData(suppliers, SortBy);
+            }
+
+            if (name != "")
+            {
+                suppliers = suppliers.Where(s => s.AppUser.Name.ToLower().Trim() == name.ToLower().Trim()).ToList();
+            }
+
+            ResultrDto<SupplierDto> suppierResult = new ResultrDto<SupplierDto>();
+            suppierResult.itemsCount = suppliers.Count();
+            int recSkip = (PageNumber - 1) * pageSize;
+            suppliers = suppliers.Skip(recSkip).Take(pageSize).ToList();
+
+            List<SupplierDto> supplierDtos = new List<SupplierDto>();
+            suppliers.ForEach(async s =>
+            {
+                SupplierDto supplier = new SupplierDto();
+                supplier = _mapper.Map<SupplierDto>(s);
+
+                supplier.Rating = await calucaluteSupplierRating(s);
+
+                supplierDtos.Add(supplier);
+
+            });
+            suppierResult.List = supplierDtos;
+
+            return suppierResult;
+
+        }
+
+        public async Task<ResultrDto<SupplierOfferDto>> filterOffersData(int pageNumber, int pageSize, int cityId, string CategoryName, string sortBy)
+        {
+            List<SupplierOffer> offers;
+
+            offers = await filterOffersByCity(cityId, CategoryName);
+
+            if (sortBy != string.Empty)
+            {
+                offers = sortingOfferData(offers, sortBy);
+            }
+
+
+            ResultrDto<SupplierOfferDto> offerFilterResult = new ResultrDto<SupplierOfferDto>();
+            offerFilterResult.itemsCount = offers.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            offers = offers.Skip(recSkip).Take(pageSize).ToList();
+
+            List<SupplierOfferDto> OfferDtos = new List<SupplierOfferDto>();
+            offers.ForEach(o =>
+            {
+                SupplierOfferDto Offer = new SupplierOfferDto();
+                Offer = _mapper.Map<SupplierOfferDto>(o);
+
+                Offer.PrefPrice = GetPriceBeforeOffer(o);
+                Offer.ownerImage = o.Supplier.Image;
+
+                OfferDtos.Add(Offer);
+
+            });
+            offerFilterResult.List = OfferDtos;
+
+            return offerFilterResult;
+
+        }
+        public async Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
+        {
+            return await filterOffersData(pageNumber, pageSize, cityId, Category, SortBy);
+
+
+        }
+        public async Task<List<SupplierOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
+        {
+
+            return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;
+
+        }
     }
 }

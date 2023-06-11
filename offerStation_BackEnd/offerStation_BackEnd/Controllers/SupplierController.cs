@@ -46,5 +46,28 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, await _supplierService.GetAllCategories()));
 
         }
+
+        [HttpGet("All/Offers/filter/WithPagination")]
+        public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
+        {
+            var data = await _supplierService.GetAllOffersWithPagination(PageNumber, pageSize, cityId, SortBy, category);
+            return Ok(new ApiResponse(200, true, data));
+
+        }
+
+        [HttpGet("All/Offers/filter/WithoutPagination")]
+        public async Task<IActionResult> getAllOffersWithotPagination(string CategoryName, string sortBy = "")
+        {
+            var data = await _supplierService.GetAllOffersWithoutPagination(CategoryName, sortBy);
+            return Ok(new ApiResponse(200, true, data));
+
+        }
+        [HttpGet("All/Filter/Pagination")]
+        public async Task<IActionResult> getAllSuppli(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "", string name = "")
+        {
+            var data = await _supplierService.getSupplierByCategory(PageNumber, pageSize, cityId, name, SortBy, category);
+            return Ok(new ApiResponse(200, true, data));
+
+        }
     }
 }
