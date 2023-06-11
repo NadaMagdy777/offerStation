@@ -111,14 +111,22 @@ namespace offerStation.API.Controllers
 
         }
 
-        [HttpGet("All/Offers")]
-        public async Task<IActionResult> getAllOffers(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
+        [HttpGet("All/Offers/filter/WithPagination")]
+        public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {
-            var data = await _ownerService.GetAllOffers(PageNumber, pageSize, cityId, SortBy,category);
+            var data = await _ownerService.GetAllOffersWithPagination(PageNumber, pageSize, cityId, SortBy,category);
             return Ok(new ApiResponse(200, true,data));
 
         }
-        [HttpGet("All")]
+
+        [HttpGet("All/Offers/filter/WithoutPagination")]
+        public async Task<IActionResult> getAllOffersWithotPagination(string CategoryName,string sortBy="")
+        {
+            var data = await _ownerService.GetAllOffersWithoutPagination(CategoryName,sortBy);
+            return Ok(new ApiResponse(200, true, data));
+
+        }
+        [HttpGet("All/Filter/Pagination")]
         public async Task<IActionResult> getAllOwners(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "",string name="")
         {
             var data = await _ownerService.getOwnersByCategory(PageNumber, pageSize, cityId, name,SortBy, category);
