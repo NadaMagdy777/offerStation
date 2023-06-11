@@ -27,7 +27,6 @@ export class LoginComponent {
   error: string = ''
 
   submitData() {    
-    console.log(this.loginForm.value);
     
     this._AuthenticationService.login(this.loginForm.value).subscribe({
       next:data=>{        
