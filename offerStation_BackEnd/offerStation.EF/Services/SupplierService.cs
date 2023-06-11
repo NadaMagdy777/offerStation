@@ -63,6 +63,19 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> SuspendSupplier(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                _unitOfWork.Suppliers.Delete(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        
         public async Task<bool> AddProduct(int supplierId, ProductDto productDto)
         {
             if (productDto is not null)
@@ -100,7 +113,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> DeleteProduct(int id)
         {
-            SupplierProduct product = await _unitOfWork.SupplierProducts.FindAsync(p => p.Id == id);
+            SupplierProduct product = await _unitOfWork.SupplierProducts.GetByIdAsync(id);
 
             if (product is not null)
             {

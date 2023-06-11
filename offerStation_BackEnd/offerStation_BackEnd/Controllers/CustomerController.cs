@@ -34,13 +34,22 @@ namespace offerStation.API.Controllers
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditCustomer(int id, CustomerInfoDto customerDto)
         {
-            var success = await _customerService.EditCustomer(id, customerDto);
-
+            bool success = await _customerService.EditCustomer(id, customerDto);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("id")]
+        public async Task<ActionResult<ApiResponse>> DeleteCustomer(int id)
+        {
+            bool success = await _customerService.DeleteCustomer(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
         }
     }
 }

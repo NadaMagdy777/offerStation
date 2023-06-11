@@ -29,7 +29,7 @@ namespace offerStation.EF.Services
         {
             CustomerInfoDto customerInfoDto = null;
 
-            Customer? customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,
+            Customer? customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id && !c.IsDeleted,
                 new List<Expression<Func<Customer, object>>>()
                 {
                     c => c.AppUser,
@@ -44,19 +44,32 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditCustomer(int id, CustomerInfoDto customerInfoDto)
         {
-            Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id, 
+            Customer customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id && !c.IsDeleted, 
                 new List<Expression<Func<Customer, object>>>()
                 {
                     c => c.AppUser
                 });
 
-            if (customer.IsDeleted is false)
+            if (customer is not null)
             {
                 customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.Email = customerInfoDto.Email;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
 
                 _unitOfWork.Customers.Update(customer);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCustomer(int id)
+        {
+            Customer customer = await _unitOfWork.Customers.GetByIdAsync(id);
+            
+            if (customer is not null)
+            {
+                _unitOfWork.Customers.Delete(customer);
                 _unitOfWork.Complete();
 
                 return true;

@@ -11,9 +11,10 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetOwner(int id);
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
-        Task<bool> DeleteProduct(int id);
-        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> DeleteOwner(int id);
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> DeleteProduct(int id);
         Task<List<OwnerCategoryDto>> GetAllCategories();
         Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);

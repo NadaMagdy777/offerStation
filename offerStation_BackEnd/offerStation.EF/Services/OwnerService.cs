@@ -68,6 +68,19 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> DeleteOwner(int id)
+        {
+            Owner owner = await _unitOfWork.Owners.GetByIdAsync(id);
+
+            if (owner is not null)
+            {
+                _unitOfWork.Owners.Delete(owner);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
 
         public async Task<bool> AddProduct(int ownerId, ProductDto productDto)
         {
@@ -106,7 +119,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> DeleteProduct(int id)
         {
-            OwnerProduct product = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == id);
+            OwnerProduct product = await _unitOfWork.OwnerProducts.GetByIdAsync(id);
 
             if(product is not null)
             {
