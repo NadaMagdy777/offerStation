@@ -119,8 +119,13 @@ namespace offerStation.EF.Services
             {
                 return offers.OrderBy(O => O.Price).ToList();
             }
+            else
+            {
+                return offers.OrderByDescending(O => O.CreatedTime).ToList();
+
+            }
+
             
-            return offers;
         }
         public async Task<int> calucaluteOwnerRating(Owner owner)
         {
