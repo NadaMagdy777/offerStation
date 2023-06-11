@@ -13,7 +13,7 @@ namespace offerStation.Core.Dtos
     }
     public class OwnerCategoryInfoDto
     {
-        public byte[]? Image { get; set; }
         public string Name { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

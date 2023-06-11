@@ -143,6 +143,36 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        [HttpPost("SupplierCategory")]
+        public async Task<ActionResult<ApiResponse>> AddSupplierCategory(SupplierCategoryInfoDto category)
+        {
+            bool success = await _supplierService.AddCategory(category);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPut("SupplierCategory/id")]
+        public async Task<ActionResult<ApiResponse>> EditSupplierCategory(int id, SupplierCategoryInfoDto category)
+        {
+            bool success = await _supplierService.EditCategory(id, category);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("SupplierCategory/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteSupplierCategory(int id)
+        {
+            bool success = await _supplierService.DeleteCategory(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         [HttpGet("allProducts/id")]
         public async Task<ActionResult<ApiResponse>> GetAllProductsBySupplierId(int supplierId)
         {
