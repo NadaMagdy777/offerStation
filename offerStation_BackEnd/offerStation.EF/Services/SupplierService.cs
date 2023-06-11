@@ -208,6 +208,49 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto)
+        {
+            if (categoryDto is not null)
+            {
+                SupplierCategory category = new SupplierCategory();
+                category = _mapper.Map<SupplierCategory>(categoryDto);
+
+                _unitOfWork.SupplierCategories.Add(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null && categoryDto is not null)
+            {
+                category.Name = categoryDto.Name;
+                category.Image = categoryDto.Image;
+
+                _unitOfWork.SupplierCategories.Update(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCategory(int id)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null)
+            {
+                _unitOfWork.SupplierCategories.Delete(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<ProductInfoDto>?> GetAllProducts(int supplierId)
         {
             List<ProductInfoDto> products = null;

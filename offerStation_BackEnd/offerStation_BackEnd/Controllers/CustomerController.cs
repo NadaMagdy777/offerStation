@@ -61,5 +61,15 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
+        [HttpDelete("DeleteCustomerReview/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteCustomerReview(int id)
+        {
+            bool success = await _customerService.DeleteReview(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
     }
 }

@@ -185,7 +185,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditProduct(int id, ProductDto productDto)
         {
-            OwnerProduct product = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == id);
+            OwnerProduct product = await _unitOfWork.OwnerProducts.GetByIdAsync(id);
 
             if(product is not null && productDto is not null)
             {
@@ -217,7 +217,62 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-      
+        public async Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto)
+        {
+            if (categoryDto is not null)
+            {
+                OwnerCategory category = new OwnerCategory();
+                category = _mapper.Map<OwnerCategory>(categoryDto);
+
+                _unitOfWork.OwnerCategories.Add(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto)
+        {
+            OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
+
+            if (category is not null && categoryDto is not null)
+            {
+                category.Name =  categoryDto.Name;
+                category.Image =  categoryDto.Image;
+
+                _unitOfWork.OwnerCategories.Update(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCategory(int id)
+        {
+            OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
+
+            if (category is not null)
+            {
+                _unitOfWork.OwnerCategories.Delete(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteReview(int id)
+        {
+            OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
+
+            if (review is not null)
+            {
+                _unitOfWork.OwnerReviews.Delete(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
             List<OwnerOffer> offers;
