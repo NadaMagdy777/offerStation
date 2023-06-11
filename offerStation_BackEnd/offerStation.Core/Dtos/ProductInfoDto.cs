@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OwnerProductDTO
+    public class ProductInfoDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,7 +14,5 @@ namespace offerStation.Core.Dtos
         public string Description { get; set; }
         public int Discount { get; set; }
         public byte[]? Image { get; set; }
-
-
     }
 }

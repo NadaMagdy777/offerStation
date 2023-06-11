@@ -39,8 +39,47 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        [HttpPost("Product/id")]
+        public async Task<ActionResult<ApiResponse>> AddProduct(int supplierId, ProductDto product)
+        {
+            bool success = await _supplierService.AddProduct(supplierId, product);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPut("Product/id")]
+        public async Task<ActionResult<ApiResponse>> EditProduct(int id, ProductDto product)
+        {
+            bool success = await _supplierService.EditProduct(id, product);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("Product/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteProduct(int id)
+        {
+            bool success = await _supplierService.DeleteProduct(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpGet("allProducts/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsBySupplierId(int supplierId)
+        {
+            List<ProductInfoDto> products = await _supplierService.GetAllProducts(supplierId);
+            if(products is not null)
+            {
+                return Ok(new ApiResponse(200, true, products));
+            }
+            return BadRequest(new ApiResponse(404, false, "null object"));
+        }
         [HttpGet("Categories")]
-
         public async Task<IActionResult> GetAllCategories()
         {
             return Ok(new ApiResponse(200, true, await _supplierService.GetAllCategories()));

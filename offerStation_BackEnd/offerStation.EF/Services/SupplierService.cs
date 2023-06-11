@@ -63,7 +63,68 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> AddProduct(int supplierId, ProductDto productDto)
+        {
+            if (productDto is not null)
+            {
+                SupplierProduct product = new SupplierProduct();
+                product = _mapper.Map<SupplierProduct>(productDto);
 
+                _unitOfWork.SupplierProducts.Add(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditProduct(int id, ProductDto productDto)
+        {
+            SupplierProduct product = await _unitOfWork.SupplierProducts.FindAsync(p => p.Id == id);
+
+            if (product is not null && productDto is not null)
+            {
+                product.Name = productDto.Name;
+                product.Price = productDto.Price;
+                product.Image = productDto.Image;
+                product.Discount = productDto.Discount;
+                product.SupplierId = productDto.TraderId;
+                product.CategoryId = productDto.CategoryId;
+                product.Description = productDto.Description;
+
+                _unitOfWork.SupplierProducts.Update(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteProduct(int id)
+        {
+            SupplierProduct product = await _unitOfWork.SupplierProducts.FindAsync(p => p.Id == id);
+
+            if (product is not null)
+            {
+                _unitOfWork.SupplierProducts.Delete(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<List<ProductInfoDto>?> GetAllProducts(int supplierId)
+        {
+            List<ProductInfoDto> products = null;
+
+            IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts
+                .FindAllAsync(p => p.SupplierId == supplierId && !p.IsDeleted);
+
+            if(supplierProducts is not null)
+            {
+                products = _mapper.Map<List<ProductInfoDto>>(supplierProducts);
+            }
+
+            return products;
+        }
         public async Task<List<SupplierCategory>> GetAllCategories()
         {
             List<SupplierCategory> supplierCategories = (List<SupplierCategory>) _unitOfWork.SupplierCategories.GetAll();

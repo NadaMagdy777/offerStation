@@ -12,6 +12,10 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetSupplier(int id);
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
+        Task<bool> DeleteProduct(int id);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> AddProduct(int supplierId, ProductDto productDto);
+        Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
         Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);

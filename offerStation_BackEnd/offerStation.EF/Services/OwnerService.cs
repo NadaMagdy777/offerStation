@@ -9,9 +9,9 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Numerics;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace offerStation.EF.Services
@@ -69,6 +69,54 @@ namespace offerStation.EF.Services
             return false;
         }
 
+        public async Task<bool> AddProduct(int ownerId, ProductDto productDto)
+        {
+            if(productDto is not null)
+            {
+                OwnerProduct product = new OwnerProduct();
+                product = _mapper.Map<OwnerProduct>(productDto);
+
+                _unitOfWork.OwnerProducts.Add(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditProduct(int id, ProductDto productDto)
+        {
+            OwnerProduct product = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == id);
+
+            if(product is not null && productDto is not null)
+            {
+                product.Name = productDto.Name;
+                product.Price = productDto.Price;
+                product.Image = productDto.Image;
+                product.OwnerId = productDto.TraderId;
+                product.Discount = productDto.Discount;
+                product.CategoryId = productDto.CategoryId;
+                product.Description = productDto.Description;
+               
+                _unitOfWork.OwnerProducts.Update(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteProduct(int id)
+        {
+            OwnerProduct product = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == id);
+
+            if(product is not null)
+            {
+                _unitOfWork.OwnerProducts.Delete(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
       
         public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
@@ -82,7 +130,7 @@ namespace offerStation.EF.Services
             if (CityID != 0)
             {
               
-                offers = offers.Where(o =>_helperService.checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
+                offers = offers.Where(o => _helperService.checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
                 return offers;
             }
            
@@ -185,18 +233,18 @@ namespace offerStation.EF.Services
             return MenuCategoriesDTOs;
 
         }
-        public async Task<List<OwnerProductDTO>> GetProductsByMenuCategoryID(int id)
+        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id)
 
         {
-            List<OwnerProductDTO> OwnerProductsDTOs;
+            List<ProductInfoDto> OwnerProductsDTOs;
 
-            OwnerProductsDTOs = new List<OwnerProductDTO>();
+            OwnerProductsDTOs = new List<ProductInfoDto>();
             IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id);
 
 
             foreach (OwnerProduct product in result)
             {
-                OwnerProductDTO ProductDTO = new OwnerProductDTO();
+                ProductInfoDto ProductDTO = new ProductInfoDto();
                 ProductDTO.Price = product.Price;
                 ProductDTO.Description = product.Description;
                 ProductDTO.Name = product.Name;
@@ -210,30 +258,19 @@ namespace offerStation.EF.Services
             return OwnerProductsDTOs;
 
         }
-        public async Task<List<OwnerProductDTO>> GetAllProductsByOwmerID(int id)
-
+        public async Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id)
         {
-            List<OwnerProductDTO> OwnerProductsDTOs;
+            List<ProductInfoDto> OwnerProductsDTOs = null;
 
-            OwnerProductsDTOs = new List<OwnerProductDTO>();
-            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.OwnerId == id);
+            IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts
+                .FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
 
 
-            foreach (OwnerProduct product in result)
+            if(ownerProducts is not null)
             {
-                OwnerProductDTO ProductDTO = new OwnerProductDTO();
-                ProductDTO.Price = product.Price;
-                ProductDTO.Description = product.Description;
-                ProductDTO.Name = product.Name;
-                ProductDTO.Id = product.Id;
-                ProductDTO.Image = product.Image;
-                ProductDTO.Discount = product.Discount;
-
-
-                OwnerProductsDTOs.Add(ProductDTO);
+                OwnerProductsDTOs = _mapper.Map<List<ProductInfoDto>>(ownerProducts);
             }
             return OwnerProductsDTOs;
-
         }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
@@ -332,9 +369,6 @@ namespace offerStation.EF.Services
 
         }
        
-
-
-
 
     }
 }
