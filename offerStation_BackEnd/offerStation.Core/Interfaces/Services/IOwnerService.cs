@@ -12,6 +12,9 @@ namespace offerStation.Core.Interfaces.Services
         Task<PublicInfoDto?> GetOwner(int id);
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
         Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
+        Task<List<OwnerProductDTO>> GetProductsByMenuCategoryID(int id);
+        Task<List<OwnerProductDTO>> GetAllProductsByOwmerID(int id);
         Task<ResultrDto<OwnerOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy,string Category);
 
         Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);

@@ -27,12 +27,8 @@ export class CustomerprofileService {
     }));
   }
 
-  UpdateCustomerInfo(id: number, customer: any): Observable<CustomerEdit> {
-    return this.http.put<CustomerEdit>(
-      `${this.apiURL}/id?id=${id}`,
-      JSON.stringify(customer),
-      this.httpOptions)
-      .pipe(catchError((err) => {
+  UpdateCustomerInfo(id: number, profileForm: any) {
+    return this.http.put(`${this.apiURL}/id?id=${id}`, profileForm).pipe(catchError((err) => {
         return throwError(() => err.message || "server error");
       }));
   }
@@ -42,4 +38,5 @@ export class CustomerprofileService {
       return throwError(() => err.message || "Server Error");
     }));
   }
+
 }

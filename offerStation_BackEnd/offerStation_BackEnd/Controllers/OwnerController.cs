@@ -27,6 +27,39 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, owner));
         }
+        [HttpGet("AllMenuCategoriesByOwnerId/id")]
+        public async Task<ActionResult<ApiResponse>> GetMenuCategory(int id)
+        {
+            List<OwnerMenuCategoriesNameDTO> menu = await _ownerService.GetMenuCategoiesByOwnerId(id);
+
+            if (menu is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, menu));
+        }
+        [HttpGet("AllProductsByMenuCategoryID/id")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID(int id)
+        {
+            List<OwnerProductDTO> product = await _ownerService.GetProductsByMenuCategoryID(id);
+
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
+        [HttpGet("AllProductsByOwnerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int id)
+        {
+            List<OwnerProductDTO> product = await _ownerService.GetAllProductsByOwmerID(id);
+
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)
         {

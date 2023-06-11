@@ -160,6 +160,76 @@ namespace offerStation.EF.Services
             List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
             return ownerCategoriesDto;
         }
+
+
+        public async Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id)
+
+        {
+            List<OwnerMenuCategoriesNameDTO> MenuCategoriesDTOs;
+
+            MenuCategoriesDTOs = new List<OwnerMenuCategoriesNameDTO>();
+            IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id);
+
+            foreach (OwnerMenuCategory menu in result)
+            {
+                OwnerMenuCategoriesNameDTO MenuDTO = new OwnerMenuCategoriesNameDTO();  
+                MenuDTO.Id = menu.Id;
+                MenuDTO.MenuName = menu.MenuName;
+                MenuCategoriesDTOs.Add(MenuDTO);
+            }
+            return MenuCategoriesDTOs;
+
+        }
+        public async Task<List<OwnerProductDTO>> GetProductsByMenuCategoryID(int id)
+
+        {
+            List<OwnerProductDTO> OwnerProductsDTOs;
+
+            OwnerProductsDTOs = new List<OwnerProductDTO>();
+            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id);
+
+
+            foreach (OwnerProduct product in result)
+            {
+                OwnerProductDTO ProductDTO = new OwnerProductDTO();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Image = product.Image;
+                ProductDTO.Discount = product.Discount;
+
+
+                OwnerProductsDTOs.Add(ProductDTO);
+            }
+            return OwnerProductsDTOs;
+
+        }
+        public async Task<List<OwnerProductDTO>> GetAllProductsByOwmerID(int id)
+
+        {
+            List<OwnerProductDTO> OwnerProductsDTOs;
+
+            OwnerProductsDTOs = new List<OwnerProductDTO>();
+            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.OwnerId == id);
+
+
+            foreach (OwnerProduct product in result)
+            {
+                OwnerProductDTO ProductDTO = new OwnerProductDTO();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Image = product.Image;
+                ProductDTO.Discount = product.Discount;
+
+
+                OwnerProductsDTOs.Add(ProductDTO);
+            }
+            return OwnerProductsDTOs;
+
+        }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
             List<OwnerOfferProduct> ownerOffers = (List<OwnerOfferProduct>)_unitOfWork.OwnerOfferProducts.FindAll(o => o.OfferId == ownerOffer.Id, new List<Expression<Func<OwnerOfferProduct, object>>>()

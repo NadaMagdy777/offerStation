@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
 
 @Component({
@@ -7,23 +8,39 @@ import { CustomerprofileService } from 'src/app/services/Customerprofile/custome
   styleUrls: ['./addresses.component.css']
 })
 export class AddressesComponent implements OnInit {
+
   AddressList: any;
   errorMessage: any;
+  address: any;
+
+  CityList: any;
+  display = '';
+
+  addressForm = this.fb.group({
+    cityID: [''],
+    details: [''],
+    cityName: ['']
+  })
 
   constructor(
-    private customerServ: CustomerprofileService,
+    private customerServ: CustomerprofileService, private fb: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
-    this.customerServ.GetCustomerById(1).subscribe({
-      next: (data: any) => {
-        // console.log(data);
-        let dataJson = JSON.parse(JSON.stringify(data))
-        this.AddressList = dataJson.data.addresses;
-        console.log(this.AddressList);
-      },
-      error: (error: any) => this.errorMessage = error,
-    });
+
   }
+  openEmailModal() {
+    this.display = 'block';
+  }
+
+  onCloseEmailHandled() {
+    this.display = 'none';
+  }
+
+  //Address Form
+  get details() {
+    return this.addressForm.get('details');
+  }
+
 }

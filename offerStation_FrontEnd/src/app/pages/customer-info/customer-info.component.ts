@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
 import { AddressServiceService } from 'src/app/services/address/address';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 
 @Component({
@@ -17,94 +17,46 @@ export class CustomerInfoComponent implements OnInit {
   errorMessage: any;
   isUpdated: boolean = false;
 
-  AddressList: string[] = [];
-  CitiesList: string[] = [];
-  selectedCity!: string;
+  CustomerInfoForm: any = this.fb.group({
+    name: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
+    email: ['', [Validators.required]]
+  });
 
-  customer: Customer = {
-    name: '',
-    phoneNumber: '',
-    details: '',
-    city: '',
-    // addresses: [],
-    // cityId: 0
-  };
-
-  CustomerInfoForm: FormGroup;
-
-  constructor(private fb: FormBuilder,
-    private customerServ: CustomerprofileService,
-    private _addressService: AddressServiceService,
-    private _userAuthServ: AuthenticationService,
-  ) {
-    this.CustomerInfoForm = this.fb.group({
-      name: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
-      addresses: this.fb.group({
-        city: ['', [Validators.required]],
-        details: ['', [Validators.required]],
-      })
-    });
-
-    this.CustomerInfoForm.get('name')?.valueChanges.subscribe((data) => {
-      this.customer.name = data;
-    });
-    this.CustomerInfoForm.get('phoneNumber')?.valueChanges.subscribe((data) => {
-      this.customer.phoneNumber = data;
-    });
-    this.CustomerInfoForm.controls['addresses'].get('city')?.valueChanges.subscribe((data) => {
-      this.customer.city = data;
-      this.selectedCity = data;
-    });
-    this.CustomerInfoForm.controls['addresses'].get('details')?.valueChanges.subscribe((data) => {
-      this.customer.details = data;
-    });
-  }
+  constructor(private fb: FormBuilder, private customerServ: CustomerprofileService) { }
 
   ngOnInit(): void {
+
     this.customerServ.GetCustomerById(1).subscribe({
       next: (data: any) => {
         // console.log(data);
-        let dataJson = JSON.parse(JSON.stringify(data))
-        this.customer = dataJson.data;
-        this.AddressList = dataJson.data.addresses;
-        console.log(this.AddressList);
-        this.LoadFormData();
+        this.CustomerInfoForm.patchValue({
+          name: data.name,
+          phoneNumber: data.phoneNumber,
+          email: data.email
+        })
         // console.log(this.CustomerInfoForm.value)
       },
       error: (error: any) => this.errorMessage = error,
     });
 
-    this._addressService.GetAllCities().subscribe({
-      next: (data: any) => {
-        this.CitiesList = data;
-        // console.log(this.CitiesList)
-      },
-      error: (error: any) => this.errorMessage = error,
-    });
-
   }
 
-  LoadFormData(): void {
-    // this.AddressList = this.customer.addresses;
-    this.CustomerInfoForm.patchValue({
-      name: this.customer.name,
-      phoneNumber: this.customer.phoneNumber,
-      addresses: {
-        details: this.customer.details,
-        city: this.customer.city
-      }
-    })
-  }
-  updateCustomerInfo(): void {
+  SubmitData() {
+    console.log(this.CustomerInfoForm.value);
+
     if (window.confirm('Are you sure, you want to update?')) {
-      this.customerServ.UpdateCustomerInfo(1, this.customer)
-        .subscribe();
+      this.customerServ.UpdateCustomerInfo(1, this.CustomerInfoForm.value).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.CustomerInfo = data;
+        },
+        error: (error: any) => this.errorMessage = error,
+      });
     }
-
     this.isUpdated = !this.isUpdated;
-  }
 
+  }
   //Customer Info Form
 
   get name() {
@@ -113,16 +65,8 @@ export class CustomerInfoComponent implements OnInit {
   get phoneNumber() {
     return this.CustomerInfoForm.get('phoneNumber');
   }
-  get city() {
-    return this.CustomerInfoForm.controls['addresses'].get('city');
-  }
-  get details() {
-    return this.CustomerInfoForm.controls['addresses'].get('details');
+  get email() {
+    return this.CustomerInfoForm.get('email');
   }
 
-  // Cancel(): void {
-  //   if (window.confirm('Are you sure, you want to cancel, you are about to lose the new data?')) {
-  //     this.LoadFormData();
-  //   }
-  // }
 }

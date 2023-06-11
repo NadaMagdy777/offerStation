@@ -15,5 +15,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> EditAddress(int id, AddressDTO addressDTO);
         Task<bool> DeleteAddress(int id);
         Task<List<CityDto>> GetAllCities();
+
+        //Task<List<AddressDTO>> GetAddresses();
     }
 }

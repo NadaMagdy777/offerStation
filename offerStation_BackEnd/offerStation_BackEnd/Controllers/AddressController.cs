@@ -61,5 +61,12 @@ namespace offerStation.API.Controllers
         {
             return Ok(new ApiResponse(200, true, await _addressService.GetAllCities()));
         }
+
+        //[HttpGet("Addresses")]
+        //public async Task<ActionResult> GetAddresses()
+        //{
+        //    return Ok(await _addressService.GetAddresses());
+        //}
+
     }
 }
