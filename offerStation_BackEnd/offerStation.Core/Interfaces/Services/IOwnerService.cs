@@ -10,6 +10,9 @@ namespace offerStation.Core.Interfaces.Services
     public interface IOwnerService
     {
         Task<PublicInfoDto?> GetOwner(int id);
+        Task<List<OwnerDto>?> GetAllOwners();
+        Task<List<OwnerDto>?> GetWaitingOwners();
+        Task<List<OwnerDto>?> GetSuspendedOwners();
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
         Task<bool> PermanentDeleteOwner(int id);
         Task<bool> SuspendOwner(int id);

@@ -27,6 +27,39 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, owner));
         }
+        [HttpGet("GetAllOwners")]
+        public async Task<ActionResult<ApiResponse>> GetAllOwners()
+        {
+            List<OwnerDto> ownerList = await _ownerService.GetAllOwners();
+
+            if (ownerList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, ownerList));
+        }
+        [HttpGet("GetWaitingOwners")]
+        public async Task<ActionResult<ApiResponse>> GetWaitingOwners()
+        {
+            List<OwnerDto> ownerList = await _ownerService.GetWaitingOwners();
+
+            if (ownerList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, ownerList));
+        }
+        [HttpGet("GetSuspendedOwners")]
+        public async Task<ActionResult<ApiResponse>> GetSuspendedOwners()
+        {
+            List<OwnerDto> ownerList = await _ownerService.GetSuspendedOwners();
+
+            if (ownerList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, ownerList));
+        }
 
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditOwner(int id, PublicInfoDto owner)

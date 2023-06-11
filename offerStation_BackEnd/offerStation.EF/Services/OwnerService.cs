@@ -46,6 +46,48 @@ namespace offerStation.EF.Services
 
             return ownerInfo;
         }
+        public async Task<List<OwnerDto>?> GetAllOwners()
+        {
+            List<OwnerDto> ownerDtoList = null;
+
+            IEnumerable<Owner> ownerList = await _unitOfWork.Owners
+                .FindAllAsync(o => !o.IsDeleted && o.Approved);
+
+            if (ownerList is not null)
+            {
+                ownerDtoList = new List<OwnerDto>();
+                ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
+            }
+            return ownerDtoList;
+        }
+        public async Task<List<OwnerDto>?> GetSuspendedOwners()
+        {
+            List<OwnerDto> ownerDtoList = null;
+
+            IEnumerable<Owner> ownerList = await _unitOfWork.Owners
+                .FindAllAsync(o => o.IsDeleted && o.Approved);
+
+            if(ownerList is not null)
+            {
+                ownerDtoList = new List<OwnerDto>();
+                ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
+            }
+            return ownerDtoList;
+        }
+        public async Task<List<OwnerDto>?> GetWaitingOwners()
+        {
+            List<OwnerDto> ownerDtoList = null;
+
+            IEnumerable<Owner> ownerList = await _unitOfWork.Owners
+                .FindAllAsync(o => !o.IsDeleted && !o.Approved);
+
+            if(ownerList is not null)
+            {
+                ownerDtoList = new List<OwnerDto>();
+                ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
+            }
+            return ownerDtoList;
+        }
         public async Task<bool> EditOwner(int id, PublicInfoDto ownerInfo)
         {
             Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == id,
