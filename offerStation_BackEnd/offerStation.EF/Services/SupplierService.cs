@@ -75,7 +75,20 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        
+        public async Task<bool> RemoveSupplierSuspension(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                supplier.IsDeleted = false;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> AddProduct(int supplierId, ProductDto productDto)
         {
             if (productDto is not null)

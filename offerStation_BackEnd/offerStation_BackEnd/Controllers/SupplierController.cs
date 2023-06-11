@@ -49,7 +49,16 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        
+        [HttpPut("id")]
+        public async Task<ActionResult<ApiResponse>> RemoveSupplierSuspension(int id)
+        {
+            bool success = await _supplierService.RemoveSupplierSuspension(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
         [HttpPost("Product/id")]
         public async Task<ActionResult<ApiResponse>> AddProduct(int supplierId, ProductDto product)
         {

@@ -11,7 +11,8 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetOwner(int id);
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
-        Task<bool> DeleteOwner(int id);
+        Task<bool> SuspendOwner(int id);
+        Task<bool> RemoveOwnerSuspension(int id);
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
