@@ -1,4 +1,5 @@
-﻿using System;
+﻿using offerStation.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,8 @@ namespace offerStation.Core.Models
     public class CustomerOrder : BaseModel
     {
         public int Id { get; set; }
+        public DateTime orderDate { get; set; }
+        public OrderStatus  orderStatus { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

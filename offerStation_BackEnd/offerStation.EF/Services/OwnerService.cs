@@ -329,7 +329,8 @@ namespace offerStation.EF.Services
                {
                    o=>o.AppUser.Addresses,
                    o=>o.OwnerCategory,
-                   o=>o.CustomersReviews
+                   o=>o.CustomersReviews,
+                   o=>o.CustomerOrders
 
             });
             if (CityID != 0)
@@ -390,16 +391,16 @@ namespace offerStation.EF.Services
         //    }
         //    return reviewListDto;
         //}
-        public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
+        public async Task<int> calucaluteOwnerOrdersNumber(Owner owner)
         {
-            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
+            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == owner.Id);
             return OwnerOrders.Count();
         }
         public List<Owner> sortingOwnerData(List<Owner> owners, string sortBy)
         {
             if (sortBy == "MostPopular")
             {
-                return owners.OrderByDescending(o => calucaluteOwnerOrdersNumber(o.Id)).ToList();
+                return owners.OrderByDescending(o=>o.CustomerOrders.Count()).ToList();
 
             }
             else if (sortBy == "TopRated")

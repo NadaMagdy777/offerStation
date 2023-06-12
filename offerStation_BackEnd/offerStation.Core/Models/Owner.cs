@@ -23,5 +23,10 @@ namespace offerStation.Core.Models
         public virtual List<OwnerProduct> OwnerProducts { get; set; }
         public virtual List<OwnerReview> SuppliersReviews { get; set; }
         public virtual List<CustomerReview> CustomersReviews { get; set; }
+
+        public virtual List<CustomerOrder> CustomerOrders { get; set; }
+        public virtual List<OwnerOrder> OwnerOrders { get; set; }
+
+
     }
 }
