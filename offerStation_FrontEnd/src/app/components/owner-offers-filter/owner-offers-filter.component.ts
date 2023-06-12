@@ -27,16 +27,16 @@ export class OwnerOffersFilterComponent implements OnInit {
   }
   ngOnInit(): void {
     this.addressService.GetAllCities().subscribe({
-      next:data=>{
+      next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
-        this.cities=dataJson.data
+        this.cities = dataJson.data
         console.log(this.selectedCityId)
 
       },
-      error:error=>{console.log(error)}
+      error: error => { console.log(error) }
     }
 
-      )
+    )
   }
 
 }

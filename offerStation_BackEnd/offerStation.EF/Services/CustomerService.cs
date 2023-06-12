@@ -27,6 +27,7 @@ namespace offerStation.EF.Services
 
         public async Task<CustomerInfoDto?> GetCustomer(int id)
         {
+
             CustomerInfoDto customerInfoDto = null;
 
             Customer? customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id,

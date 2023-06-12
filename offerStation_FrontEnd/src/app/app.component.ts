@@ -8,5 +8,5 @@ import { ProductCardComponent } from './components/product-card/product-card.com
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'offerStation_FrontEnd';
+  title = 'offerStation';
 }

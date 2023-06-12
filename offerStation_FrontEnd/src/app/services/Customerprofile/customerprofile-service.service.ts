@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Base } from 'src/app/sharedClassesAndTypes/Base';
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
-import { CustomerEdit } from 'src/app/sharedClassesAndTypes/CustomerEdit';
 
 @Injectable({
   providedIn: 'root'
