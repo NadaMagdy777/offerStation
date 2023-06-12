@@ -124,7 +124,8 @@ namespace offerStation.EF.Services
             offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
-                   o=>o.Owner.OwnerCategory
+                   o=>o.Owner.OwnerCategory,
+                   o=>o.Orders
                });
            
             if (CityID != 0)
