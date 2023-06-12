@@ -54,6 +54,7 @@ namespace offerStation.EF.Services
             {
                 customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.Email = customerInfoDto.Email;
+                customer.AppUser.UserName = customerInfoDto.Name;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
 
                 _unitOfWork.Customers.Update(customer);

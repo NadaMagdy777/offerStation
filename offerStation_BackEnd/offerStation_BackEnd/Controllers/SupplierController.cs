@@ -192,7 +192,7 @@ namespace offerStation.API.Controllers
         [HttpGet("AllOwnersReviewsBySupplierId/id")]
         public async Task<ActionResult<ApiResponse>> GetAllOwnersReviewsBySupplierId(int supplierId)
         {
-            List<ReviewInfoDto> reviews = await _supplierService.GetAllOwnersReviewsBySupplierId(supplierId);
+            List<ReviewDto> reviews = await _supplierService.GetAllOwnersReviewsBySupplierId(supplierId);
             if(reviews is null)
             {
                 return BadRequest(new ApiResponse(404, false, "null object"));
