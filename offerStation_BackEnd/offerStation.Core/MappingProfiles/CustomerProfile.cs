@@ -21,7 +21,7 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<CustomerReview, ReviewInfoDto>()
-                .ForMember(des => des.PersonName, a => a.MapFrom(src => src.customer.AppUser.Name))
+                .ForMember(des => des.PersonName, a => a.MapFrom(src => src.Customer.AppUser.Name))
                 .ReverseMap();
         }
     }

@@ -16,6 +16,16 @@ namespace offerStation.API.Controllers
         {
             this._addressService = addressService;
         }
+        [HttpGet("id")]
+        public async Task<ActionResult<ApiResponse>> GetAddress(int id)
+        {
+            AddressCityNameDto address = await _addressService.GetAddressDetailsById(id);
+            if(address is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, address));
+        }
         [HttpGet("all/id")]
         public async Task<ActionResult<ApiResponse>> GetAllAddresses(string userId)
         {

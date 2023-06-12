@@ -351,7 +351,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
                  new List<Expression<Func<CustomerReview, object>>>()
                  {
-                     r => r.customer.AppUser,
+                     r => r.Customer.AppUser,
                  });
 
           
