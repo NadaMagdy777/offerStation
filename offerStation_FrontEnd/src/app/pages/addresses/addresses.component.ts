@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AddressServiceService } from 'src/app/services/address/address';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
@@ -8,7 +8,7 @@ import { city } from 'src/app/sharedClassesAndTypes/city';
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
-  styleUrls: ['./addresses.component.css']
+  styleUrls: ['./addresses.component.css'],
 })
 export class AddressesComponent implements OnInit {
 
@@ -19,22 +19,38 @@ export class AddressesComponent implements OnInit {
   display1 = '';
 
   AddressList: any;
-  Address:any;
+  Address: AddressDetails = {
+    details: '',
+    cityId: 0,
+    id: 0,
+    cityName: ''
+  };
 
   cities!: city[]
   city!: city
 
-  addressForm = this.fb.group({
-    details: [''],
-    cityId: [''],
-  })
+  addressForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _addressService: AddressServiceService,
     private _cityService: AddressServiceService,
     private _userDataService: AuthenticationService
-  ) { }
+  ) {
+    this.addressForm = this.fb.group({
+      details: [''],
+      cityId: [''],
+    })
+
+    this.addressForm.get('details')?.valueChanges.subscribe((data) => {
+      this.Address.details = data;
+    });
+
+    this.addressForm.get('cityId')?.valueChanges.subscribe((data) => {
+      this.Address.cityId = data;
+    });
+
+  }
 
   ngOnInit(): void {
 
@@ -44,7 +60,7 @@ export class AddressesComponent implements OnInit {
 
     this._cityService.GetAllCities().subscribe({
       next: data => {
-        console.log(data);
+        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.cities = dataJson.data
         // console.log(this.cities)
@@ -56,7 +72,7 @@ export class AddressesComponent implements OnInit {
   LoadData() {
     this._addressService.GetCustomerAdresses(this.ApplicationuserId._value.nameid).subscribe({
       next: data => {
-        console.log(data);
+        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.AddressList = dataJson.data;
       },
@@ -86,24 +102,27 @@ export class AddressesComponent implements OnInit {
     });
   }
 
-  // UpdateAddress(addressId: number) {
-  //   this.display1 = 'block';
-  //   this._addressService.UpdateAddress(addressId, this.addressForm.value).subscribe({
-  //     next: data => {
-  //       // console.log(data);
-  //       this.LoadData();
-  //     },
-  //     error: (error: any) => this.errorMessage = error,
-  //   });
-  // }
+  UpdateAddress() {
+    console.log(this.addressForm.value);
+    this._addressService.UpdateAddress(this.Address.id, this.Address).subscribe({
+      next: data => {
+        console.log(data);
+        this.LoadData();
+        this.onCloseEditAddressHandled();
+        console.log(this.addressForm.value);
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
 
   opeEditAddressModal(addressId: number) {
     this.display1 = 'block';
     this._addressService.GetAdressesDetails(addressId).subscribe({
-      next:data =>{
-        console.log(data);
+      next: data => {
+        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.Address = dataJson.data;
+        // console.log(this.Address)
       },
       error: (error: any) => this.errorMessage = error,
     });

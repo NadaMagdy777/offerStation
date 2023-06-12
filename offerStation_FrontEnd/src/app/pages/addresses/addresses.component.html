@@ -5,8 +5,8 @@
       <tr>
         <th scope="col">City</th>
         <th scope="col">More Details</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -75,26 +75,26 @@
         <h4 class="modal-title" style="font-size: initial;">Edit Address </h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="addressForm" (ngSubmit)="SubmitData()">
+        <form [formGroup]="addressForm" (ngSubmit)="UpdateAddress()">
           <div class="mb-3">
-            <p>Address Details</p>
+            <p>Edit Address Details</p>
           </div>
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <div class="mb-3">
-                  <label for="cityId" class="form-label">City</label>
-                  <select class="form-select form-select-lg" formControlName="cityId" name="cityId" #CityIDSelected>
-                    <option *ngFor="let city of cities;" value={{city.id}}>
-                      {{city.name}}</option>
+                  <label class="form-label">City</label>
+                  <select class="form-select form-select-lg" formControlName="cityId">
+                    <option *ngFor="let city of cities;" [value]="city.id">
+                      {{city.name}} </option>
                   </select>
                 </div>
               </div>
             </div>
           </div>
           <div class="mb-3">
-            <label for="details" class="col-form-label">Details</label>
-            <input type="text" class="form-control" id="details" formControlName="details" #DetailsInput>
+            <label class="col-form-label">Details</label>
+            <input type="text" formControlName="details" class="form-control" [value]="Address.details">
           </div>
 
           <div class="modal-footer">

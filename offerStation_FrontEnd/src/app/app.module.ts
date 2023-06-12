@@ -10,21 +10,16 @@ import { OwnerregestrationComponent } from './components/regestration/ownerreges
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingNewestComponent } from './pages/landing-newest/landing-newest.component';
 import { LandingBestSellerComponent } from './pages/landing-best-seller/landing-best-seller.component';
 import { LandingTopRateComponent } from './pages/landing-top-rate/landing-top-rate.component';
 import { LandingTapsComponent } from './pages/landing-taps/landing-taps.component';
-
 import { MatSliderModule } from '@angular/material/slider';
-
-
-
-
 
 
 @NgModule({
@@ -42,11 +37,6 @@ import { MatSliderModule } from '@angular/material/slider';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
-
-    
-
-
-
   ],
   imports: [
     BrowserModule,

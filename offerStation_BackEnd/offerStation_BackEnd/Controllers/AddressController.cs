@@ -26,6 +26,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, address));
         }
+
         [HttpGet("all/id")]
         public async Task<ActionResult<ApiResponse>> GetAllAddresses(string userId)
         {

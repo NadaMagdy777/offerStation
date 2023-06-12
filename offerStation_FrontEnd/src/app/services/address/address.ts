@@ -59,7 +59,6 @@ export class AddressServiceService {
       }));
   }
 
-  //https://localhost:7017/api/Address/id?id=53
   UpdateAddress(id: number, updatedAddress: any): Observable<ApiResponce> {
     return this.http.put<ApiResponce>(`${this._url}/id?id=${id}`, updatedAddress).
       pipe(catchError((err: any) => {
