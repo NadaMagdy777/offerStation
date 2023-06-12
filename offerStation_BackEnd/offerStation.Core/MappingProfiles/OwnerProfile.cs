@@ -43,7 +43,7 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<OwnerReview, ReviewInfoDto>()
-                .ForMember(des => des.PersonName, a => a.MapFrom(src => src.Owner.AppUser.Name))
+                //.ForMember(des => des.PersonName, a => a.MapFrom(src => src.Owner.AppUser.Name))
                 .ReverseMap();
 
             CreateMap<OwnerOffer, OwnerOfferDto>().ReverseMap();

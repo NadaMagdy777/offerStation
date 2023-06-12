@@ -185,7 +185,7 @@ namespace offerStation.API.Controllers
         [HttpGet("AllCustomerReviewsByOwnerId/id")]
         public async Task<ActionResult<ApiResponse>> GetAllCustomerReviews(int ownerId)
         {
-            List<ReviewInfoDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
+            List<ReviewDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
 
             if (reviews is null)
             {

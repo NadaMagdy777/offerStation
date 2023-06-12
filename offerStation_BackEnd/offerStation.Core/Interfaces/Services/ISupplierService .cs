@@ -25,7 +25,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto);
         Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
-        Task<List<ReviewInfoDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
+        Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
         Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);

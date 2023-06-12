@@ -271,9 +271,9 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-        public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
+        public async Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
         {
-            List<ReviewInfoDto> reviewListDto = null;
+            List<ReviewDto> reviewListDto = null;
 
             IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
                 .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
@@ -285,7 +285,7 @@ namespace offerStation.EF.Services
 
             if (reviewList is not null)
             {
-                reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
             }
             return reviewListDto;
         }
