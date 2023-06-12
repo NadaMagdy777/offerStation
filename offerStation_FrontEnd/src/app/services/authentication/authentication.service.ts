@@ -47,5 +47,13 @@ export class AuthenticationService {
     localStorage.removeItem('userToken');
     this.userData.next(null)
   }
+  GetToken(){
+    if(localStorage.getItem('userToken'))
+      return `Bearer ${localStorage.getItem('userToken') as string}`;
+    return '';
+  }
+  testToken(): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`https://localhost:7017/api/Cart/test`);
+  }
 
 }

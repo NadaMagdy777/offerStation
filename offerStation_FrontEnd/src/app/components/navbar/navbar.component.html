@@ -1,13 +1,15 @@
 <header>
   <div class="p-3 text-center bg-white border-bottom">
     <div class="container">
-      <div class="row gy-3">
+      <div class="row gy-3 fs-sm">
         <div class="col-lg-2 col-sm-4 col-4">
           <a href="https://mdbootstrap.com/" target="_blank" class="float-start me-5">
             OfferStation
           </a>
         </div>
-        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+        <!-- Left elements -->
+        <!-- Center elements -->
+        <div class="order-lg-last col-lg-6 col-sm-8 col-8">
           <div class="d-flex float-end">
                         
             <div *ngIf="userdata == null; then thenBlock else elseBlock"></div>
@@ -36,7 +38,7 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <i class="fas fa-user-alt"></i>
-                  <small class="ms-2 mb-0">{{ userdata?.unique_name }}</small>
+                  <small class="ms-2 mb-0">{{ userName }}</small>
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item">Something</a></li>
@@ -56,7 +58,9 @@
             </a>
           </div>
         </div>
-        <div class="col-lg-5 col-md-12 col-12">
+        <!-- Center elements -->
+        <!-- Right elements -->
+        <div class="col-lg-4 col-md-12 col-12" style="width: 30%;">
           <div class="input-group">
             <input type="search" class="form-control" placeholder="Search" aria-label="Search"
               aria-describedby="search-addon" />
@@ -104,6 +108,10 @@
               </li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-white" (click)="testToken()">test token</a>
           </li>
         </ul>
 

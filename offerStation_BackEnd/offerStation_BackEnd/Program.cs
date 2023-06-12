@@ -10,6 +10,8 @@ using offerStation.Core.Models;
 using offerStation.EF;
 using offerStation.EF.Data;
 using offerStation.EF.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace offerStation_BackEnd
 {
@@ -64,12 +66,27 @@ namespace offerStation_BackEnd
 
             builder.Services.AddAuthentication(options =>
             {
+                //jwt
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;//not valid account
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    //parmeter
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:Audience"],
+                    IssuerSigningKey =
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                };
             });
 
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -92,6 +109,7 @@ namespace offerStation_BackEnd
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
