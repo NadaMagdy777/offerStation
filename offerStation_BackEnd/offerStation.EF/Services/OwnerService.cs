@@ -260,6 +260,35 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<List<ReviewDto>?> GetAllOwnersReviews()
+        {
+            List<ReviewDto> reviewListDto = null;
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews.GetAllAsync();
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
+        public async Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+                .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
+                 new List<Expression<Func<CustomerReview, object>>>()
+                 {
+                     r => r.Customer.AppUser,
+                 });
+
+
+            if (reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
         public async Task<bool> DeleteReview(int id)
         {
             OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
@@ -343,6 +372,7 @@ namespace offerStation.EF.Services
             return 0;
            
         }
+ 
         public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
         {
             List<ReviewInfoDto> reviewListDto = null;
@@ -354,8 +384,7 @@ namespace offerStation.EF.Services
                      r => r.Customer.AppUser,
                  });
 
-          
-            if(reviewList is not null)
+            if (reviewList is not null)
             {
                 reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
             }

@@ -10,7 +10,7 @@ import { OwnerregestrationComponent } from './components/regestration/ownerreges
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,6 +20,8 @@ import { LandingBestSellerComponent } from './pages/landing-best-seller/landing-
 import { LandingTopRateComponent } from './pages/landing-top-rate/landing-top-rate.component';
 import { LandingTapsComponent } from './pages/landing-taps/landing-taps.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -41,16 +43,19 @@ import { MatSliderModule } from '@angular/material/slider';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatTabsModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbModule
   ],
 
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

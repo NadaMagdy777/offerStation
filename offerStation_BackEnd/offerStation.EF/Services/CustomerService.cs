@@ -55,6 +55,7 @@ namespace offerStation.EF.Services
             {
                 customer.AppUser.Name = customerInfoDto.Name;
                 customer.AppUser.Email = customerInfoDto.Email;
+                customer.AppUser.UserName = customerInfoDto.Name;
                 customer.AppUser.PhoneNumber = customerInfoDto.PhoneNumber;
 
                 _unitOfWork.Customers.Update(customer);
@@ -91,6 +92,18 @@ namespace offerStation.EF.Services
                 return true;
             }
             return false;
+        }
+        public async Task<List<ReviewDto>?> GetAllCustomersReviews()
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews.GetAllAsync();
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
         }
         public async Task<bool> DeleteReview(int id)
         {

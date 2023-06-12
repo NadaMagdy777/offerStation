@@ -31,6 +31,7 @@ export class LoginComponent {
     this._AuthenticationService.login(this.loginForm.value).subscribe({
       next:data=>{        
         if (data.success == true) {
+          console.log(data);
           
           localStorage.setItem("userToken",data.data.token);
           this._AuthenticationService.saveUserData()

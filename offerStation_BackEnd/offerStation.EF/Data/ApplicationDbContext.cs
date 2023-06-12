@@ -87,8 +87,13 @@ namespace offerStation.EF.Data
                     {
                         Id = 2,
                         Name = "restaurent"
+                    },
+                       new OwnerCategory
+                    {
+                        Id = 3,
+                        Name = "Moles"
                     }
-                }
+                } 
             );
 
 
@@ -103,7 +108,12 @@ namespace offerStation.EF.Data
                     new SupplierCategory
                     {
                         Id = 2,
-                        Name = "restaurent"
+                        Name = "Restaurent"
+                    },
+                    new SupplierCategory
+                    {
+                        Id = 3,
+                        Name = "Moles"
                     }
                 }
             );
@@ -129,10 +139,6 @@ namespace offerStation.EF.Data
                         LockoutEnabled=false,
                         LockoutEnd=DateTime.Now,
                         AccessFailedCount=0,
-
-
-
-
                     },
                    
                 }
@@ -145,10 +151,27 @@ namespace offerStation.EF.Data
                        Id=1,
                        OwnerCategoryId=1,
                        IsDeleted=false,
-
-
-
-
+                    },
+                     new Owner
+                    {
+                       AppUserId="1",
+                       Id=2,
+                       OwnerCategoryId=2,
+                       IsDeleted=false,
+                    },
+                        new Owner
+                    {
+                       AppUserId="1",
+                       Id=3,
+                       OwnerCategoryId=3,
+                       IsDeleted=false,
+                    },
+                    new Owner
+                    {
+                       AppUserId="1",
+                       Id=4,
+                       OwnerCategoryId=3,
+                       IsDeleted=false,
                     },
 
                }
@@ -158,33 +181,21 @@ namespace offerStation.EF.Data
               new List<OwnerOffer>{
                     new OwnerOffer
                     {
-                    
                        Id=1,
                        Name="OFFER1",
                        Description="new offer",
                        OwnerId=1,
                        IsDeleted=false,
                        Price=300,
-
-
-
-
-
                     },
                      new OwnerOffer
                     {
-
                        Id=2,
                        Name="OFFER2",
                        Description="new offer",
                        OwnerId=1,
                        IsDeleted=false,
                        Price=100,
-
-
-
-
-
                     },
                       new OwnerOffer
                     {
@@ -195,11 +206,62 @@ namespace offerStation.EF.Data
                        OwnerId=1,
                        IsDeleted=false,
                        Price=500,
+                    },
+                      new OwnerOffer
+                    {
+                       Id=4,
+                       Name="OFFER4",
+                       Description="new offer",
+                       OwnerId=2,
+                       IsDeleted=false,
+                       Price=300,
+                    },
+                     new OwnerOffer
+                    {
+                       Id=5,
+                       Name="OFFER5",
+                       Description="new offer",
+                       OwnerId=2,
+                       IsDeleted=false,
+                       Price=100,
+                    },
+                      new OwnerOffer
+                    {
 
+                       Id=6,
+                       Name="OFFER6",
+                       Description="new offer",
+                       OwnerId=2,
+                       IsDeleted=false,
+                       Price=500,
+                    },
+                      new OwnerOffer
+                    {
+                       Id=7,
+                       Name="OFFER7",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=700,
+                    },
+                     new OwnerOffer
+                    {
+                       Id=8,
+                       Name="OFFER8",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=100,
+                    },
+                      new OwnerOffer
+                    {
 
-
-
-
+                       Id=9,
+                       Name="OFFER9",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=400,
                     },
 
               }

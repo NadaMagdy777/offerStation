@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,NO_ERRORS_SCHEMA} from '@angular/core';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 
 @Component({
   selector: 'app-ownerreview',
   templateUrl: './ownerreview.component.html',
-  styleUrls: ['./ownerreview.component.css']
+  styleUrls: ['./ownerreview.component.css'],
+
 })
 export class OwnerreviewComponent {
 

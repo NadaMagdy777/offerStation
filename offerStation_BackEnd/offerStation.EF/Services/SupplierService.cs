@@ -272,7 +272,23 @@ namespace offerStation.EF.Services
             return supplierCategoriesDto;
         }
 
-       
+        public async Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId)
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews
+                .FindAllAsync(r => r.SupplierId == supplierId && !r.IsDeleted,
+                new List<Expression<Func<OwnerReview, object>>>()
+                {
+                    r => r.Owner.AppUser,
+                });
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {
 
