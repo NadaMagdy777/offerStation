@@ -29,6 +29,7 @@ export class ownerOffersPageComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.OwnerCategory= this.route.snapshot.params['category']
     this.getproduct(1,this.pagesize,this.OwnerCategory,this.selectedcityId,this.sortBy)
   }
   
