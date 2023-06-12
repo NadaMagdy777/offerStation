@@ -15,11 +15,11 @@ export class OwnerService {
 
   GetOwnerOffer(pageNumber:number,pagesize:number,ownerCategory:string,cityId:number,SortBy:string):Observable<ApiResponce> {
     console.log(ownerCategory)
-    return this._httpClient.get<ApiResponce>( this.url + "/All/Offers?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy);
+    return this._httpClient.get<ApiResponce>( this.url + "/All/offers/filter/withPagination?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy);
     
   }
   GetOwners(pageNumber:number,pagesize:number,ownerCategory:string,cityId:number,SortBy:string,Name:string):Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>( this.url + "/All?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy+"&name="+Name);
+    return this._httpClient.get<ApiResponce>( this.url + "/All/Filter/Pagination?PageNumber="+pageNumber+"&pageSize="+pagesize+"&category="+ownerCategory+"&cityId="+cityId+"&SortBy="+SortBy+"&name="+Name);
   }
   getMenuCategorybyOwnerId(id:number):Observable<any>
   {
@@ -32,5 +32,9 @@ return this._httpClient.get<any>(this.url+"/AllProductsByMenuCategoryID/id?id="+
   getAllProductsByOwnerId(id:number):Observable<any>
   {
     return this._httpClient.get<any>(this.url+"/AllProductsByOwnerID/id?id="+id);
+  }
+  GetAllCustomerReviewsByOwnerId(id:number)
+  {
+return this._httpClient.get<any>(this.url+"/AllCustomerReviewsByOwnerID/id?ownerid="+id);
   }
 }

@@ -12,20 +12,18 @@ export class NavbarComponent {
 
   constructor(private authenticationservice: AuthenticationService) {
 
+    this.authenticationservice.userData.subscribe({
+      next: data => this.userdata = data,
+      error: error => console.log(error)
+    })
   }
 
   ngOnInit() {
     if (localStorage.getItem('userToken'))
       this.authenticationservice.saveUserData()
-
-    this.authenticationservice.userData.subscribe({
-      next: data => this.userdata = data,
-      error: error => console.log(error)
-    })
-
   }
-  
-  LogOut() {
+
+  LogOut() { 
     this.authenticationservice.logout();
   }
 }

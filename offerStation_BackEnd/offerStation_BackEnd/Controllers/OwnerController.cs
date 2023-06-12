@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using offerStation.Core.Models;
 using offerStation.EF.Services;
 
 namespace offerStation.API.Controllers
@@ -140,8 +141,59 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
-        } 
-        [HttpDelete("DeleteOwnerReview/id")]
+        }
+        [HttpPost("OwnerCategory")]
+        public async Task<ActionResult<ApiResponse>> AddOwnerCategory(OwnerCategoryInfoDto category)
+        {
+            bool success = await _ownerService.AddCategory(category);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPut("OwnerCategory/id")]
+        public async Task<ActionResult<ApiResponse>> EditOwnerCategory(int id, OwnerCategoryInfoDto category)
+        {
+            bool success = await _ownerService.EditCategory(id, category);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("OwnerCategory/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteOwnerCategory(int id)
+        {
+            bool success = await _ownerService.DeleteCategory(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpGet("AllOwnersReviews")]
+        public async Task<ActionResult<ApiResponse>> GetAllOwnersReviews()
+        {
+            List<ReviewDto> reviews = await _ownerService.GetAllOwnersReviews();
+            if(reviews is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, reviews));
+        }
+        [HttpGet("AllCustomerReviewsByOwnerId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllCustomerReviews(int ownerId)
+        {
+            List<ReviewInfoDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
+
+            if (reviews is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, reviews));
+        }
+        [HttpDelete("OwnerReview/id")]
         public async Task<ActionResult<ApiResponse>> DeleteOwnerReview(int id)
         {
             bool success = await _ownerService.DeleteReview(id);
@@ -184,7 +236,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, products));
         }
-       
+
         [HttpGet("Categories")]
 
         public async Task<IActionResult> GetAllCategories()

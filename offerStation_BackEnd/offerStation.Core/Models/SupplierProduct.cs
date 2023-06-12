@@ -25,7 +25,7 @@ namespace offerStation.Core.Models
         public int CategoryId { get; set; }
         public virtual SupplierMenuCategory Category { get; set; }
         public virtual List<SupplierOfferProduct> Offers { get; set; }
-        public virtual List<OwnerOrderProduct> orders { get; set; }
+        public virtual  List<OwnerOrderProduct> orders { get; set; }
 
     }
 }

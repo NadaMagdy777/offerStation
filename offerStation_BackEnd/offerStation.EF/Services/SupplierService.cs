@@ -208,6 +208,49 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto)
+        {
+            if (categoryDto is not null)
+            {
+                SupplierCategory category = new SupplierCategory();
+                category = _mapper.Map<SupplierCategory>(categoryDto);
+
+                _unitOfWork.SupplierCategories.Add(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null && categoryDto is not null)
+            {
+                category.Name = categoryDto.Name;
+                category.Image = categoryDto.Image;
+
+                _unitOfWork.SupplierCategories.Update(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCategory(int id)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null)
+            {
+                _unitOfWork.SupplierCategories.Delete(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<ProductInfoDto>?> GetAllProducts(int supplierId)
         {
             List<ProductInfoDto> products = null;
@@ -229,7 +272,23 @@ namespace offerStation.EF.Services
             return supplierCategoriesDto;
         }
 
-       
+        public async Task<List<ReviewInfoDto>?> GetAllOwnersReviewsBySupplierId(int supplierId)
+        {
+            List<ReviewInfoDto> reviewListDto = null;
+
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews
+                .FindAllAsync(r => r.SupplierId == supplierId && !r.IsDeleted,
+                new List<Expression<Func<OwnerReview, object>>>()
+                {
+                    r => r.Owner.AppUser,
+                });
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {
 

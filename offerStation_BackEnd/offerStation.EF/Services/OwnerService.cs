@@ -185,7 +185,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditProduct(int id, ProductDto productDto)
         {
-            OwnerProduct product = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == id);
+            OwnerProduct product = await _unitOfWork.OwnerProducts.GetByIdAsync(id);
 
             if(product is not null && productDto is not null)
             {
@@ -217,6 +217,78 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto)
+        {
+            if (categoryDto is not null)
+            {
+                OwnerCategory category = new OwnerCategory();
+                category = _mapper.Map<OwnerCategory>(categoryDto);
+
+                _unitOfWork.OwnerCategories.Add(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto)
+        {
+            OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
+
+            if (category is not null && categoryDto is not null)
+            {
+                category.Name =  categoryDto.Name;
+                category.Image =  categoryDto.Image;
+
+                _unitOfWork.OwnerCategories.Update(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCategory(int id)
+        {
+            OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
+
+            if (category is not null)
+            {
+                _unitOfWork.OwnerCategories.Delete(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<List<ReviewDto>?> GetAllOwnersReviews()
+        {
+            List<ReviewDto> reviewListDto = null;
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews.GetAllAsync();
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
+        public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
+        {
+            List<ReviewInfoDto> reviewListDto = null;
+
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+                .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
+                 new List<Expression<Func<CustomerReview, object>>>()
+                 {
+                     r => r.Customer.AppUser,
+                 });
+
+
+            if (reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
         public async Task<bool> DeleteReview(int id)
         {
             OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
@@ -236,7 +308,8 @@ namespace offerStation.EF.Services
             offers = (List<OwnerOffer>)await _unitOfWork.OwnerOffers.FindAllAsync(o => o.IsDeleted == false && o.Owner.OwnerCategory.Name == categoryName, new List<Expression<Func<OwnerOffer, object>>>()
                {
                    o=>o.Owner.AppUser.Addresses,
-                   o=>o.Owner.OwnerCategory
+                   o=>o.Owner.OwnerCategory,
+                   o=>o.Orders
                });
            
             if (CityID != 0)
@@ -351,7 +424,7 @@ namespace offerStation.EF.Services
             List<ProductInfoDto> OwnerProductsDTOs;
 
             OwnerProductsDTOs = new List<ProductInfoDto>();
-            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id);
+            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
 
 
             foreach (OwnerProduct product in result)

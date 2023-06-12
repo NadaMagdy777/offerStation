@@ -19,9 +19,13 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> SuspendSupplier(int id);
         Task<bool> RemoveSupplierSuspension(int id);
         Task<bool> ApproveSupplier(int id);
-        Task<bool> DeleteProduct(int id);
-        Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> DeleteProduct(int id);
+        Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto);
+        Task<bool> DeleteCategory(int id);
+        Task<List<ReviewInfoDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
         Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);

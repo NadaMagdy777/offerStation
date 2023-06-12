@@ -1,22 +1,13 @@
 <div class="container">
-    <form [formGroup]="registerForm" (ngSubmit)="submitData()">
+    <form class="w-75 p-5 mt-5 mx-auto" [formGroup]="registerForm" (ngSubmit)="submitData()">
 
         <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example1">First Name</label>
-            <input type="text" formControlName="FirstName" [class.is-invalid]="FirstName?.invalid && FirstName?.touched"
+            <label class="form-label" for="form2Example1">Your Name</label>
+            <input type="text" formControlName="Name" [class.is-invalid]="FirstName?.invalid && FirstName?.touched"
                 class="form-control">
             <small *ngIf="FirstName?.errors?.['required'] && (FirstName?.dirty || FirstName?.touched)"
                 class="text-danger">
                 First Name Is Required
-            </small>
-        </div>
-
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example1">Last Name</label>
-            <input type="text" formControlName="LastName" class="form-control"
-                [class.is-invalid]="LastName?.errors && LastName?.touched" />
-            <small *ngIf="LastName?.errors?.['required'] && (LastName?.dirty || LastName?.touched)" class="text-danger">
-                Last Name Is Required
             </small>
         </div>
 

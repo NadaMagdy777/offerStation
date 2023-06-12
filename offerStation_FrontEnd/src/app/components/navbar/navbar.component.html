@@ -1,64 +1,52 @@
-<!--Main Navigation-->
 <header>
-  <!-- Jumbotron -->
   <div class="p-3 text-center bg-white border-bottom">
     <div class="container">
       <div class="row gy-3">
-        <!-- Left elements -->
         <div class="col-lg-2 col-sm-4 col-4">
           <a href="https://mdbootstrap.com/" target="_blank" class="float-start me-5">
-            offerStation
+            OfferStation
           </a>
         </div>
         <!-- Left elements -->
         <!-- Center elements -->
         <div class="order-lg-last col-lg-6 col-sm-8 col-8">
           <div class="d-flex float-end">
-
+                        
             <div *ngIf="userdata == null; then thenBlock else elseBlock"></div>
-
+            
             <ng-template #thenBlock>
-
-              <a href="#" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
+              <a routerLink="/login" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
                 <i class="fas fa-user-alt m-1 me-md-2"></i>
                 <p class="d-none d-md-block mb-0">Sign in</p>
               </a>
-              <a href="#" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                <i class="fas fa-user-alt m-1 me-md-2"></i>
-                <p class="d-none d-md-block mb-0">Register</p>
+              <a class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="fas fa-user-alt"></i>
+                  <small class="ms-2 mb-0">Register</small>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/customerRegister">Customer</a></li>
+                  <li><a class="dropdown-item" routerLink="/ownerRegister">Owner</a></li>
+                  <li><a class="dropdown-item" routerLink="/supplierRegister">Supplier</a></li>
+                </ul>
               </a>
             </ng-template>
 
             <ng-template #elseBlock>
-              <a href="#" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                <i class="fas fa-user-alt m-1 me-md-2"></i>
-                <p class="d-none d-md-block mb-0"></p>
-              </a>
-
-
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false">
-                 asd
+              <a class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="fas fa-user-alt"></i>
+                  <small class="ms-2 mb-0">{{ userdata?.unique_name }}</small>
                 </a>
-                <!-- Dropdown menu -->
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a class="dropdown-item" href="#">Action</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Another action</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#" (click)="LogOut()">Log Out</a>
-                  </li>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item">Something</a></li>
+                  <li><a class="dropdown-item">Something else</a></li>
+                  <li><a class="dropdown-item" (click)="LogOut()">Log Out</a></li>
                 </ul>
-
-
+              </a>
             </ng-template>
-
 
             <a href="#" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
               <i class="fas fa-heart m-1 me-md-2"></i>
@@ -79,25 +67,18 @@
             <button type="button" class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
           </div>
         </div>
-        <!-- Right elements -->
       </div>
     </div>
   </div>
-  <!-- Jumbotron -->
 
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <!-- Container wrapper -->
     <div class="container justify-content-center justify-content-md-between">
-      <!-- Toggle button -->
       <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarLeftAlignExample"
         aria-controls="navbarLeftAlignExample" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
 
-      <!-- Collapsible wrapper -->
       <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
             <a class="nav-link text-white" routerLink="">Home</a>
@@ -115,33 +96,22 @@
             <a class="nav-link text-white" href="#">Menu item</a>
           </li>
 
-          <!-- Navbar dropdown -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-              data-mdb-toggle="dropdown" aria-expanded="false">
-              Others
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
             </a>
-            <!-- Dropdown menu -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
               <li>
-                <a class="dropdown-item" href="#">Action</a>
+                <hr class="dropdown-divider">
               </li>
-              <li>
-                <a class="dropdown-item" href="#">Another action</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
         </ul>
 
       </div>
     </div>
-    <!-- Container wrapper -->
   </nav>
-  <!-- Navbar -->
 </header>

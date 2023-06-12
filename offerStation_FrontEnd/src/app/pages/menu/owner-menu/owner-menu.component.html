@@ -10,7 +10,8 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <div class="list-group">
-            <button type="button" value="0"  (click)="getAllProductsByOwnerId()" class="list-group-item list-group-item-action" >
+            <button type="button" value="0"  style="background-color:  #e12539;"class="list-group-item active border-0 "
+             (click)="getAllProductsByOwnerId()" >
               All Categoies
             </button>
             <div *ngFor="let item of MenucategoryList">
@@ -48,7 +49,7 @@
         </div>
     </div>
 </div>
-<div class="col-9 collapse card d-block mb-5 mt-2">
+<div class="col-9 collapse card d-block mb-5 mt-2" style="background-color: #f4f5f7;">
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
     <div class="card" style="width:400px">

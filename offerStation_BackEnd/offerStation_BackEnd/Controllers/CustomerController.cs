@@ -61,7 +61,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpDelete("DeleteCustomerReview/id")]
+        [HttpDelete("CustomerReview/id")]
         public async Task<ActionResult<ApiResponse>> DeleteCustomerReview(int id)
         {
             bool success = await _customerService.DeleteReview(id);
@@ -70,6 +70,16 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpGet("AllCustomersReviews")]
+        public async Task<ActionResult<ApiResponse>> GetAllCustomersReviews()
+        {
+            List<ReviewDto> reviews = await _customerService.GetAllCustomersReviews();
+            if(reviews is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, reviews));
         }
     }
 }
