@@ -33,4 +33,8 @@ return this._httpClient.get<any>(this.url+"/AllProductsByMenuCategoryID/id?id="+
   {
     return this._httpClient.get<any>(this.url+"/AllProductsByOwnerID/id?id="+id);
   }
+  GetAllCustomerReviewsByOwnerId(id:number)
+  {
+return this._httpClient.get<any>(this.url+"/AllCustomerReviewsByOwnerID/id?ownerid="+id);
+  }
 }
