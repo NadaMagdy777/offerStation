@@ -343,26 +343,23 @@ namespace offerStation.EF.Services
             return 0;
            
         }
-        public async Task<List<CustomerReviewDto>> GetAllCustomerReviewByOwnerId(int id)
-
+        public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
         {
-            List<CustomerReviewDto> CustomerReviewDTOs;
+            List<ReviewInfoDto> reviewListDto = null;
 
-            CustomerReviewDTOs = new List<CustomerReviewDto>();
-            IEnumerable<CustomerReview> result = await _unitOfWork.CustomerReviews.FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+                .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
+                 new List<Expression<Func<CustomerReview, object>>>()
+                 {
+                     r => r.customer.AppUser,
+                 });
 
           
-            foreach (CustomerReview Review in result)
+            if(reviewList is not null)
             {
-                CustomerReviewDto CustomerReviewDTO = new CustomerReviewDto();
-                CustomerReviewDTO.Comment = Review.Comment;
-               // CustomerReviewDTO.CustomerName= Review.customer.AppUser.UserName;
-                CustomerReviewDTO.Rating = Review.Rating;
-               
-                CustomerReviewDTOs.Add(CustomerReviewDTO);
+                reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
             }
-            return CustomerReviewDTOs;
-
+            return reviewListDto;
         }
         public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
         {
