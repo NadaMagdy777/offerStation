@@ -4,7 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-owners-index',
   templateUrl: './owners-index.component.html',
   styleUrls: ['./owners-index.component.css']
+  
 })
 export class OwnersIndexComponent {
+  
 
 }
