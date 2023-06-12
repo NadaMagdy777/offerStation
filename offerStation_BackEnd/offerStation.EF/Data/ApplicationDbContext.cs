@@ -166,6 +166,13 @@ namespace offerStation.EF.Data
                        OwnerCategoryId=3,
                        IsDeleted=false,
                     },
+                    new Owner
+                    {
+                       AppUserId="1",
+                       Id=4,
+                       OwnerCategoryId=3,
+                       IsDeleted=false,
+                    },
 
                }
            ); ;
