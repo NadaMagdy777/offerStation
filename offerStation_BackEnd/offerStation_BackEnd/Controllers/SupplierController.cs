@@ -28,6 +28,40 @@ namespace offerStation.API.Controllers
 
             return Ok(new ApiResponse(200, true, supplier));
         }
+        [HttpGet("GetAllSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetAllSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetAllSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+        [HttpGet("GetWaitingSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetWaitingSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetWaitingSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+        [HttpGet("GetSuspendedSuppliers")]
+        public async Task<ActionResult<ApiResponse>> GetSuspendedSuppliers()
+        {
+            List<SupplierDto> supplierList = await _supplierService.GetSuspendedSuppliers();
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditSupplier(int id, PublicInfoDto supplierDto)
         {
@@ -38,6 +72,46 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("id")]
+        public async Task<ActionResult<ApiResponse>> DeleteSupplier(int id)
+        {
+            bool success = await _supplierService.PermanentDeleteSupplier(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpDelete("SuspendSupplier/id")]
+        public async Task<ActionResult<ApiResponse>> SuspendSupplier(int id)
+        {
+            bool success = await _supplierService.SuspendSupplier(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPut("RemoveSupplierSuspension/id")]
+        public async Task<ActionResult<ApiResponse>> RemoveSupplierSuspension(int id)
+        {
+            bool success = await _supplierService.RemoveSupplierSuspension(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPut("Approve/id")]
+        public async Task<ActionResult<ApiResponse>> ApproveSupplier(int id)
+        {
+            bool success = await _supplierService.ApproveSupplier(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
         }
         [HttpPost("Product/id")]
         public async Task<ActionResult<ApiResponse>> AddProduct(int supplierId, ProductDto product)
@@ -63,6 +137,36 @@ namespace offerStation.API.Controllers
         public async Task<ActionResult<ApiResponse>> DeleteProduct(int id)
         {
             bool success = await _supplierService.DeleteProduct(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPost("SupplierCategory")]
+        public async Task<ActionResult<ApiResponse>> AddSupplierCategory(SupplierCategoryInfoDto category)
+        {
+            bool success = await _supplierService.AddCategory(category);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPut("SupplierCategory/id")]
+        public async Task<ActionResult<ApiResponse>> EditSupplierCategory(int id, SupplierCategoryInfoDto category)
+        {
+            bool success = await _supplierService.EditCategory(id, category);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("SupplierCategory/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteSupplierCategory(int id)
+        {
+            bool success = await _supplierService.DeleteCategory(id);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));

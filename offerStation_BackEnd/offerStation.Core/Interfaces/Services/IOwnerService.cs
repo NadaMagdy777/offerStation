@@ -10,10 +10,21 @@ namespace offerStation.Core.Interfaces.Services
     public interface IOwnerService
     {
         Task<PublicInfoDto?> GetOwner(int id);
+        Task<List<OwnerDto>?> GetAllOwners();
+        Task<List<OwnerDto>?> GetWaitingOwners();
+        Task<List<OwnerDto>?> GetSuspendedOwners();
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
-        Task<bool> DeleteProduct(int id);
-        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> PermanentDeleteOwner(int id);
+        Task<bool> SuspendOwner(int id);
+        Task<bool> RemoveOwnerSuspension(int id);
+        Task<bool> ApproveOwner(int id);
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
+        Task<bool> EditProduct(int id, ProductDto productDto);
+        Task<bool> DeleteProduct(int id);
+        Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto);
+        Task<bool> DeleteCategory(int id);
+        Task<bool> DeleteReview(int id);
         Task<List<OwnerCategoryDto>> GetAllCategories();
         Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);

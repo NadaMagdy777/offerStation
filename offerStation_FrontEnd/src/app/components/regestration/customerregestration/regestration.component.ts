@@ -21,8 +21,7 @@ export class RegestrationComponent {
   Cities:any;
   error: string = ''
   registerForm = this.fb.group({
-    FirstName: ['', [Validators.required]],
-    LastName: ['', [Validators.required]],
+    Name: ['', [Validators.required]],
     Phone: ['', [Validators.required]],
     Address: this.fb.array([]),
     Password: ['', [Validators.required]],

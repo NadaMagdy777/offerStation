@@ -41,6 +41,48 @@ namespace offerStation.EF.Services
 
             return supplierInfo;
         }
+        public async Task<List<SupplierDto>?> GetAllSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => !o.IsDeleted && o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
+        public async Task<List<SupplierDto>?> GetSuspendedSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => o.IsDeleted && o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
+        public async Task<List<SupplierDto>?> GetWaitingSuppliers()
+        {
+            List<SupplierDto> supplierDtoList = null;
+
+            IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
+                .FindAllAsync(o => !o.IsDeleted && !o.Approved);
+
+            if (supplierList is not null)
+            {
+                supplierDtoList = new List<SupplierDto>();
+                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+            }
+            return supplierDtoList;
+        }
         public async Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo)
         {
             Supplier supplier = await _unitOfWork.Suppliers.FindAsync(s => s.Id == id,
@@ -55,6 +97,61 @@ namespace offerStation.EF.Services
                 supplier.AppUser.Name = supplierInfo.Name;
                 supplier.AppUser.Email = supplierInfo.Email;
                 supplier.AppUser.PhoneNumber = supplierInfo.PhoneNumber;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> PermanentDeleteSupplier(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                supplier.Approved = false;
+                supplier.IsDeleted = true;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> SuspendSupplier(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                _unitOfWork.Suppliers.Delete(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> RemoveSupplierSuspension(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                supplier.IsDeleted = false;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> ApproveSupplier(int id)
+        {
+            Supplier supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+            if (supplier is not null)
+            {
+                supplier.Approved = true;
 
                 _unitOfWork.Suppliers.Update(supplier);
                 _unitOfWork.Complete();
@@ -100,11 +197,54 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> DeleteProduct(int id)
         {
-            SupplierProduct product = await _unitOfWork.SupplierProducts.FindAsync(p => p.Id == id);
+            SupplierProduct product = await _unitOfWork.SupplierProducts.GetByIdAsync(id);
 
             if (product is not null)
             {
                 _unitOfWork.SupplierProducts.Delete(product);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto)
+        {
+            if (categoryDto is not null)
+            {
+                SupplierCategory category = new SupplierCategory();
+                category = _mapper.Map<SupplierCategory>(categoryDto);
+
+                _unitOfWork.SupplierCategories.Add(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null && categoryDto is not null)
+            {
+                category.Name = categoryDto.Name;
+                category.Image = categoryDto.Image;
+
+                _unitOfWork.SupplierCategories.Update(category);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteCategory(int id)
+        {
+            SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
+
+            if (category is not null)
+            {
+                _unitOfWork.SupplierCategories.Delete(category);
                 _unitOfWork.Complete();
 
                 return true;
