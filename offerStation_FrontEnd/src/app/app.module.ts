@@ -21,6 +21,7 @@ import { LandingTopRateComponent } from './pages/landing-top-rate/landing-top-ra
 import { LandingTapsComponent } from './pages/landing-taps/landing-taps.component';
 
 import { MatSliderModule } from '@angular/material/slider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -57,7 +58,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatTabsModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbModule
   ],
 
   providers: [],

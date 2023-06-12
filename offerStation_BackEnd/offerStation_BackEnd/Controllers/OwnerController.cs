@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Autofac.Features.OwnedInstances;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
@@ -227,6 +228,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
+  
         [HttpGet("Categories")]
 
         public async Task<IActionResult> GetAllCategories()

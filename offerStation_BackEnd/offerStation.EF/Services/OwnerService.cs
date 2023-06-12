@@ -343,6 +343,7 @@ namespace offerStation.EF.Services
             return 0;
            
         }
+ 
         public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
         {
             List<ReviewInfoDto> reviewListDto = null;
@@ -354,8 +355,7 @@ namespace offerStation.EF.Services
                      r => r.Customer.AppUser,
                  });
 
-          
-            if(reviewList is not null)
+            if (reviewList is not null)
             {
                 reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
             }
