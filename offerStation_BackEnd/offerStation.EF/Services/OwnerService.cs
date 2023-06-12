@@ -187,6 +187,27 @@ namespace offerStation.EF.Services
             return 0;
            
         }
+        public async Task<List<CustomerReviewDto>> GetAllCustomerReviewByOwnerId(int id)
+
+        {
+            List<CustomerReviewDto> CustomerReviewDTOs;
+
+            CustomerReviewDTOs = new List<CustomerReviewDto>();
+            IEnumerable<CustomerReview> result = await _unitOfWork.CustomerReviews.FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
+
+          
+            foreach (CustomerReview Review in result)
+            {
+                CustomerReviewDto CustomerReviewDTO = new CustomerReviewDto();
+                CustomerReviewDTO.Comment = Review.Comment;
+               // CustomerReviewDTO.CustomerName= Review.customer.AppUser.UserName;
+                CustomerReviewDTO.Rating = Review.Rating;
+               
+                CustomerReviewDTOs.Add(CustomerReviewDTO);
+            }
+            return CustomerReviewDTOs;
+
+        }
         public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
         {
             List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
@@ -239,7 +260,7 @@ namespace offerStation.EF.Services
             List<ProductInfoDto> OwnerProductsDTOs;
 
             OwnerProductsDTOs = new List<ProductInfoDto>();
-            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id);
+            IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
 
 
             foreach (OwnerProduct product in result)
