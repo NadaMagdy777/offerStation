@@ -140,7 +140,67 @@ namespace offerStation.EF.Data
                         LockoutEnd=DateTime.Now,
                         AccessFailedCount=0,
                     },
-                   
+                    new ApplicationUser
+                    {
+                        Id = "2",
+                        Name = " supermarket",
+                        Email="supermarket@gmail.com",
+                        NormalizedEmail="supermarket@gmail.com",
+                        IsDeleted=false,
+                        UserName="supermarket",
+                        NormalizedUserName="supermarket",
+                        EmailConfirmed=true,
+                        PasswordHash="supermarket",
+                        SecurityStamp="supermarket",
+                        ConcurrencyStamp="supermarket",
+                        PhoneNumber="01111111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "3",
+                        Name = " bazooka",
+                        Email="bazooka@gmail.com",
+                        NormalizedEmail="bazooka@gmail.com",
+                        IsDeleted=false,
+                        UserName="bazooka",
+                        NormalizedUserName="bazooka",
+                        EmailConfirmed=true,
+                        PasswordHash="bazooka",
+                        SecurityStamp="bazooka",
+                        ConcurrencyStamp="bazooka",
+                        PhoneNumber="01111111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "4",
+                        Name = "super2",
+                        Email="super2@gmail.com",
+                        NormalizedEmail="super2@gmail.com",
+                        IsDeleted=false,
+                        UserName="super2",
+                        NormalizedUserName="super2",
+                        EmailConfirmed=true,
+                        PasswordHash="super2",
+                        SecurityStamp="super2",
+                        ConcurrencyStamp="super2",
+                        PhoneNumber="01111111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+
                 }
             ); ;
             builder.Entity<Owner>().HasData(
@@ -154,21 +214,21 @@ namespace offerStation.EF.Data
                     },
                      new Owner
                     {
-                       AppUserId="1",
+                       AppUserId="2",
                        Id=2,
                        OwnerCategoryId=2,
                        IsDeleted=false,
                     },
                         new Owner
                     {
-                       AppUserId="1",
+                       AppUserId="3",
                        Id=3,
                        OwnerCategoryId=3,
                        IsDeleted=false,
                     },
                     new Owner
                     {
-                       AppUserId="1",
+                       AppUserId="4",
                        Id=4,
                        OwnerCategoryId=3,
                        IsDeleted=false,
