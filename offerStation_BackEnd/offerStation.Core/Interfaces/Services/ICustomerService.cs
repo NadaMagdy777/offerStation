@@ -14,5 +14,6 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> SuspendCustomer(int id);
         Task<bool> RemoveCustomerSuspension(int id);
         Task<bool> DeleteReview(int id);
+        Task<List<ReviewDto>?> GetAllCustomersReviews();
     }
 }

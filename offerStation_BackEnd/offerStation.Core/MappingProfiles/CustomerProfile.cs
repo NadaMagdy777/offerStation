@@ -19,6 +19,14 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
                 .ForMember(des => des.Email, a => a.MapFrom(src => src.AppUser.Email))
                 .ReverseMap();
+
+            CreateMap<CustomerReview, ReviewInfoDto>()
+                .ForMember(des => des.PersonName, a => a.MapFrom(src => src.Customer.AppUser.Name))
+                .ReverseMap();
+            
+            CreateMap<CustomerReview, ReviewDto>()
+                .ForMember(des => des.PersonName, a => a.MapFrom(src => src.Customer.AppUser.Name))
+                .ReverseMap();
         }
     }
 }

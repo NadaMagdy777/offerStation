@@ -1,0 +1,78 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+
+        </div>
+        <div class="col-10">
+            <div class="u-container-style u-grey-10 u-list-item u-repeater-item u-list-item-1 d-block mb-1 mt-3" style="background-color: #f4f5f7;">
+                <div class="u-container-layout u-similar-container u-valign-top-lg u-valign-top-md u-valign-top-xl u-container-layout-1" *ngFor="let item of customerreview">
+                    
+                  <h6 class="u-text u-text-3">Name</h6>
+                  <p class="u-text u-text-4">{{item.rating}}.</p>
+                  <p class="u-text u-text-4">{{item.comment}}.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+    </div> 
+
+
+
+
+</div>
+<!-- 
+	<div class="card">
+		<div class="title">Reviews</div>
+		
+		<div class="reviews-list">
+			<div class="review-card">
+				<div class="review-header">
+					<div class="name-group">
+						<div class="initials">A</div>
+						<p>Alice Banks</p>
+					</div>
+					<div class="rating">
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+					</div>
+				</div>
+				<div class="review-description">
+					The device has a clean design, and the metal housing feels sturdy in my hands. Soft rounded corners make it a pleasure to look at.
+				</div>
+				<div class="review-details">
+					<div class="review-date">Feb 13, 2021</div>
+				
+				</div>
+			</div>
+			<div class="review-card">
+				<div class="review-header">
+					<div class="name-group">
+						<div class="initials">A</div>
+						<p>Alice Banks</p>
+					</div>
+					<div class="rating">
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+						<i id='one' class="fas fa-star"></i>
+					</div>
+				</div>
+				<div class="review-description">
+					The device has a clean design, and the metal housing feels sturdy in my hands.
+					Soft rounded corners make it a pleasure to look at.
+				</div>
+				<div class="review-details">
+					<div class="review-date">Feb 13, 2021</div>
+				
+				</div>
+			</div>
+		</div>
+	</div> -->
