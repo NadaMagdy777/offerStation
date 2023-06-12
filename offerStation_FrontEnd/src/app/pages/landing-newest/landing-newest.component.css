@@ -25,13 +25,6 @@ height: 150px;
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
 }
-
-.aqua-gradient {
-
-}
-
-
-
 @keyframes animatedBackground {
 
     from {background-size:contain}
