@@ -27,8 +27,8 @@ export class AllOwnerComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    //this.OwnerCategory= this.route.snapshot.params['category']
-    this.getOwners(1, this.pagesize)
+    this.OwnerCategory= this.route.snapshot.params['category']
+    this.getOwners(1,this.pagesize)
   }
 
   getOwners(pgNum: number, pageSize: number) {
@@ -56,6 +56,12 @@ export class AllOwnerComponent implements OnInit {
   changeSorting(selectObject: any) {
     this.sortBy = selectObject.target.value
     this.getOwners(this.pageNumber, this.pagesize)
+  }
+  ownersearchanges(value:any){
+    this.ownerName=value;
+    this.getOwners(this.pageNumber,this.pagesize)
+    this.pageNumber=1
+
   }
 
 }

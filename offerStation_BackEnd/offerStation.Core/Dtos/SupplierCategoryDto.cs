@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class SupplierCategoryDto
+    public class SupplierCategoryDto : SupplierCategoryInfoDto
     {
         public int Id { get; set; }
+    }
+    public class SupplierCategoryInfoDto
+    {
         public string Name { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

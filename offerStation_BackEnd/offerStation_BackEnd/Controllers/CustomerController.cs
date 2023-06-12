@@ -34,13 +34,42 @@ namespace offerStation.API.Controllers
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditCustomer(int id, CustomerInfoDto customerDto)
         {
-            var success = await _customerService.EditCustomer(id, customerDto);
-
+            bool success = await _customerService.EditCustomer(id, customerDto);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("id")]
+        public async Task<ActionResult<ApiResponse>> SuspendCustomer(int id)
+        {
+            bool success = await _customerService.SuspendCustomer(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPut("RemoveCustomerSuspension/id")]
+        public async Task<ActionResult<ApiResponse>> RemoveCustomerSuspension(int id)
+        {
+            bool success = await _customerService.RemoveCustomerSuspension(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpDelete("DeleteCustomerReview/id")]
+        public async Task<ActionResult<ApiResponse>> DeleteCustomerReview(int id)
+        {
+            bool success = await _customerService.DeleteReview(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
         }
     }
 }

@@ -10,5 +10,6 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface IHelperService
     {
+        bool checkAddress(List<Address> addresses, int CityID);
     }
 }

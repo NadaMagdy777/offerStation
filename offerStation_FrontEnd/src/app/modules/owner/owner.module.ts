@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnerProductComponent } from 'src/app/pages/owner-product/owner-product/owner-product.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { OwnerMenuComponent } from 'src/app/pages/menu/owner-menu/owner-menu.component';
-
+import { MatSliderModule } from '@angular/material/slider';
+import { OwnerreviewComponent } from 'src/app/pages/ownerreview/ownerreview.component';
 
 const routes: Routes = [
   { path:'product',component:OwnerProductComponent},
@@ -13,11 +14,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     OwnerProductComponent,
-    OwnerMenuComponent
+    OwnerMenuComponent,
+    OwnerreviewComponent
   ],
   imports: [
     CommonModule,
+    MatSliderModule,
     MatTabsModule,
+    
     RouterModule.forChild(routes),
   ]
 })

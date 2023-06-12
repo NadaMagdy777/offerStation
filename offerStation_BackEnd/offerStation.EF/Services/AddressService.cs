@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace offerStation.EF.Services
 {
-    public class AddressService: IAdressService
+    public class AddressService : IAdressService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -23,28 +23,41 @@ namespace offerStation.EF.Services
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
-        public async Task<List<AddressCityNameDto>?> GetAllAddresses(string id)
+        public async Task<AddressCityNameDto?> GetAddressDetailsById(int id)
         {
-            List<AddressCityNameDto> addressesDto = null;
+            AddressCityNameDto addressDto = null;
 
-            IEnumerable<Address> addresses = await _unitOfWork.Addresses.FindAllAsync(a => a.UserId == id && a.IsDeleted == false,
+            Address address = await _unitOfWork.Addresses.FindAsync(a => a.Id == id && !a.IsDeleted,
                 new List<Expression<Func<Address, object>>>()
                 {
                     a => a.City,
                 });
 
-            if(addresses is not null)
+            if (address is not null)
             {
-                addressesDto = new List<AddressCityNameDto>();
-                addressesDto = _mapper.Map<List<AddressCityNameDto>>(addresses);
-                
-                return addressesDto;
+                addressDto = _mapper.Map<AddressCityNameDto>(address);
             }
-            return null;
+            return addressDto;
+        }
+        public async Task<List<AddressCityNameDto>?> GetAllAddresses(string id)
+        {
+            List<AddressCityNameDto> addressesDto = null;
+
+            IEnumerable<Address> addresses = await _unitOfWork.Addresses.FindAllAsync(a => a.UserId == id && !a.IsDeleted,
+                new List<Expression<Func<Address, object>>>()
+                {
+                    a => a.City,
+                });
+
+            if (addresses is not null)
+            {
+                addressesDto = _mapper.Map<List<AddressCityNameDto>>(addresses);
+            }
+            return addressesDto;
         }
         public async Task<bool> AddAddress(string userId, AddressDTO addressDTO)
         {
-            if(addressDTO is not null) 
+            if (addressDTO is not null)
             {
                 Address address = new Address
                 {
@@ -80,7 +93,7 @@ namespace offerStation.EF.Services
         {
             Address address = await _unitOfWork.Addresses.GetByIdAsync(id);
 
-            if(address is not null)
+            if (address is not null)
             {
                 _unitOfWork.Addresses.Delete(address);
                 _unitOfWork.Complete();
@@ -91,8 +104,8 @@ namespace offerStation.EF.Services
         }
         public async Task<List<CityDto>> GetAllCities()
         {
-            List<City> cities =(List<City>)await _unitOfWork.Cities.FindAllAsync(c=>c.IsDeleted==false);
-            List<CityDto> citiesDto=_mapper.Map< List<CityDto>>(cities);
+            List<City> cities = (List<City>)await _unitOfWork.Cities.FindAllAsync(c => c.IsDeleted == false);
+            List<CityDto> citiesDto = _mapper.Map<List<CityDto>>(cities);
             return citiesDto;
         }
 

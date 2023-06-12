@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OwnerCategoryWithOffer
+    public class ProductInfoDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
+        public int Discount { get; set; }
         public byte[]? Image { get; set; }
-        List<OwnerOfferDto> offers { get; set; }
     }
 }
