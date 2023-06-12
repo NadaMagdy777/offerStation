@@ -48,20 +48,14 @@ namespace offerStation.EF
 
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            SecurityTokenDescriptor tokenDescriptor = new()
-            {
-                Expires = DateTime.UtcNow.AddDays(double.Parse(config["JWT:ExpInDayes"])),
-                Issuer = config["JWT:Issuer"],
-                Audience = config["JWT:Audience"],
-                SigningCredentials = credentials,
-                Subject = new ClaimsIdentity(claims),
-            };
+            JwtSecurityToken mytoken = new JwtSecurityToken(
+                        issuer: config["JWT:Issuer"],
+                        audience: config["JWT:Audience"],
+                        expires: DateTime.Now.AddDays(1),
+                        claims: claims,
+                        signingCredentials: credentials);
 
-            JwtSecurityTokenHandler tokenHandler = new();
-
-            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-
-            var token = tokenHandler.WriteToken(securityToken);
+            var token = new JwtSecurityTokenHandler().WriteToken(mytoken);
 
             return token;
         }
