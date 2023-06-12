@@ -189,7 +189,16 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, await _supplierService.GetAllCategories()));
 
         }
-
+        [HttpGet("AllOwnersReviewsBySupplierId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllOwnersReviewsBySupplierId(int supplierId)
+        {
+            List<ReviewInfoDto> reviews = await _supplierService.GetAllOwnersReviewsBySupplierId(supplierId);
+            if(reviews is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, reviews));
+        }
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {
@@ -206,7 +215,7 @@ namespace offerStation.API.Controllers
 
         }
         [HttpGet("All/Filter/Pagination")]
-        public async Task<IActionResult> getAllSuppli(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "", string name = "")
+        public async Task<IActionResult> getAllSupplier(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "", string name = "")
         {
             var data = await _supplierService.getSupplierByCategory(PageNumber, pageSize, cityId, name, SortBy, category);
             return Ok(new ApiResponse(200, true, data));

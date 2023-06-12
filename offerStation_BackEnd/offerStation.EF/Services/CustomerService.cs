@@ -91,6 +91,18 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<List<ReviewDto>?> GetAllCustomersReviews()
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews.GetAllAsync();
+
+            if(reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
         public async Task<bool> DeleteReview(int id)
         {
             CustomerReview review = await _unitOfWork.CustomerReviews.GetByIdAsync(id);
