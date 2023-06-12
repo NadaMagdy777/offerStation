@@ -22,6 +22,7 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -58,7 +59,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MatTabsModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbModule
   ],
 
   providers: [
