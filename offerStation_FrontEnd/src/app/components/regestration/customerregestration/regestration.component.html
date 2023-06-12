@@ -7,11 +7,10 @@
                 class="form-control">
             <small *ngIf="FirstName?.errors?.['required'] && (FirstName?.dirty || FirstName?.touched)"
                 class="text-danger">
-                First Name Is Required
+                Name Is Required
             </small>
         </div>
 
-        <!-- Password input -->
         <div class="form-outline mb-4">
             <label class="form-label">Phone</label>
             <input type="text" formControlName="Phone" class="form-control"
@@ -21,7 +20,6 @@
             </small>
         </div>
 
-        <!-- Password input -->
         <button type="button" class="btn btn-primary" (click)="addAddress()">Add Address</button>
         <ng-container formArrayName="Address" *ngFor="let adress of AddressControls; let i=index">
             <ng-container [formGroup]="adress">
@@ -43,7 +41,6 @@
             </ng-container>
         </ng-container>
 
-        <!-- Password input -->
         <div class="form-outline mb-4">
             <label class="form-label">Password</label>
             <input type="password" #password formControlName="Password" class="form-control"
@@ -59,7 +56,6 @@
             <small class="text-danger" *ngIf="registerForm?.errors?.['misMatch']">Password and confirm password not match</small>
         </div>
 
-        <!-- Password input -->
         <div class="form-outline mb-4">
             <label class="form-label">Email</label>
             <input type="email" formControlName="Email" class="form-control"

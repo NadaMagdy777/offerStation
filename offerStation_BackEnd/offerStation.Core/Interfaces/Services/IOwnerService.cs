@@ -25,6 +25,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
         Task<bool> DeleteReview(int id);
+        Task<List<ReviewDto>?> GetAllOwnersReviews();
+        Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int id);
         Task<List<OwnerCategoryDto>> GetAllCategories();
         Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
@@ -32,6 +34,5 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
         Task<ResultrDto<OwnerOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<List<OwnerOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
-        Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int id);
     }
 }

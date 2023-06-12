@@ -19,10 +19,7 @@ export class AllOwnerComponent implements OnInit{
   ownerName:string=""
 
   constructor(private OwnerService:OwnerService,private route:ActivatedRoute){
-     
-      
-      
-  
+
   }
 
   cityIdChanges(value:any){
@@ -36,7 +33,7 @@ export class AllOwnerComponent implements OnInit{
     this.OwnerCategory= this.route.snapshot.params['category']
     this.getOwners(1,this.pagesize)
   }
-  
+
   getOwners(pgNum:number,pageSize:number){
     this.OwnerService.GetOwners(pgNum,pageSize,this.OwnerCategory,this.selectedcityId,this.sortBy,this.ownerName).subscribe({
       next:data=>{
@@ -48,7 +45,7 @@ export class AllOwnerComponent implements OnInit{
       },
       error:error=>{console.log(error)}
     }
-      
+
       )
   }
   pageNumberChanged(value:any){
