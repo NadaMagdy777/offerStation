@@ -211,6 +211,7 @@ namespace offerStation.EF.Data
                        Id=1,
                        OwnerCategoryId=1,
                        IsDeleted=false,
+                       Approved=true
                     },
                      new Owner
                     {
@@ -218,6 +219,8 @@ namespace offerStation.EF.Data
                        Id=2,
                        OwnerCategoryId=2,
                        IsDeleted=false,
+                       Approved=true
+
                     },
                         new Owner
                     {
@@ -225,6 +228,8 @@ namespace offerStation.EF.Data
                        Id=3,
                        OwnerCategoryId=3,
                        IsDeleted=false,
+                       Approved=true
+
                     },
                     new Owner
                     {
@@ -232,6 +237,8 @@ namespace offerStation.EF.Data
                        Id=4,
                        OwnerCategoryId=3,
                        IsDeleted=false,
+                       Approved=true
+
                     },
 
                }

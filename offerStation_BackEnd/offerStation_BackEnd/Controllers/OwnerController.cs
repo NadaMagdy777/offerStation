@@ -238,17 +238,17 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, products));
         }
 
-        [HttpGet("AllCustomerReviewsByOwnerId/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllCustomerReviews(int ownerId)
-        {
-            List<ReviewInfoDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
+        //[HttpGet("AllCustomerReviewsByOwnerId/id")]
+        //public async Task<ActionResult<ApiResponse>> GetAllCustomerReviews(int ownerId)
+        //{
+        //    List<ReviewInfoDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
 
-            if (reviews is null)
-            {
-                return BadRequest(new ApiResponse(404, false, "null object"));
-            }
-            return Ok(new ApiResponse(200, true, reviews));
-        }
+        //    if (reviews is null)
+        //    {
+        //        return BadRequest(new ApiResponse(404, false, "null object"));
+        //    }
+        //    return Ok(new ApiResponse(200, true, reviews));
+        //}
   
         [HttpGet("Categories")]
 
