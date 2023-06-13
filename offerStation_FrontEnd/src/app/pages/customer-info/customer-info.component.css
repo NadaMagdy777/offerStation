@@ -1,15 +1,18 @@
-.container{
+.container {
   /* width: 50%; */
-} 
-.border-style{
-  border:1px solid #e6e5e5;
+}
+
+.border-style {
+  border: 1px solid #e6e5e5;
   border-radius: 15px;
 }
-#manageProfile{
+
+#manageProfile {
   background-color: #289b22;
-  border-radius:15px 15px 0px 0px ;
+  border-radius: 15px 15px 0px 0px;
   height: 40px;
 }
-.btn-default{
+
+.btn-default {
   background-color: #e6e5e5;
 }

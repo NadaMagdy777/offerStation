@@ -97,8 +97,6 @@ namespace offerStation.EF.Data
                 } 
             );
 
-
-
             builder.Entity<SupplierCategory>().HasData(
                 new List<SupplierCategory>{
                     new SupplierCategory
@@ -201,9 +199,49 @@ namespace offerStation.EF.Data
                         LockoutEnd=DateTime.Now,
                         AccessFailedCount=0,
                     },
-                     new ApplicationUser
+                    new ApplicationUser
                     {
                         Id = "5",
+                        Name = "Ahmed",
+                        Email="ahmed@gmail.com",
+                        NormalizedEmail="ahmed@gmail.com",
+                        IsDeleted=false,
+                        UserName="ahmed",
+                        NormalizedUserName="ahmed",
+                        EmailConfirmed=true,
+                        PasswordHash="ahmed",
+                        SecurityStamp="ahmed",
+                        ConcurrencyStamp="ahmed",
+                        PhoneNumber="01551111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "6",
+                        Name = "Elfarouq",
+                        Email="elfarouq@gmail.com",
+                        NormalizedEmail="elfarouq@gmail.com",
+                        IsDeleted=false,
+                        UserName="elfarouq",
+                        NormalizedUserName="elfarouq",
+                        EmailConfirmed=true,
+                        PasswordHash="elfarouq",
+                        SecurityStamp="elfarouq",
+                        ConcurrencyStamp="elfarouq",
+                        PhoneNumber="01771111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                     new ApplicationUser
+                    {
+                        Id = "7",
                         Name = "ali",
                         Email="ali@gmail.com",
                         NormalizedEmail="ali@gmail.com",
@@ -276,8 +314,31 @@ namespace offerStation.EF.Data
                     },
                     
               }
-          ); ;
+          ); 
 
+           
+            builder.Entity<Supplier>().HasData(
+               new List<Supplier>{
+                    new Supplier
+                    {
+                       AppUserId="5",
+                       Id=1,
+                       SupplierCategoryId=3,
+                       IsDeleted=false,
+                       Approved=true
+                    },
+               }
+           );
+            builder.Entity<Customer>().HasData(
+               new List<Customer>{
+                    new Customer
+                    {
+                       AppUserId="6",
+                       Id=1,
+                       IsDeleted=false,
+                    },
+               }
+           );
             builder.Entity<OwnerOffer>().HasData(
               new List<OwnerOffer>{
                     new OwnerOffer

@@ -27,6 +27,7 @@ namespace offerStation.EF.Services
 
         public async Task<CustomerInfoDto?> GetCustomer(int id)
         {
+
             CustomerInfoDto customerInfoDto = null;
 
             Customer? customer = await _unitOfWork.Customers.FindAsync(c => c.Id == id && !c.IsDeleted,
@@ -103,6 +104,23 @@ namespace offerStation.EF.Services
                 reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
             }
             return reviewListDto;
+        }
+        public async Task<bool> AddReview(int customerId, int ownerId, ReviewInfoDto reviewDto)
+        {
+            if (reviewDto is not null)
+            {
+                CustomerReview review = new CustomerReview();
+                review = _mapper.Map<CustomerReview>(reviewDto);
+
+                review.OwnerId = ownerId;
+                review.CustomerId = customerId;
+
+                _unitOfWork.CustomerReviews.Add(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
         }
         public async Task<bool> DeleteReview(int id)
         {

@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Base } from 'src/app/sharedClassesAndTypes/Base';
-import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
+import { OwnerInfo } from 'src/app/sharedClassesAndTypes/OwnerInfo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerprofileService {
+export class OwnerprofileService {
 
-  private apiURL = Base.apiUrl + 'Customer';
+  private apiURL = Base.apiUrl + 'Owner';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,16 +19,16 @@ export class CustomerprofileService {
 
   constructor(private http: HttpClient) { }
 
-  GetCustomerById(id: number): Observable<Customer> {
-    return this.http.get<Customer>(`${this.apiURL}/id?id=${id}`).pipe(catchError((err) => {
+  //https://localhost:7017/api/Owner/id?id=1
+  GetOwnerInfo(id: number): Observable<OwnerInfo> {
+    return this.http.get<OwnerInfo>(`${this.apiURL}/id?id=${id}`).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     }));
   }
 
-  UpdateCustomerInfo(id: number, profileForm: any) {
+  UpdateOwnerInfo(id: number, profileForm: any) {
     return this.http.put(`${this.apiURL}/id?id=${id}`, profileForm).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     }));
   }
-
 }

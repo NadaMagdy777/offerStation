@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
-import { AddressServiceService } from 'src/app/services/address/address';
-import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
+import { CustomerprofileService } from 'src/app/services/CustomerProfile/customerprofile-service.service';
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 
 @Component({
@@ -17,10 +15,16 @@ export class CustomerInfoComponent implements OnInit {
   errorMessage: any;
   isUpdated: boolean = false;
 
+  customer: Customer = {
+    name: '',
+    phoneNumber: '',
+    email: ''
+  };
+
   CustomerInfoForm: any = this.fb.group({
     name: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required]],
-    email: ['', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]]
   });
 
   constructor(private fb: FormBuilder, private customerServ: CustomerprofileService) { }
@@ -30,10 +34,12 @@ export class CustomerInfoComponent implements OnInit {
     this.customerServ.GetCustomerById(1).subscribe({
       next: (data: any) => {
         // console.log(data);
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.customer = dataJson.data;
         this.CustomerInfoForm.patchValue({
-          name: data.name,
-          phoneNumber: data.phoneNumber,
-          email: data.email
+          name: this.customer.name,
+          phoneNumber: this.customer.phoneNumber,
+          email: this.customer.email
         })
         // console.log(this.CustomerInfoForm.value)
       },
