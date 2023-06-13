@@ -21,18 +21,22 @@ export class NavbarComponent {
     this.authenticationservice.userData.subscribe({
       next: data => {
         this.userdata = data;
-        this.userName = this.userdata?
-        this.userdata['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] :''
+        this.userName = this.userdata ? this.userdata['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : ''
       },
       error: error => console.log(error)
     })
   }
+
   showAllOffers(catName:any){
     this.Router.navigate(['/owners/',catName]);
   }
+
   ngOnInit() {
 
-
+    if (localStorage.getItem('userToken')){
+      this.authenticationservice.saveUserData()
+    }
+    
     this.ownerCategory.GetAllCategory().subscribe({
       next:data=>
       {
@@ -43,29 +47,17 @@ export class NavbarComponent {
            this.categoryName=category.name;
            this.showAllOffers(this.categoryName)
            console.log(this.categoryName)
-
         }
       },
       error:error=>this.errorMessage=error
-
     })
 
-
-
-
-
-
-
-    if (localStorage.getItem('userToken')){
-      this.authenticationservice.saveUserData()
-      console.log();
-
-    }
   }
 
   LogOut() {
     this.authenticationservice.logout();
   }
+  
   testToken(){
     this.authenticationservice.testToken().subscribe({
       next:data=>console.log(data),

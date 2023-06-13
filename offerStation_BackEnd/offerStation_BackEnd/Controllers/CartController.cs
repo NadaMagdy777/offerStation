@@ -20,12 +20,21 @@ namespace offerStation.API.Controllers
         {
             //this.cartService = cartService;
         }
-        [HttpPost("addToCart")]
-        public async Task<ActionResult<ApiResponse>> AddToCart(UserLoginDto dto)
+        [HttpPost("addProductToCart")]
+        public async Task<ActionResult<ApiResponse>> AddProductToCart(int id)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
 
-            return Ok();
+            return Ok(new ApiResponse(200,false, new { User, id } ,"Done"));
+        }
+
+        [HttpPost("addOfferToCart")]
+        public async Task<ActionResult<ApiResponse>> AddOfferToCart(int id)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            return Ok(new ApiResponse(200, false, new { User, id }, "Done"));
+
         }
 
     }

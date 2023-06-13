@@ -63,14 +63,16 @@ export class RegestrationComponent {
 
   addAddress()
   {
-    this.Address.push(this.createMaterial());
+    this.Address.push(this.createAddress());
   }
-  createMaterial() {
+  
+  createAddress() {
     return this.fb.group({
       details: ['',[Validators.required]],
       CityId: ['',[Validators.required]],
     });
   }
+
   deleteAddress(index:any)
   {    
    this.Address.removeAt(index);
