@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using offerStation.Core.Interfaces.Services;
 
 namespace offerStation.API.Controllers
 {
@@ -7,7 +8,11 @@ namespace offerStation.API.Controllers
     [ApiController]
     public class OwnerAnalysisController : ControllerBase
     {
-
+        private readonly IownerAnalysisService _ownerAnalysisService;
+        public OwnerAnalysisController(IownerAnalysisService ownerAnalysisService)
+        {
+           _ownerAnalysisService = ownerAnalysisService;
+        }
 
     }
 }
