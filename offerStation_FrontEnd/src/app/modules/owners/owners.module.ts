@@ -17,9 +17,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 
 
-
-
-
 @NgModule({
   declarations: [
     ProductCardComponent,

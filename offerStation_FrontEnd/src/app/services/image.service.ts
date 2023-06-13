@@ -16,7 +16,7 @@ export class ImageService {
     let base64 = btoa(String.fromCharCode(...imageBytes));
     return base64;
   }
-///// to convert from byte[] to imageUrl // Get method
+  ///// to convert from byte[] to imageUrl // Get method
   base64ArrayToImage(base64: string): string {
     let bytes = atob(base64);
     let array = new Uint8Array(bytes.length);

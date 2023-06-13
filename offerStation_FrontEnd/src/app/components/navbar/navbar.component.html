@@ -2,18 +2,18 @@
   <div class="p-3 text-center bg-white border-bottom">
     <div class="container">
       <div class="row gy-3 fs-sm">
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="https://mdbootstrap.com/" target="_blank" class="float-start me-5">
-            OfferStation
+        <div class="col-lg-2 col-sm-4 col-4 me-4">
+          <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
+            <img src="../../../assets/imges/logo.PNG" width="200px">
           </a>
         </div>
         <!-- Left elements -->
         <!-- Center elements -->
-        <div class="order-lg-last col-lg-6 col-sm-8 col-8">
+        <div class="order-lg-last col-lg-6 col-sm-8 col-8 me-4">
           <div class="d-flex float-end">
-                        
+
             <div *ngIf="userdata == null; then thenBlock else elseBlock"></div>
-            
+
             <ng-template #thenBlock>
               <a routerLink="/login" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
                 <i class="fas fa-user-alt m-1 me-md-2"></i>
@@ -60,18 +60,18 @@
         </div>
         <!-- Center elements -->
         <!-- Right elements -->
-        <div class="col-lg-4 col-md-12 col-12" style="width: 30%;">
+        <div class="col-lg-4 col-md-12 col-12" style="width: 25%;">
           <div class="input-group">
             <input type="search" class="form-control" placeholder="Search" aria-label="Search"
               aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+            <button type="button" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container justify-content-center justify-content-md-between">
       <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarLeftAlignExample"
         aria-controls="navbarLeftAlignExample" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,10 @@
             <a class="nav-link text-white" routerLink="">Home</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link text-white" routerLink="/customer/profile">Profile</a>
+            <a class="nav-link text-white" routerLink="/customer/profile">Customer Profile</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white" routerLink="/owner/profile">Owner Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Gift boxes</a>
@@ -98,15 +101,12 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li *ngFor="let category of categoryList"><a class="dropdown-item"
+                  (click)="showAllOffers(category.name)">{{category.name}}</a></li>
+
             </ul>
           </li>
 

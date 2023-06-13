@@ -68,7 +68,7 @@ namespace offerStation.EF.Services
             IEnumerable<Owner> ownerList = await _unitOfWork.Owners
                 .FindAllAsync(o => o.IsDeleted && o.Approved);
 
-            if(ownerList is not null)
+            if (ownerList is not null)
             {
                 ownerDtoList = new List<OwnerDto>();
                 ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
@@ -82,7 +82,7 @@ namespace offerStation.EF.Services
             IEnumerable<Owner> ownerList = await _unitOfWork.Owners
                 .FindAllAsync(o => !o.IsDeleted && !o.Approved);
 
-            if(ownerList is not null)
+            if (ownerList is not null)
             {
                 ownerDtoList = new List<OwnerDto>();
                 ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
@@ -172,7 +172,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> AddProduct(int ownerId, ProductDto productDto)
         {
-            if(productDto is not null)
+            if (productDto is not null)
             {
                 OwnerProduct product = new OwnerProduct();
                 product = _mapper.Map<OwnerProduct>(productDto);
@@ -188,7 +188,7 @@ namespace offerStation.EF.Services
         {
             OwnerProduct product = await _unitOfWork.OwnerProducts.GetByIdAsync(id);
 
-            if(product is not null && productDto is not null)
+            if (product is not null && productDto is not null)
             {
                 product.Name = productDto.Name;
                 product.Price = productDto.Price;
@@ -197,7 +197,7 @@ namespace offerStation.EF.Services
                 product.Discount = productDto.Discount;
                 product.CategoryId = productDto.CategoryId;
                 product.Description = productDto.Description;
-               
+
                 _unitOfWork.OwnerProducts.Update(product);
                 _unitOfWork.Complete();
 
@@ -209,7 +209,7 @@ namespace offerStation.EF.Services
         {
             OwnerProduct product = await _unitOfWork.OwnerProducts.GetByIdAsync(id);
 
-            if(product is not null)
+            if (product is not null)
             {
                 _unitOfWork.OwnerProducts.Delete(product);
                 _unitOfWork.Complete();
@@ -238,8 +238,8 @@ namespace offerStation.EF.Services
 
             if (category is not null && categoryDto is not null)
             {
-                category.Name =  categoryDto.Name;
-                category.Image =  categoryDto.Image;
+                category.Name = categoryDto.Name;
+                category.Image = categoryDto.Image;
 
                 _unitOfWork.OwnerCategories.Update(category);
                 _unitOfWork.Complete();
@@ -261,12 +261,29 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> AddReview(int ownerId, int supplierId, ReviewInfoDto reviewDto)
+        {
+            if (reviewDto is not null)
+            {
+                OwnerReview review = new OwnerReview();
+                review = _mapper.Map<OwnerReview>(reviewDto);
+
+                review.OwnerId = ownerId;
+                review.SupplierId = supplierId;
+
+                _unitOfWork.OwnerReviews.Add(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<ReviewDto>?> GetAllOwnersReviews()
         {
             List<ReviewDto> reviewListDto = null;
             IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews.GetAllAsync();
 
-            if(reviewList is not null)
+            if (reviewList is not null)
             {
                 reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
             }
@@ -312,17 +329,16 @@ namespace offerStation.EF.Services
                    o=>o.Owner.OwnerCategory,
                    o=>o.Orders
                });
-           
+
             if (CityID != 0)
             {
-              
+
                 offers = offers.Where(o => _helperService.checkAddress(o.Owner.AppUser.Addresses, CityID)).ToList();
                 return offers;
             }
-           
+
             return offers;
         }
-
         public async Task<List<Owner>> filterOwnersByCity(int CityID, string categoryName)
         {
             List<Owner> owners;
@@ -330,24 +346,24 @@ namespace offerStation.EF.Services
                {
                    o=>o.AppUser.Addresses,
                    o=>o.OwnerCategory,
-                   o=>o.CustomersReviews
+                   o=>o.CustomersReviews,
+                   o=>o.CustomerOrders
 
             });
             if (CityID != 0)
-            {  
+            {
                 owners = owners.Where(o => _helperService.checkAddress(o.AppUser.Addresses, CityID)).ToList();
                 return owners;
             }
-           
+
             return owners;
         }
-
         public List<OwnerOffer> sortingOwnerOfferData(List<OwnerOffer> offers, string sortBy)
         {
             if (sortBy == "MostPopular")
             {
-                return offers.OrderByDescending(o=>o.Orders.Count).ToList();
-                
+                return offers.OrderByDescending(o => o.Orders.Count).ToList();
+
             }
             else if (sortBy == "Cheapest")
             {
@@ -358,33 +374,23 @@ namespace offerStation.EF.Services
                 return offers.OrderByDescending(O => O.CreatedTime).ToList();
 
             }
-
-            
         }
         public async Task<int> calucaluteOwnerRating(Owner owner)
         {
-           int ratingSum= owner.CustomersReviews.Select(r => r.Rating).Sum();
-           int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
-            if(ratingcount != 0)
+            int ratingSum = owner.CustomersReviews.Select(r => r.Rating).Sum();
+            int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
+            if (ratingcount != 0)
             {
                 return ratingSum / ratingcount;
 
             }
             return 0;
-           
-        }
- 
-       
-        public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
-        {
-            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
-            return OwnerOrders.Count();
         }
         public List<Owner> sortingOwnerData(List<Owner> owners, string sortBy)
         {
             if (sortBy == "MostPopular")
             {
-                return owners.OrderByDescending(o => calucaluteOwnerOrdersNumber(o.Id)).ToList();
+                return owners.OrderByDescending(o => o.CustomerOrders.Count()).ToList();
 
             }
             else if (sortBy == "TopRated")
@@ -394,17 +400,13 @@ namespace offerStation.EF.Services
 
             return owners;
         }
-       
         public async Task<List<OwnerCategoryDto>> GetAllCategories()
         {
             List<OwnerCategory> ownerCategories = (List<OwnerCategory>)_unitOfWork.OwnerCategories.GetAll();
             List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
             return ownerCategoriesDto;
         }
-
-
         public async Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id)
-
         {
             List<OwnerMenuCategoriesNameDTO> MenuCategoriesDTOs;
 
@@ -413,22 +415,19 @@ namespace offerStation.EF.Services
 
             foreach (OwnerMenuCategory menu in result)
             {
-                OwnerMenuCategoriesNameDTO MenuDTO = new OwnerMenuCategoriesNameDTO();  
+                OwnerMenuCategoriesNameDTO MenuDTO = new OwnerMenuCategoriesNameDTO();
                 MenuDTO.Id = menu.Id;
                 MenuDTO.MenuName = menu.MenuName;
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;
-
         }
         public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id)
-
         {
             List<ProductInfoDto> OwnerProductsDTOs;
 
             OwnerProductsDTOs = new List<ProductInfoDto>();
             IEnumerable<OwnerProduct> result = await _unitOfWork.OwnerProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
-
 
             foreach (OwnerProduct product in result)
             {
@@ -444,7 +443,6 @@ namespace offerStation.EF.Services
                 OwnerProductsDTOs.Add(ProductDTO);
             }
             return OwnerProductsDTOs;
-
         }
         public async Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id)
         {
@@ -454,7 +452,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
 
 
-            if(ownerProducts is not null)
+            if (ownerProducts is not null)
             {
                 OwnerProductsDTOs = _mapper.Map<List<ProductInfoDto>>(ownerProducts);
             }
@@ -471,8 +469,7 @@ namespace offerStation.EF.Services
 
             return PrefPrice;
         }
-
-        public async Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId,string name ,string SortBy, string Category)
+        public async Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId, string name, string SortBy, string Category)
         {
             List<Owner> owners;
 
@@ -483,9 +480,9 @@ namespace offerStation.EF.Services
                 owners = sortingOwnerData(owners, SortBy);
             }
 
-            if(name != "")
+            if (name != "")
             {
-               owners= owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
+                owners = owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
             }
 
             ResultrDto<OwnerDto> ownerResult = new ResultrDto<OwnerDto>();
@@ -507,10 +504,8 @@ namespace offerStation.EF.Services
             ownerResult.List = ownerDtos;
 
             return ownerResult;
-
         }
-
-        public async Task<ResultrDto<OwnerOfferDto>> filterOffersData(int pageNumber,int pageSize,int cityId,string CategoryName,string sortBy)
+        public async Task<ResultrDto<OwnerOfferDto>> filterOffersData(int pageNumber, int pageSize, int cityId, string CategoryName, string sortBy)
         {
             List<OwnerOffer> offers;
 
@@ -520,7 +515,6 @@ namespace offerStation.EF.Services
             {
                 offers = sortingOwnerOfferData(offers, sortBy);
             }
-
 
             ResultrDto<OwnerOfferDto> offerFilterResult = new ResultrDto<OwnerOfferDto>();
             offerFilterResult.itemsCount = offers.Count();
@@ -542,37 +536,17 @@ namespace offerStation.EF.Services
             offerFilterResult.List = ownerOfferDtos;
 
             return offerFilterResult;
-
         }
         public async Task<ResultrDto<OwnerOfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
         {
-            return  await filterOffersData(pageNumber, pageSize, cityId, Category, SortBy);
-
-
+            return await filterOffersData(pageNumber, pageSize, cityId, Category, SortBy);
         }
-        public async Task<List<OwnerOfferDto>> GetAllOffersWithoutPagination(string CategoryName,string sortBy)
+        public async Task<List<OwnerOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
         {
-           
-            return filterOffersData(1,9,0, CategoryName, sortBy).Result.List;
-
+            return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;
         }
-       
 
+
+  
     }
 }
-//public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
-//{
-//    List<ReviewInfoDto> reviewListDto = null;
-
-//    IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
-//        .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
-//         new List<Expression<Func<CustomerReview, object>>>()
-//         {
-//                     r => r.Customer.AppUser,
-//         });
-
-//    if (reviewList is not null)
-//    {
-//        reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
-//    }
-//    return reviewListDto;}

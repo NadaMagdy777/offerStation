@@ -1,0 +1,37 @@
+.category-container
+{
+  background-color: white;
+  border: 20px gray;
+}
+.cards-container{
+  width: 320px;
+  height: 250px;
+}
+.card{
+  height: 380px;
+}
+
+.showAll{
+  text-decoration: none;
+  font-size: 23px;
+}
+.testimonial-card .card-up {
+  height: 120px;
+  overflow: hidden;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+@keyframes animatedBackground {
+
+    from {background-size:contain}
+  to   {background-size:cover}
+  }
+.testimonial-card .avatar {
+  width: 96px;
+  margin-top: -60px;
+  overflow: hidden;
+  border: 3px solid rgb(235, 230, 236);
+  border-radius: 50%;
+  height: 187px;
+}
+/* new*/

@@ -1,6 +1,8 @@
 export class AddressDetails{
     constructor(
-        details:string,
-        cityId:number
+        public id:number,
+        public cityName:string,
+        public details:string,
+        public cityId:number
     ){}
 }

@@ -11,6 +11,8 @@ namespace offerStation.Core.Models
     public class OwnerOrder : BaseModel
     {
         public int Id { get; set; }
+        public OrderStatus orderStatus { get; set; }
+        public DateTime orderDate { get; set; }
 
         [ForeignKey("Delivery")]
         public int DeliveryId { get; set; }
@@ -20,6 +22,7 @@ namespace offerStation.Core.Models
         public int SupplierId { get; set; }
         public  Supplier Supplier { get; set; }
 
+        
         [ForeignKey("Owner")]
         public int OwnerId { get; set; }
         public  Owner Owner { get; set; }
