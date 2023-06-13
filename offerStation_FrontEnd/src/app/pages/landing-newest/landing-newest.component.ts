@@ -24,13 +24,14 @@ export class LandingNewestComponent {
       {
         let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
-        this.categoryList=dataJson.data;
-       // this.categoryName=data.data.name
+       // this.categoryList=dataJson.data;
+        this.categoryName=data.data.name
+        console.log(this.categoryName.data)
       },
       error:error=>this.errorMessage=error
 
     })
-console.log(this.categoryName)
+
     this.ownerCategory.GetOffersWithOwner(this.categoryName,"Newest").subscribe({
       next:data=>
       {

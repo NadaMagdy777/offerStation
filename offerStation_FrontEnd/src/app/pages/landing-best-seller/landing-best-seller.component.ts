@@ -11,6 +11,7 @@ export class LandingBestSellerComponent {
   categoryList!:any
   errorMessage: any;
   categoryName :any;
+ 
   offerList: any;
   constructor(private ownerCategory:CategoryService,private route:ActivatedRoute){
   }
@@ -22,12 +23,12 @@ export class LandingBestSellerComponent {
         let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
         this.categoryList=dataJson.data;
-       // this.categoryName=data.data.name
+       this.categoryName=data.data.name
       },
       error:error=>this.errorMessage=error
 
     })
-console.log(this.categoryName)
+//console.log(this.categoryName)
     this.ownerCategory.GetOffersWithOwner(this.categoryName,"MostPopular").subscribe({
       next:data=>
       {
