@@ -385,9 +385,33 @@ namespace offerStation.EF.Services
             }
             return 0;          
         }
+
+ 
+        //public async Task<List<ReviewInfoDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
+        //{
+        //    List<ReviewInfoDto> reviewListDto = null;
+
+        //    IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+        //        .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
+        //         new List<Expression<Func<CustomerReview, object>>>()
+        //         {
+        //             r => r.Customer.AppUser,
+        //         });
+
+        //    if (reviewList is not null)
+        //    {
+        //        reviewListDto = _mapper.Map<List<ReviewInfoDto>>(reviewList);
+        //    }
+        //    return reviewListDto;
+        //}
+        public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
+        {
+            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
+
         public async Task<int> calucaluteOwnerOrdersNumber(Owner owner)
         {
             List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == owner.Id);
+
             return OwnerOrders.Count();
         }
         public List<Owner> sortingOwnerData(List<Owner> owners, string sortBy)
