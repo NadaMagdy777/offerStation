@@ -7,7 +7,7 @@ namespace offerStation.Core.Dtos
     {
 
         public int OwnerProductId { get; set; }
-        public int OwnerProductName { get; set; }
+        public string OwnerProductName { get; set; }
 
         public int Quantity { get; set; }
         public double Total { get; set; }

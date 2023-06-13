@@ -52,8 +52,8 @@ export class AuthenticationService {
       return `Bearer ${localStorage.getItem('userToken') as string}`;
     return '';
   }
-  testToken(): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(`https://localhost:7017/api/Cart/addProductToCart`,1);
+  testToken(ProductId:any): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(`https://localhost:7017/api/Cart/addProductToCart`,ProductId);
   }
 
 }

@@ -16,4 +16,9 @@ namespace offerStation.Core.Dtos
         public int TraderId { get; set; }
         public int CategoryId { get; set; }
     }
+    public class ProductDetailsDto
+    {
+        public int Id { get; set; }
+        public double Price { get; set; }
+    }
 }
