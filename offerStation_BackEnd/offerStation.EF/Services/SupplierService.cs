@@ -184,7 +184,6 @@ namespace offerStation.EF.Services
                 product.Price = productDto.Price;
                 product.Image = productDto.Image;
                 product.Discount = productDto.Discount;
-                product.SupplierId = productDto.TraderId;
                 product.CategoryId = productDto.CategoryId;
                 product.Description = productDto.Description;
 
@@ -429,7 +428,7 @@ namespace offerStation.EF.Services
 
         }
 
-        public async Task<ResultrDto<SupplierOfferDto>> filterOffersData(int pageNumber, int pageSize, int cityId, string CategoryName, string sortBy)
+        public async Task<ResultrDto<OfferDto>> filterOffersData(int pageNumber, int pageSize, int cityId, string CategoryName, string sortBy)
         {
             List<SupplierOffer> offers;
 
@@ -441,19 +440,19 @@ namespace offerStation.EF.Services
             }
 
 
-            ResultrDto<SupplierOfferDto> offerFilterResult = new ResultrDto<SupplierOfferDto>();
+            ResultrDto<OfferDto> offerFilterResult = new ResultrDto<OfferDto>();
             offerFilterResult.itemsCount = offers.Count();
             int recSkip = (pageNumber - 1) * pageSize;
             offers = offers.Skip(recSkip).Take(pageSize).ToList();
 
-            List<SupplierOfferDto> OfferDtos = new List<SupplierOfferDto>();
+            List<OfferDto> OfferDtos = new List<OfferDto>();
             offers.ForEach(o =>
             {
-                SupplierOfferDto Offer = new SupplierOfferDto();
-                Offer = _mapper.Map<SupplierOfferDto>(o);
+                OfferDto Offer = new OfferDto();
+                Offer = _mapper.Map<OfferDto>(o);
 
                 Offer.PrefPrice = GetPriceBeforeOffer(o);
-                Offer.ownerImage = o.Supplier.Image;
+                Offer.TraderImage = o.Supplier.Image;
 
                 OfferDtos.Add(Offer);
 
@@ -463,13 +462,13 @@ namespace offerStation.EF.Services
             return offerFilterResult;
 
         }
-        public async Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
+        public async Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
         {
             return await filterOffersData(pageNumber, pageSize, cityId, Category, SortBy);
 
 
         }
-        public async Task<List<SupplierOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
+        public async Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
         {
 
             return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;

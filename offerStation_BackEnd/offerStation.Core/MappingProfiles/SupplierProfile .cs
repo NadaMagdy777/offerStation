@@ -20,7 +20,6 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<ProductDto, SupplierProduct>()
-                .ForMember(des => des.SupplierId, a => a.MapFrom(src => src.TraderId))
                 .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
                 .ReverseMap();
 

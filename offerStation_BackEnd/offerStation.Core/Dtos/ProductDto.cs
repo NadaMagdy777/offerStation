@@ -13,7 +13,20 @@ namespace offerStation.Core.Dtos
         public double Price { get; set; } 
         public int Discount { get; set; }
         public byte[]? Image { get; set; }
-        public int TraderId { get; set; }
         public int CategoryId { get; set; }
+    }
+    public class ProductDetailsDto
+    {
+        public int Id { get; set; }
+        public double Price { get; set; }
+    }
+    public class ProductInfoDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
+        public int Discount { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

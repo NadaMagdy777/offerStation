@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Interfaces.Services
 {
-    public interface ICartService
+    public interface ICustomerCartService
     {
+        Task<ApiResponse> AddProductToCart(int useridentifier, ProductDetailsDto ProductId);
         Task<ApiResponse> GetCartDetails();
-        Task<ApiResponse> AddProductToCart(int id);
         Task<ApiResponse> AddOfferToCart(int id);
         Task<ApiResponse> RemoveProductFromCart(int id);
         Task<ApiResponse> RemoveOfferFromCart(int id);

@@ -193,7 +193,6 @@ namespace offerStation.EF.Services
                 product.Name = productDto.Name;
                 product.Price = productDto.Price;
                 product.Image = productDto.Image;
-                product.OwnerId = productDto.TraderId;
                 product.Discount = productDto.Discount;
                 product.CategoryId = productDto.CategoryId;
                 product.Description = productDto.Description;
@@ -523,7 +522,7 @@ namespace offerStation.EF.Services
 
             return ownerResult;
         }
-        public async Task<ResultrDto<OwnerOfferDto>> filterOffersData(int pageNumber, int pageSize, int cityId, string CategoryName, string sortBy)
+        public async Task<ResultrDto<OfferDto>> filterOffersData(int pageNumber,int pageSize,int cityId,string CategoryName,string sortBy)
         {
             List<OwnerOffer> offers;
 
@@ -534,34 +533,34 @@ namespace offerStation.EF.Services
                 offers = sortingOwnerOfferData(offers, sortBy);
             }
 
-            ResultrDto<OwnerOfferDto> offerFilterResult = new ResultrDto<OwnerOfferDto>();
+            ResultrDto<OfferDto> offerFilterResult = new ResultrDto<OfferDto>();
             offerFilterResult.itemsCount = offers.Count();
             int recSkip = (pageNumber - 1) * pageSize;
             offers = offers.Skip(recSkip).Take(pageSize).ToList();
 
-            List<OwnerOfferDto> ownerOfferDtos = new List<OwnerOfferDto>();
+            List<OfferDto> OfferDtos = new List<OfferDto>();
             offers.ForEach(o =>
             {
-                OwnerOfferDto ownerOffer = new OwnerOfferDto();
-                ownerOffer = _mapper.Map<OwnerOfferDto>(o);
+                OfferDto ownerOffer = new OfferDto();
+                ownerOffer = _mapper.Map<OfferDto>(o);
 
                 ownerOffer.PrefPrice = GetPriceBeforeOffer(o);
-                ownerOffer.ownerImage = o.Owner.Image;
+                ownerOffer.TraderImage = o.Owner.Image;
 
-                ownerOfferDtos.Add(ownerOffer);
+                OfferDtos.Add(ownerOffer);
 
             });
-            offerFilterResult.List = ownerOfferDtos;
+            offerFilterResult.List = OfferDtos;
 
             return offerFilterResult;
         }
-        public async Task<ResultrDto<OwnerOfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
+        public async Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int pageNumber, int pageSize, int cityId, string SortBy, string Category)
         {
             return await filterOffersData(pageNumber, pageSize, cityId, Category, SortBy);
         }
-        public async Task<List<OwnerOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
-        {
-            return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;
+        public async Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName,string sortBy)
+        {          
+            return filterOffersData(1,9,0, CategoryName, sortBy).Result.List;
         }
 
 
