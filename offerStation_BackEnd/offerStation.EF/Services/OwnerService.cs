@@ -436,8 +436,10 @@ namespace offerStation.EF.Services
                 ProductDTO.Description = product.Description;
                 ProductDTO.Name = product.Name;
                 ProductDTO.Id = product.Id;
-                ProductDTO.Image = product.Image;
                 ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price-(product.Price * product.Discount/100);   
+                ProductDTO.Image = product.Image;
+               
 
 
                 OwnerProductsDTOs.Add(ProductDTO);
@@ -446,17 +448,33 @@ namespace offerStation.EF.Services
         }
         public async Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id)
         {
-            List<ProductInfoDto> OwnerProductsDTOs = null;
+            List<ProductInfoDto> OwnerProductsDTOs ;
+            OwnerProductsDTOs = new List<ProductInfoDto>();
 
             IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts
                 .FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
-
-
-            if (ownerProducts is not null)
+            foreach (OwnerProduct product in ownerProducts)
             {
-                OwnerProductsDTOs = _mapper.Map<List<ProductInfoDto>>(ownerProducts);
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+
+
+                OwnerProductsDTOs.Add(ProductDTO);
             }
             return OwnerProductsDTOs;
+
+            //if (ownerProducts is not null)
+            //{
+            //    OwnerProductsDTOs = _mapper.Map<List<ProductInfoDto>>(ownerProducts);
+            //}
+            //return OwnerProductsDTOs;
         }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
