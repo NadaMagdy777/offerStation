@@ -105,6 +105,23 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
+        public async Task<bool> AddReview(int customerId, int ownerId, ReviewInfoDto reviewDto)
+        {
+            if (reviewDto is not null)
+            {
+                CustomerReview review = new CustomerReview();
+                review = _mapper.Map<CustomerReview>(reviewDto);
+
+                review.OwnerId = ownerId;
+                review.CustomerId = customerId;
+
+                _unitOfWork.CustomerReviews.Add(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> DeleteReview(int id)
         {
             CustomerReview review = await _unitOfWork.CustomerReviews.GetByIdAsync(id);

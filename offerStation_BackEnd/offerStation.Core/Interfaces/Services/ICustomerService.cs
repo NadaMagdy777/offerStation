@@ -13,6 +13,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> EditCustomer(int id, CustomerInfoDto customerInfoDto);
         Task<bool> SuspendCustomer(int id);
         Task<bool> RemoveCustomerSuspension(int id);
+        Task<bool> AddReview(int customerId, int ownerId, ReviewInfoDto reviewDto);
         Task<bool> DeleteReview(int id);
         Task<List<ReviewDto>?> GetAllCustomersReviews();
     }
