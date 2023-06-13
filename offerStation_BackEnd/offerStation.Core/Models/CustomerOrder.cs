@@ -24,10 +24,10 @@ namespace offerStation.Core.Models
 
         public string PaymentMethod { get; set; } // enum paymnet method
 
-        public virtual CustomerCardDetails CardDetails { get; set; }
+        public virtual CustomerCardDetails? CardDetails { get; set; }
 
         //public bool HasDelivary { get; set; }
-        public virtual Delivery Delivery { get; set; }
+        public virtual Delivery? Delivery { get; set; }
 
         public virtual List<CustomerOrderProduct> Products { get; set; }
         public virtual List<CustomerOrderOffer> Offers { get; set; }

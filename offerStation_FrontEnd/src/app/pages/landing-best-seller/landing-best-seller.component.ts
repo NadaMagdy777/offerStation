@@ -28,7 +28,6 @@ export class LandingBestSellerComponent {
         this.categoryList=dataJson.data;
         for(let category of this.categoryList){
            this.categoryName=category.name;
-           this.showAllOffers(this.categoryName)
            console.log(this.categoryName)
            this.ownerCategory.GetOffersWithOwner(this.categoryName,"MostPopular").subscribe({
             next:data=>
