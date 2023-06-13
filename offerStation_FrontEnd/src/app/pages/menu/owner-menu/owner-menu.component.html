@@ -1,25 +1,28 @@
 <div class="container">
-    <div class="row">
-<div class="col-lg-3" >
-    <div class="accordion mt-2" id="ccordionPanelsStayOpenExample"s tyle="padding-inline: inherit">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="accordion mt-2" id="ccordionPanelsStayOpenExample" s tyle="padding-inline: inherit">
         <div class="accordion-item ">
           <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            Categories
+            <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Categories
             </button>
           </h2>
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample">
             <div class="list-group">
-            <button type="button" value="0"  style="background-color:  #e12539;"class="list-group-item active border-0 "
-             (click)="getAllProductsByOwnerId()" >
-              All Categoies
-            </button>
-            <div *ngFor="let item of MenucategoryList">
-            <button type="button" class="list-group-item list-group-item-action" (click)="getproductBycategoryId(item.id)" value="{{item.id}}">{{item.menuName}}</button>
-            <!-- <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" value="0" style="background-color:  #e12539;"
+                class="list-group-item active border-0 " (click)="getAllProductsByOwnerId()">
+                All Categoies
+              </button>
+              <div *ngFor="let item of MenucategoryList">
+                <button type="button" class="list-group-item list-group-item-action"
+                  (click)="getproductBycategoryId(item.id)" value="{{item.id}}">{{item.menuName}}</button>
+                <!-- <button type="button" class="list-group-item list-group-item-action">A third button item</button>
             <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
-          </div>
-          </div>
+              </div>
+            </div>
           </div>
           <!-- <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 
@@ -29,41 +32,41 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
               Prices
             </button>
           </h2>
-          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+            data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
 
-                <mat-slider min="1" max="5" step="0.5" value="1.5">
-                     <input matSliderThumb >
-                   </mat-slider>
-                   <div class="d-flex justify-content-center">
-                    <button type="button" class=" btn btn-primary">Apply</button>
-                   </div>
-
-
-               </div>
+              <mat-slider min="1" max="5" step="0.5" value="1.5">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="d-flex justify-content-center">
+                <button type="button" class=" btn btn-primary">Apply</button>
+              </div>
+            </div>
           </div>
         </div>
-    </div>
-</div>
-<div class="col-9 collapse card d-block mb-5 mt-2" style="background-color: #f4f5f7;">
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
-    <div class="card" style="width:400px">
-      <img class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
-      <div class="card-body">
-        <h4 class="card-title">{{item.price}}</h4>
-        <p class="card-text">{{item.name}}</p>
-        <p class="card-text">{{item.discount}}</p>
-        <p class="card-text">{{item.description}}</p>
-        <a href="#" class="btn btn-primary">See Profile</a>
       </div>
     </div>
-  </div>
-    <!-- <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
+    <div class="col-9 collapse card d-block mb-5 mt-2" style="background-color: #f4f5f7;">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
+          <div class="card" style="width:400px">
+            <img class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">{{item.price}}</h4>
+              <p class="card-text">{{item.name}}</p>
+              <p class="card-text">{{item.discount}}</p>
+              <p class="card-text">{{item.description}}</p>
+              <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
         <div class="card w-100 my-2 shadow-2-strong">
           <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp" class="card-img-top" />
           <div class="card-body d-flex flex-column">
@@ -78,16 +81,7 @@
           </div>
         </div>
       </div> -->
-
-
+      </div>
     </div>
+  </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-

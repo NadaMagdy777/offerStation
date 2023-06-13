@@ -128,6 +128,7 @@ export class AddressesComponent implements OnInit {
     });
 
   }
+
   openAddressModal() {
     this.display = 'block';
   }

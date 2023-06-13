@@ -12,9 +12,10 @@ import { AllOwnerComponent } from 'src/app/pages/all-owner/all-owner.component';
 import { OwnersIndexComponent } from 'src/app/pages/owners-index/owners-index.component';
 import { BannerComponent } from 'src/app/components/banner/banner.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MatTabsModule } from '@angular/material/tabs';
-import { HttpClientModule } from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
+import {HttpClientModule} from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MatSliderModule } from '@angular/material/slider';
     AllOwnerComponent,
     OwnersIndexComponent,
     BannerComponent,
-
+    
   ],
   imports: [
     NgxPaginationModule,
@@ -36,7 +37,7 @@ import { MatSliderModule } from '@angular/material/slider';
     OwnersRoutingModule,
     RouterModule,
     FormsModule
-
+    
   ]
 })
 export class OwnersModule { }

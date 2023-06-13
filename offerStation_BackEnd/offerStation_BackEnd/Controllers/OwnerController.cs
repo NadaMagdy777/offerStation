@@ -153,6 +153,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+
         [HttpPut("OwnerCategory/id")]
         public async Task<ActionResult<ApiResponse>> EditOwnerCategory(int id, OwnerCategoryInfoDto category)
         {

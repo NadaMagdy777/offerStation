@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
+import { CustomerprofileService } from 'src/app/services/CustomerProfile/customerprofile-service.service';
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 
 @Component({
@@ -24,7 +24,7 @@ export class CustomerInfoComponent implements OnInit {
   CustomerInfoForm: any = this.fb.group({
     name: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required]],
-    email: ['', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]]
   });
 
   constructor(private fb: FormBuilder, private customerServ: CustomerprofileService) { }

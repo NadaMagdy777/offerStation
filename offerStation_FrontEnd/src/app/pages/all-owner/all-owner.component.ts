@@ -8,27 +8,35 @@ import { Product } from 'src/app/sharedClassesAndTypes/product';
   templateUrl: './all-owner.component.html',
   styleUrls: ['./all-owner.component.css']
 })
-export class AllOwnerComponent implements OnInit{
-  ProductList!:Product[]
-  selectedcityId:number=0
-  pageNumber:number=1
-  totalItems:number=0
-  pagesize:number=4
-  sortBy:string=""
-  OwnerCategory:string="Clothes"
-  ownerName:string=""
+export class AllOwnerComponent implements OnInit {
+  ProductList!: Product[]
+  selectedcityId: number = 0
+  pageNumber: number = 1
+  totalItems: number = 0
+  pagesize: number = 4
+  sortBy: string = ""
+  OwnerCategory: string = "Clothes"
+  ownerName: string = ""
 
-  constructor(private OwnerService:OwnerService,private route:ActivatedRoute){
+  constructor(private OwnerService: OwnerService, private route: ActivatedRoute) {
+
+  }
+
+  cityIdChanges(value: any) {
+    this.selectedcityId = value;
+    this.getOwners(this.pageNumber, this.pagesize)
+    this.pageNumber = 1
+
 
   }
   ngOnInit(): void {
-    this.OwnerCategory= this.route.snapshot.params['category']
-    this.getOwners(1,this.pagesize)
+    this.OwnerCategory = this.route.snapshot.params['category']
+    this.getOwners(1, this.pagesize)
   }
 
-  getOwners(pgNum:number,pageSize:number){
-    this.OwnerService.GetOwners(pgNum,pageSize,this.OwnerCategory,this.selectedcityId,this.sortBy,this.ownerName).subscribe({
-      next:data=>{
+  getOwners(pgNum: number, pageSize: number) {
+    this.OwnerService.GetOwners(pgNum, pageSize, this.OwnerCategory, this.selectedcityId, this.sortBy, this.ownerName).subscribe({
+      next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         console.log(dataJson.data)
         this.totalItems = dataJson.data.itemsCount
@@ -38,7 +46,7 @@ export class AllOwnerComponent implements OnInit{
       error: error => { console.log(error) }
     }
 
-      )
+    )
   }
   pageNumberChanged(value: any) {
     this.pageNumber = value
@@ -47,15 +55,16 @@ export class AllOwnerComponent implements OnInit{
     console.log(value);
 
   }
-  
   changeSorting(selectObject: any) {
     this.sortBy = selectObject.target.value
     this.getOwners(this.pageNumber, this.pagesize)
+
+
   }
-  ownersearchanges(value:any){
-    this.ownerName=value;
-    this.getOwners(this.pageNumber,this.pagesize)
-    this.pageNumber=1
+  ownersearchanges(value: any) {
+    this.ownerName = value;
+    this.getOwners(this.pageNumber, this.pagesize)
+    this.pageNumber = 1
 
   }
 

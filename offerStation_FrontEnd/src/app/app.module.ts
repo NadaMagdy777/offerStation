@@ -10,7 +10,7 @@ import { OwnerregestrationComponent } from './components/regestration/ownerreges
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component'
 import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -22,7 +22,6 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 @NgModule({
   declarations: [
@@ -43,7 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
-     FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatTabsModule,
