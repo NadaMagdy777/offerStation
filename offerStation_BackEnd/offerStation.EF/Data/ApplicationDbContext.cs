@@ -22,7 +22,7 @@ namespace offerStation.EF.Data
         }
         public DbSet<City> City { get; set; }
         public DbSet<Admin> Admin { get; set; }
-        public DbSet<Address> Address{ get; set; }
+        public DbSet<Address> Address { get; set; }
         public DbSet<Delivery> Delivery { get; set; }
 
         public DbSet<Customer> Customer { get; set; }
@@ -34,7 +34,7 @@ namespace offerStation.EF.Data
         public DbSet<CustomerCardDetails> CustomerCardDetails { get; set; }
         public DbSet<CustomerCartProduct> CustomerCartProduct { get; set; }
         public DbSet<CustomerOrderProduct> CustomerOrderProduct { get; set; }
-        
+
         public DbSet<Owner> Owner { get; set; }
         public DbSet<OwnerCart> OwnerCart { get; set; }
         public DbSet<OwnerOrder> OwnerOrder { get; set; }
@@ -94,7 +94,7 @@ namespace offerStation.EF.Data
                         Id = 3,
                         Name = "Moles"
                     }
-                } 
+                }
             );
 
             builder.Entity<SupplierCategory>().HasData(
@@ -309,33 +309,26 @@ namespace offerStation.EF.Data
                        AppUserId="5",
                        Id=1,
                        IsDeleted=false,
-                       
-                      
                     },
-                    
+                    new Customer
+                    {
+                       AppUserId="6",
+                       Id=2,
+                       IsDeleted=false,
+                    },
               }
-          ); 
+          );
 
-           
+
             builder.Entity<Supplier>().HasData(
                new List<Supplier>{
                     new Supplier
                     {
-                       AppUserId="5",
+                       AppUserId="7",
                        Id=1,
                        SupplierCategoryId=3,
                        IsDeleted=false,
                        Approved=true
-                    },
-               }
-           );
-            builder.Entity<Customer>().HasData(
-               new List<Customer>{
-                    new Customer
-                    {
-                       AppUserId="6",
-                       Id=1,
-                       IsDeleted=false,
                     },
                }
            );
@@ -438,20 +431,13 @@ namespace offerStation.EF.Data
                       Name="nada",
                       Phone="0112567898",
                       IsDeleted=false,
-
-
-
                     },
                      new Delivery
                     {
-
-                       Id=2,
+                      Id=2,
                       Name="omnia",
                       Phone="0112567898",
                       IsDeleted=false,
-
-
-
                     },
 
              }
@@ -461,7 +447,6 @@ namespace offerStation.EF.Data
              new List<CustomerOrder>{
                     new CustomerOrder
                     {
-
                        Id=1,
                        CustomerId=1,
                        OwnerId=1,
@@ -469,8 +454,6 @@ namespace offerStation.EF.Data
                        orderDate=DateTime.Now,
                        PaymentMethod=PaymentMethod.CashOnDelivery,
                        orderStatus=OrderStatus.pending
-
-
 
                     },
                      new CustomerOrder
@@ -484,8 +467,6 @@ namespace offerStation.EF.Data
                        PaymentMethod=PaymentMethod.CashOnDelivery,
                        orderStatus=OrderStatus.pending
 
-
-
                     },
                        new CustomerOrder
                     {
@@ -498,8 +479,6 @@ namespace offerStation.EF.Data
                        PaymentMethod=PaymentMethod.CashOnDelivery,
                        orderStatus=OrderStatus.pending
 
-
-
                     },
                     new CustomerOrder
                     {
@@ -511,13 +490,10 @@ namespace offerStation.EF.Data
                        orderDate=DateTime.Now,
                        PaymentMethod=PaymentMethod.CashOnDelivery,
                        orderStatus=OrderStatus.pending
-
-
-
                     },
 
              }
-         ) ;
+         );
             builder.Entity<CustomerOrderOffer>().HasData(
              new List<CustomerOrderOffer>{
                     new CustomerOrderOffer
@@ -528,9 +504,6 @@ namespace offerStation.EF.Data
                        OwnerOffertId=1,
                        Quantity=2,
                        IsDeleted=false,
-                      
-
-
 
                     },
                     new CustomerOrderOffer
@@ -542,9 +515,6 @@ namespace offerStation.EF.Data
                        Quantity=5,
                        IsDeleted=false,
 
-
-
-
                     },
                      new CustomerOrderOffer
                     {
@@ -554,15 +524,7 @@ namespace offerStation.EF.Data
                        OwnerOffertId=3,
                        Quantity=3,
                        IsDeleted=false,
-
-
-
-
-                    },
-
-
-
-
+                    }
 
              }
          );

@@ -19,7 +19,7 @@ export class OwnerregestrationComponent {
   ) {
 
   }
-
+  msg='';
   Cities: any;
   categories: any;
   error: string = ''
@@ -85,9 +85,16 @@ export class OwnerregestrationComponent {
 
   submitData() {
     this._AuthService.registerOwner(this.registerForm.value).subscribe({
-      next: data => console.log(data),
-      error: error => console.log(error)
+      next:data=>{        
+        if (data.success == true) {
+        }
+        else {
+          this.msg = data.message;
+        }},
+      error:error=>console.log(error)
     })
   }
-
+  removemesage(){
+    this.msg="";
+  }
 }

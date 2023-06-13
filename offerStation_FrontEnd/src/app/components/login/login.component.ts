@@ -12,7 +12,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private _AuthenticationService: AuthenticationService, private router: Router) {
 
   }
-
+  msg = "";
   loginForm = this.fb.group({
     password: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -27,21 +27,21 @@ export class LoginComponent {
   error: string = ''
 
   submitData() {    
-    
-    this._AuthenticationService.login(this.loginForm.value).subscribe({
+      this._AuthenticationService.login(this.loginForm.value).subscribe({
       next:data=>{        
         if (data.success == true) {
-          console.log(data);
-          
           localStorage.setItem("userToken",data.data.token);
           this._AuthenticationService.saveUserData()
-          // this.router.navigate(['home'])
+          this.router.navigate([''])
         }
         else {
-          // this.error=
+          this.msg = data.message;
         }
       },
       error:error=>console.log(error)
     });
+  }
+  removemesage(){
+    this.msg="";
   }
 }

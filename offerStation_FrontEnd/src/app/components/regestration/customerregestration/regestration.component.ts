@@ -14,7 +14,8 @@ export class RegestrationComponent {
 
   constructor(private _AuthService: AuthenticationService, 
               private fb: FormBuilder,
-              private cityService:CityService) { 
+              private cityService:CityService,
+              private router: Router) { 
 
   }
   
@@ -63,14 +64,16 @@ export class RegestrationComponent {
 
   addAddress()
   {
-    this.Address.push(this.createMaterial());
+    this.Address.push(this.createAddress());
   }
-  createMaterial() {
+  
+  createAddress() {
     return this.fb.group({
       details: ['',[Validators.required]],
       CityId: ['',[Validators.required]],
     });
   }
+
   deleteAddress(index:any)
   {    
    this.Address.removeAt(index);
@@ -78,7 +81,10 @@ export class RegestrationComponent {
 
   submitData() {    
     this._AuthService.registerUser(this.registerForm.value).subscribe({
-      next:data=>console.log(data),
+      next:data=>{
+        console.log(data);          
+        this.router.navigate(['login']);
+    },
       error:error=>console.log(error)     
     })
   }
