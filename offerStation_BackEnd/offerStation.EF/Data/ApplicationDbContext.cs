@@ -529,7 +529,63 @@ namespace offerStation.EF.Data
              }
          );
 
+            builder.Entity<OwnerMenuCategory>().HasData(
+         new List<OwnerMenuCategory>{
+                    new OwnerMenuCategory
+                    {
 
+                       Id=1,
+                       IsDeleted=false,
+                       MenuName = "Elmahweyat",
+                       OwnerId =1,
+                    },
+                    new OwnerMenuCategory
+                    {
+
+                       Id=2,
+                       IsDeleted=false,
+                       MenuName = "meshElmashweyat",
+                       OwnerId =1,
+
+                    },
+                     new OwnerMenuCategory
+                    {
+
+                       Id=3,
+                       IsDeleted=false,
+                       MenuName = "Salatat",
+                       OwnerId =1,
+                    }
+
+         }
+     );
+
+            builder.Entity<OwnerProduct>().HasData(
+               new List<OwnerProduct>{
+                    new OwnerProduct
+                    {
+                        Id = 1,
+                        Name = "p1",
+                        Price = 120,
+                        Description = "Short Description",
+                        Discount = 3,
+                        CreatedTime = DateTime.Now,
+                        OwnerId =1,
+                        CategoryId =1,
+                    },
+                    new OwnerProduct
+                    {
+                        Id = 2,
+                        Name = "p2",
+                        Price = 210,
+                        Description = "Short Description2",
+                        Discount = 5,
+                        CreatedTime = DateTime.Now,
+                        OwnerId = 1,
+                        CategoryId = 2,
+                    }
+               }
+           );
         }
     }
 }

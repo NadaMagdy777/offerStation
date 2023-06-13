@@ -15,7 +15,7 @@ export class NavbarComponent {
   categoryList: any;
   categoryName: any;
   errorMessage: any;
-
+  productdata = { 'Id' : 1, 'Price' : 120 };
   constructor(private ownerCategory:CategoryService,private authenticationservice: AuthenticationService ,private route:ActivatedRoute,private Router:Router) {
 
     this.authenticationservice.userData.subscribe({
@@ -58,7 +58,7 @@ export class NavbarComponent {
   }
   
   testToken(){
-    this.authenticationservice.testToken().subscribe({
+    this.authenticationservice.testToken(this.productdata).subscribe({
       next:data=>console.log(data),
 
     })

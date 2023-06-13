@@ -14,6 +14,7 @@ describe('OwnerreviewComponent', () => {
 
     fixture = TestBed.createComponent(OwnerreviewComponent);
     component = fixture.componentInstance;
+    
     fixture.detectChanges();
   });
 

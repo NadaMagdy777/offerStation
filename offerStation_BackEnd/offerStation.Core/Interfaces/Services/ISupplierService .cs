@@ -28,8 +28,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
-        Task<ResultrDto<SupplierOfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
+        Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
-        Task<List<SupplierOfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
+        Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
     }
 }

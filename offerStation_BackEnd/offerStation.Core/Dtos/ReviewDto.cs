@@ -15,6 +15,7 @@ namespace offerStation.Core.Dtos
     {
         public int Rating { get; set; }
         public string Comment { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
     
 }
