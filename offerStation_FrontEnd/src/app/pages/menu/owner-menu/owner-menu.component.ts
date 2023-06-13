@@ -5,59 +5,50 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
   selector: 'app-owner-menu',
   templateUrl: './owner-menu.component.html',
   styleUrls: ['./owner-menu.component.css']
-  
+
 })
 export class OwnerMenuComponent {
-MenucategoryList:any;
-ProductListByCategoryName:any
+  MenucategoryList: any;
+  ProductListByCategoryName: any
   errorMessage: any;
-constructor(private owner:OwnerService)
-{
-  
-this.owner.getMenuCategorybyOwnerId(1).subscribe({
+  constructor(private owner: OwnerService) {
 
-  next:data=>
-  {
-    console.log(data);
-    this.MenucategoryList=data.data
-  },
-  error:error=>this.errorMessage=error
+    this.owner.getMenuCategorybyOwnerId(1).subscribe({
 
-})
-
-
-
-}
-getAllProductsByOwnerId(){
-   this.owner.getAllProductsByOwnerId(1).subscribe({
-      next:data=>
-      {
+      next: data => {
         console.log(data);
-        this.ProductListByCategoryName=data.data
-        console.log("list"+this.ProductListByCategoryName);
+        this.MenucategoryList = data.data
       },
-      error:error=>this.errorMessage=error
-    });
-}
-getproductBycategoryId(id:number)
-{
-  if(id==0)
-  {
-    this.getAllProductsByOwnerId();
-  }else{
-   
-    this.owner.getProductsByCategoryId(id).subscribe({
-      next:data=>
-      {
-        console.log(data);
-        this.ProductListByCategoryName=data.data
-        console.log("list"+this.ProductListByCategoryName);
-      },
-      error:error=>this.errorMessage=error
-    
-     })
+      error: error => this.errorMessage = error
+
+    })
   }
+  getAllProductsByOwnerId() {
+    this.owner.getAllProductsByOwnerId(1).subscribe({
+      next: data => {
+        console.log(data);
+        this.ProductListByCategoryName = data.data
+        console.log("list" + this.ProductListByCategoryName);
+      },
+      error: error => this.errorMessage = error
+    });
+  }
+  getproductBycategoryId(id: number) {
+    if (id == 0) {
+      this.getAllProductsByOwnerId();
+    } else {
 
- }
-} 
+      this.owner.getProductsByCategoryId(id).subscribe({
+        next: data => {
+          console.log(data);
+          this.ProductListByCategoryName = data.data
+          console.log("list" + this.ProductListByCategoryName);
+        },
+        error: error => this.errorMessage = error
+
+      })
+    }
+
+  }
+}
 

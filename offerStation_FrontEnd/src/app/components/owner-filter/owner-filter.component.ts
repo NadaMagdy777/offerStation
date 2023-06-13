@@ -16,11 +16,7 @@ export class OwnerFilterComponent {
   @Output() OwnerName:EventEmitter<string>=new EventEmitter<string>()
 
 
-  constructor(private addressService:AddressServiceService){
-     
-      
-  
-  }
+  constructor(private addressService:AddressServiceService){}
   setIndex(selectedcity:number){
     if(selectedcity!=this.selectedCityId){
       this.selectedCityId=selectedcity

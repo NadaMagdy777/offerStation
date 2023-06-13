@@ -1,6 +1,13 @@
+
+
 <div class="container">
   <form class="w-75 p-5 mt-5 mx-auto" [formGroup]='loginForm' (ngSubmit)="submitData()">
-
+    
+    <div *ngIf=" msg.length > 0 " class="alert alert-primary alert-dismissible fade show" role="alert">
+      <button type="button" (click)="removemesage()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{msg}}</strong>
+    </div>
+    
     <div class="form-outline mb-4">
       <label class="form-label" for="form2Example1">Email address</label>
       <input type="email" formControlName="email" class="form-control"
@@ -20,10 +27,8 @@
     </div>
 
 
-    <!-- Submit button -->
     <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
-    <!-- Register buttons -->
     <div class="text-center">
       <p>Not a member? <a routerLink="/customerRegister">Register</a></p>
     </div>

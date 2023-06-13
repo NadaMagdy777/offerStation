@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
 </head>
+
 <body>
     
     <div class="container-fluid">
       
       <div class="row justify-content-center mt-5">
-           <div class="col-3">
+           <div class="col-11 col-lg-2">
             <app-owner-filter  (cityId)="cityIdChanges($event)" (OwnerName)="ownersearchanges($event)"  ></app-owner-filter>
            
            </div>
-           <div class="col-8" id="productDiv">
+           <div class="col-11 col-lg-9" id="productDiv">
             <div class="row p-3">
                 <div class="d-flex justify-content-between">
                     <h5 class="mr-md-auto">{{totalItems}} Items found </h5>
@@ -56,28 +58,25 @@
             </ng-template>
             <ng-template #failedblock>
               <div class="col-12 mt-2 text-center"  >
-                <h3>
-                  Sorry we can't find any doctor that matches your search, please remove some of the filters to get results
-                </h3>
+                <h5>
+                  Sorry we can't find any offers that matches your search, please remove some of the filters to get results
+                </h5>
                 </div>
 
-            </ng-template>
-            
-           </div>
-
-            
-
+        </ng-template>
       </div>
     </div>
-       
-    
-        
+  </div>
 
-       
 
-    
 
-        
-      
+
+
+
+
+
+
+
 </body>
+
 </html>
