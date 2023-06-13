@@ -404,16 +404,7 @@ namespace offerStation.EF.Services
         //    }
         //    return reviewListDto;
         //}
-        public async Task<int> calucaluteOwnerOrdersNumber(int ownerId)
-        {
-            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == ownerId);
-
-        public async Task<int> calucaluteOwnerOrdersNumber(Owner owner)
-        {
-            List<CustomerOrder> OwnerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(c => c.OwnerId == owner.Id);
-
-            return OwnerOrders.Count();
-        }
+      
         public List<Owner> sortingOwnerData(List<Owner> owners, string sortBy)
         {
             if (sortBy == "MostPopular")
