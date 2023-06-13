@@ -9,15 +9,15 @@ import { SupplierregestrationComponent } from './components/regestration/supplie
 const routes: Routes = [
   {path:"customer",loadChildren:()=>import('./modules/customer/customer.module').then(mod=>mod.CustomerModule)},
   {path:"owner",loadChildren:()=>import('./modules/owner/owner.module').then(mod=>mod.OwnerModule)},
-  {path:'',component:HeaderComponent},
-
+  
   {path:'login', component:LoginComponent },
-
+  
   {path:'customerRegister', component:RegestrationComponent },
   {path:'ownerRegister', component:OwnerregestrationComponent },
   {path:'supplierRegister', component:SupplierregestrationComponent },
   {path:'owners', loadChildren:()=>import('./modules/owners/owners.module').then(mod=>mod.OwnersModule) },
-
+  {path:'',component:HeaderComponent},
+  
 ];
 
 @NgModule({
