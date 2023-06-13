@@ -36,4 +36,11 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
     }
+    public interface IownerAnalysisService{
+        Task<List<TopOrderDto>> getTop5OwnerProduct(int OwnerId);
+        Task<List<TopOrderDto>> getTop5OwnerOffer(int OwnerId);
+
+
+    }
+
 }
