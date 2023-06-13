@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using offerStation.Core.Constants;
 using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -95,8 +96,6 @@ namespace offerStation.EF.Data
                     }
                 } 
             );
-
-
 
             builder.Entity<SupplierCategory>().HasData(
                 new List<SupplierCategory>{
@@ -200,6 +199,66 @@ namespace offerStation.EF.Data
                         LockoutEnd=DateTime.Now,
                         AccessFailedCount=0,
                     },
+                    new ApplicationUser
+                    {
+                        Id = "5",
+                        Name = "Ahmed",
+                        Email="ahmed@gmail.com",
+                        NormalizedEmail="ahmed@gmail.com",
+                        IsDeleted=false,
+                        UserName="ahmed",
+                        NormalizedUserName="ahmed",
+                        EmailConfirmed=true,
+                        PasswordHash="ahmed",
+                        SecurityStamp="ahmed",
+                        ConcurrencyStamp="ahmed",
+                        PhoneNumber="01551111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "6",
+                        Name = "Elfarouq",
+                        Email="elfarouq@gmail.com",
+                        NormalizedEmail="elfarouq@gmail.com",
+                        IsDeleted=false,
+                        UserName="elfarouq",
+                        NormalizedUserName="elfarouq",
+                        EmailConfirmed=true,
+                        PasswordHash="elfarouq",
+                        SecurityStamp="elfarouq",
+                        ConcurrencyStamp="elfarouq",
+                        PhoneNumber="01771111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
+                     new ApplicationUser
+                    {
+                        Id = "7",
+                        Name = "ali",
+                        Email="ali@gmail.com",
+                        NormalizedEmail="ali@gmail.com",
+                        IsDeleted=false,
+                        UserName="ali",
+                        NormalizedUserName="ali",
+                        EmailConfirmed=true,
+                        PasswordHash="ali",
+                        SecurityStamp="ali",
+                        ConcurrencyStamp="ali",
+                        PhoneNumber="01111111111",
+                        PhoneNumberConfirmed=true,
+                        TwoFactorEnabled=false,
+                        LockoutEnabled=false,
+                        LockoutEnd=DateTime.Now,
+                        AccessFailedCount=0,
+                    },
 
                 }
             ); ;
@@ -243,7 +302,43 @@ namespace offerStation.EF.Data
 
                }
            ); ;
+            builder.Entity<Customer>().HasData(
+              new List<Customer>{
+                    new Customer
+                    {
+                       AppUserId="5",
+                       Id=1,
+                       IsDeleted=false,
+                       
+                      
+                    },
+                    
+              }
+          ); 
 
+           
+            builder.Entity<Supplier>().HasData(
+               new List<Supplier>{
+                    new Supplier
+                    {
+                       AppUserId="5",
+                       Id=1,
+                       SupplierCategoryId=3,
+                       IsDeleted=false,
+                       Approved=true
+                    },
+               }
+           );
+            builder.Entity<Customer>().HasData(
+               new List<Customer>{
+                    new Customer
+                    {
+                       AppUserId="6",
+                       Id=1,
+                       IsDeleted=false,
+                    },
+               }
+           );
             builder.Entity<OwnerOffer>().HasData(
               new List<OwnerOffer>{
                     new OwnerOffer
@@ -333,6 +428,144 @@ namespace offerStation.EF.Data
 
               }
           ); ;
+
+            builder.Entity<Delivery>().HasData(
+             new List<Delivery>{
+                    new Delivery
+                    {
+
+                      Id=1,
+                      Name="nada",
+                      Phone="0112567898",
+                      IsDeleted=false,
+
+
+
+                    },
+                     new Delivery
+                    {
+
+                       Id=2,
+                      Name="omnia",
+                      Phone="0112567898",
+                      IsDeleted=false,
+
+
+
+                    },
+
+             }
+         ); ;
+
+            builder.Entity<CustomerOrder>().HasData(
+             new List<CustomerOrder>{
+                    new CustomerOrder
+                    {
+
+                       Id=1,
+                       CustomerId=1,
+                       OwnerId=1,
+                       IsDeleted=false,
+                       orderDate=DateTime.Now,
+                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       orderStatus=OrderStatus.pending
+
+
+
+                    },
+                     new CustomerOrder
+                    {
+
+                       Id=2,
+                       CustomerId=1,
+                       OwnerId=1,
+                       IsDeleted=false,
+                       orderDate=DateTime.Now,
+                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       orderStatus=OrderStatus.pending
+
+
+
+                    },
+                       new CustomerOrder
+                    {
+
+                       Id=3,
+                       CustomerId=1,
+                       OwnerId=2,
+                       IsDeleted=false,
+                       orderDate=DateTime.Now,
+                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       orderStatus=OrderStatus.pending
+
+
+
+                    },
+                    new CustomerOrder
+                    {
+
+                       Id=4,
+                       CustomerId=1,
+                       OwnerId=2,
+                       IsDeleted=false,
+                       orderDate=DateTime.Now,
+                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       orderStatus=OrderStatus.pending
+
+
+
+                    },
+
+             }
+         ) ;
+            builder.Entity<CustomerOrderOffer>().HasData(
+             new List<CustomerOrderOffer>{
+                    new CustomerOrderOffer
+                    {
+
+                       Id=1,
+                       OrderId=1,
+                       OwnerOffertId=1,
+                       Quantity=2,
+                       IsDeleted=false,
+                      
+
+
+
+                    },
+                    new CustomerOrderOffer
+                    {
+
+                       Id=2,
+                       OrderId=1,
+                       OwnerOffertId=2,
+                       Quantity=5,
+                       IsDeleted=false,
+
+
+
+
+                    },
+                     new CustomerOrderOffer
+                    {
+
+                       Id=3,
+                       OrderId=1,
+                       OwnerOffertId=3,
+                       Quantity=3,
+                       IsDeleted=false,
+
+
+
+
+                    },
+
+
+
+
+
+             }
+         );
 
 
         }

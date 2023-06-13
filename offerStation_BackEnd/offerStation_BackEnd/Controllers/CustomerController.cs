@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
 using offerStation.Core.Models;
+using offerStation.EF.Services;
 using System.Numerics;
 
 namespace offerStation.API.Controllers
@@ -58,6 +59,16 @@ namespace offerStation.API.Controllers
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, success));
+        }
+        [HttpPost("CustomerReview/id")]
+        public async Task<ActionResult<ApiResponse>> AddReview(int CustomerId, int ownerId, ReviewInfoDto review)
+        {
+            bool success = await _customerService.AddReview(CustomerId, ownerId, review);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
