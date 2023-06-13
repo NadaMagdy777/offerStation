@@ -22,6 +22,7 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwnerCardComponent } from './components/owner-card/owner-card.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
+    OwnerCardComponent,
   ],
   imports: [
     BrowserModule,
