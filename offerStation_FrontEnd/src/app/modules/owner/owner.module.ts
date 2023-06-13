@@ -1,4 +1,4 @@
-import { NgModule  } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { OwnerProductComponent } from 'src/app/pages/owner-product/owner-product/owner-product.component';
@@ -6,9 +6,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { OwnerMenuComponent } from 'src/app/pages/menu/owner-menu/owner-menu.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { OwnerreviewComponent } from 'src/app/pages/ownerreview/ownerreview.component';
-import { NgbModule ,} from '@ng-bootstrap/ng-bootstrap';
+
+import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 const routes: Routes = [
-  { path:'product',component:OwnerProductComponent},
+  { path: 'product', component: OwnerProductComponent },
 ];
 
 @NgModule({
@@ -22,7 +23,7 @@ const routes: Routes = [
     NgbModule,
     MatSliderModule,
     MatTabsModule,
-    
+
     RouterModule.forChild(routes),
   ]
 })
