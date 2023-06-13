@@ -32,7 +32,7 @@ export class LoginComponent {
         if (data.success == true) {
           localStorage.setItem("userToken",data.data.token);
           this._AuthenticationService.saveUserData()
-          this.router.navigate(['home'])
+          this.router.navigate([''])
         }
         else {
           this.msg = data.message;

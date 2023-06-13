@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
 using System.Reflection.PortableExecutable;
+using System.Security.Claims;
 
 namespace offerStation.API.Controllers
 {
@@ -23,9 +24,12 @@ namespace offerStation.API.Controllers
         [HttpPost("addProductToCart")]
         public async Task<ActionResult<ApiResponse>> AddProductToCart(int id)
         {
+
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
 
-            return Ok(new ApiResponse(200,false, new { User, id } ,"Done"));
+            var useridentifier = User.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.NameIdentifier);
+
+            return Ok(new { useridentifier });
         }
 
         [HttpPost("addOfferToCart")]
