@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using offerStation.Core.Models;
+using System.Linq.Expressions;
 
 namespace offerStation.EF.Services
 {
@@ -59,8 +60,31 @@ namespace offerStation.EF.Services
             });
             return orders;
 
+        }
+        public async Task<int> getOwnerTotalCustomer(int OwnerId)
+        {
+            List<CustomerOrder> orders= (List<CustomerOrder>) await _unitOfWork.CustomerOrders.FindAllAsync(o=>o.OwnerId == OwnerId);
+            return orders.Select(o => o.CustomerId).Distinct().Count();
+        }
+
+        public async Task<int> getOwnerTotalOrders(int ownerId)
+        {   
+            List<CustomerOrder> orders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(o => o.OwnerId == ownerId);
+            return orders.Count();
+        }
+
+        public async  Task<double> getTotalProfit(int ownerId)
+        {
+            List<CustomerOrder> orders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(o => o.OwnerId == ownerId);
+            return orders.Select(o => o.Total).Sum();
+        }
+
+        public async Task overallRating()
+        {
 
         }
+       
+
 
     }
 }
