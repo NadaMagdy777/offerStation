@@ -499,7 +499,7 @@ namespace offerStation.EF.Services
 
             if (name != "")
             {
-                owners = owners.Where(o => o.AppUser.Name.ToLower() == name.ToLower()).ToList();
+                owners = owners.Where(o => o.AppUser.Name.ToLower().Trim().Contains(name.ToLower().Trim())).ToList();
             }
 
             ResultrDto<OwnerDto> ownerResult = new ResultrDto<OwnerDto>();

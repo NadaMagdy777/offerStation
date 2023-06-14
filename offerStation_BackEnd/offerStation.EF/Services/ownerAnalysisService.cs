@@ -79,6 +79,29 @@ namespace offerStation.EF.Services
             return orders.Select(o => o.Total).Sum();
         }
 
+        public async Task<int> getProductsCount(int ownerId)
+        {
+            Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == ownerId, new List<Expression<Func<Owner, object>>>()
+               {
+                  o=>o.OwnerProducts            
+            });
+
+
+            return owner.OwnerProducts.Count();
+        }
+
+        public async Task<int> getOffersCount(int ownerId)
+        {
+            Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id == ownerId, new List<Expression<Func<Owner, object>>>()
+               {
+                  o=>o.Offers
+            });
+
+
+            return owner.Offers.Count();
+        }
+
+
         public async Task overallRating()
         {
 

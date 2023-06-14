@@ -19,36 +19,52 @@ namespace offerStation.API.Controllers
         [HttpGet("Total/Customer")]
         public async Task<ActionResult<ApiResponse>> getOwnerTotalCustomer(int ownerid)
         {
- 
-            return Ok(new ApiResponse(200, true, _ownerAnalysisService.getOwnerTotalCustomer(ownerid)));
+
+            int count = await _ownerAnalysisService.getOwnerTotalCustomer(ownerid);
+            return Ok(new ApiResponse(200, true,count));
         }
 
         [HttpGet("Top/product")]
         public async Task<ActionResult<ApiResponse>> getTopProduct(int ownerid)
         {
 
-            return Ok(new ApiResponse(200, true, _ownerAnalysisService.getTop5OwnerProduct(ownerid)));
+            return Ok(new ApiResponse(200, true,await _ownerAnalysisService.getTop5OwnerProduct(ownerid)));
         }
         [HttpGet("Top/offer")]
         public async Task<ActionResult<ApiResponse>> getTopoffer(int ownerid)
         {
 
-            return Ok(new ApiResponse(200, true, _ownerAnalysisService.getTop5OwnerOffer(ownerid)));
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getTop5OwnerOffer(ownerid)));
         }
 
         [HttpGet("Total/orders")]
         public async Task<ActionResult<ApiResponse>> getOwnerTotalOrders(int ownerid)
         {
 
-            return Ok(new ApiResponse(200, true, _ownerAnalysisService.getOwnerTotalOrders(ownerid)));
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getOwnerTotalOrders(ownerid)));
         }
 
         [HttpGet("Total/profits")]
         public async Task<ActionResult<ApiResponse>> getTotalprofits(int ownerid)
         {
 
-            return Ok(new ApiResponse(200, true, _ownerAnalysisService.getTotalProfit(ownerid)));
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getTotalProfit(ownerid)));
         }
+
+        [HttpGet("Count/Products")]
+        public async Task<ActionResult<ApiResponse>> getProductCount(int ownerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getProductsCount(ownerid)));
+        }
+
+        [HttpGet("Count/Offers")]
+        public async Task<ActionResult<ApiResponse>> getOffersCount(int ownerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getOffersCount(ownerid)));
+        }
+
 
 
 

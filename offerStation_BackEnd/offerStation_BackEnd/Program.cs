@@ -43,6 +43,7 @@ namespace offerStation_BackEnd
             builder.Services.AddScoped<IOwnerOfferService, OwnerOfferService>();
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<ICustomerCartService, CustomerCartService>();
+            builder.Services.AddScoped<IownerAnalysisService, ownerAnalysisService>();
 
 
             builder.Services.AddCors(opt =>
