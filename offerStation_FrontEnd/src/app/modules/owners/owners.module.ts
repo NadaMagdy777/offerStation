@@ -15,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {MatTabsModule} from '@angular/material/tabs';
 import {HttpClientModule} from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
+import { OwnerCardComponent } from 'src/app/components/owner-card/owner-card.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatSliderModule } from '@angular/material/slider';
     AllOwnerComponent,
     OwnersIndexComponent,
     BannerComponent,
-    
+    OwnerCardComponent
+
   ],
   imports: [
     NgxPaginationModule,
@@ -37,7 +39,7 @@ import { MatSliderModule } from '@angular/material/slider';
     OwnersRoutingModule,
     RouterModule,
     FormsModule
-    
+
   ]
 })
 export class OwnersModule { }

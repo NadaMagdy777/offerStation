@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-owner-card',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./owner-card.component.css']
 })
 export class OwnerCardComponent {
-
+  @Input() OwnerName:any;
+  @Input() OwnerRate:any;
+  @Input() OwnerImge:any;
 }

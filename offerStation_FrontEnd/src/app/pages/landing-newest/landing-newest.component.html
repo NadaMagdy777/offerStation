@@ -1,4 +1,4 @@
-<div class="category-container  border border-2 mt-5" *ngFor="let category of categoryList">
+<div class="category-container mt-5" *ngFor="let category of categoryList">
 
   <div class="container">
     <div class="d-flex " >
@@ -36,7 +36,7 @@
 
     </div>
     <div class="d-flex justify-content-end mb-4">
-      <a  class="showAll text-success" (click)="showAllOffers(category.name)">Show All</a>
+      <a  class="showAll text-warning" (click)="showAllOffers(category.name)">Show All</a>
     </div>
   </div>
 </div>
