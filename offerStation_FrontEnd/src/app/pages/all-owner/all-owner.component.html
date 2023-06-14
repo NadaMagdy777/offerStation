@@ -10,13 +10,13 @@
 </head>
 
 <body>
-    
+
     <div class="container-fluid">
-      
+
       <div class="row justify-content-center mt-5">
            <div class="col-11 col-lg-2">
             <app-owner-filter  (cityId)="cityIdChanges($event)" (OwnerName)="ownersearchanges($event)"  ></app-owner-filter>
-           
+
            </div>
            <div class="col-11 col-lg-9" id="productDiv">
             <div class="row p-3">
@@ -27,34 +27,25 @@
                         <option  value="MostPopular">Most Popular</option>
                         <option  value="TopRated">Top Rated</option>
                     </select>
-                   
+
                 </div>
-                
+
             </div>
             <div class="row d-flex flex-wrap" *ngIf="ProductList?.length; then successblock; else failedblock;"></div>
 
             <ng-template #successblock>
               <div class="row d-flex "  >
                 <div class="row d-flex flex-wrap justify-content-center">
-                
-                   
-                    <app-product-card style="width: 300px;" class="me-3" *ngFor="let product of ProductList | paginate:{itemsPerPage:pagesize,currentPage:pageNumber ,totalItems: totalItems}"></app-product-card>
-                    
-                  
-                 
-            
+                    <app-owner-card style="width: 300px;" class="me-3" [OwnerName]="product.name"  *ngFor="let product of ProductList | paginate:{itemsPerPage:pagesize,currentPage:pageNumber ,totalItems: totalItems}"></app-owner-card>
               </div>
-             
-                
               <div class="d-flex justify-content-center  mt-5">
                 <pagination-controls (pageChange)="pageNumberChanged($event)"
                 previousLabel="Previous"
                 nextLabel="Next"></pagination-controls>
-            
               </div>
-            
+
              </div>
-             
+
             </ng-template>
             <ng-template #failedblock>
               <div class="col-12 mt-2 text-center"  >
@@ -67,15 +58,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
 
 </body>
 

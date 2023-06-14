@@ -23,5 +23,6 @@ namespace offerStation.Core.Models
         [ForeignKey ("Owner")]
         public int OwnerId { get; set; }
         public virtual  Owner Owner { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

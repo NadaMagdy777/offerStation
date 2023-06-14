@@ -1,3 +1,22 @@
 .body{
   background-color: rgb(238, 232, 232);
 }
+.service-item {
+  box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+  transition: .5s;
+}
+
+.service-item:hover {
+  background: #FEA116;
+}
+
+.service-item * {
+  transition: .5s;
+}
+
+.service-item:hover * {
+  color: #F1F8FF !important;
+}
+.service-item h5{
+font-weight: bold;
+}

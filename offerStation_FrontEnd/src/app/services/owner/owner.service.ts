@@ -31,9 +31,10 @@ return this._httpClient.get<any>(this.url+"/AllProductsByMenuCategoryID/id?id="+
   }
   getAllProductsByOwnerId(id:number):Observable<any>
   {
-    return this._httpClient.get<any>(this.url+"/AllProductsByOwnerID/id?id="+id);
+
+    return this._httpClient.get<any>(this.url+"/AllProductsByOwnerID/id?ownerid="+id);
   }
-  GetAllCustomerReviewsByOwnerId(id:number)
+  GetAllCustomerReviewsByOwnerId(id:number):Observable<any>
   {
 return this._httpClient.get<any>(this.url+"/AllCustomerReviewsByOwnerID/id?ownerid="+id);
   }
