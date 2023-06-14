@@ -29,6 +29,7 @@ export class OwnerMenuComponent {
         console.log(data);
         this.ProductListByCategoryName = data.data
         console.log("list" + this.ProductListByCategoryName);
+      
       },
       error: error => this.errorMessage = error
     });
@@ -43,6 +44,7 @@ export class OwnerMenuComponent {
           console.log(data);
           this.ProductListByCategoryName = data.data
           console.log("list" + this.ProductListByCategoryName);
+          console.log(id);
         },
         error: error => this.errorMessage = error
 
