@@ -53,7 +53,8 @@ export class AuthenticationService {
     return '';
   }
   testToken(ProductId:any): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(`https://localhost:7017/api/Cart/addProductToCart`,ProductId);
+    // return this._httpClient.post<ApiResponce>(`https://localhost:7017/api/Cart/addProductToCart`,ProductId);
+    return this._httpClient.post<ApiResponce>(`https://localhost:7017/api/Cart/addOfferToCart`,ProductId);
   }
 
 }
