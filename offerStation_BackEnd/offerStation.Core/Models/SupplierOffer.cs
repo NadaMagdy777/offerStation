@@ -14,7 +14,7 @@ namespace offerStation.Core.Models
         public string Description { get; set; }
         public byte[]? Image { get; set; }
         public DateTime CreatedTime { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierID { get; set; }
