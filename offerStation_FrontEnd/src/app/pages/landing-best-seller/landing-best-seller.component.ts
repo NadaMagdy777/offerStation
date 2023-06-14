@@ -11,6 +11,7 @@ export class LandingBestSellerComponent {
   categoryList!:any
   errorMessage: any;
   categoryName :any;
+ 
   offerList: any;
   constructor(private ownerCategory:CategoryService,private route:ActivatedRoute, private Router:Router){
   }

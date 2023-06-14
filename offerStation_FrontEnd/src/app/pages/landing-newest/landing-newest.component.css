@@ -2,6 +2,7 @@
 {
   background-color: white;
   border: 20px gray;
+  border-top: 2px solid rgb(199, 193, 193);
  /* height: 90%; */
 }
 .cards-container{
@@ -25,6 +26,7 @@ height: 150px;
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
 }
+
 @keyframes animatedBackground {
 
     from {background-size:contain}
