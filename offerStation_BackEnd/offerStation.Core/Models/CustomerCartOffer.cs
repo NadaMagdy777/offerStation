@@ -20,5 +20,9 @@ namespace offerStation.Core.Models
         public int OwnerOffertId { get; set; }
         public virtual OwnerOffer OwnerOffer { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
+        public double Total { get; set; }
+
+
     }
 }

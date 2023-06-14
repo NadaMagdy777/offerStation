@@ -10,6 +10,7 @@ namespace offerStation.Core.Dtos
 {
     public class CustomerCartDto
     {
+        public int OwnerId { get; set; }
         public string OwnerName { get; set; }
         public virtual List<CustomerCartProductDto> Products { get; set; }
         public virtual List<CustomerCartOfferDto> Offers { get; set; }

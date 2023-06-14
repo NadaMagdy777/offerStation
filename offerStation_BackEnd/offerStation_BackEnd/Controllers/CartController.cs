@@ -34,11 +34,13 @@ namespace offerStation.API.Controllers
         }
 
         [HttpPost("addOfferToCart")]
-        public async Task<ActionResult<ApiResponse>> AddOfferToCart(int id)
+        public async Task<ActionResult<ApiResponse>> AddOfferToCart(ProductDetailsDto Product)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
 
-            return Ok(new ApiResponse(200, false, new { User, id }, "Done"));
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await cartService.AddOfferToCart(int.Parse(useridentifier), Product));
 
         }
 

@@ -9,9 +9,9 @@ namespace offerStation.Core.Interfaces.Services
 {
     public interface ICustomerCartService
     {
-        Task<ApiResponse> AddProductToCart(int useridentifier, ProductDetailsDto ProductId);
+        Task<ApiResponse> AddProductToCart(int userIdentifier, ProductDetailsDto Product);
         Task<ApiResponse> GetCartDetails();
-        Task<ApiResponse> AddOfferToCart(int id);
+        Task<ApiResponse> AddOfferToCart(int userIdentifier, ProductDetailsDto Offer);
         Task<ApiResponse> RemoveProductFromCart(int id);
         Task<ApiResponse> RemoveOfferFromCart(int id);
     }

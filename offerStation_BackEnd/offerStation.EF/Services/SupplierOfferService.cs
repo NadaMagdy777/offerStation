@@ -12,39 +12,41 @@ using System.Threading.Tasks;
 
 namespace offerStation.EF.Services
 {
-    public class OwnerOfferService : IOwnerOfferService
+    public class SupplierOfferService : ISupplierOfferService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public OwnerOfferService(IMapper mapper, IUnitOfWork unitOfWork) 
+
+        public SupplierOfferService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
         public async Task<OfferDetailsDto?> GetOfferDetails(int id)
         {
             OfferDetailsDto offerDto = null;
 
-            OwnerOffer offer = await _unitOfWork.OwnerOffers.FindAsync(o => o.Id == id && !o.IsDeleted, 
-                new List<Expression<Func<OwnerOffer, object>>>()
+            SupplierOffer offer = await _unitOfWork.SupplierOffers.FindAsync(o => o.Id == id && !o.IsDeleted,
+                new List<Expression<Func<SupplierOffer, object>>>()
                 {
-                    o => o.Owner,
+                    o => o.Supplier,
                 });
 
-            if(offer is not null)
+            if (offer is not null)
             {
                 offerDto = _mapper.Map<OfferDetailsDto>(offer);
             }
             return offerDto;
         }
-        public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int ownerId)
+        public async Task<List<OfferDetailsDto>?> GetAllOffersBySupplierId(int supplierId)
         {
             List<OfferDetailsDto> offersDtoList = null;
 
-            IEnumerable<OwnerOffer> offersList = await _unitOfWork.OwnerOffers.FindAllAsync(o => o.OwnerId == ownerId && !o.IsDeleted,
-                new List<Expression<Func<OwnerOffer, object>>>()
+            IEnumerable<SupplierOffer> offersList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == supplierId && !o.IsDeleted,
+                new List<Expression<Func<SupplierOffer, object>>>()
                 {
-                    o => o.Owner,
+                    o => o.Supplier,
                 });
 
 
@@ -54,17 +56,17 @@ namespace offerStation.EF.Services
             }
             return offersDtoList;
         }
-        public async Task<bool> AddOffer(int ownerId, OfferInfoDto offerDto)
+        public async Task<bool> AddOffer(int supplierId, OfferInfoDto offerDto)
         {
             if (offerDto is not null)
             {
-                OwnerOffer Offer = new OwnerOffer();
-                Offer = _mapper.Map<OwnerOffer>(offerDto);
+                SupplierOffer Offer = new SupplierOffer();
+                Offer = _mapper.Map<SupplierOffer>(offerDto);
 
-                Offer.OwnerId = ownerId;
+                Offer.SupplierID = supplierId;
                 Offer.CreatedTime = DateTime.Now;
 
-                _unitOfWork.OwnerOffers.Add(Offer);
+                _unitOfWork.SupplierOffers.Add(Offer);
                 _unitOfWork.Complete();
 
                 return true;
@@ -73,7 +75,7 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> EditOffer(int id, OfferInfoDto offerDto)
         {
-            OwnerOffer offer = await _unitOfWork.OwnerOffers.GetByIdAsync(id);
+            SupplierOffer offer = await _unitOfWork.SupplierOffers.GetByIdAsync(id);
 
             if (offer is not null && offerDto is not null)
             {
@@ -82,7 +84,7 @@ namespace offerStation.EF.Services
                 offer.Image = offerDto.Image;
                 offer.Description = offerDto.Description;
 
-                _unitOfWork.OwnerOffers.Update(offer);
+                _unitOfWork.SupplierOffers.Update(offer);
                 _unitOfWork.Complete();
 
                 return true;
@@ -91,17 +93,16 @@ namespace offerStation.EF.Services
         }
         public async Task<bool> DeleteOffer(int id)
         {
-            OwnerOffer offer = await _unitOfWork.OwnerOffers.GetByIdAsync(id);
+            SupplierOffer offer = await _unitOfWork.SupplierOffers.GetByIdAsync(id);
 
             if (offer is not null)
             {
-                _unitOfWork.OwnerOffers.Delete(offer);
+                _unitOfWork.SupplierOffers.Delete(offer);
                 _unitOfWork.Complete();
 
                 return true;
             }
             return false;
         }
-        
     }
 }
