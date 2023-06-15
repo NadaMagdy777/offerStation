@@ -46,6 +46,10 @@ namespace offerStation.Core.Interfaces.Services
 
         Task<double> getTotalProfit(int ownerId);
 
+        Task<int> getOffersCount(int ownerId);
+
+        Task<int> getProductsCount(int ownerId);
+
 
     }
 
