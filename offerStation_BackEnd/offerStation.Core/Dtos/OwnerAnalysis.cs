@@ -9,9 +9,9 @@ namespace offerStation.Core.Dtos
     public class OwnerAnalysis
     {
     }
-    public class TopOrderDto
+    public class AnalysisResult
     {
-        public int Count { get; set; }
+        public long Count { get; set; }
         public string Name { get; set; }
     }
 }

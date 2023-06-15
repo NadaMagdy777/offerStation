@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OwnerMenuCategoriesNameDTO
+    public class DeliveryDto
     {
-        public int Id { get; set; }
-        public string MenuName { get; set; }
-
+        public string Name { get; set; }
+        public string Phone { get; set; }
     }
 }

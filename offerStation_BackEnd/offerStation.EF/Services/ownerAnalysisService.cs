@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using offerStation.Core.Models;
 using System.Linq.Expressions;
+using offerStation.Core.Constants;
 
 namespace offerStation.EF.Services
 {
@@ -26,16 +27,20 @@ namespace offerStation.EF.Services
 
 
        
-        public async Task<List<TopOrderDto>> getTop5OwnerOffer(int OwnerId)
+        public async Task<List<AnalysisResult>> getTop5OwnerOffer(int OwnerId)
         {
             
-           List<OwnerOffer> offers=(List<OwnerOffer>)  await  _unitOfWork.OwnerOffers.FindAllAsync(O=>O.OwnerId== OwnerId &&O.IsDeleted==false );
+           List<OwnerOffer> offers=(List<OwnerOffer>)  await  _unitOfWork.OwnerOffers.FindAllAsync(O=>O.OwnerId== OwnerId &&O.IsDeleted==false, new List<Expression<Func<OwnerOffer, object>>>()
+               {
+                  o=>o.Orders
+            }
+                );
 
-            List<TopOrderDto> orders = new List<TopOrderDto>();
-           offers= offers.OrderByDescending(o=>o.Orders.Count()).Take(5).ToList();
+            List<AnalysisResult> orders = new List<AnalysisResult>();
+           offers= offers.Where(O => O.Orders.Count() > 0).ToList().OrderByDescending(o=>o.Orders.Count()).Take(5).ToList();
             offers.ForEach(o =>
             {
-                TopOrderDto orderDto = new TopOrderDto();
+                AnalysisResult orderDto = new AnalysisResult();
                 orderDto.Count = o.Orders.Count();
                 orderDto.Name = o.Name;
                 orders.Add(orderDto);
@@ -44,16 +49,20 @@ namespace offerStation.EF.Services
 
 
         }
-        public async Task<List<TopOrderDto>> getTop5OwnerProduct(int OwnerId)
+        public async Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId)
         {
 
-            List<OwnerProduct> products = (List<OwnerProduct>)await _unitOfWork.OwnerProducts.FindAllAsync(P => P.OwnerId == OwnerId && P.IsDeleted == false);
+            List<OwnerProduct> products = (List<OwnerProduct>)await _unitOfWork.OwnerProducts.FindAllAsync(P => P.OwnerId == OwnerId && P.IsDeleted == false, new List<Expression<Func<OwnerProduct, object>>>()
+               {
+                  o=>o.orders
+            }
+                );
 
-            List<TopOrderDto> orders = new List<TopOrderDto>();
-            products = products.OrderByDescending(o => o.orders.Count()).Take(5).ToList();
+            List<AnalysisResult> orders = new List<AnalysisResult>();
+            products = products.Where(O=>O.orders.Count()>0).ToList().OrderByDescending(o => o.orders.Count()).Take(5).ToList();
             products.ForEach(o =>
             {
-                TopOrderDto orderDto = new TopOrderDto();
+                AnalysisResult orderDto = new AnalysisResult();
                 orderDto.Count = o.orders.Count();
                 orderDto.Name = o.Name;
                 orders.Add(orderDto);
@@ -106,7 +115,71 @@ namespace offerStation.EF.Services
         {
 
         }
-       
+
+        public async Task<AnalysisResult> GetTotalOrdersPneding(int ownerId,OrderStatus status)
+        {
+            List < CustomerOrder > orders   = (List<CustomerOrder>)  await _unitOfWork.CustomerOrders.FindAllAsync(O => O.OwnerId == ownerId && O.orderStatus == status);
+            AnalysisResult result =new AnalysisResult();
+            result.Count=orders.Count;
+            result.Name = status.ToString()+" Orders";
+            return result;
+
+
+        }
+        public async Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId)
+        {
+
+            List< AnalysisResult > results=new List<AnalysisResult >();
+
+            AnalysisResult pendingorders = await GetTotalOrdersPneding(ownerId, OrderStatus.pending);
+
+            AnalysisResult shippedorders = await GetTotalOrdersPneding(ownerId, OrderStatus.shipped);
+
+            AnalysisResult deliveradeorders = await GetTotalOrdersPneding(ownerId, OrderStatus.delivered);
+
+            results.Add(pendingorders);
+
+            results.Add(shippedorders);
+            results.Add(deliveradeorders);
+
+            return results;
+
+
+
+        }
+
+        public async Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId)
+        {
+            List<CustomerOrder> orders = (List<CustomerOrder>) await _unitOfWork.CustomerOrders.FindAllAsync(O => O.OwnerId == ownerId , new List<Expression<Func<CustomerOrder, object>>>()
+             {
+                  O=>O.Offers,
+                  O=>O.Products
+            });
+
+           long numofOffers=  orders.Select(O => O.Offers.Select(f=>f.Quantity).Sum()).Sum();
+           long numofProducts = orders.Select(O => O.Products.Select(f => f.Quantity).Sum()).Sum();
+
+            List<AnalysisResult> results = new List<AnalysisResult>();
+
+            AnalysisResult offersResult = new AnalysisResult();
+            offersResult.Count = numofOffers;
+            offersResult.Name = "offers";
+
+            AnalysisResult ProductResult = new AnalysisResult();
+            ProductResult.Count = numofProducts;
+            ProductResult.Name = "products";
+
+            results.Add(ProductResult);
+            results.Add(offersResult);
+            return results;
+
+
+
+
+        }
+
+
+
 
 
     }

@@ -18,6 +18,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> SuspendOwner(int id);
         Task<bool> RemoveOwnerSuspension(int id);
         Task<bool> ApproveOwner(int id);
+        Task<ProductInfoDto?> GetProductDetails(int id);
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
@@ -37,8 +38,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
     }
     public interface IownerAnalysisService{
-        Task<List<TopOrderDto>> getTop5OwnerProduct(int OwnerId);
-        Task<List<TopOrderDto>> getTop5OwnerOffer(int OwnerId);
+        Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);
+        Task<List<AnalysisResult>> getTop5OwnerOffer(int OwnerId);
         Task<int> getOwnerTotalCustomer(int OwnerId);
 
         Task<int> getOwnerTotalOrders(int ownerId);
@@ -48,6 +49,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<int> getOffersCount(int ownerId);
 
         Task<int> getProductsCount(int ownerId);
+        Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId);
+        Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId);
 
 
     }

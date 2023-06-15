@@ -7,9 +7,9 @@
 </head>
 <body>
     <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="row">
-                <div class="col-md-4 col-xl-3 ">
+        
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-3 col-md-2 col-xl-2 ">
                     <div class="card bg-c-blue order-card">
                         <div class="card-block w-100 ">
                             <h5 class="m-b-20">Total Customers</h5>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xl-3 ">
+                <div class="col-sm-3 col-md-2 col-xl-2 ">
                     <div class="card bg-c-green order-card">
                         <div class="card-block w-100 ">
                             <h5 class="m-b-20">Total Orders</h5>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xl-3 ">
+                <div class="col-sm-3 col-md-2 col-xl-2 ">
                     <div class="card bg-c-yellow order-card">
                         <div class="card-block w-100 ">
                             <h5 class="m-b-20">Total Products</h5>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4 col-xl-3 ">
+                <div class="col-sm-3 col-md-2 col-xl-2 ">
                     <div class="card bg-c-pink order-card">
                         <div class="card-block w-100 ">
                             <h5 class="m-b-20">Total Offers</h5>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xl-3 ">
+                <div class="col-sm-3 col-md-2 col-xl-2 ">
                     <div class="card bg-c-orange order-card">
                         <div class="card-block w-100 ">
                             <h5 class="m-b-20">Total profits</h5>
@@ -105,6 +105,15 @@
                
             </div>
 
+        <div class="row justify-content-center">
+            <div class="col-xl-5">
+                <app-bar-chart [datalabels]="topOffers" label="top 5 offers" canvaid="offer"></app-bar-chart>
+
+            </div>
+            <div class="col-xl-5">
+                <app-bar-chart [datalabels]="topProduct" label="top 5 product" canvaid="product"></app-bar-chart>
+
+            </div>
         </div>
     </div>
 </body>

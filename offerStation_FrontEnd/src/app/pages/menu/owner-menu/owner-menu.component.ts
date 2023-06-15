@@ -29,11 +29,12 @@ export class OwnerMenuComponent {
         console.log(data);
         this.ProductListByCategoryName = data.data
         console.log("list" + this.ProductListByCategoryName);
-      
+
       },
       error: error => this.errorMessage = error
     });
   }
+
   getproductBycategoryId(id: number) {
     if (id == 0) {
       this.getAllProductsByOwnerId();

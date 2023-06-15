@@ -113,6 +113,16 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
+        [HttpGet("Product/id")]
+        public async Task<ActionResult<ApiResponse>> ProductDetails(int id)
+        {
+            ProductInfoDto product = await _ownerService.GetProductDetails(id);
+            if(product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
         [HttpPost("Product/id")]
         public async Task<ActionResult<ApiResponse>> AddProduct(int ownerId, ProductDto product)
         {
@@ -197,6 +207,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, product));
         }
+       
         [HttpGet("AllProductsByOwnerID/id")]
         public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int ownerid)
         {
@@ -220,7 +231,6 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-
 
 
         [HttpGet("Categories")]

@@ -113,6 +113,16 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
+        [HttpGet("Product/id")]
+        public async Task<ActionResult<ApiResponse>> ProductDetails(int id)
+        {
+            ProductInfoDto product = await _supplierService.GetProductDetails(id);
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
         [HttpPost("Product/id")]
         public async Task<ActionResult<ApiResponse>> AddProduct(int supplierId, ProductDto product)
         {
