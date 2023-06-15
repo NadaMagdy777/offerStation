@@ -160,12 +160,24 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<ProductInfoDto?> GetProductDetails(int id)
+        {
+            ProductInfoDto productDto = null;
+
+            SupplierProduct product = await _unitOfWork.SupplierProducts.GetByIdAsync(id);
+            if (product is not null)
+            {
+                productDto = _mapper.Map<ProductInfoDto>(product);
+            }
+            return productDto;
+        }
         public async Task<bool> AddProduct(int supplierId, ProductDto productDto)
         {
             if (productDto is not null)
             {
                 SupplierProduct product = new SupplierProduct();
                 product = _mapper.Map<SupplierProduct>(productDto);
+                product.SupplierId = supplierId;
 
                 _unitOfWork.SupplierProducts.Add(product);
                 _unitOfWork.Complete();
