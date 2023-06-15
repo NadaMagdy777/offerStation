@@ -23,6 +23,10 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
                 .ReverseMap();
 
+            CreateMap<SupplierProduct, ProductInfoDto>()
+               .ForMember(des => des.DiscountPrice, a => a.MapFrom(src => (src.Price - ((src.Price * src.Discount) / 100))))
+               .ReverseMap();
+
             CreateMap<Supplier, SupplierDto>()
                .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
                .ForMember(des => des.Addresses, a => a.MapFrom(src => src.AppUser.Addresses))
