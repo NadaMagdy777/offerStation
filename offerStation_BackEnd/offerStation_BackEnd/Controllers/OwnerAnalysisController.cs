@@ -66,6 +66,21 @@ namespace offerStation.API.Controllers
         }
 
 
+        [HttpGet("Count/orders/status")]
+        public async Task<ActionResult<ApiResponse>> getorderstatus(int ownerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getDiffernentOrdersStatus(ownerid)));
+        }
+
+        [HttpGet("Count/OffersOrders/Productorders")]
+        public async Task<ActionResult<ApiResponse>> countProductOffersOrders(int ownerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.ownerOrdersOffersProductCount(ownerid)));
+        }
+
+
 
 
     }
