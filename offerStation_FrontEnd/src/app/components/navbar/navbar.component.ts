@@ -15,8 +15,8 @@ export class NavbarComponent {
   categoryList: any;
   categoryName: any;
   errorMessage: any;
-  productdata = { 'Id' : 1, 'Price' : 120 };
-  constructor(private ownerCategory:CategoryService,private authenticationservice: AuthenticationService ,private route:ActivatedRoute,private Router:Router) {
+  productdata = { 'Id': 1, 'Price': 120 };
+  constructor(private ownerCategory: CategoryService, private authenticationservice: AuthenticationService, private route: ActivatedRoute, private Router: Router) {
 
     this.authenticationservice.userData.subscribe({
       next: data => {
@@ -27,28 +27,27 @@ export class NavbarComponent {
     })
   }
 
-  showAllOffers(catName:any){
-    this.Router.navigate(['/owners/',catName]);
+  showAllOffers(catName: any) {
+    this.Router.navigate(['/owners/', catName]);
   }
 
   ngOnInit() {
 
-    if (localStorage.getItem('userToken')){
+    if (localStorage.getItem('userToken')) {
       this.authenticationservice.saveUserData()
     }
-    
+
     this.ownerCategory.GetAllCategory().subscribe({
-      next:data=>
-      {
-        let dataJson=JSON.parse(JSON.stringify(data))
+      next: data => {
+        let dataJson = JSON.parse(JSON.stringify(data))
         console.log(data);
-        this.categoryList=dataJson.data;
-        for(let category of this.categoryList){
-           this.categoryName=category.name;
-           console.log(this.categoryName)
+        this.categoryList = dataJson.data;
+        for (let category of this.categoryList) {
+          this.categoryName = category.name;
+          console.log(this.categoryName)
         }
       },
-      error:error=>this.errorMessage=error
+      error: error => this.errorMessage = error
     })
 
   }
@@ -56,10 +55,10 @@ export class NavbarComponent {
   LogOut() {
     this.authenticationservice.logout();
   }
-  
-  testToken(){
+
+  testToken() {
     this.authenticationservice.testToken(this.productdata).subscribe({
-      next:data=>console.log(data),
+      next: data => console.log(data),
 
     })
   }

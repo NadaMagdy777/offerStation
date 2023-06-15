@@ -197,6 +197,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, product));
         }
+       
         [HttpGet("AllProductsByOwnerID/id")]
         public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int ownerid)
         {
@@ -220,7 +221,6 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-
 
 
         [HttpGet("Categories")]

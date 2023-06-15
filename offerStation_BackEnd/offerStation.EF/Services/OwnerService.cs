@@ -463,8 +463,6 @@ namespace offerStation.EF.Services
                 ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
                 ProductDTO.Image = product.Image;
 
-
-
                 OwnerProductsDTOs.Add(ProductDTO);
             }
             return OwnerProductsDTOs;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AddressServiceService } from 'src/app/services/address/address';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -6,11 +6,11 @@ import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
 import { city } from 'src/app/sharedClassesAndTypes/city';
 
 @Component({
-  selector: 'app-addresses',
-  templateUrl: './addresses.component.html',
-  styleUrls: ['./addresses.component.css'],
+  selector: 'app-owner-addresses',
+  templateUrl: './owner-addresses.component.html',
+  styleUrls: ['./owner-addresses.component.css']
 })
-export class AddressesComponent implements OnInit {
+export class OwnerAddressesComponent implements OnInit {
 
   ApplicationuserId: any;
 
@@ -49,11 +49,9 @@ export class AddressesComponent implements OnInit {
     this.addressForm.get('cityId')?.valueChanges.subscribe((data) => {
       this.Address.cityId = data;
     });
-
   }
 
   ngOnInit(): void {
-
     this.ApplicationuserId = this._userDataService.userData;
 
     this.LoadData();
@@ -70,7 +68,8 @@ export class AddressesComponent implements OnInit {
   }
 
   LoadData() {
-    this._addressService.GetCustomerAdresses(this.ApplicationuserId._value.nameid).subscribe({
+    //this.ApplicationuserId._value.nameid
+    this._addressService.GetCustomerAdresses("1").subscribe({
       next: data => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
@@ -81,8 +80,8 @@ export class AddressesComponent implements OnInit {
   }
 
   SubmitData() {
-
-    this._addressService.AddAddress(this.ApplicationuserId._value.nameid, this.addressForm.value).subscribe({
+    //this.ApplicationuserId._value.nameid
+    this._addressService.AddAddress("1", this.addressForm.value).subscribe({
       next: data => {
         this.LoadData()
         this.onCloseAddressHandled();
@@ -106,10 +105,10 @@ export class AddressesComponent implements OnInit {
     console.log(this.addressForm.value);
     this._addressService.UpdateAddress(this.Address.id, this.Address).subscribe({
       next: data => {
-        // console.log(data);
+        console.log(data);
         this.LoadData();
         this.onCloseEditAddressHandled();
-        // console.log(this.addressForm.value);
+        console.log(this.addressForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });

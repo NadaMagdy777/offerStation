@@ -1,5 +1,6 @@
 export class ownerCategory{
     constructor(
         public id:number,
-        public name:string,
+        public menuName:string,
+        // public image:any,
     ){}}

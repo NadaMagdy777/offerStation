@@ -20,16 +20,15 @@
                 <button type="button" class="list-group-item list-group-item-action"
                   (click)="getproductBycategoryId(item.id)" value="{{item.id}}">{{item.menuName}}</button>
                 <!-- <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-            <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
+                 <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
               </div>
             </div>
           </div>
           <!-- <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-
-
              <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
           </div> -->
         </div>
+
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingTwo">
             <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
@@ -50,36 +49,33 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
+
     <div class="col-9 collapse card d-block mb-5 mt-2" style="background-color: #f4f5f7;">
       <div class="row">
-        
-       
         <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName">
           <div class="card mt-2 mb-2" style="width:400px">
-            <span class="discount_3" >
+            <span class="discount_3">
               <!-- <div class="disc-val"> </div> -->
-              
+
               <span class="disc-val" style="margin-left: 4px">{{item.discount}}٪</span>
-          </span>
-           <!-- // <div class="card-badge">{{item.discount}}%</div> -->
-          
-        
+            </span>
+            <!-- // <div class="card-badge">{{item.discount}}%</div> -->
+
             <img class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
-          
+
             <div class="card-body text-center">
               <h4 class="card-title font-weight-bold">{{item.name}}</h4>
 
               <div class="d-flex justify-content-between">
-                  <h5 class="small text-danger " style=" text-decoration-line: line-through">{{item.price}} EGP</h5>
-                  <h5 class="text-dark mb-0">{{item.discountPrice}} EGP</h5>
-                </div>
-
-
-            <p> {{item.description}}</p>
-            <p><button class="buttoncard btn  btn-success">Add to Cart</button></p>
-          </div>
+                <h5 class="small text-danger " style=" text-decoration-line: line-through">{{item.price}} EGP</h5>
+                <h5 class="text-dark mb-0">{{item.discountPrice}} EGP</h5>
+              </div>
+              <p> {{item.description}}</p>
+              <p><button class="buttoncard btn  btn-success">Add to Cart</button></p>
+            </div>
             <!-- <div class="card-body">
               <h4 class="card-title">{{item.price}}</h4>
               <p class="card-text">{{item.name}}</p>
