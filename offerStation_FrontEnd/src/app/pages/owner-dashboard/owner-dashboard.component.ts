@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OwnerAnalysisService } from 'src/app/services/owner/owner-analysis/owner-analysis.service';
+import { AnalysisResult } from 'src/app/sharedClassesAndTypes/analysisResult';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -16,11 +17,15 @@ export class OwnerDashboardComponent implements OnInit{
   totalProducts:number=0
   totalOffers:number=0;
   ownerId:number=1
+  topOffers!:AnalysisResult[]
+  topProduct!:AnalysisResult[]
   
   
   
   ngOnInit(): void {
     
+  this.getTopoffers(this.ownerId) 
+  this.getTopProducts(this.ownerId)
   this.GetCustomersCount(this.ownerId)
   this.GetOrdersCount(this.ownerId)
   this.GetProductsCount(this.ownerId)
@@ -30,6 +35,33 @@ export class OwnerDashboardComponent implements OnInit{
 
 
 
+
+
+  }
+  getTopoffers(ownerId:number){
+    this._ownerAnalysisServ.GetTopOffers(ownerId).subscribe({
+      next:data=>{
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.topOffers=dataJson.data
+       
+      },
+      error:error=>{console.log(error)}
+    }
+      
+      )
+
+  }
+  getTopProducts(ownerId:number){
+    this._ownerAnalysisServ.GetTopProduct(ownerId).subscribe({
+      next:data=>{
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.topProduct=dataJson.data
+       
+      },
+      error:error=>{console.log(error)}
+    }
+      
+      )
 
   }
   GetCustomersCount(ownerId:number){

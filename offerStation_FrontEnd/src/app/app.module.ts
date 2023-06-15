@@ -38,6 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
+    
   ],
   imports: [
     BrowserModule,
