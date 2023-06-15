@@ -18,6 +18,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> SuspendOwner(int id);
         Task<bool> RemoveOwnerSuspension(int id);
         Task<bool> ApproveOwner(int id);
+        Task<ProductInfoDto?> GetProductDetails(int id);
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
@@ -44,6 +45,10 @@ namespace offerStation.Core.Interfaces.Services
         Task<int> getOwnerTotalOrders(int ownerId);
 
         Task<double> getTotalProfit(int ownerId);
+
+        Task<int> getOffersCount(int ownerId);
+
+        Task<int> getProductsCount(int ownerId);
 
 
     }

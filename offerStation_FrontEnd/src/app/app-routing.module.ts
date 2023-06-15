@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegestrationComponent } from './components/regestration/customerregestration/regestration.component';
 import { OwnerregestrationComponent } from './components/regestration/ownerregestration/ownerregestration.component';
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component';
+import { OwnerDashboardModule } from './modules/owner-dashboard/owner-dashboard.module';
 
 const routes: Routes = [
   { path: "customer", loadChildren: () => import('./modules/customer/customer.module').then(mod => mod.CustomerModule) },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'ownerRegister', component: OwnerregestrationComponent },
   { path: 'supplierRegister', component: SupplierregestrationComponent },
   { path: 'owners', loadChildren: () => import('./modules/owners/owners.module').then(mod => mod.OwnersModule) },
+  { path: 'ownerDashboard', loadChildren: () => import('./modules/owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
+
 
 ];
 
