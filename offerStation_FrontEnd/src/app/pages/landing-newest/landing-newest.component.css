@@ -1,3 +1,14 @@
+.discount_3 {
+  position: absolute;
+  right: 10px;
+  top: -6px;
+  background-image: url(../../../assets/imges/discount_orange.svg);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 47px;
+
+  color: #FFF;
+}
 .category-container
 {
   background-color: white;
