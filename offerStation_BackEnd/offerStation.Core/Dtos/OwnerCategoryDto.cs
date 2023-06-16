@@ -11,7 +11,7 @@ namespace offerStation.Core.Dtos
     {
         public int Id { get; set; }
     }
-    public class OwnerCategoryInfoDto
+    public class OwnerCategoryInfoDto 
     {
         public string Name { get; set; }
         public byte[]? Image { get; set; }

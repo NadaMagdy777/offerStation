@@ -37,6 +37,23 @@ namespace offerStation.EF.Services
             }
             return offerDto;
         }
+        public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int ownerId)
+        {
+            List<OfferDetailsDto> offersDtoList = null;
+
+            IEnumerable<OwnerOffer> offersList = await _unitOfWork.OwnerOffers.FindAllAsync(o => o.OwnerId == ownerId && !o.IsDeleted,
+                new List<Expression<Func<OwnerOffer, object>>>()
+                {
+                    o => o.Owner,
+                });
+
+
+            if (offersList is not null)
+            {
+                offersDtoList = _mapper.Map<List<OfferDetailsDto>>(offersList);
+            }
+            return offersDtoList;
+        }
         public async Task<bool> AddOffer(int ownerId, OfferInfoDto offerDto)
         {
             if (offerDto is not null)

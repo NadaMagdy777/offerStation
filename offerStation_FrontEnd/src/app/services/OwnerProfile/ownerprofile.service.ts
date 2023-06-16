@@ -19,7 +19,6 @@ export class OwnerprofileService {
 
   constructor(private http: HttpClient) { }
 
-  //https://localhost:7017/api/Owner/id?id=1
   GetOwnerInfo(id: number): Observable<OwnerInfo> {
     return this.http.get<OwnerInfo>(`${this.apiURL}/id?id=${id}`).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");

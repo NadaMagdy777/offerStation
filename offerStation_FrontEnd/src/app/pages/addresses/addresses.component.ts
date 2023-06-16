@@ -106,10 +106,10 @@ export class AddressesComponent implements OnInit {
     console.log(this.addressForm.value);
     this._addressService.UpdateAddress(this.Address.id, this.Address).subscribe({
       next: data => {
-        console.log(data);
+        // console.log(data);
         this.LoadData();
         this.onCloseEditAddressHandled();
-        console.log(this.addressForm.value);
+        // console.log(this.addressForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });

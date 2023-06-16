@@ -20,12 +20,7 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<OwnerProduct, ProductInfoDto>()
-                .ForMember(des => des.Price, a => a.MapFrom(src => src.Price))
-                .ForMember(des => des.Description, a => a.MapFrom(src => src.Description))
-                .ForMember(des => des.Name, a => a.MapFrom(src => src.Name))
-                .ForMember(des => des.Id, a => a.MapFrom(src => src.Id))
-                .ForMember(des => des.Image, a => a.MapFrom(src => src.Image))
-                .ForMember(des => des.Discount, a => a.MapFrom(src => src.Discount))
+                .ForMember(des => des.DiscountPrice, a => a.MapFrom(src =>  (src.Price - ((src.Price * src.Discount)/100))))
                 .ReverseMap();
 
             CreateMap<Owner, OwnerDto>()

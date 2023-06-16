@@ -10,6 +10,7 @@ namespace offerStation.Core.Interfaces.Services
     public interface IOwnerOfferService
     {
         Task<OfferDetailsDto?> GetOfferDetails(int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int ownerId);
         Task<bool> AddOffer(int ownerId, OfferInfoDto offerDto);
         Task<bool> EditOffer(int id, OfferInfoDto offerDto);
         Task<bool> DeleteOffer(int id);

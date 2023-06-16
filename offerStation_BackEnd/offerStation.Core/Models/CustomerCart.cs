@@ -21,5 +21,7 @@ namespace offerStation.Core.Models
 
         public virtual List<CustomerCartProduct> Products { get; set; }
         public virtual List<CustomerCartOffer> Offers { get; set; }
+        public double Total { get; set; }
+
     }
 }
