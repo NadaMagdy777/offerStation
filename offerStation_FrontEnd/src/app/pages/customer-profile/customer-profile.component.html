@@ -19,9 +19,16 @@
  -->
  <mat-sidenav-container>
   <mat-sidenav opened mode="side">
-    start
+    <mat-list>
+      <mat-list-item>
+        <a routerLink="/adresses">Your Acount </a>
+      </mat-list-item>
+      <mat-list-item><a routerLink="/adresses">All Addresses</a> </mat-list-item>
+      <!-- <mat-list-item>Paprika</mat-list-item> -->
+     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <p class="pe-5">Heloo</p>
+    <router-outlet></router-outlet>
+
   </mat-sidenav-content>
  </mat-sidenav-container>

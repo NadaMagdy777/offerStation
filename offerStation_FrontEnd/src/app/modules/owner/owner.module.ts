@@ -1,3 +1,4 @@
+import { OwnerofferdetailComponent } from './../../pages/owner-offer-details/ownerofferdetail/ownerofferdetail.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwnerProductsComponent } from 'src/app/pages/owner-products/owner-products.component';
 import { OwnerCategoriesComponent } from 'src/app/pages/owner-categories/owner-categories.component';
 import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-addresses.component';
+import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
+import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 
 
 const routes: Routes = [
@@ -31,6 +34,8 @@ const routes: Routes = [
     OwnerAddressesComponent,
     OwnerCategoriesComponent,
     OwnerProductsComponent,
+    OwnerofferdetailComponent,
+    OwnerdetailsComponent
   ],
   imports: [
     CommonModule,
