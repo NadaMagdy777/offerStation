@@ -5,5 +5,22 @@ mat-sidenav-container
 mat-sidenav
 {
   width: 200px;
-  background-color: chocolate;
+  border-right: 5px solid rgb(245, 241, 241);;
+  /* background-color: rgb(245, 241, 241); */
+}
+mat-list-item a {
+ text-decoration: none;
+ font-weight: bold;
+ color: black;
+}
+
+i{
+  color: #FEA116;
+}
+mat-list-item:hover  {
+  background-color: #FEA116;
+  }
+  
+mat-list-item:hover * {
+  color: #F1F8FF !important;
 }

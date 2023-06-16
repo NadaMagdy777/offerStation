@@ -13,9 +13,11 @@ import {MatListModule} from '@angular/material/list';
 
 const routes: Routes = [
 
-  { path: 'profile', component: CustomerProfileComponent },
-  { path: 'adresses', component: AddressesComponent },
-  { path: 'Info', component: CustomerInfoComponent },
+  { path: 'profile', component: CustomerProfileComponent , children: [
+    { path: 'adresses', component: AddressesComponent },
+    { path: 'Info', component: CustomerInfoComponent },
+  ] },
+
 
 ];
 @NgModule({

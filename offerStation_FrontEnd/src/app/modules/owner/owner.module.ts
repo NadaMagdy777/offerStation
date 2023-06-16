@@ -14,13 +14,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwnerProductsComponent } from 'src/app/pages/owner-products/owner-products.component';
 import { OwnerCategoriesComponent } from 'src/app/pages/owner-categories/owner-categories.component';
 import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-addresses.component';
-import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 const routes: Routes = [
   { path: 'product', component: OwnerProductComponent },
-  { path: 'profile', component: OwnerProfileComponent },
+  { path: 'profile', component: OwnerProfileComponent,children: [
+    { path: 'branches',component:OwnerAddressesComponent },
+    { path: 'Info', component:  OwnerInfoComponent},
+    { path: 'categories', component:  OwnerCategoriesComponent},
+    { path: 'products', component:  OwnerProductsComponent},
+  ] },
 
 ];
 
@@ -45,6 +50,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class OwnerModule { }
