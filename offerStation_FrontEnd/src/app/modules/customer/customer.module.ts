@@ -6,6 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CustomerProfileComponent } from 'src/app/pages/customer-profile/customer-profile.component';
 import { CustomerInfoComponent } from 'src/app/pages/customer-info/customer-info.component';
 import { AddressesComponent } from 'src/app/pages/addresses/addresses.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 const routes: Routes = [
 
@@ -25,6 +26,8 @@ const routes: Routes = [
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSidenavModule
+
   ],
   exports: [
     MatTabsModule

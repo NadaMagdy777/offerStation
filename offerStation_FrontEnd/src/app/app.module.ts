@@ -39,7 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    NgbModule
+    NgbModule,
   ],
 
   providers: [
