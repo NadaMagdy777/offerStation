@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using offerStation.EF.Services;
 
 namespace offerStation.API.Controllers
 {
@@ -10,6 +11,7 @@ namespace offerStation.API.Controllers
     public class OwnerOfferController : ControllerBase
     {
         private readonly IOwnerOfferService _ownerOfferService;
+        private object  _ownerService;
 
         public OwnerOfferController(IOwnerOfferService ownerOfferService)
         {
@@ -65,5 +67,8 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+
+
     }
+
 }

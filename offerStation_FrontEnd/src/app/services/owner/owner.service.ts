@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Base } from 'src/app/sharedClassesAndTypes/Base';
 import { ApiResponce } from 'src/app/sharedClassesAndTypes/ApiResponce';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,13 @@ export class OwnerService {
 
   GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllCustomerReviewsByOwnerID/id?ownerid=" + id);
+  }
+  GetOwnerInfo(id:number):Observable<OwnerDetails>
+  {
+    return this._httpClient.get<OwnerDetails>(this.url+"/GetOwnerInfo?id="+id);
+  }
+  GetAllOfferByOwnerId(id:number):Observable<any>
+  {
+    return this._httpClient.get<any>(this.url+"/GetAllOffersByOwnerId/id?id="+id);
   }
 }
