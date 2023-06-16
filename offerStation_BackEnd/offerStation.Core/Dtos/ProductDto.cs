@@ -26,6 +26,7 @@ namespace offerStation.Core.Dtos
         public string Name { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
+        public double DiscountPrice { get; set; }   
         public int Discount { get; set; }
         public byte[]? Image { get; set; }
     }

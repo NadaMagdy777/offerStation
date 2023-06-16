@@ -10,6 +10,8 @@ import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { OwnerProfileComponent } from 'src/app/pages/owner-profile/owner-profile.component';
 import { OwnerInfoComponent } from 'src/app/pages/owner-info/owner-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
+import { OwnerofferdetailComponent } from 'src/app/pages/owner-offer-details/ownerofferdetail/ownerofferdetail.component';
 
 const routes: Routes = [
   { path: 'product', component: OwnerProductComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
     OwnerMenuComponent,
     OwnerreviewComponent,
     OwnerInfoComponent,
-    OwnerProfileComponent
+    OwnerProfileComponent,
+    OwnerdetailsComponent,
+    OwnerofferdetailComponent
   ],
   imports: [
     CommonModule,

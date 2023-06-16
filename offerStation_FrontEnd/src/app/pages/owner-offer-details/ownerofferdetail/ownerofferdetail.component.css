@@ -13,15 +13,26 @@ li.active{
     background-color: #e12539;
  
 } 
+.modal-header{
+  display: inline;
+}
 
-/* .card {
-    
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-   
-  } */
-  
-  /* On mouse-over, add a deeper shadow */
+.modal-title,.changeEmail:hover{
+  color: rgb(255, 90, 0);
+}
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+}
   .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
@@ -37,17 +48,6 @@ li.active{
     
   }
   
-  .discount_3 {
-    position: absolute;
-    right: 10px;
-    top: -6px;
-    background-image: url(../../../../assets/imges/discount_orange.svg); 
-    background-repeat: no-repeat;
-    width: 40px;
-    height: 47px;
-  
-    color: #FFF;
-  }
 .buttoncard
 {
   border: none;

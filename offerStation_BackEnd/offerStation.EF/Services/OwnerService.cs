@@ -47,6 +47,41 @@ namespace offerStation.EF.Services
 
             return ownerInfo;
         }
+        public async Task<OwnerInfoDto?> GetOwnerInfo(int id)
+        {
+            OwnerInfoDto ownerInfo = new OwnerInfoDto();
+
+            Owner owner = await _unitOfWork.Owners.FindAsync(o => o.Id== id,
+                new List<Expression<Func<Owner, object>>>()
+                {
+                    o => o.AppUser,
+                    o=>o.CustomersReviews
+                });
+            if (owner is not null)
+            {
+                int ratingSum = owner.CustomersReviews.Select(r => r.Rating).Sum();
+                int ratingcount = owner.CustomersReviews.Select(r => r.Rating).Count();
+                if (ratingcount != 0)
+                {
+                    ownerInfo.Rating = ratingSum / ratingcount;
+
+                }
+                else
+                {
+                    ownerInfo.Rating = 0;   
+                }
+         
+
+                ownerInfo.Image = owner.Image;
+                ownerInfo.PhoneNumber = owner.AppUser.PhoneNumber;
+                ownerInfo.Name = owner.AppUser.Name;
+               
+           
+              
+
+            }
+            return ownerInfo;   
+        }
         public async Task<List<OwnerDto>?> GetAllOwners()
         {
             List<OwnerDto> ownerDtoList = null;
@@ -288,7 +323,59 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
+        public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id)
+        {
+            List<OfferDetailsDto> OfferListDto = null;
+            IEnumerable<OwnerOffer> offerList = await _unitOfWork.OwnerOffers.FindAllAsync(o=>o.OwnerId==id);
+
+            if (offerList is not null)
+            {
+                OfferListDto = _mapper.Map<List<OfferDetailsDto>>(offerList);
+            }
+            return OfferListDto;
+        }
+        public async Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id)
+        {
+            List<OwnerOfferProductsDto> OfferListDto = new List<OwnerOfferProductsDto> { };
+            IEnumerable<OwnerOfferProduct> offerList = await _unitOfWork.OwnerOfferProducts.FindAllAsync(o => o.OfferId == id,
+            new List<Expression<Func<OwnerOfferProduct, object>>>()
+            {
+                O=>O.Product,
+ 
+            });
+            foreach (OwnerOfferProduct offer in offerList)
+            {
+                OwnerOfferProductsDto OfferList = new OwnerOfferProductsDto();
+              
+                OfferList.ProductName = offer.Product.Name;
+                OfferList.price=offer.Product.Price;
+                OfferList.ProductDescription = offer.Product.Description;
+                OfferList.Quantity = offer.Quantity;    
+                OfferListDto.Add(OfferList);
+
+            }
+            return OfferListDto;
+         
+        }
         public async Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int ownerId)
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+                .FindAllAsync(r => r.OwnerId == ownerId && !r.IsDeleted,
+                 new List<Expression<Func<CustomerReview, object>>>()
+                 {
+                     r => r.Customer.AppUser,
+                 });
+
+
+            if (reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
+        public async Task<List<ReviewDto>?> GetAllAddressByOwnerId(int ownerId)
         {
             List<ReviewDto> reviewListDto = null;
 
@@ -469,11 +556,7 @@ namespace offerStation.EF.Services
             }
             return OwnerProductsDTOs;
 
-            //if (ownerProducts is not null)
-            //{
-            //    OwnerProductsDTOs = _mapper.Map<List<ProductInfoDto>>(ownerProducts);
-            //}
-            //return OwnerProductsDTOs;
+         
         }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
