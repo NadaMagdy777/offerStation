@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwnerProductsComponent } from 'src/app/pages/owner-products/owner-products.component';
 import { OwnerCategoriesComponent } from 'src/app/pages/owner-categories/owner-categories.component';
 import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-addresses.component';
+import { OwnerofferdetailComponent } from 'src/app/pages/owner-offer-details/ownerofferdetail/ownerofferdetail.component';
+import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,8 @@ const routes: Routes = [
     OwnerAddressesComponent,
     OwnerCategoriesComponent,
     OwnerProductsComponent,
+    OwnerofferdetailComponent,
+    OwnerdetailsComponent
   ],
   imports: [
     CommonModule,
