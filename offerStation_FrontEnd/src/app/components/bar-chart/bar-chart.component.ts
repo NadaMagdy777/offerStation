@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import{Chart,registerables} from 'node_modules/chart.js'
 import { AnalysisResult } from 'src/app/sharedClassesAndTypes/analysisResult';
+import { ChartType } from 'chart.js';
+
 Chart.register(...registerables)
 @Component({
   selector: 'app-bar-chart',
@@ -11,6 +13,7 @@ export class BarChartComponent  implements OnInit{
   
   @Input() datalabels!:AnalysisResult[]
   @Input() label!:string
+  @Input() ChartType: ChartType = "doughnut";
 
   @Input() canvaid!:string
   data:number[]=[]
@@ -28,7 +31,7 @@ export class BarChartComponent  implements OnInit{
         this.data.push(data.count)
       })
       
-      this.RenderChart()
+      this.RenderChart(this.ChartType)
 
     }
    
@@ -41,9 +44,9 @@ export class BarChartComponent  implements OnInit{
     
   
   
-  RenderChart(){
+  RenderChart(charttype:any){
     const myChart = new Chart(this.canvaid, {
-      type: 'bar',
+      type: charttype,
       data: {
           labels: this.labels,
           datasets: [{

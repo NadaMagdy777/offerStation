@@ -19,13 +19,17 @@ export class OwnerDashboardComponent implements OnInit{
   ownerId:number=1
   topOffers!:AnalysisResult[]
   topProduct!:AnalysisResult[]
-  
+  orderStatus!:AnalysisResult[]
+  offersProductsOrdersCount!:AnalysisResult[]
+
   
   
   ngOnInit(): void {
     
   this.getTopoffers(this.ownerId) 
   this.getTopProducts(this.ownerId)
+  this.getOrdersStatus(this.ownerId)
+  this.getOffersProductOrdersCount(this.ownerId)
   this.GetCustomersCount(this.ownerId)
   this.GetOrdersCount(this.ownerId)
   this.GetProductsCount(this.ownerId)
@@ -36,6 +40,33 @@ export class OwnerDashboardComponent implements OnInit{
 
 
 
+
+  }
+  getOffersProductOrdersCount(ownerId:number){
+    this._ownerAnalysisServ.GetOffersProductsCount(ownerId).subscribe({
+      next:data=>{
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.offersProductsOrdersCount=dataJson.data
+       
+      },
+      error:error=>{console.log(error)}
+    }
+      
+      )
+
+  }
+
+  getOrdersStatus(ownerId:number){
+    this._ownerAnalysisServ.GetOrdersStatus(ownerId).subscribe({
+      next:data=>{
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.orderStatus=dataJson.data
+       
+      },
+      error:error=>{console.log(error)}
+    }
+      
+      )
 
   }
   getTopoffers(ownerId:number){
