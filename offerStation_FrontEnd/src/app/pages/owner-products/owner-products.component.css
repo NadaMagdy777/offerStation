@@ -33,6 +33,7 @@
     color: #3b71ca;
 }
 
+
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
@@ -43,9 +44,11 @@
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    /* color: #aaa; */
     float: right;
     font-size: 28px;
+background-color: transparent;
+border: none;
 }
 
 .close:hover,
