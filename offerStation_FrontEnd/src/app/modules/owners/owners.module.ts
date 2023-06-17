@@ -16,6 +16,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {HttpClientModule} from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 import { OwnerCardComponent } from 'src/app/components/owner-card/owner-card.component';
+import { OwnerofferdetailComponent } from 'src/app/pages/owner-offer-details/ownerofferdetail/ownerofferdetail.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { OwnerCardComponent } from 'src/app/components/owner-card/owner-card.com
     AllOwnerComponent,
     OwnersIndexComponent,
     BannerComponent,
-    OwnerCardComponent
+    OwnerCardComponent,
+    
 
   ],
   imports: [
@@ -39,7 +41,6 @@ import { OwnerCardComponent } from 'src/app/components/owner-card/owner-card.com
     OwnersRoutingModule,
     RouterModule,
     FormsModule
-
   ]
 })
 export class OwnersModule { }

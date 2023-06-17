@@ -1,4 +1,5 @@
 ﻿using offerStation.Core.Dtos;
+using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
         Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
         Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id);
+        Task<List<AddressInfoDTO>> GetAddressesByOwnerID(int id);
     }
     public interface IownerAnalysisService{
         Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);
@@ -54,6 +56,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<int> getProductsCount(int ownerId);
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId);
         Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId);
+
+        Task<List<customerInfoAnalysis>> getTopCustomerInfo(int ownerid);
 
 
     }

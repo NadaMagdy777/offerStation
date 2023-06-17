@@ -105,15 +105,16 @@
                
             </div>
 
-        <div class="row justify-content-center">
-            <div class="col-xl-5">
-                <app-bar-chart [datalabels]="topOffers" label="top 5 offers" canvaid="offer"></app-bar-chart>
+        <div class="row d-flex justify-content-center">
+            
+               <app-bar-chart class="col-md-5 mt-5" [datalabels]="topOffers" label="top 5 offers" canvaid="offer" ChartType="bar" ></app-bar-chart>
+               <app-bar-chart class="col-md-5 mt-5" [datalabels]="topProduct" label="top 5 product" canvaid="product" ChartType="bar"></app-bar-chart>
 
-            </div>
-            <div class="col-xl-5">
-                <app-bar-chart [datalabels]="topProduct" label="top 5 product" canvaid="product"></app-bar-chart>
+               <app-bar-chart  class="col-md-5 mt-5" [datalabels]="orderStatus" label="Orders Status" canvaid="ordersStatus" ChartType="doughnut"></app-bar-chart>
+               <app-bar-chart class="col-md-5 mt-5" [datalabels]="offersProductsOrdersCount" label="productsvsoffers" canvaid="productsVSoffers" ChartType="polarArea"></app-bar-chart>
 
-            </div>
+            
+           
         </div>
     </div>
 </body>

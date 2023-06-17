@@ -284,6 +284,17 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, offer));
         }
+        [HttpGet("GetAddressByOwnerId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAddressByOwnerId(int id)
+        {
+            IEnumerable<AddressInfoDTO> addres = await _ownerService.GetAddressesByOwnerID(id);
+            if (addres is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, addres));
+        }
+
         [HttpGet("GetOfferDetailsByOfferId/id")]
         public async Task<ActionResult<ApiResponse>> GetOfferDetailsByOfferId(int id)
         {

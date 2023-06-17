@@ -75,6 +75,7 @@ namespace offerStation.EF.Services
                 ownerInfo.Image = owner.Image;
                 ownerInfo.PhoneNumber = owner.AppUser.PhoneNumber;
                 ownerInfo.Name = owner.AppUser.Name;
+                ownerInfo.Email = owner.AppUser.Email;
                
            
               
@@ -655,8 +656,37 @@ namespace offerStation.EF.Services
         {          
             return filterOffersData(1,9,0, CategoryName, sortBy).Result.List;
         }
+        public async Task<List<AddressInfoDTO>> GetAddressesByOwnerID(int id)
+        {
+            var ID = Convert.ToString(id);
+            List<AddressInfoDTO> OwnerAddressesDTOs;
+
+            OwnerAddressesDTOs = new List<AddressInfoDTO>();
+            IEnumerable<Address> result = await _unitOfWork.Addresses.FindAllAsync(d => d.UserId == ID && !d.IsDeleted, new List<Expression<Func<Address, object>>>()
+            {
+                o=>o.City
+             
+
+            });
+           
+
+            foreach (Address address in result)
+            {
+                AddressInfoDTO AddressDTO = new AddressInfoDTO();
+
+                AddressDTO.details = address.details;
+                AddressDTO.CityName = address.City.Name;
+                AddressDTO.CityId = address.CityId;
+                AddressDTO.Id = address.Id; 
+             
+               
+
+                OwnerAddressesDTOs.Add(AddressDTO);
+            }
+            return OwnerAddressesDTOs;
+        }
+       
 
 
-  
     }
 }

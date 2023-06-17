@@ -14,4 +14,11 @@ namespace offerStation.Core.Dtos
         public long Count { get; set; }
         public string Name { get; set; }
     }
+
+    public class customerInfoAnalysis
+    {
+        public long ordersCount { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+    }
 }

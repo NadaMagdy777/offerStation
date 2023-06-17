@@ -44,4 +44,16 @@ export class OwnerAnalysisService {
     return this._httpClient.get<ApiResponce>( this.url + '/Count/Offers?ownerid='+ownerid);
     
   }
+  GetOrdersStatus(ownerid:any):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>( this.url + '/Count/orders/status?ownerid='+ownerid);
+    
+  }
+  GetOffersProductsCount(ownerid:any):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>( this.url + '/Count/OffersOrders/Productorders?ownerid='+ownerid);
+    
+  }
+  GetTopOrderdCustomers(ownerid:any):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>( this.url + '/Top/Customers?ownerid='+ownerid);
+    
+  }
 }
