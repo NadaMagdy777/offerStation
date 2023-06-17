@@ -1,4 +1,5 @@
 ﻿using offerStation.Core.Dtos;
+using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<int> getProductsCount(int ownerId);
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId);
         Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId);
+
+        Task<List<customerInfoAnalysis>> getTopCustomerInfo(int ownerid);
 
 
     }

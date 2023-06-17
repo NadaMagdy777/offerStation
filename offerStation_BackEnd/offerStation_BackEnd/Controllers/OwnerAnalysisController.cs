@@ -80,6 +80,13 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, await _ownerAnalysisService.ownerOrdersOffersProductCount(ownerid)));
         }
 
+        [HttpGet("Top/Customers")]
+        public async Task<ActionResult<ApiResponse>> getTopCustomers(int ownerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _ownerAnalysisService.getTopCustomerInfo(ownerid)));
+        }
+
 
 
 

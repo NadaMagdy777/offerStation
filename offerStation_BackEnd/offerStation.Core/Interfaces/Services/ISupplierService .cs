@@ -33,4 +33,25 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
     }
+
+    public interface IsupplierAnalysisService
+    {
+        Task<List<AnalysisResult>> getTop5Product(int supplierId);
+        Task<List<AnalysisResult>> getTop5Offer(int supplierId);
+        Task<int> getTotalCustomer(int supplierId);
+
+        Task<int> getTotalOrders(int supplierId);
+
+        Task<double> getTotalProfit(int supplierId);
+
+        Task<int> getOffersCount(int supplierId);
+
+        Task<int> getProductsCount(int supplierId);
+        Task<List<AnalysisResult>> getDiffernentOrdersStatus(int supplierId);
+        Task<List<AnalysisResult>> getOrdersOffersProductCount(int supplierId);
+
+        Task<List<customerInfoAnalysis>> getTopCustomerInfo(int supplierId);
+
+
+    }
 }

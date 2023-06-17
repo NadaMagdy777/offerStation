@@ -177,10 +177,17 @@ namespace offerStation.EF.Services
 
 
         }
+        public async Task<List<customerInfoAnalysis>> getTopCustomerInfo(int ownerid)
+        {
+            List<CustomerOrder> orders = (List < CustomerOrder >) await _unitOfWork.CustomerOrders.FindAllAsync(o => o.OwnerId == ownerid, new List<Expression<Func<CustomerOrder, object>>>()
+             {
+                  O=>O.Customer.AppUser,
+                  
+            });
+            return orders.GroupBy(o => o.CustomerId).Select(o =>new customerInfoAnalysis { Name= o.Select(o => o.Customer.AppUser.Name).First(),Phone = o.Select(o => o.Customer.AppUser.PhoneNumber).First(), ordersCount= o.Select(o => o.CustomerId).Count() }).OrderByDescending(o=>o.ordersCount).Take(10).ToList();
 
 
-
-
+        }
 
     }
 }
