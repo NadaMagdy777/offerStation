@@ -169,5 +169,10 @@ namespace offerStation.EF.Repositories
         {
             _context.Entry(entity).Property("IsDeleted").CurrentValue = true;
         }
+
+        public Task<IEnumerable<OwnerOffer>> FindAllAsync(Func<OwnerOffer, bool> value, List<Expression<Func<OwnerOfferProduct, object>>> list)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

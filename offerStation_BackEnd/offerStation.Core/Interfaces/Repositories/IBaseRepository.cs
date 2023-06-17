@@ -1,4 +1,5 @@
 ﻿using offerStation.Core.Constants;
+using offerStation.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +30,6 @@ namespace offerStation.Core.Interfaces.Repositories
         Task<T> Add(T entity);
         T Update(T entity);
         void Delete(T entity);
+        Task<IEnumerable<OwnerOffer>> FindAllAsync(Func<OwnerOffer, bool> value, List<Expression<Func<OwnerOfferProduct, object>>> list);
     }
 }

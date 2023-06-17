@@ -11,6 +11,7 @@ namespace offerStation.Core.Interfaces.Services
     public interface IOwnerService
     {
         Task<PublicInfoDto?> GetOwner(int id);
+        Task<OwnerInfoDto?> GetOwnerInfo(int id);
         Task<List<OwnerDto>?> GetAllOwners();
         Task<List<OwnerDto>?> GetWaitingOwners();
         Task<List<OwnerDto>?> GetSuspendedOwners();
@@ -37,6 +38,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<OwnerDto>> getOwnersByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
+        Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id);
     }
     public interface IownerAnalysisService{
         Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);

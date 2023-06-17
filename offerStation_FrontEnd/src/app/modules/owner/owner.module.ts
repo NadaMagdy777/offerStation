@@ -1,3 +1,4 @@
+import { OwnerofferdetailComponent } from './../../pages/owner-offer-details/ownerofferdetail/ownerofferdetail.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,10 +11,21 @@ import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { OwnerProfileComponent } from 'src/app/pages/owner-profile/owner-profile.component';
 import { OwnerInfoComponent } from 'src/app/pages/owner-info/owner-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OwnerProductsComponent } from 'src/app/pages/owner-products/owner-products.component';
+import { OwnerCategoriesComponent } from 'src/app/pages/owner-categories/owner-categories.component';
+import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-addresses.component';
+import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 const routes: Routes = [
   { path: 'product', component: OwnerProductComponent },
-  { path: 'profile', component: OwnerProfileComponent },
+  { path: 'profile', component: OwnerProfileComponent,children: [
+    { path: 'branches',component:OwnerAddressesComponent },
+    { path: 'Info', component:  OwnerInfoComponent},
+    { path: 'categories', component:  OwnerCategoriesComponent},
+    { path: 'products', component:  OwnerProductsComponent},
+  ] },
 
 ];
 
@@ -23,7 +35,12 @@ const routes: Routes = [
     OwnerMenuComponent,
     OwnerreviewComponent,
     OwnerInfoComponent,
-    OwnerProfileComponent
+    OwnerProfileComponent,
+    OwnerAddressesComponent,
+    OwnerCategoriesComponent,
+    OwnerProductsComponent,
+    OwnerofferdetailComponent,
+    OwnerdetailsComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +50,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class OwnerModule { }

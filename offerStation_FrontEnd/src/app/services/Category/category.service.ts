@@ -9,19 +9,19 @@ import { ownerCategoryWithOffers } from 'src/app/sharedClassesAndTypes/ownerCate
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiURL = Base.apiUrl +'Owner';
+  private apiURL = Base.apiUrl + 'Owner';
 
   constructor(private http: HttpClient) { }
   GetAllCategory(): Observable<ApiResponce> {
-    return this.http.get<ApiResponce>(this.apiURL+"/Categories").pipe(catchError((err) => {
+    return this.http.get<ApiResponce>(this.apiURL + "/Categories").pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
-    // console.log( this.http.get<any>(this.apiURL+"/Categories"))
+      // console.log( this.http.get<any>(this.apiURL+"/Categories"))
     }));
   }
-  GetOffersWithOwner(categoryName:string,WithoutPagination:string): Observable<ApiResponce> {
-    return this.http.get<ApiResponce>(this.apiURL+"/All/Offers/filter/WithoutPagination?CategoryName="+categoryName+"&sortBy="+WithoutPagination).pipe(catchError((err) => {
+  GetOffersWithOwner(categoryName: string, WithoutPagination: string): Observable<ApiResponce> {
+    return this.http.get<ApiResponce>(this.apiURL + "/All/Offers/filter/WithoutPagination?CategoryName=" + categoryName + "&sortBy=" + WithoutPagination).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
-     console.log( this.http.get<any>(this.apiURL+"/Categories"))
+      //  console.log( this.http.get<any>(this.apiURL+"/Categories"))
     }));
   }
 }

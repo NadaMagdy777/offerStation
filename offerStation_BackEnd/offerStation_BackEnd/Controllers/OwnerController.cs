@@ -40,6 +40,17 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, ownerList));
         }
+        [HttpGet("GetOwnerInfo")]
+        public async Task<ActionResult<ApiResponse>> GetOwnerInfo(int id)
+        {
+            OwnerInfoDto owner = await _ownerService.GetOwnerInfo(id);
+
+            if (owner is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, owner));
+        }
         [HttpGet("GetWaitingOwners")]
         public async Task<ActionResult<ApiResponse>> GetWaitingOwners()
         {
@@ -207,6 +218,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, product));
         }
+       
         [HttpGet("AllProductsByOwnerID/id")]
         public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int ownerid)
         {
@@ -230,7 +242,6 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-
 
 
         [HttpGet("Categories")]
@@ -263,5 +274,26 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, data));
 
         }
+        [HttpGet("GetAllOffersByOwnerId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllOffersByOwnerId(int id)
+        {
+            IEnumerable<OfferDto> offer = await _ownerService.GetAllOffersByOwnerId(id);
+            if (offer is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, offer));
+        }
+        [HttpGet("GetOfferDetailsByOfferId/id")]
+        public async Task<ActionResult<ApiResponse>> GetOfferDetailsByOfferId(int id)
+        {
+            IEnumerable<OwnerOfferProductsDto> offer = await _ownerService.GetOfferDetailsByOfferId(id);
+            if (offer is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, offer));
+        }
+
     }
 }

@@ -1,0 +1,156 @@
+<div class="container">
+  <button class="btn btn-success m-3 float-end" (click)="openProductModal()">Add New Product</button>
+  <table class="table table-hover mt-5">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Image</th> -->
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Discount</th>
+        <th scope="col">Discount Price</th>
+        <!-- <th scope="col">Category Name</th> -->
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of ProductList; index as i">
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.discount}}</td>
+        <td>{{product.discountPrice}}</td>
+        <!-- <td>{{product.categoryName}}</td> -->
+        <td><button class="btn btn-danger" (click)="DeleteProduct(product.id,i)">Delete</button></td>
+        <td><button class="btn btn-success" (click)="opeEditProductModal(product.id)">Update</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Start New Product Model -->
+<div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseProductHandled()"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="font-size: initial;">Add New Product </h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="SubmitData()">
+          <div class="mb-3">
+            <p>Product Details</p>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <div class="mb-3">
+                  <label for="name" class="col-form-label">Name</label>
+                  <input type="text" class="form-control" id="name" formControlName="name">
+                </div>
+
+                <div class="mb-3">
+                  <label for="price" class="col-form-label">Price</label>
+                  <input type="text" class="form-control" id="price" formControlName="price">
+                </div>
+
+                <div class="mb-3">
+                  <label for="description" class="col-form-label">Description</label>
+                  <input type="text" class="form-control" id="description" formControlName="description">
+                </div>
+
+                <div class="mb-3">
+                  <label for="discount" class="col-form-label">Discount</label>
+                  <input type="text" class="form-control" id="discount" formControlName="discount">
+                </div>
+
+                <div class="mb-3">
+                  <label for="image" class="col-form-label">Product Image</label>
+                  <input type="file" class="form-control" id="image" formControlName="image">
+                </div>
+
+                <div class="mb-3">
+                  <label for="categoryId" class="form-label">Category</label>
+                  <select class="form-select form-select-lg" formControlName="categoryId" name="categoryId">
+                    <option *ngFor="let category of categories;" value={{category.id}}>
+                      {{category.menuName}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="update" class="btn">SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End New Product Model -->
+
+
+<!-- Start Edit Product Model -->
+<div class="modal" id="exampleModal" [ngStyle]="{'display':display1}" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseEditProductHandled()"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="font-size: initial;">Edit Address </h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="UpdateProduct()">
+          <div class="mb-3">
+            <p>Edit Product Details</p>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+
+                <div class="mb-3">
+                  <label class="col-form-label">Name</label>
+                  <input type="text" formControlName="name" class="form-control" [value]="ownerProduct.name">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Price</label>
+                  <input type="text" formControlName="price" class="form-control" [value]="ownerProduct.price">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Description</label>
+                  <input type="text" formControlName="description" class="form-control"
+                    [value]="ownerProduct.description">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Discount</label>
+                  <input type="text" formControlName="discount" class="form-control" [value]="ownerProduct.discount">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Product Image</label>
+                  <input type="file" formControlName="image" class="form-control" [value]="ownerProduct.image">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <select class="form-select form-select-lg" formControlName="categoryId">
+                    <option *ngFor="let category of categories;" [value]="category.id">
+                      {{category.menuName}} </option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="update" class="btn">SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Edit Product Model -->

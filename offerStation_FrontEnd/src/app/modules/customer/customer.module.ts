@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
+
+import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerProfileComponent } from 'src/app/pages/customer-profile/customer-profile.component';
 import { CustomerInfoComponent } from 'src/app/pages/customer-info/customer-info.component';
 import { AddressesComponent } from 'src/app/pages/addresses/addresses.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 const routes: Routes = [
 
-  { path: 'profile', component: CustomerProfileComponent },
+  { path: 'profile', component: CustomerProfileComponent , children: [
+    { path: 'adresses', component: AddressesComponent },
+    { path: 'Info', component: CustomerInfoComponent },
+  ] },
+
 
 ];
-
 @NgModule({
   declarations: [
     CustomerProfileComponent,
@@ -21,13 +28,13 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    CustomerRoutingModule,
     RouterModule.forChild(routes),
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
-  exports: [
-    MatTabsModule
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class CustomerModule { }
