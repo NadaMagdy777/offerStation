@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -22,7 +21,7 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OwnermodalComponent } from './pages/ownermodal/ownermodal/ownermodal.component';
+
 
 
 
@@ -41,7 +40,7 @@ import { OwnermodalComponent } from './pages/ownermodal/ownermodal/ownermodal.co
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
-    OwnermodalComponent,
+   
  
   
   ],

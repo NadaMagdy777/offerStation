@@ -40,6 +40,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
         Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
         Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id);
+        Task<List<AddressInfoDTO>> GetAddressesByOwnerID(int id);
     }
     public interface IownerAnalysisService{
         Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);

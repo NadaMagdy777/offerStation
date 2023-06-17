@@ -14,10 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwnerProductsComponent } from 'src/app/pages/owner-products/owner-products.component';
 import { OwnerCategoriesComponent } from 'src/app/pages/owner-categories/owner-categories.component';
 import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-addresses.component';
-import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
-
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 const routes: Routes = [
   { path: 'product', component: OwnerProductComponent },
   { path: 'profile', component: OwnerProfileComponent,children: [
