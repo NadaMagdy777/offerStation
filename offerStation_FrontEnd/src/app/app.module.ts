@@ -23,13 +23,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
-
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,10 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
-    
-  
 
-  
   ],
   imports: [
     BrowserModule,

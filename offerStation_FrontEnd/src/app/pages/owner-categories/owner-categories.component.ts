@@ -56,4 +56,74 @@ export class OwnerCategoriesComponent implements OnInit {
     });
   }
 
+  SubmitData() {  //Error when choosing image from the system
+
+    // console.log(this.CategoryForm.value);
+
+    this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
+      next: data => {
+        // console.log(data);
+        this.LoadData()
+        this.onCloseCategoryHandled();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  DeleteCategory(categoryId: number, index: number) {
+
+    this._ownerService.DeleteCategory(categoryId).subscribe({
+      next: data => {
+        this.categories.splice(index, 1);
+        this.LoadData();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  UpdateCategory() {
+    // console.log(this.CategoryForm.value);
+    this._ownerService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
+      next: data => {
+        // console.log(data);
+        this.LoadData();
+        this.onCloseEditCategoryHandled();
+        // console.log(this.CategoryForm.value);
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  openEditCategoryModal(categoryId: number) {
+    this.display1 = 'block';
+    this._ownerService.GetCategoryDetails(categoryId).subscribe({
+      next: data => {
+        // console.log(data);
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.ownerCategory = dataJson.data;
+        // console.log(this.ownerCategory)
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+
+  }
+
+  openCategoryModal() {
+    this.display = 'block';
+  }
+
+  onCloseCategoryHandled() {
+    this.display = 'none';
+  }
+  onCloseEditCategoryHandled() {
+    this.display1 = 'none';
+  }
+
+  //Category Form
+  get menuName() {
+    return this.CategoryForm.get('menuName');
+  }
+  get image() {
+    return this.CategoryForm.get('image');
+  }
 }

@@ -134,7 +134,7 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-  opeEditProductModal(productId: number) {
+  openEditProductModal(productId: number) {
     this.display1 = 'block';
     this._ownerService.GetProductDetails(productId).subscribe({
       next: data => {

@@ -8,12 +8,10 @@ import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.compon
 
 
 @NgModule({
-  declarations: [OwnerDashboardComponent,BarChartComponent],
+  declarations: [OwnerDashboardComponent, BarChartComponent],
   imports: [
     CommonModule,
     OwnerDashboardRoutingModule,
-    
-    
   ]
 })
 export class OwnerDashboardModule { }
