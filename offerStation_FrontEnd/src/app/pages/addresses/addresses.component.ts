@@ -70,7 +70,7 @@ export class AddressesComponent implements OnInit {
   }
 
   LoadData() {
-    this._addressService.GetCustomerAdresses(this.ApplicationuserId._value.nameid).subscribe({
+    this._addressService.GetCustomerAdresses("1").subscribe({//this.ApplicationuserId._value.nameid
       next: data => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
@@ -82,7 +82,7 @@ export class AddressesComponent implements OnInit {
 
   SubmitData() {
 
-    this._addressService.AddAddress(this.ApplicationuserId._value.nameid, this.addressForm.value).subscribe({
+    this._addressService.AddAddress("1", this.addressForm.value).subscribe({ //this.ApplicationuserId._value.nameid
       next: data => {
         this.LoadData()
         this.onCloseAddressHandled();

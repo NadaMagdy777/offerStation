@@ -14,6 +14,13 @@ export class OwnerService {
 
   url = Base.apiUrl + 'Owner';
 
+
+  // Owner Products
+
+  getAllProductsByOwnerId(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid=" + id);
+  }
+
   GetProductDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/Product/id?id=${id}`).
       pipe(catchError((err: any) => {
@@ -42,6 +49,17 @@ export class OwnerService {
       }));
   }
 
+   // Owner Category
+   
+  getMenuCategorybyOwnerId(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/AllMenuCategoriesByOwnerId/id?id=" + id);
+  }
+
+  getProductsByCategoryId(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
+  }
+
+  // other Functions
 
   GetOwnerOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
     console.log(ownerCategory)
@@ -52,28 +70,13 @@ export class OwnerService {
     return this._httpClient.get<ApiResponce>(this.url + "/All/Filter/Pagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy + "&name=" + Name);
   }
 
-  getMenuCategorybyOwnerId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/AllMenuCategoriesByOwnerId/id?id=" + id);
-  }
-
-  getProductsByCategoryId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
-  }
-
-  getAllProductsByOwnerId(id: number): Observable<any> {
-
-    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid=" + id);
-  }
-
   GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllCustomerReviewsByOwnerID/id?ownerid=" + id);
   }
-  GetOwnerInfo(id:number):Observable<OwnerDetails>
-  {
-    return this._httpClient.get<OwnerDetails>(this.url+"/GetOwnerInfo?id="+id);
+  GetOwnerInfo(id: number): Observable<OwnerDetails> {
+    return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id);
   }
-  GetAllOfferByOwnerId(id:number):Observable<any>
-  {
-    return this._httpClient.get<any>(this.url+"/GetAllOffersByOwnerId/id?id="+id);
+  GetAllOfferByOwnerId(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId/id?id=" + id);
   }
 }

@@ -94,10 +94,13 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-  SubmitData() {  //Error
+  SubmitData() {  //Error when choosing image from the system
+
+    // console.log(this.productForm.value);
 
     this._ownerService.AddProduct(1, this.productForm.value).subscribe({
       next: data => {
+        // console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
       },
@@ -115,7 +118,6 @@ export class OwnerProductsComponent implements OnInit {
       error: (error: any) => this.errorMessage = error,
     });
   }
-
 
   UpdateProduct() {
     // console.log(this.productForm.value);
