@@ -19,11 +19,11 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <td>{{product.description}}</td>
-        <td>{{product.discount}}</td>
+        <td>{{product.discount}} %</td>
         <td>{{product.discountPrice}}</td>
         <!-- <td>{{product.categoryName}}</td> -->
         <td><button class="btn btn-danger" (click)="DeleteProduct(product.id,i)">Delete</button></td>
-        <td><button class="btn btn-success" (click)="opeEditProductModal(product.id)">Update</button></td>
+        <td><button class="btn btn-success" (click)="openEditProductModal(product.id)">Update</button></td>
       </tr>
     </tbody>
   </table>
@@ -105,7 +105,7 @@
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onCloseEditProductHandled()"><span
             aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="font-size: initial;">Edit Address </h4>
+        <h4 class="modal-title" style="font-size: initial;">Edit Product </h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="productForm" (ngSubmit)="UpdateProduct()">

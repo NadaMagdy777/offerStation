@@ -8,15 +8,17 @@ import { AddressesComponent } from 'src/app/pages/addresses/addresses.component'
 import { RouterModule, Routes } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const routes: Routes = [
 
-  { path: 'profile', component: CustomerProfileComponent , children: [
-    { path: 'adresses', component: AddressesComponent },
-    { path: 'Info', component: CustomerInfoComponent },
-  ] },
+  {
+    path: 'profile', component: CustomerProfileComponent, children: [
+      { path: 'adresses', component: AddressesComponent },
+      { path: 'Info', component: CustomerInfoComponent },
+    ]
+  },
 
 
 ];

@@ -96,10 +96,13 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-  SubmitData() {  //Error
+  SubmitData() {  //Error when choosing image from the system
+
+    // console.log(this.productForm.value);
 
     this._ownerService.AddProduct(1, this.productForm.value).subscribe({
       next: data => {
+        // console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
       },
@@ -118,7 +121,6 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-
   UpdateProduct() {
     // console.log(this.productForm.value);
     this._ownerService.UpdateProduct(this.ownerProduct.id, this.ownerProduct).subscribe({
@@ -132,7 +134,7 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-  opeEditProductModal(productId: number) {
+  openEditProductModal(productId: number) {
     this.display1 = 'block';
     this._ownerService.GetProductDetails(productId).subscribe({
       next: data => {

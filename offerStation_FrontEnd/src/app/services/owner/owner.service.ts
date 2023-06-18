@@ -14,6 +14,7 @@ export class OwnerService {
 
   url = Base.apiUrl + 'Owner';
 
+  //Owner Product Crud Operations
   GetProductDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/Product/id?id=${id}`).
       pipe(catchError((err: any) => {
@@ -42,6 +43,40 @@ export class OwnerService {
       }));
   }
 
+  //Owner Category Crud Operations
+
+  // https://localhost:7017/api/Owner/OwnerCategory/......??
+  GetCategoryDetails(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+
+  //https://localhost:7017/api/Owner/OwnerCategory
+  AddCategory(OwnerId: number, newCategory: any): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(`${this.url}/OwnerCategory/id?ownerId=${OwnerId}`, newCategory).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  //https://localhost:7017/api/Owner/OwnerCategory/id?id=4
+  DeleteCategory(id: number): Observable<ApiResponce> {
+    return this._httpClient.delete<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  //https://localhost:7017/api/Owner/OwnerCategory/id?id=2
+  UpdateCategory(id: number, updatedCategory: any): Observable<ApiResponce> {
+    return this._httpClient.put<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`, updatedCategory).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
 
   GetOwnerOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
     console.log(ownerCategory)
@@ -60,24 +95,22 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
   }
 
-  getAllProductsByOwnerIdWithPagination(pgNum:number,pageSize:number,id: number): Observable<any> {
+  getAllProductsByOwnerIdWithPagination(pgNum: number, pageSize: number, id: number): Observable<any> {
 
-    return this._httpClient.get<any>(this.url + "/GetAllProductsByOwmerIDWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&ownerid="+ id);
+    return this._httpClient.get<any>(this.url + "/GetAllProductsByOwmerIDWithPagination/id?pageNumber=" + pgNum + "&pageSize=" + pageSize + "&ownerid=" + id);
   }
   getAllProductsByOwnerId(id: number): Observable<any> {
 
-    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid="+ id);
+    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid=" + id);
   }
 
   GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllCustomerReviewsByOwnerID/id?ownerid=" + id);
   }
-  GetOwnerInfo(id:number):Observable<OwnerDetails>
-  {
-    return this._httpClient.get<OwnerDetails>(this.url+"/GetOwnerInfo?id="+id);
+  GetOwnerInfo(id: number): Observable<OwnerDetails> {
+    return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id);
   }
-  GetAllOfferByOwnerId(id:number):Observable<any>
-  {
-    return this._httpClient.get<any>(this.url+"/GetAllOffersByOwnerId/id?id="+id);
+  GetAllOfferByOwnerId(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId/id?id=" + id);
   }
 }
