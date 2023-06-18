@@ -4,3 +4,12 @@ export class AnalysisResult{
         public count:number
     ){}
 }
+
+export class customerResult{
+    constructor(
+        public name:string,
+        public phone:number,
+        public ordersCount:number
+
+    ){}
+}
