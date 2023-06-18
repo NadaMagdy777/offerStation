@@ -43,11 +43,12 @@
 
 /* The Close Button */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-}
 
+  float: right;
+  font-size: 28px;
+background-color: transparent;
+border: none;
+}
 .close:hover,
 .close:focus {
     color: black;

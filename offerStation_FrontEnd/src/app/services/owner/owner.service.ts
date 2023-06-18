@@ -59,15 +59,13 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
   }
 
-  // other Functions
+  getAllProductsByOwnerIdWithPagination(pgNum:number,pageSize:number,id: number): Observable<any> {
 
-  GetOwnerOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
-    console.log(ownerCategory)
-    return this._httpClient.get<ApiResponce>(this.url + "/All/offers/filter/withPagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy);
+    return this._httpClient.get<any>(this.url + "/GetAllProductsByOwmerIDWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&ownerid="+ id);
   }
+  getAllProductsByOwnerId(id: number): Observable<any> {
 
-  GetOwners(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string, Name: string): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url + "/All/Filter/Pagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy + "&name=" + Name);
+    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid="+ id);
   }
 
   GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {

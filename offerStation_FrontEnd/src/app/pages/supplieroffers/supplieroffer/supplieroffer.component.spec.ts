@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnermodalComponent } from './ownermodal.component';
+import { SupplierofferComponent } from './supplieroffer.component';
 
-describe('OwnermodalComponent', () => {
-  let component: OwnermodalComponent;
-  let fixture: ComponentFixture<OwnermodalComponent>;
+describe('SupplierofferComponent', () => {
+  let component: SupplierofferComponent;
+  let fixture: ComponentFixture<SupplierofferComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnermodalComponent ]
+      declarations: [ SupplierofferComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OwnermodalComponent);
+    fixture = TestBed.createComponent(SupplierofferComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

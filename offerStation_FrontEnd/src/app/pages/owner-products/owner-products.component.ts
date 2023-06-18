@@ -10,7 +10,9 @@ import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
   styleUrls: ['./owner-products.component.css']
 })
 export class OwnerProductsComponent implements OnInit {
-
+  pageNumber:number=1
+  totalItems:number=0
+  pagesize:number=3
   errorMessage: any;
   ProductList: any
 

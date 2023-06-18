@@ -36,11 +36,11 @@
             <p>Address Details</p>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-6 w-100">
               <div class="form-group">
-                <div class="mb-3">
+                <div class="mb-3 w-100">
                   <label for="cityId" class="form-label">City</label>
-                  <select class="form-select form-select-lg" formControlName="cityId" name="cityId">
+                  <select class="form-select form-select-lg w-100" formControlName="cityId" name="cityId">
                     <option *ngFor="let city of cities;" value={{city.id}}>
                       {{city.name}}</option>
                   </select>

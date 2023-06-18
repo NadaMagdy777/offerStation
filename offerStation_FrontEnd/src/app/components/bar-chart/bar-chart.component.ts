@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import{Chart,registerables} from 'node_modules/chart.js'
+import { Chart, registerables } from 'chart.js';
 import { AnalysisResult } from 'src/app/sharedClassesAndTypes/analysisResult';
 import { ChartType } from 'chart.js';
 
