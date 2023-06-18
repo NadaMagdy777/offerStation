@@ -219,10 +219,21 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, product));
         }
        
-        [HttpGet("AllProductsByOwnerID/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int ownerid)
+        [HttpGet("GetAllProductsByOwmerIDWithPagination/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID(int pageNumber, int pageSize, int ownerid)
         {
-            List<ProductInfoDto> products = await _ownerService.GetAllProductsByOwmerID(ownerid);
+            List<ProductInfoDto> products = await _ownerService.GetAllProductsByOwmerIDWithPagination(pageNumber, pageSize, ownerid);
+
+            if (products is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, products));
+        }
+        [HttpGet("AllProductsByOwnerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsByOwmerID( int ownerid)
+        {
+            List<ProductInfoDto> products = await _ownerService.GetAllProductsByOwmerID( ownerid);
 
             if (products is null)
             {

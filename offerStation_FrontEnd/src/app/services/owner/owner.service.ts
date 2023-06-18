@@ -60,9 +60,13 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
   }
 
+  getAllProductsByOwnerIdWithPagination(pgNum:number,pageSize:number,id: number): Observable<any> {
+
+    return this._httpClient.get<any>(this.url + "/GetAllProductsByOwmerIDWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&ownerid="+ id);
+  }
   getAllProductsByOwnerId(id: number): Observable<any> {
 
-    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid=" + id);
+    return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid="+ id);
   }
 
   GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {

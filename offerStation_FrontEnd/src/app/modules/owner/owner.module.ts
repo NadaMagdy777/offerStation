@@ -17,6 +17,8 @@ import { OwnerAddressesComponent } from 'src/app/pages/owner-addresses/owner-add
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 const routes: Routes = [
   { path: 'product', component: OwnerProductComponent },
   { path: 'profile', component: OwnerProfileComponent,children: [
@@ -40,10 +42,13 @@ const routes: Routes = [
     OwnerProductsComponent,
     OwnerofferdetailComponent,
     OwnerdetailsComponent
+    
+
   ],
   imports: [
     CommonModule,
     NgbModule,
+    NgxPaginationModule,
     MatSliderModule,
     MatTabsModule,
     FormsModule,

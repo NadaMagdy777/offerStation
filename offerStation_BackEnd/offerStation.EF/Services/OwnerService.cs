@@ -510,6 +510,7 @@ namespace offerStation.EF.Services
             List<OwnerMenuCategoriesNameDTO> MenuCategoriesDTOs;
 
             MenuCategoriesDTOs = new List<OwnerMenuCategoriesNameDTO>();
+          
             IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id);
 
             foreach (OwnerMenuCategory menu in result)
@@ -545,13 +546,16 @@ namespace offerStation.EF.Services
             }
             return OwnerProductsDTOs;
         }
-        public async Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id)
+        public async Task<List<ProductInfoDto>> GetAllProductsByOwmerIDWithPagination(int pageNumber, int pageSize,int id)
         {
             List<ProductInfoDto> OwnerProductsDTOs ;
             OwnerProductsDTOs = new List<ProductInfoDto>();
+           
 
             IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts
                 .FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
+         
+
             foreach (OwnerProduct product in ownerProducts)
             {
                 ProductInfoDto ProductDTO = new ProductInfoDto();
@@ -565,9 +569,42 @@ namespace offerStation.EF.Services
 
                 OwnerProductsDTOs.Add(ProductDTO);
             }
+            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
+            offerFilterResult.itemsCount = OwnerProductsDTOs.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            OwnerProductsDTOs = OwnerProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
+            return OwnerProductsDTOs;
+          
+
+        }
+        public async Task<List<ProductInfoDto>> GetAllProductsByOwmerID( int id)
+        {
+            List<ProductInfoDto> OwnerProductsDTOs;
+            OwnerProductsDTOs = new List<ProductInfoDto>();
+
+
+            IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts
+                .FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
+
+
+            foreach (OwnerProduct product in ownerProducts)
+            {
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+                OwnerProductsDTOs.Add(ProductDTO);
+            }
+    
+          
             return OwnerProductsDTOs;
 
-         
+
         }
         public double GetPriceBeforeOffer(OwnerOffer ownerOffer)
         {
