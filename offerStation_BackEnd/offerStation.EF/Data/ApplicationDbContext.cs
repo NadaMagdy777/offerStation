@@ -536,7 +536,7 @@ namespace offerStation.EF.Data
 
                        Id=1,
                        IsDeleted=false,
-                       MenuName = "Elmahweyat",
+                       Name = "Elmahweyat",
                        OwnerId =1,
                     },
                     new OwnerMenuCategory
@@ -544,7 +544,7 @@ namespace offerStation.EF.Data
 
                        Id=2,
                        IsDeleted=false,
-                       MenuName = "meshElmashweyat",
+                       Name = "meshElmashweyat",
                        OwnerId =1,
 
                     },
@@ -553,7 +553,7 @@ namespace offerStation.EF.Data
 
                        Id=3,
                        IsDeleted=false,
-                       MenuName = "Salatat",
+                       Name = "Salatat",
                        OwnerId =1,
                     }
 
