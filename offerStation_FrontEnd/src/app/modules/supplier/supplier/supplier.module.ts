@@ -12,7 +12,20 @@ import { SupplierInfoComponent } from 'src/app/pages/supplier-info/supplier-info
 import { SupplierCategoriesComponent } from 'src/app/pages/supplier-categories/supplier-categories.component';
 import { SupplierAddressesComponent } from 'src/app/pages/supplier-addresses/supplier-addresses.component';
 import { SupplierProductsComponent } from 'src/app/pages/supplier-products/supplier-products.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: 'profile', component:SupplierProfileComponent, children: [
+      { path: 'adresses', component: SupplierAddressesComponent },
+      { path: 'Info', component: SupplierInfoComponent},
+      { path: 'categories', component:SupplierCategoriesComponent },
+      { path: 'products', component: SupplierProductsComponent},
+    ]
+  },
+]
 
 @NgModule({
   declarations: [
@@ -27,10 +40,13 @@ import { SupplierProductsComponent } from 'src/app/pages/supplier-products/suppl
     SupplierAddressesComponent,
   ],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     SupplierRoutingModule,
-    MatTabsModule,
-    MatSliderModule
+    MatSidenavModule,
+    MatListModule,
+    MatSliderModule,
+    MatTabsModule
   ]
 })
 export class SupplierModule { }

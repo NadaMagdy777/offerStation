@@ -6,9 +6,8 @@ import { SuppliermainpageComponent } from 'src/app/pages/supplier-menu/supplierm
 
 const routes: Routes = [
   { path: 'mainpage', component: SuppliermainpageComponent },
-
-
 ];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
