@@ -1,27 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { OwnerAnalysisService } from 'src/app/services/owner/owner-analysis/owner-analysis.service';
 import { AnalysisResult, customerResult } from 'src/app/sharedClassesAndTypes/analysisResult';
-
+import { SupplierDashboardService } from 'src/app/services/supplier/supplier-dashboard/supplier-dashboard.service';
 @Component({
-  selector: 'app-owner-dashboard',
-  templateUrl: './owner-dashboard.component.html',
-  styleUrls: ['./owner-dashboard.component.css']
+  selector: 'app-supplier-dashboard',
+  templateUrl: './supplier-dashboard.component.html',
+  styleUrls: ['./supplier-dashboard.component.css']
 })
-export class OwnerDashboardComponent implements OnDestroy, OnInit{
+export class SupplierDashboardComponent implements OnDestroy, OnInit{
 
   TopCustomerData:customerResult[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor( private _ownerAnalysisServ: OwnerAnalysisService) { }
+  constructor( private _SupplierAnalysisServ: SupplierDashboardService) { }
 
   totalCustomers:number=0
   totalOrders:number=0;
   totalProfits:number=0;
   totalProducts:number=0
   totalOffers:number=0;
-  ownerId:number=1
+  supplierId:number=1
   topOffers!:AnalysisResult[]
   topProduct!:AnalysisResult[]
   orderStatus!:AnalysisResult[]
@@ -38,16 +37,16 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       
     };
     
-  this.getTopoffers(this.ownerId) 
-  this.getTopProducts(this.ownerId)
-  this.getOrdersStatus(this.ownerId)
-  this.getOffersProductOrdersCount(this.ownerId)
-  this.GetCustomersCount(this.ownerId)
-  this.GetOrdersCount(this.ownerId)
-  this.GetProductsCount(this.ownerId)
-  this.GetTotalProfits(this.ownerId)
-  this.GetOffersCount(this.ownerId)
-  this.getTopCustomersOrder(this.ownerId)
+  this.getTopoffers(this.supplierId) 
+  this.getTopProducts(this.supplierId)
+  this.getOrdersStatus(this.supplierId)
+  this.getOffersProductOrdersCount(this.supplierId)
+  this.GetCustomersCount(this.supplierId)
+  this.GetOrdersCount(this.supplierId)
+  this.GetProductsCount(this.supplierId)
+  this.GetTotalProfits(this.supplierId)
+  this.GetOffersCount(this.supplierId)
+  this.getTopCustomersOrder(this.supplierId)
   
   
 
@@ -59,8 +58,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
 
   }
   
-  getTopCustomersOrder(ownerId:number){
-    this._ownerAnalysisServ.GetTopOrderdCustomers(ownerId).subscribe({
+  getTopCustomersOrder(supplierId:number){
+    this._SupplierAnalysisServ.GetTopOrderdCustomers(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.TopCustomerData=dataJson.data
@@ -74,8 +73,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       )
 
   }
-  getOffersProductOrdersCount(ownerId:number){
-    this._ownerAnalysisServ.GetOffersProductsCount(ownerId).subscribe({
+  getOffersProductOrdersCount(supplierId:number){
+    this._SupplierAnalysisServ.GetOffersProductsCount(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.offersProductsOrdersCount=dataJson.data
@@ -88,8 +87,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
 
   }
 
-  getOrdersStatus(ownerId:number){
-    this._ownerAnalysisServ.GetOrdersStatus(ownerId).subscribe({
+  getOrdersStatus(supplierId:number){
+    this._SupplierAnalysisServ.GetOrdersStatus(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.orderStatus=dataJson.data
@@ -101,8 +100,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       )
 
   }
-  getTopoffers(ownerId:number){
-    this._ownerAnalysisServ.GetTopOffers(ownerId).subscribe({
+  getTopoffers(supplierId:number){
+    this._SupplierAnalysisServ.GetTopOffers(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.topOffers=dataJson.data
@@ -114,8 +113,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       )
 
   }
-  getTopProducts(ownerId:number){
-    this._ownerAnalysisServ.GetTopProduct(ownerId).subscribe({
+  getTopProducts(supplierId:number){
+    this._SupplierAnalysisServ.GetTopProduct(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.topProduct=dataJson.data
@@ -127,9 +126,9 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       )
 
   }
-  GetCustomersCount(ownerId:number){
+  GetCustomersCount(supplierId:number){
   
-    this._ownerAnalysisServ.GetTotalCustomers(ownerId).subscribe({
+    this._SupplierAnalysisServ.GetTotalCustomers(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.totalCustomers=dataJson.data
@@ -140,9 +139,9 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       
       )
   }
-  GetOrdersCount(ownerId:number){
+  GetOrdersCount(supplierId:number){
   
-    this._ownerAnalysisServ.GetTotalOrders(ownerId).subscribe({
+    this._SupplierAnalysisServ.GetTotalOrders(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.totalOrders=dataJson.data
@@ -154,9 +153,9 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
       )
     
   }
-  GetTotalProfits(ownerId:number){
+  GetTotalProfits(supplierId:number){
   
-    this._ownerAnalysisServ.GetTotalProfit(ownerId).subscribe({
+    this._SupplierAnalysisServ.GetTotalProfit(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.totalProfits=dataJson.data
@@ -169,9 +168,9 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
     
   }
 
-  GetProductsCount(ownerId:number){
+  GetProductsCount(supplierId:number){
   
-    this._ownerAnalysisServ.GetProductCount(ownerId).subscribe({
+    this._SupplierAnalysisServ.GetProductCount(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.totalProducts=dataJson.data
@@ -184,9 +183,9 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
     
   }
   
-  GetOffersCount(ownerId:number){
+  GetOffersCount(supplierId:number){
   
-    this._ownerAnalysisServ.GetOffersCount(ownerId).subscribe({
+    this._SupplierAnalysisServ.GetOffersCount(supplierId).subscribe({
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.totalOffers=dataJson.data

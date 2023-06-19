@@ -20,6 +20,8 @@ const routes: Routes = [
   { path: 'supplierRegister', component: SupplierregestrationComponent },
   { path: 'owners', loadChildren: () => import('./modules/owners/owners.module').then(mod => mod.OwnersModule) },
   { path: 'ownerDashboard', loadChildren: () => import('./modules/owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
+  { path: 'supplierDashboard', loadChildren: () => import('./modules/supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+
 
 
 ];
