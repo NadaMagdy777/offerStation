@@ -32,7 +32,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<ReviewDto>?> GetAllOwnersReviews();
         Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int id);
         Task<List<OwnerCategoryDto>> GetAllCategories();
-        Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id);
+        Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
         Task<List<ProductInfoDto>> GetAllProductsByOwmerIDWithPagination(int pageNumber, int pageSize, int id);
         Task<List<ProductInfoDto>> GetAllProductsByOwmerID(int id);

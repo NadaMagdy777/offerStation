@@ -13,8 +13,16 @@
 {
   background-color: white;
   border: 20px gray;
-  border-top: 2px solid rgb(199, 193, 193);
+  border: 1px solid rgb(199, 193, 193);
+  border-radius:20px ;
  /* height: 90%; */
+
+}
+.category-details{
+  width: 100%;
+  background-color:#FEA116 ;
+  border: 0  solid rgb(199, 193, 193);
+  border-radius:20px 20px 0px 0px ;
 }
 .cards-container{
   width: 320px;
@@ -23,13 +31,17 @@
 .card{
   height: 380px;
 }
-/* .img-fluid{
-width: 150px;
-height: 150px;
-} */
+.cart-container button{
+border:1px solid #FEA116 ;
+color: #FEA116;
+}
 .showAll{
   text-decoration: none;
   font-size: 23px;
+  font-weight: 500;
+  margin-top: 15px;
+  cursor: pointer;
+  /* margin-right: 15px; */
 }
 .testimonial-card .card-up {
   height: 120px;

@@ -14,7 +14,20 @@ import { SupplierAddressesComponent } from 'src/app/pages/supplier-addresses/sup
 import { SupplierProductsComponent } from 'src/app/pages/supplier-products/supplier-products.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: 'profile', component:SupplierProfileComponent, children: [
+      { path: 'adresses', component: SupplierAddressesComponent },
+      { path: 'Info', component: SupplierInfoComponent},
+      { path: 'categories', component:SupplierCategoriesComponent },
+      { path: 'products', component: SupplierProductsComponent},
+    ]
+  },
+]
 
 @NgModule({
   declarations: [
@@ -29,12 +42,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SupplierAddressesComponent,
   ],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     SupplierRoutingModule,
     MatTabsModule,
     MatSliderModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    MatSidenavModule,
+    MatListModule,
+    MatSliderModule,
+    MatTabsModule
+
   ]
 })
 export class SupplierModule { }
