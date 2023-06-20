@@ -12,6 +12,8 @@ import { SupplierInfoComponent } from 'src/app/pages/supplier-info/supplier-info
 import { SupplierCategoriesComponent } from 'src/app/pages/supplier-categories/supplier-categories.component';
 import { SupplierAddressesComponent } from 'src/app/pages/supplier-addresses/supplier-addresses.component';
 import { SupplierProductsComponent } from 'src/app/pages/supplier-products/supplier-products.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { SupplierProductsComponent } from 'src/app/pages/supplier-products/suppl
     CommonModule,
     SupplierRoutingModule,
     MatTabsModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxPaginationModule,
+    NgbModule
   ]
 })
 export class SupplierModule { }
