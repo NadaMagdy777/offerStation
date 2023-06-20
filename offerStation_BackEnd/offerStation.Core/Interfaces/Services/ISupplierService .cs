@@ -20,6 +20,9 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> RemoveSupplierSuspension(int id);
         Task<bool> ApproveSupplier(int id);
         Task<ProductInfoDto?> GetProductDetails(int id);
+        Task<SupplierInfoDto?> GetSupplierInfo(int id);
+        Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
+        Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);

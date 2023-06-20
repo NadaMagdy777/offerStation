@@ -300,6 +300,77 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
+        public async Task<SupplierInfoDto?> GetSupplierInfo(int id)
+        {
+            SupplierInfoDto SupplierInfo = new SupplierInfoDto();
+
+            Supplier supplier = await _unitOfWork.Suppliers.FindAsync(o => o.Id == id,
+                new List<Expression<Func<Supplier, object>>>()
+                {
+                    o => o.AppUser,
+                    o=>o.Reviews
+                }) ;
+            if (supplier is not null)
+            {
+                int ratingSum = supplier.Reviews.Select(r => r.Rating).Sum();
+                int ratingcount = supplier.Reviews.Select(r => r.Rating).Count();
+                if (ratingcount != 0)
+                {
+                    SupplierInfo.Rating = ratingSum / ratingcount;
+
+                }
+                else
+                {
+                    SupplierInfo.Rating = 0;
+                }
+
+
+                SupplierInfo.Image = supplier.Image;
+                SupplierInfo.PhoneNumber = supplier.AppUser.PhoneNumber;
+                SupplierInfo.Name = supplier.AppUser.Name;
+                SupplierInfo.Email = supplier.AppUser.Email;
+
+
+
+
+            }
+            return SupplierInfo;
+        }
+        public async Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId)
+        {
+            List<ReviewDto> reviewListDto = null;
+
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews
+                .FindAllAsync(r => r.Supplier.Id == supplierId && !r.IsDeleted,
+                 new List<Expression<Func<OwnerReview, object>>>()
+                 {
+                     r => r.Owner.AppUser,
+                 });
+
+
+            if (reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            return reviewListDto;
+        }
+        public async Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id)
+        {
+            List<SupplierMenuCategoriesNameDTO> MenuCategoriesDTOs;
+
+            MenuCategoriesDTOs = new List<SupplierMenuCategoriesNameDTO>();
+
+            IEnumerable<SupplierMenuCategory> result = await _unitOfWork.SupplierMenuCategories.FindAllAsync(d => d.SupplierId == id);
+
+            foreach (SupplierMenuCategory menu in result)
+            {
+                SupplierMenuCategoriesNameDTO MenuDTO = new SupplierMenuCategoriesNameDTO();
+                MenuDTO.Id = menu.Id;
+                MenuDTO.MenuName = menu.Name;
+                MenuCategoriesDTOs.Add(MenuDTO);
+            }
+            return MenuCategoriesDTOs;
+        }
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {
 

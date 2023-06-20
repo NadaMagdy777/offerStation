@@ -265,6 +265,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        // =============================== Admin =======================
         public async Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto)
         {
             if (categoryDto is not null)
@@ -279,6 +280,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        // =============================== Admin =======================
         public async Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto)
         {
             OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
@@ -295,6 +297,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        // =============================== Admin =======================
         public async Task<bool> DeleteCategory(int id)
         {
             OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
@@ -505,19 +508,19 @@ namespace offerStation.EF.Services
             List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
             return ownerCategoriesDto;
         }
-        public async Task<List<OwnerMenuCategoriesNameDTO>> GetMenuCategoiesByOwnerId(int id)
+        public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id)
         {
-            List<OwnerMenuCategoriesNameDTO> MenuCategoriesDTOs;
+            List<MenuCategoryDetailsDto> MenuCategoriesDTOs;
 
-            MenuCategoriesDTOs = new List<OwnerMenuCategoriesNameDTO>();
-          
+            MenuCategoriesDTOs = new List<MenuCategoryDetailsDto>();
+
             IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id);
 
             foreach (OwnerMenuCategory menu in result)
             {
-                OwnerMenuCategoriesNameDTO MenuDTO = new OwnerMenuCategoriesNameDTO();
+                MenuCategoryDetailsDto MenuDTO = new MenuCategoryDetailsDto();
                 MenuDTO.Id = menu.Id;
-                MenuDTO.MenuName = menu.MenuName;
+                MenuDTO.Name = menu.Name;
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;
