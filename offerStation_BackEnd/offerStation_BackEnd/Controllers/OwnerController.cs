@@ -164,6 +164,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        // ==================================Admin ==================================
         [HttpPost("OwnerCategory")]
         public async Task<ActionResult<ApiResponse>> AddOwnerCategory(OwnerCategoryInfoDto category)
         {
@@ -175,6 +176,7 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
 
+        // ==================================Admin ==================================
         [HttpPut("OwnerCategory/id")]
         public async Task<ActionResult<ApiResponse>> EditOwnerCategory(int id, OwnerCategoryInfoDto category)
         {
@@ -185,6 +187,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        // ==================================Admin ==================================
         [HttpDelete("OwnerCategory/id")]
         public async Task<ActionResult<ApiResponse>> DeleteOwnerCategory(int id)
         {
@@ -199,7 +202,7 @@ namespace offerStation.API.Controllers
         [HttpGet("AllMenuCategoriesByOwnerId/id")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategory(int id)
         {
-            List<OwnerMenuCategoriesNameDTO> menu = await _ownerService.GetMenuCategoiesByOwnerId(id);
+            List<MenuCategoryDetailsDto> menu = await _ownerService.GetMenuCategoiesByOwnerId(id);
 
             if (menu is null)
             {

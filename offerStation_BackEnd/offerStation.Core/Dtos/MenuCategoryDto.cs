@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Dtos
 {
-    public class OwnerMenuCategoriesNameDTO
+    public class MenuCategoryDto
+    {
+        public string Name { get; set; }
+        public byte[]? Image { get; set; }
+    }
+    public class MenuCategoryDetailsDto : MenuCategoryDto
     {
         public int Id { get; set; }
-        public string MenuName { get; set; }
-
     }
 }

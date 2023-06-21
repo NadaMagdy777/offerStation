@@ -1,30 +1,37 @@
+
 <header class="d-flex justify-content-center mt-2  ">
 
-  <div id="bannerDiV" class="text-align-left col-11 "
-    style="background-image: url('https://preview.colorlib.com/theme/pulse/img/slider/slider-3.jpg.webp');">
+  <div
+    id="bannerDiV"
+    class="text-align-left col-11 "
+    style="background-image: url('https://preview.colorlib.com/theme/pulse/img/slider/slider-3.jpg.webp');"
+>
     <div id="mask" class="p-5 h-100 w-100" style="background-color:rgb(13,23,41,0.5)">
-      <div class="d-flex h-100">
+      <div class="d-flex h-100" >
         <div class="text-white">
-
-
-          <h1 class="mb-3 mt-5"></h1>
+   
+                   
+                      <h1 class="mb-3 mt-5">{{supplierinfo.name}}</h1>          
+        </div>    
         </div>
-      </div>
-      <div class="row">
-        <div class="col-5">
-          <p class="text-white" style="font-size: 25px;"><i class=" fa fa-phone mb-4"></i> </p>
-
-          <!-- <h5 ><i class="fa-duotone fa-phone text-white">{{ownerInfo.phoneNumber}}</i></h5> -->
+        <div class="row">
+          <div class="col-5">
+            <p class="text-white" style="font-size: 25px;"><i class=" fa fa-phone mb-4"></i> {{supplierinfo.phoneNumber}}</p>
+    
+            <!-- <h5 ><i class="fa-duotone fa-phone text-white">{{ownerInfo.phoneNumber}}</i></h5> -->
+          </div>
+          <div class="col-5">
+            <p class="text-white" style="font-size: 25px;"><i class=" fa fa-envelope mb-4"></i> {{supplierinfo.email}}</p>
+          </div>
+          <div class="col-2">
+           
+            <ngb-rating class="starRateColor " [max]="5" [rate]="supplierinfo.rating" [readonly]="true" style="margin-top: -17px;"></ngb-rating>
+          </div>
         </div>
-        <div class="col-5">
-          <p class="text-white" style="font-size: 25px;"><i class=" fa fa-envelope mb-4"></i></p>
-        </div>
-        <div class="col-2">
-
-          <!-- <ngb-rating class="starRateColor " [max]="5" [rate]="ownerInfo.rating" [readonly]="true" style="margin-top: -17px;"></ngb-rating> -->
-        </div>
-      </div>
-
+        
+       
+     
+              
     </div>
   </div>
 </header>
@@ -61,7 +68,7 @@
       <!-- <mat-icon class="example-tab-icon">thumb_up</mat-icon> -->
       Reviews
     </ng-template>
-    <app-supplierreviews></app-supplierreviews>
+   <app-supplierreviews></app-supplierreviews>
   </mat-tab>
 
 </mat-tab-group>

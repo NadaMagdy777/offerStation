@@ -1,4 +1,4 @@
-import { Component,NO_ERRORS_SCHEMA} from '@angular/core';
+import { Component,NO_ERRORS_SCHEMA, OnInit} from '@angular/core';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 
 @Component({
@@ -7,20 +7,23 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
   styleUrls: ['./ownerreview.component.css'],
 
 })
-export class OwnerreviewComponent {
+export class OwnerreviewComponent implements OnInit {
 
   customerreview:any;
   errorMessage: any;
   constructor(private owner:OwnerService)
   {
-this.owner.GetAllCustomerReviewsByOwnerId(1).subscribe({
-  next:data=>
-  {
-    console.log(data);
-    this.customerreview=data.data
-    console.log("list"+this.customerreview);
-  },
-  error:error=>this.errorMessage=error
-})
+
   } 
+  ngOnInit(): void {
+    this.owner.GetAllCustomerReviewsByOwnerId(1).subscribe({
+      next:data=>
+      {
+        console.log(data);
+        this.customerreview=data.data
+        console.log("list"+this.customerreview);
+      },
+      error:error=>this.errorMessage=error
+    })
+  }
 }

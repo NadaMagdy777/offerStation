@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-supplier-products',
   templateUrl: './supplier-products.component.html',
@@ -17,4 +18,11 @@ export class SupplierProductsComponent implements OnInit {
 
   }
 
+      })
+    }
+  }
+  PageNumberChanged(value:any)
+  {
+console.log(value);
+  }
 }
