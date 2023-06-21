@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { OwnerProduct } from 'src/app/sharedClassesAndTypes/OwnerProduct';
+import { ProductInfo } from 'src/app/sharedClassesAndTypes/ProductInfo';
 import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
 
 @Component({
@@ -10,16 +10,14 @@ import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
   styleUrls: ['./owner-products.component.css']
 })
 export class OwnerProductsComponent implements OnInit {
-  pageNumber:number=1
-  totalItems:number=0
-  pagesize:number=3
+
   errorMessage: any;
   ProductList: any
 
   display = '';
   display1 = '';
 
-  ownerProduct: OwnerProduct = {
+  ownerProduct: ProductInfo = {
     id: 0,
     name: '',
     description: '',

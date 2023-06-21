@@ -15,14 +15,15 @@ import { SupplierProductsComponent } from 'src/app/pages/supplier-products/suppl
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: 'profile', component:SupplierProfileComponent, children: [
+    path: 'profile', component: SupplierProfileComponent, children: [
       { path: 'adresses', component: SupplierAddressesComponent },
-      { path: 'Info', component: SupplierInfoComponent},
-      { path: 'categories', component:SupplierCategoriesComponent },
-      { path: 'products', component: SupplierProductsComponent},
+      { path: 'Info', component: SupplierInfoComponent },
+      { path: 'categories', component: SupplierCategoriesComponent },
+      { path: 'products', component: SupplierProductsComponent },
     ]
   },
 ]
@@ -43,6 +44,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     SupplierRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
