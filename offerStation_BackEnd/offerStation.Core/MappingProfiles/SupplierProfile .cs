@@ -40,6 +40,8 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.TraderImage, a => a.MapFrom(src => src.Supplier.Image))
                 .ReverseMap();
 
+            CreateMap<SupplierMenuCategory, MenuCategoryDto>().ReverseMap();
+            CreateMap<SupplierMenuCategory, MenuCategoryDetailsDto>().ReverseMap();
             CreateMap<SupplierOffer, OfferInfoDto>().ReverseMap();
             CreateMap<Supplier, SupplierRegestrationDto>().ReverseMap();
             CreateMap<SupplierCategory, SupplierCategoryDto>().ReverseMap();

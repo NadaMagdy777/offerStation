@@ -8,19 +8,17 @@ namespace offerStation.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OwnerMenuCategoryController : ControllerBase
+    public class SupplierMenuCategoryController : ControllerBase
     {
-        private readonly IOwnerMenuCategoryService _ownerMenuCategoryService;
-
-        public OwnerMenuCategoryController(IOwnerMenuCategoryService ownerMenuCategoryService)
+        private readonly ISupplierMenuCategoryService _supplierMenuCategoryService;
+        public SupplierMenuCategoryController(ISupplierMenuCategoryService supplierMenuCategoryService)
         {
-            _ownerMenuCategoryService = ownerMenuCategoryService;
+            _supplierMenuCategoryService = supplierMenuCategoryService;
         }
-
         [HttpGet("id")]
         public async Task<ActionResult<ApiResponse>> MenuCategoryDetails(int id)
         {
-            MenuCategoryDetailsDto MenuCategory = await _ownerMenuCategoryService.GetMenuCategoryDetails(id);
+            MenuCategoryDetailsDto MenuCategory = await _supplierMenuCategoryService.GetMenuCategoryDetails(id);
             if (MenuCategory is null)
             {
                 return BadRequest(new ApiResponse(404, false, "null object"));
@@ -30,7 +28,7 @@ namespace offerStation.API.Controllers
         [HttpPost("id")]
         public async Task<ActionResult<ApiResponse>> AddMenuCategory(int ownerId, MenuCategoryDto menuCategory)
         {
-            bool success = await _ownerMenuCategoryService.AddMenuCategory(ownerId, menuCategory);
+            bool success = await _supplierMenuCategoryService.AddMenuCategory(ownerId, menuCategory);
             if (success)
             {
                 return Ok(new ApiResponse(201, true, success));
@@ -40,7 +38,7 @@ namespace offerStation.API.Controllers
         [HttpPut("id")]
         public async Task<ActionResult<ApiResponse>> EditMenuCategory(int id, MenuCategoryDto menuCategory)
         {
-            bool success = await _ownerMenuCategoryService.EditMenuCategory(id, menuCategory);
+            bool success = await _supplierMenuCategoryService.EditMenuCategory(id, menuCategory);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));
@@ -50,7 +48,7 @@ namespace offerStation.API.Controllers
         [HttpDelete("id")]
         public async Task<ActionResult<ApiResponse>> DeleteMenuCategory(int id)
         {
-            bool success = await _ownerMenuCategoryService.DeleteMenuCategory(id);
+            bool success = await _supplierMenuCategoryService.DeleteMenuCategory(id);
             if (success)
             {
                 return Ok(new ApiResponse(200, true, success));
