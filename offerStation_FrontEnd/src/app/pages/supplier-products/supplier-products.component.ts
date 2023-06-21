@@ -13,16 +13,9 @@ export class SupplierProductsComponent implements OnInit {
 
   display = '';
   display1 = '';
-  
+
   ngOnInit(): void {
 
   }
 
-      })
-    }
-  }
-  PageNumberChanged(value:any)
-  {
-console.log(value);
-  }
 }
