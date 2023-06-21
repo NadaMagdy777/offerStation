@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using offerStation.EF.Services;
 
 namespace offerStation.API.Controllers
 {
@@ -21,6 +22,16 @@ namespace offerStation.API.Controllers
             if(success)
             {
                 return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpDelete("id")]
+        public async Task<ActionResult<ApiResponse>> Delivery(int id)
+        {
+            bool success = await _deliveryService.DeleteDelivery(id);
+            if (success)
+            {
+                return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }

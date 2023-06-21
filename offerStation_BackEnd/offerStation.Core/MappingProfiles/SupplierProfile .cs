@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using offerStation.Core.Dtos;
 using offerStation.Core.Models;
+using OrderStation.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
