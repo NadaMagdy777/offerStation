@@ -21,6 +21,7 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
 
 
 
@@ -41,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
+    SupplierOffersComponent,
 
   ],
   imports: [

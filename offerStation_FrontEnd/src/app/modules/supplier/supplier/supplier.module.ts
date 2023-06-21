@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierproductComponent } from 'src/app/pages/supplierproduct/supplierproduct.component';
+import { SupplierOffersComponent } from 'src/app/pages/supplier-offers/supplier-offers.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'Info', component: SupplierInfoComponent },
       { path: 'categories', component: SupplierCategoriesComponent },
       { path: 'products', component: SupplierProductsComponent },
+      { path: 'offers', component: SupplierOffersComponent },
     ]
   },
 ]
