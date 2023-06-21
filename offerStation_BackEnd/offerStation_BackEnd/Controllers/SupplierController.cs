@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using offerStation.Core.Models;
 using offerStation.EF.Services;
+using System.Drawing.Printing;
 
 namespace offerStation.API.Controllers
 {
@@ -39,6 +41,31 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, supplierList));
         }
+
+        [HttpGet("GetAllOwnerReviewsbysupplierID")]
+        public async Task<ActionResult<ApiResponse>> GetAllOwnerReviewsBySupplierId(int supplierId)
+        {
+            List<ReviewDto> supplierList = await _supplierService.GetAllOwnerReviewsBySupplierId(supplierId);
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+
+        }
+        [HttpGet("GetMenuCategoiesBySupplierId")]
+        public async Task<ActionResult<ApiResponse>> GetMenuCategoiesBySupplierId(int supplierid)
+        {
+            List<SupplierMenuCategoriesNameDTO> supplierList = await _supplierService.GetMenuCategoiesBySupplierId(supplierid);
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+        }
+
         [HttpGet("GetWaitingSuppliers")]
         public async Task<ActionResult<ApiResponse>> GetWaitingSuppliers()
         {
@@ -198,6 +225,17 @@ namespace offerStation.API.Controllers
         {
             return Ok(new ApiResponse(200, true, await _supplierService.GetAllCategories()));
 
+        }
+        [HttpGet("GetSupplierInfo")]
+        public async Task<ActionResult<ApiResponse>> GetSupplierInfo(int id)
+        {
+            SupplierInfoDto supplier = await _supplierService.GetSupplierInfo(id);
+
+            if (supplier is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplier));
         }
         [HttpGet("AllOwnersReviewsBySupplierId/id")]
         public async Task<ActionResult<ApiResponse>> GetAllOwnersReviewsBySupplierId(int supplierId)
