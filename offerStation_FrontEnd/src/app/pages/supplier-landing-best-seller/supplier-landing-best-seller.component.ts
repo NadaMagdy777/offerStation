@@ -1,40 +1,34 @@
-import { CategoryService } from './../../services/Category/category.service';
-import { ownerCategory } from './../../sharedClassesAndTypes/ownerCategory';
-import { Owner } from 'src/app/sharedClassesAndTypes/Owner';
 import { Component } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-import { ownerCategoryWithOffers } from 'src/app/sharedClassesAndTypes/ownerCategoryWithOffers';
+import { CategoryService } from 'src/app/services/Category/category.service';
 
 @Component({
-  selector: 'app-landing-newest',
-  templateUrl: './landing-newest.component.html',
-  styleUrls: ['./landing-newest.component.css']
+  selector: 'app-supplier-landing-best-seller',
+  templateUrl: './supplier-landing-best-seller.component.html',
+  styleUrls: ['./supplier-landing-best-seller.component.css']
 })
-export class LandingNewestComponent {
+export class SupplierLandingBestSellerComponent {
   categoryList!:any
   errorMessage: any;
   categoryName :any;
   offerList: any;
-  constructor(private ownerCategory:CategoryService,private route:ActivatedRoute, private Router:Router){
+  constructor(private SupplierCategory:CategoryService,private route:ActivatedRoute, private Router:Router){
   }
   showAllOffers(catName:any){
     this.Router.navigate(['/owners/',catName]);
   }
   ngOnInit(): void {
 
-    this.ownerCategory.GetAllCategory().subscribe({
+    this.SupplierCategory.GetAllSupplierCategory().subscribe({
       next:data=>
       {
         let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
-
-
-
         this.categoryList=dataJson.data;
         for(let category of this.categoryList){
            this.categoryName=category.name;
            console.log(this.categoryName)
-           this.ownerCategory.GetOffersWithOwner(this.categoryName,"Newest").subscribe({
+           this.SupplierCategory.GetOffersWithSupplier(this.categoryName,"MostPopular").subscribe({
             next:data=>
             {
               let dataJson=JSON.parse(JSON.stringify(data))
@@ -50,5 +44,7 @@ export class LandingNewestComponent {
       error:error=>this.errorMessage=error
 
     })
+
+
 }
 }
