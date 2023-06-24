@@ -23,10 +23,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +39,6 @@ import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers
     LandingTopRateComponent,
     LandingTapsComponent,
     SupplierOffersComponent,
-
   ],
   imports: [
     BrowserModule,
