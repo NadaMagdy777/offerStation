@@ -25,6 +25,7 @@ import { SupplierLandingTapsComponent } from './pages/supplier-landing-taps/supp
 import { SupplierLandingNewestComponent } from './pages/supplier-landing-newest/supplier-landing-newest.component';
 import { SupplierLandingBestSellerComponent } from './pages/supplier-landing-best-seller/supplier-landing-best-seller.component';
 import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-rate/supplier-landing-top-rate.component';
+import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
 
 @NgModule({
   declarations: [
