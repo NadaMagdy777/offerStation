@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using offerStation.Core.Dtos;
 using offerStation.Core.Models;
+using OrderStation.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.TraderImage, a => a.MapFrom(src => src.Supplier.Image))
                 .ReverseMap();
 
+            CreateMap<SupplierMenuCategory, MenuCategoryDto>().ReverseMap();
+            CreateMap<SupplierMenuCategory, MenuCategoryDetailsDto>().ReverseMap();
             CreateMap<SupplierOffer, OfferInfoDto>().ReverseMap();
             CreateMap<Supplier, SupplierRegestrationDto>().ReverseMap();
             CreateMap<SupplierCategory, SupplierCategoryDto>().ReverseMap();

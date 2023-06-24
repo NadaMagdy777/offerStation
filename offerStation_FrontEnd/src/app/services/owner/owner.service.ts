@@ -10,9 +10,8 @@ import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 })
 export class OwnerService {
 
-  constructor(private _httpClient: HttpClient) { }
-
   url = Base.apiUrl + 'Owner';
+  constructor(private _httpClient: HttpClient) { }
 
   //Owner Product Crud Operations
   GetProductDetails(id: number): Observable<ApiResponce> {

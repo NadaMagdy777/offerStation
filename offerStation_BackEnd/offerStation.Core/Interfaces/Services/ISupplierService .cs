@@ -42,19 +42,27 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<AnalysisResult>> getTop5Product(int supplierId);
         Task<List<AnalysisResult>> getTop5Offer(int supplierId);
         Task<int> getTotalCustomer(int supplierId);
-
         Task<int> getTotalOrders(int supplierId);
-
         Task<double> getTotalProfit(int supplierId);
-
         Task<int> getOffersCount(int supplierId);
-
         Task<int> getProductsCount(int supplierId);
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int supplierId);
         Task<List<AnalysisResult>> getOrdersOffersProductCount(int supplierId);
-
         Task<List<customerInfoAnalysis>> getTopCustomerInfo(int supplierId);
-
-
+    }
+    public interface ISupplierOfferService
+    {
+        Task<OfferDetailsDto?> GetOfferDetails(int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersBySupplierId(int supplierId);
+        Task<bool> AddOffer(int supplierId, OfferInfoDto offerDto);
+        Task<bool> EditOffer(int id, OfferInfoDto offerDto);
+        Task<bool> DeleteOffer(int id);
+    }
+    public interface ISupplierMenuCategoryService
+    {
+        Task<MenuCategoryDetailsDto?> GetMenuCategoryDetails(int id);
+        Task<bool> AddMenuCategory(int SupplierId, MenuCategoryDto menuCategoryDto);
+        Task<bool> EditMenuCategory(int id, MenuCategoryDto menuCategoryDto);
+        Task<bool> DeleteMenuCategory(int id);
     }
 }
