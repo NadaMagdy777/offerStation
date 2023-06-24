@@ -57,7 +57,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetMenuCategoiesBySupplierId")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategoiesBySupplierId(int supplierid)
         {
-            List<SupplierMenuCategoriesNameDTO> supplierList = await _supplierService.GetMenuCategoiesBySupplierId(supplierid);
+            List<MenuCategoryDetailsDto> supplierList = await _supplierService.GetMenuCategoiesBySupplierId(supplierid);
 
             if (supplierList is null)
             {

@@ -354,19 +354,20 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-        public async Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id)
+        public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
         {
-            List<SupplierMenuCategoriesNameDTO> MenuCategoriesDTOs;
+            List<MenuCategoryDetailsDto> MenuCategoriesDTOs;
 
-            MenuCategoriesDTOs = new List<SupplierMenuCategoriesNameDTO>();
+            MenuCategoriesDTOs = new List<MenuCategoryDetailsDto>();
 
-            IEnumerable<SupplierMenuCategory> result = await _unitOfWork.SupplierMenuCategories.FindAllAsync(d => d.SupplierId == id);
+            IEnumerable<SupplierMenuCategory> result = await _unitOfWork.SupplierMenuCategories.FindAllAsync(d => d.SupplierId == id && !d.IsDeleted);
 
             foreach (SupplierMenuCategory menu in result)
             {
-                SupplierMenuCategoriesNameDTO MenuDTO = new SupplierMenuCategoriesNameDTO();
+                MenuCategoryDetailsDto MenuDTO = new MenuCategoryDetailsDto();
                 MenuDTO.Id = menu.Id;
-                MenuDTO.MenuName = menu.Name;
+                MenuDTO.Name = menu.Name;
+                MenuDTO.Image = menu.Image;
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;
