@@ -49,8 +49,8 @@ namespace offerStation.Core.MappingProfiles
             CreateMap<OwnerReview, ReviewInfoDto>().ReverseMap();
             CreateMap<OwnerOffer, OfferInfoDto>().ReverseMap();
             CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();
-            CreateMap<OwnerCategory, OwnerCategoryDto>().ReverseMap();
-            CreateMap<OwnerCategory, OwnerCategoryInfoDto>().ReverseMap();
+            CreateMap<OwnerCategory, CategoryDto>().ReverseMap();
+            CreateMap<OwnerCategory, CategoryInfoDto>().ReverseMap();
         }
     }
 }

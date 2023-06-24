@@ -24,14 +24,14 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
-        Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto);
-        Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto);
+        Task<bool> AddCategory(CategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
         Task<bool> AddReview(int ownerId, int supplierId, ReviewInfoDto reviewDto);
         Task<bool> DeleteReview(int id);
         Task<List<ReviewDto>?> GetAllOwnersReviews();
         Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int id);
-        Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<List<CategoryDto>> GetAllCategories();
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
         Task<List<ProductInfoDto>> GetAllProductsByOwmerIDWithPagination(int pageNumber, int pageSize, int id);
