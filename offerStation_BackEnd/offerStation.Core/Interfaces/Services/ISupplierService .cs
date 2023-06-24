@@ -22,7 +22,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<ProductInfoDto?> GetProductDetails(int id);
         Task<SupplierInfoDto?> GetSupplierInfo(int id);
         Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
-        Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id);
+        Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);

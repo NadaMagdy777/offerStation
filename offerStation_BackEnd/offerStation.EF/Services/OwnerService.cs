@@ -512,13 +512,14 @@ namespace offerStation.EF.Services
 
             MenuCategoriesDTOs = new List<MenuCategoryDetailsDto>();
 
-            IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id);
+            IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
 
             foreach (OwnerMenuCategory menu in result)
             {
                 MenuCategoryDetailsDto MenuDTO = new MenuCategoryDetailsDto();
                 MenuDTO.Id = menu.Id;
                 MenuDTO.Name = menu.Name;
+                MenuDTO.Image = menu.Image;
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;

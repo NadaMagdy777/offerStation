@@ -11,6 +11,7 @@ import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 export class OwnerService {
 
   url = Base.apiUrl + 'Owner';
+  _ownerUrl = Base.apiUrl;
   constructor(private _httpClient: HttpClient) { }
 
   //Owner Product Crud Operations
@@ -44,38 +45,37 @@ export class OwnerService {
 
   //Owner Category Crud Operations
 
-  // https://localhost:7017/api/Owner/OwnerCategory/......??
+  // https://localhost:7017/api/OwnerMenuCategory/id?id=1
   GetCategoryDetails(id: number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`).
+    return this._httpClient.get<ApiResponce>(`${this._ownerUrl}OwnerMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {
-        return throwError(() => err.message || "Server Error");
+        return throwError(() => err.message || "server error")
       }));
   }
 
-  //https://localhost:7017/api/Owner/OwnerCategory
+  // https://localhost:7017/api/OwnerMenuCategory/id?ownerId=1
   AddCategory(OwnerId: number, newCategory: any): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(`${this.url}/OwnerCategory/id?ownerId=${OwnerId}`, newCategory).
+    return this._httpClient.post<ApiResponce>(`${this._ownerUrl}OwnerMenuCategory/id?ownerId=${OwnerId}`, newCategory).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
 
-  //https://localhost:7017/api/Owner/OwnerCategory/id?id=4
+  //https://localhost:7017/api/OwnerMenuCategory/id?id=7
   DeleteCategory(id: number): Observable<ApiResponce> {
-    return this._httpClient.delete<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`).
+    return this._httpClient.delete<ApiResponce>(`${this._ownerUrl}OwnerMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
 
-  //https://localhost:7017/api/Owner/OwnerCategory/id?id=2
+  //https://localhost:7017/api/OwnerMenuCategory/id?id=3
   UpdateCategory(id: number, updatedCategory: any): Observable<ApiResponce> {
-    return this._httpClient.put<ApiResponce>(`${this.url}/OwnerCategory/id?id=${id}`, updatedCategory).
+    return this._httpClient.put<ApiResponce>(`${this._ownerUrl}OwnerMenuCategory/id?id=${id}`, updatedCategory).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
-
 
   GetOwnerOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
     console.log(ownerCategory)
@@ -86,8 +86,12 @@ export class OwnerService {
     return this._httpClient.get<ApiResponce>(this.url + "/All/Filter/Pagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy + "&name=" + Name);
   }
 
-  getMenuCategorybyOwnerId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/AllMenuCategoriesByOwnerId/id?id=" + id);
+  //https://localhost:7017/api/Owner/AllMenuCategoriesByOwnerId/id?id=1
+  getMenuCategorybyOwnerId(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/AllMenuCategoriesByOwnerId/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
   }
 
   getProductsByCategoryId(id: number): Observable<any> {
@@ -107,7 +111,7 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/AllCustomerReviewsByOwnerID/id?ownerid=" + id);
   }
   GetOwnerInfo(id: number): Observable<OwnerDetails> {
-    return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id);
+    return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id)
   }
   GetAllOfferByOwnerId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId/id?id=" + id);
