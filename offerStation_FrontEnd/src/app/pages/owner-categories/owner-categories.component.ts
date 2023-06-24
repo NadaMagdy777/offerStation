@@ -17,10 +17,10 @@ export class OwnerCategoriesComponent implements OnInit {
 
   ownerCategory: ownerCategory = {
     id: 0,
-    menuName: '',
-    // image: ''
+    image: '',
+    name: '',
   }
-  categories!: ownerCategory[]
+  categories!: ownerCategory[];
   CategoryForm: FormGroup;
 
   constructor(
@@ -28,18 +28,19 @@ export class OwnerCategoriesComponent implements OnInit {
     private _ownerService: OwnerService) {
 
     this.CategoryForm = this.fb.group({
-      menuName: [''],
-      // image: [''],
+      name: [''],
+      image: [''],
     });
-    this.CategoryForm.get('menuName')?.valueChanges.subscribe((data) => {
-      this.ownerCategory.menuName = data;
+    this.CategoryForm.get('name')?.valueChanges.subscribe((data) => {
+      this.ownerCategory.name = data;
     });
-    // this.CategoryForm.get('image')?.valueChanges.subscribe((data) => {
-    //   this.ownerCategory.image = data;
-    // });
+    this.CategoryForm.get('image')?.valueChanges.subscribe((data) => {
+      this.ownerCategory.image = data;
+    });
   }
 
   ngOnInit(): void {
+
     this.LoadData();
 
   }
@@ -49,8 +50,8 @@ export class OwnerCategoriesComponent implements OnInit {
       next: data => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
-        this.categories = dataJson.data
-        console.log(this.categories)
+        this.categories = dataJson.data;
+        // console.log(this.categories)
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -58,11 +59,9 @@ export class OwnerCategoriesComponent implements OnInit {
 
   SubmitData() {  //Error when choosing image from the system
 
-    // console.log(this.CategoryForm.value);
-
     this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
       next: data => {
-        // console.log(data);
+        console.log(data);
         this.LoadData()
         this.onCloseCategoryHandled();
       },
@@ -71,11 +70,14 @@ export class OwnerCategoriesComponent implements OnInit {
   }
 
   DeleteCategory(categoryId: number, index: number) {
-
+    console.log(categoryId);
     this._ownerService.DeleteCategory(categoryId).subscribe({
       next: data => {
+
         this.categories.splice(index, 1);
+        console.log(this.categories)
         this.LoadData();
+
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -115,13 +117,14 @@ export class OwnerCategoriesComponent implements OnInit {
   onCloseCategoryHandled() {
     this.display = 'none';
   }
+
   onCloseEditCategoryHandled() {
     this.display1 = 'none';
   }
 
   //Category Form
-  get menuName() {
-    return this.CategoryForm.get('menuName');
+  get name() {
+    return this.CategoryForm.get('name');
   }
   get image() {
     return this.CategoryForm.get('image');

@@ -10,6 +10,7 @@ import { Base } from 'src/app/sharedClassesAndTypes/Base';
 export class SupplierService {
 
   url = Base.apiUrl + 'Supplier';
+  _supplierUrl = Base.apiUrl;
   constructor(private _httpClient: HttpClient) { }
 
   //Supplier Product Crud Operations
@@ -47,39 +48,42 @@ export class SupplierService {
       }));
   }
 
-  GetMenuCategorybySupplierId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/AllMenuCategoriesBySupplierId/id?id=" + id);
-  }
-
   //Supplier Category Crud Operations
 
+  //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
 
+  GetMenuCategorybySupplierId(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/GetMenuCategoiesBySupplierId?supplierid=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+  //https://localhost:7017/api/SupplierMenuCategory/id?id=1
   GetCategoryDetails(id: number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/SupplierCategory/id?id=${id}`).
+    return this._httpClient.get<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "Server Error");
       }));
   }
 
-
+  //https://localhost:7017/api/SupplierMenuCategory/id?ownerId=1
   AddCategory(supplierId: number, newCategory: any): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(`${this.url}/SupplierCategory/id?ownerId=${supplierId}`, newCategory).
+    return this._httpClient.post<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?ownerId=${supplierId}`, newCategory).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
 
-
+  //https://localhost:7017/api/SupplierMenuCategory/id?id=1
   DeleteCategory(id: number): Observable<ApiResponce> {
-    return this._httpClient.delete<ApiResponce>(`${this.url}/SupplierCategory/id?id=${id}`).
+    return this._httpClient.delete<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
-
 
   UpdateCategory(id: number, updatedCategory: any): Observable<ApiResponce> {
-    return this._httpClient.put<ApiResponce>(`${this.url}/SupplierCategory/id?id=${id}`, updatedCategory).
+    return this._httpClient.put<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`, updatedCategory).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
