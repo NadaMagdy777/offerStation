@@ -26,8 +26,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
-        Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto);
-        Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto);
+        Task<bool> AddCategory(CategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
         Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);

@@ -219,7 +219,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        public async Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto)
+        public async Task<bool> AddCategory(CategoryInfoDto categoryDto)
         {
             if (categoryDto is not null)
             {
@@ -233,7 +233,7 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        public async Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto)
+        public async Task<bool> EditCategory(int id, CategoryInfoDto categoryDto)
         {
             SupplierCategory category = await _unitOfWork.SupplierCategories.GetByIdAsync(id);
 

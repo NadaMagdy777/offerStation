@@ -26,10 +26,6 @@ import { SupplierLandingNewestComponent } from './pages/supplier-landing-newest/
 import { SupplierLandingBestSellerComponent } from './pages/supplier-landing-best-seller/supplier-landing-best-seller.component';
 import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-rate/supplier-landing-top-rate.component';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +46,7 @@ import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-ra
     SupplierLandingBestSellerComponent,
     SupplierLandingTopRateComponent,
 
+    SupplierOffersComponent,
   ],
   imports: [
     BrowserModule,
