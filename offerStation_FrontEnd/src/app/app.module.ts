@@ -27,6 +27,7 @@ import { SupplierLandingBestSellerComponent } from './pages/supplier-landing-bes
 import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-rate/supplier-landing-top-rate.component';
 import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
 import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { SupplierHeaderComponent } from './components/supplier-header/supplier-h
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

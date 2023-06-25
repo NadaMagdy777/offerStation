@@ -255,16 +255,20 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-        // ==================================Admin ==================================
         [HttpGet("Categories")]
-        public async Task<IActionResult> GetAllCategories([FromQuery] PagingParameters pagingParameters)
+        public async Task<IActionResult> GetAllCategories()
+        {
+            return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
+        }
+        // ==================================Admin ==================================
+        [HttpGet("CategoriesByPage")]
+        public async Task<IActionResult> GetAllCategoriesByPage([FromQuery] PagingParameters pagingParameters)
         {
             var categories = await _ownerService.GetAllCategories();
             var pagedCategories = categories.ToPagedResponse(pagingParameters);
 
             return Ok(new ApiResponse(200, true, pagedCategories));
         }
-
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {

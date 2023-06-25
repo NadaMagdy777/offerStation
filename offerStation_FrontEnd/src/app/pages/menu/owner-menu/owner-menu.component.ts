@@ -31,7 +31,7 @@ export class OwnerMenuComponent implements OnInit{
   ngOnInit(): void {
    
     
-      this.owner.getAllProductsByOwnerIdWithPagination(1,this.pagesize,1).subscribe({
+      this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
 
         next: data => {
           console.log(data);

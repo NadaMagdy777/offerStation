@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ApiResponce } from 'src/app/sharedClassesAndTypes/ApiResponce';
 import { Base } from 'src/app/sharedClassesAndTypes/Base';
+import { ProductsByMenuCategory } from 'src/app/sharedClassesAndTypes/ProductsByMenuCategory';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +22,20 @@ export class SupplierService {
     return this._httpClient.get<any>(this.url + "/allProducts/id?supplierId=" + id);
   }
 
+  GetAllProductsByMenuCategoryID(pageNumber:number,Pagesize:number,id:number):Observable<ProductsByMenuCategory>
+  {
+    return this._httpClient.get<ProductsByMenuCategory>(this.url+"/AllProductsByMenuCategoryIDWithPagination/id?pageNumber="+pageNumber+"&pageSize="+Pagesize+"&id="+id)
+  }
+  allProducts(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/allProducts/id?supplierId=" + id)
+  }
+
   GetProductDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/Product/id?id=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "Server Error");
       }));
+
   }
 
   //https://localhost:7017/api/Supplier/Product/id?supplierId=1
@@ -33,6 +45,11 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
+
+  GetSupplierInfo(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetSupplierInfo?id=" + id);
+  }
+  
 
   DeleteProduct(id: number): Observable<ApiResponce> {
     return this._httpClient.delete<ApiResponce>(`${this.url}/Product/id?id=${id}`).
@@ -88,5 +105,6 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
+
 
 }
