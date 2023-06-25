@@ -355,6 +355,19 @@ namespace offerStation.EF.Services
             return reviewListDto;
         }
         public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
+        //public async Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id)
+        //{
+        //    List<OfferDetailsDto> OfferListDto = null;
+        //    IEnumerable<SupplierOffer> offerList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID== id);
+
+        //    if (offerList is not null)
+        //    {
+        //        OfferListDto = _mapper.Map<List<OfferDetailsDto>>(offerList);
+        //    }
+        //    return OfferListDto;
+        //}
+     
+        public async Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id)
         {
             List<MenuCategoryDetailsDto> MenuCategoriesDTOs;
 
@@ -371,6 +384,34 @@ namespace offerStation.EF.Services
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;
+        }
+        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
+        {
+            List<ProductInfoDto> OwnerProductsDTOs;
+
+            OwnerProductsDTOs = new List<ProductInfoDto>();
+            IEnumerable<SupplierProduct> result = await _unitOfWork.SupplierProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
+
+            foreach (SupplierProduct product in result)
+            {
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+
+
+                OwnerProductsDTOs.Add(ProductDTO);
+            }
+            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
+            offerFilterResult.itemsCount = OwnerProductsDTOs.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            OwnerProductsDTOs = OwnerProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
+            return OwnerProductsDTOs;
         }
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {

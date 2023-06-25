@@ -96,8 +96,6 @@ export class OwnerProductsComponent implements OnInit {
 
   SubmitData() {  //Error when choosing image from the system
 
-    // console.log(this.productForm.value);
-
     this._ownerService.AddProduct(1, this.productForm.value).subscribe({
       next: data => {
         // console.log(data);

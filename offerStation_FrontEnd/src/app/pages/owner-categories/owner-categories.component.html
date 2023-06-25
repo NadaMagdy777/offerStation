@@ -3,7 +3,7 @@
   <table class="table table-hover mt-5">
     <thead>
       <tr>
-        <!-- <th scope="col">Image</th> -->
+        <th scope="col">Image</th>
         <th scope="col">Name</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -11,8 +11,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let category of categories; index as i">
-        <!-- <td>{{category.image}}</td> -->
-        <td>{{category.menuName}}</td>
+        <td>{{category.image}}</td>
+        <td>{{category.name}}</td>
         <td><button class="btn btn-danger" (click)="DeleteCategory(category.id,i)">Delete</button></td>
         <td><button class="btn btn-success" (click)="openEditCategoryModal(category.id)">Update</button></td>
       </tr>
@@ -38,15 +38,15 @@
               <div class="form-group">
                 <div class="d-flex justify-content-between mb-1">
                   <div>
-                    <label for="menuName" class="col-form-label">Name</label>
-                    <input type="text" class="form-control" id="menuName" formControlName="menuName">
+                    <label for="name" class="col-form-label">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
                   </div>
                 </div>
 
-                <!-- <div class="mb-1">
+                <div class="mb-1">
                   <label for="image" class="col-form-label">Category Image</label>
                   <input type="file" class="form-control" id="image" formControlName="image">
-                </div> -->
+                </div>
 
               </div>
             </div>
@@ -83,13 +83,13 @@
 
                 <div class="mb-3">
                   <label class="col-form-label">Name</label>
-                  <input type="text" formControlName="menuName" class="form-control" [value]="ownerCategory.menuName">
+                  <input type="text" formControlName="name" class="form-control" [value]="ownerCategory.name">
                 </div>
 
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                   <label class="col-form-label">Category Image</label>
                   <input type="file" formControlName="image" class="form-control" [value]="ownerCategory.image">
-                </div> -->
+                </div>
 
               </div>
             </div>

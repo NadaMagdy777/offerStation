@@ -1,4 +1,5 @@
-export class ownerCategory {
+
+export class SupplierCategory {
 
     constructor(
         public id: number,
