@@ -22,13 +22,14 @@ namespace offerStation.Core.Interfaces.Services
         Task<ProductInfoDto?> GetProductDetails(int id);
         Task<SupplierInfoDto?> GetSupplierInfo(int id);
         Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
+        Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id);
         Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
-        Task<bool> AddCategory(SupplierCategoryInfoDto categoryDto);
-        Task<bool> EditCategory(int id, SupplierCategoryInfoDto categoryDto);
+        Task<bool> AddCategory(CategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
         Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
         //Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id);
@@ -44,19 +45,27 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<AnalysisResult>> getTop5Product(int supplierId);
         Task<List<AnalysisResult>> getTop5Offer(int supplierId);
         Task<int> getTotalCustomer(int supplierId);
-
         Task<int> getTotalOrders(int supplierId);
-
         Task<double> getTotalProfit(int supplierId);
-
         Task<int> getOffersCount(int supplierId);
-
         Task<int> getProductsCount(int supplierId);
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int supplierId);
         Task<List<AnalysisResult>> getOrdersOffersProductCount(int supplierId);
-
         Task<List<customerInfoAnalysis>> getTopCustomerInfo(int supplierId);
-
-
+    }
+    public interface ISupplierOfferService
+    {
+        Task<OfferDetailsDto?> GetOfferDetails(int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersBySupplierId(int supplierId);
+        Task<bool> AddOffer(int supplierId, OfferInfoDto offerDto);
+        Task<bool> EditOffer(int id, OfferInfoDto offerDto);
+        Task<bool> DeleteOffer(int id);
+    }
+    public interface ISupplierMenuCategoryService
+    {
+        Task<MenuCategoryDetailsDto?> GetMenuCategoryDetails(int id);
+        Task<bool> AddMenuCategory(int SupplierId, MenuCategoryDto menuCategoryDto);
+        Task<bool> EditMenuCategory(int id, MenuCategoryDto menuCategoryDto);
+        Task<bool> DeleteMenuCategory(int id);
     }
 }

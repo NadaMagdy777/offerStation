@@ -70,7 +70,7 @@ export class AddressesComponent implements OnInit {
   }
 
   LoadData() {
-    this._addressService.GetCustomerAdresses("1").subscribe({//this.ApplicationuserId._value.nameid
+    this._addressService.GetUserAdresses("1").subscribe({//this.ApplicationuserId._value.nameid
       next: data => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))

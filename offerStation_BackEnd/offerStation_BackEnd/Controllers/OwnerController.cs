@@ -1,10 +1,7 @@
-﻿using Autofac.Features.OwnedInstances;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
-using offerStation.Core.Models;
-using offerStation.EF.Services;
+using offerStation.Core.Wrappers;
 
 namespace offerStation.API.Controllers
 {
@@ -166,7 +163,7 @@ namespace offerStation.API.Controllers
         }
         // ==================================Admin ==================================
         [HttpPost("OwnerCategory")]
-        public async Task<ActionResult<ApiResponse>> AddOwnerCategory(OwnerCategoryInfoDto category)
+        public async Task<ActionResult<ApiResponse>> AddOwnerCategory(CategoryInfoDto category)
         {
             bool success = await _ownerService.AddCategory(category);
             if (success)
@@ -178,7 +175,7 @@ namespace offerStation.API.Controllers
 
         // ==================================Admin ==================================
         [HttpPut("OwnerCategory/id")]
-        public async Task<ActionResult<ApiResponse>> EditOwnerCategory(int id, OwnerCategoryInfoDto category)
+        public async Task<ActionResult<ApiResponse>> EditOwnerCategory(int id, CategoryInfoDto category)
         {
             bool success = await _ownerService.EditCategory(id, category);
             if (success)
@@ -258,14 +255,14 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-
-
+        // ==================================Admin ==================================
         [HttpGet("Categories")]
-
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories([FromQuery] PagingParameters pagingParameters)
         {
-            return Ok(new ApiResponse(200, true, await _ownerService.GetAllCategories()));
+            var categories = await _ownerService.GetAllCategories();
+            var pagedCategories = categories.ToPagedResponse(pagingParameters);
 
+            return Ok(new ApiResponse(200, true, pagedCategories));
         }
 
         [HttpGet("All/Offers/filter/WithPagination")]

@@ -14,14 +14,14 @@ export class SupplierreviewsComponent implements OnInit {
 
   } 
   ngOnInit(): void {
-    this.suppler.GetAllOwnerReviewsbysupplierID(1).subscribe({
-      next:(data: { data: any; })=>
-      {
-        console.log(data);
-        this.OwnerReview=data.data
-        console.log("list"+this.OwnerReview);
-      },
-      error:(error: any)=>this.errorMessage=error
-    })
+    // this.suppler.GetAllOwnerReviewsbysupplierID(1).subscribe({
+    //   next:(data: { data: any; })=>
+    //   {
+    //     console.log(data);
+    //     this.OwnerReview=data.data
+    //     console.log("list"+this.OwnerReview);
+    //   },
+    //   error:(error: any)=>this.errorMessage=error
+    // })
   }
 }

@@ -29,8 +29,7 @@ import { OwnerofferdetailComponent } from 'src/app/pages/owner-offer-details/own
     OwnersIndexComponent,
     BannerComponent,
     OwnerCardComponent,
-    
-
+  
   ],
   imports: [
     NgxPaginationModule,

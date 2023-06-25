@@ -77,9 +77,6 @@ namespace offerStation.EF.Services
                 ownerInfo.Name = owner.AppUser.Name;
                 ownerInfo.Email = owner.AppUser.Email;
                
-           
-              
-
             }
             return ownerInfo;   
         }
@@ -266,7 +263,7 @@ namespace offerStation.EF.Services
             return false;
         }
         // =============================== Admin =======================
-        public async Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto)
+        public async Task<bool> AddCategory(CategoryInfoDto categoryDto)
         {
             if (categoryDto is not null)
             {
@@ -281,7 +278,7 @@ namespace offerStation.EF.Services
             return false;
         }
         // =============================== Admin =======================
-        public async Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto)
+        public async Task<bool> EditCategory(int id, CategoryInfoDto categoryDto)
         {
             OwnerCategory category = await _unitOfWork.OwnerCategories.GetByIdAsync(id);
 
@@ -502,11 +499,12 @@ namespace offerStation.EF.Services
 
             return owners;
         }
-        public async Task<List<OwnerCategoryDto>> GetAllCategories()
+        ///===================================== Admin
+        public async Task<List<CategoryDto>> GetAllCategories()
         {
             List<OwnerCategory> ownerCategories = (List<OwnerCategory>)_unitOfWork.OwnerCategories.GetAll();
-            List<OwnerCategoryDto> ownerCategoriesDto = _mapper.Map<List<OwnerCategoryDto>>(ownerCategories);
-            return ownerCategoriesDto;
+        List<CategoryDto> ownerCategoriesDto = _mapper.Map<List<CategoryDto>>(ownerCategories);
+        return ownerCategoriesDto;
         }
         public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id)
         {
@@ -514,13 +512,14 @@ namespace offerStation.EF.Services
 
             MenuCategoriesDTOs = new List<MenuCategoryDetailsDto>();
 
-            IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id);
+            IEnumerable<OwnerMenuCategory> result = await _unitOfWork.OwnerMenuCategories.FindAllAsync(d => d.OwnerId == id && !d.IsDeleted);
 
             foreach (OwnerMenuCategory menu in result)
             {
                 MenuCategoryDetailsDto MenuDTO = new MenuCategoryDetailsDto();
                 MenuDTO.Id = menu.Id;
                 MenuDTO.Name = menu.Name;
+                MenuDTO.Image = menu.Image;
                 MenuCategoriesDTOs.Add(MenuDTO);
             }
             return MenuCategoriesDTOs;

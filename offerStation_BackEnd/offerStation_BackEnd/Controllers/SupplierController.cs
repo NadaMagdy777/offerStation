@@ -57,7 +57,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetMenuCategoiesBySupplierId")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategoiesBySupplierId(int supplierid)
         {
-            List<SupplierMenuCategoriesNameDTO> supplierList = await _supplierService.GetMenuCategoiesBySupplierId(supplierid);
+            List<MenuCategoryDetailsDto> supplierList = await _supplierService.GetMenuCategoiesBySupplierId(supplierid);
 
             if (supplierList is null)
             {
@@ -181,7 +181,7 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpPost("SupplierCategory")]
-        public async Task<ActionResult<ApiResponse>> AddSupplierCategory(SupplierCategoryInfoDto category)
+        public async Task<ActionResult<ApiResponse>> AddSupplierCategory(CategoryInfoDto category)
         {
             bool success = await _supplierService.AddCategory(category);
             if (success)
@@ -191,7 +191,7 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpPut("SupplierCategory/id")]
-        public async Task<ActionResult<ApiResponse>> EditSupplierCategory(int id, SupplierCategoryInfoDto category)
+        public async Task<ActionResult<ApiResponse>> EditSupplierCategory(int id, CategoryInfoDto category)
         {
             bool success = await _supplierService.EditCategory(id, category);
             if (success)
