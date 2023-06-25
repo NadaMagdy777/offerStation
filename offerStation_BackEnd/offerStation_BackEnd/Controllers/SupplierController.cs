@@ -220,6 +220,17 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(404, false, "null object"));
         }
+        [HttpGet("AllProductsByMenuCategoryIDWithPagination/id")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
+        {
+            List<ProductInfoDto> product = await _supplierService.GetProductsByMenuCategoryIDWithPagination(pageNumber, pageSize,id);
+
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
         [HttpGet("Categories")]
         public async Task<IActionResult> GetAllCategories()
         {
@@ -247,6 +258,13 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
+        //[HttpGet("GetAllOffersBySupplierIdWithPagination/id")]
+        //public async Task<IActionResult> GetAllOffersBySupplierIdWithPagination(int id)
+        //{
+        //    var data = await _supplierService.GetAllOffersBySupplierIdWithPagination(id);
+        //    return Ok(new ApiResponse(200, true, data));
+
+        //}
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {
