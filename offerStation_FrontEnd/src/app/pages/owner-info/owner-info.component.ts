@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OwnerprofileService } from 'src/app/services/OwnerProfile/ownerprofile.service';
+import { ImageService } from 'src/app/services/image.service';
 import { OwnerInfo } from 'src/app/sharedClassesAndTypes/OwnerInfo';
 
 @Component({
@@ -13,6 +14,7 @@ export class OwnerInfoComponent implements OnInit {
   OwnerInfo: any;
   errorMessage: any;
   isUpdated: boolean = false;
+  imageUrl: string = '';
 
   owner: OwnerInfo = {
     name: '',
@@ -22,13 +24,13 @@ export class OwnerInfoComponent implements OnInit {
   };
 
   OwnerInfoForm: any = this.fb.group({
-    image: [''],
+    image: [[]],
     name: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]]
   });
 
-  constructor(private fb: FormBuilder, private _ownerrServ: OwnerprofileService) { }
+  constructor(private fb: FormBuilder, private _ownerrServ: OwnerprofileService, private _imageService: ImageService) { }
 
   ngOnInit(): void {
     this._ownerrServ.GetOwnerInfo(1).subscribe({
@@ -36,8 +38,9 @@ export class OwnerInfoComponent implements OnInit {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.owner = dataJson.data;
+        this.imageUrl = this._imageService.base64ArrayToImage(this.owner.image);
         this.OwnerInfoForm.patchValue({
-          image: this.owner.image,
+          image: this.imageUrl,
           name: this.owner.name,
           email: this.owner.email,
           phoneNumber: this.owner.phoneNumber
@@ -52,15 +55,26 @@ export class OwnerInfoComponent implements OnInit {
     console.log(this.OwnerInfoForm.value);
 
     if (window.confirm('Are you sure, you want to update?')) {
-      this._ownerrServ.UpdateOwnerInfo(1, this.OwnerInfoForm.value).subscribe({
+      this._ownerrServ.UpdateOwnerInfo(1, this.owner).subscribe({
         next: (data: any) => {
-          console.log(data);
           this.OwnerInfo = data;
         },
         error: (error: any) => this.errorMessage = error,
       });
     }
     this.isUpdated = !this.isUpdated;
+  }
+
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.owner.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   //Owner Info Form

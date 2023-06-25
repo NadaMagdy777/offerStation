@@ -1,66 +1,41 @@
-<!-- <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Account Info
-    </ng-template>
-    <app-owner-info></app-owner-info>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      All Products
-    </ng-template>
-    <app-owner-products></app-owner-products>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      All Categories
-    </ng-template>
-    <app-owner-categories></app-owner-categories>
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      All Branches
-    </ng-template>
-    <app-owner-addresses></app-owner-addresses>
-  </mat-tab>
-
-</mat-tab-group> -->
 <mat-sidenav-container>
   <mat-sidenav opened mode="side">
     <mat-list>
       <mat-list-item class="mb-2">
         <div class="d-flex">
           <i class="fa-solid fa-user pe-2"></i>
-          <a routerLink="Info" >Your Acount </a>
+          <a routerLink="Info">Your Acount </a>
         </div>
       </mat-list-item>
 
       <mat-list-item>
         <div class="d-flex">
           <i class="fa-solid fa-location-dot pe-2"></i>
-          <a routerLink="branches" > All Branches</a>
+          <a routerLink="branches"> All Branches</a>
         </div>
-       </mat-list-item>
-       <mat-list-item>
+      </mat-list-item>
+      <mat-list-item>
         <div class="d-flex">
           <i class="fa-solid fa-location-dot pe-2"></i>
-          <a routerLink="categories" > All Categories</a>
+          <a routerLink="categories"> All Categories</a>
         </div>
-       </mat-list-item>
-       <mat-list-item>
+      </mat-list-item>
+      <mat-list-item>
         <div class="d-flex">
           <i class="fa-solid fa-location-dot pe-2"></i>
-          <a routerLink="products" >All Products</a>
+          <a routerLink="products">All Products</a>
         </div>
-       </mat-list-item>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="d-flex">
+          <i class="fa-solid fa-location-dot pe-2"></i>
+          <a routerLink="offers">All Offers</a>
+        </div>
+      </mat-list-item>
       <!-- <mat-list-item>Paprika</mat-list-item> -->
-     </mat-list>
+    </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
- </mat-sidenav-container>
-
+</mat-sidenav-container>

@@ -22,6 +22,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
+import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers
     LandingTopRateComponent,
     LandingTapsComponent,
     SupplierOffersComponent,
+    OwnerOffersComponent,
   ],
   imports: [
     BrowserModule,
