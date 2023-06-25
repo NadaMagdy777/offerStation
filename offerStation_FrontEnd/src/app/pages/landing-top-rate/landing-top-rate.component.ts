@@ -22,9 +22,9 @@ export class LandingTopRateComponent {
     this.ownerCategory.GetAllCategory().subscribe({
       next:data=>
       {
-        let dataJson=JSON.parse(JSON.stringify(data))
+       // let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
-        this.categoryList=dataJson.data;
+        this.categoryList=data.data;
         for(let category of this.categoryList){
            this.categoryName=category.name;
            console.log(this.categoryName)

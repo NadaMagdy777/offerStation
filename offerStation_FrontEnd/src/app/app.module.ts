@@ -26,6 +26,7 @@ import { SupplierLandingNewestComponent } from './pages/supplier-landing-newest/
 import { SupplierLandingBestSellerComponent } from './pages/supplier-landing-best-seller/supplier-landing-best-seller.component';
 import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-rate/supplier-landing-top-rate.component';
 import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
+import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers
     SupplierLandingTopRateComponent,
 
     SupplierOffersComponent,
+      SupplierHeaderComponent,
   ],
   imports: [
     BrowserModule,
