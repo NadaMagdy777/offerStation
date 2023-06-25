@@ -19,10 +19,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SupplierOffersComponent } from 'src/app/pages/supplier-offers/supplier-offers.component';
 import { SupplierproductComponent } from 'src/app/pages/supplierproduct/supplierproduct.component';
+import { SuppliermainpageComponent } from 'src/app/pages/supplier-menu/suppliermainpage/suppliermainpage/suppliermainpage.component';
 
 
 const routes: Routes = [
+  { path: 'mainpage', component: SuppliermainpageComponent },
   {
+ 
     path: 'profile', component: SupplierProfileComponent, children: [
       { path: 'adresses', component: SupplierAddressesComponent },
       { path: 'Info', component: SupplierInfoComponent },
@@ -35,12 +38,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    // SuppliermainpageComponent,
+    SupplierInfoComponent,
     SupplierproductComponent,
     SupplierofferComponent,
     SupplierreviewsComponent,
     SupplierProfileComponent,
-    SupplierInfoComponent,
+    SuppliermainpageComponent,
     SupplierProductsComponent,
     SupplierCategoriesComponent,
     SupplierAddressesComponent

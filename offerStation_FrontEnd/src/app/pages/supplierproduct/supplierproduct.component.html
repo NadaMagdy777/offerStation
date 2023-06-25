@@ -22,7 +22,8 @@
               </button>
               <div *ngFor="let item of MenucategoryList">
                 <button type="button" class="list-group-item list-group-item-action"
-                  (click)="getproductBycategoryId(item.id)" value="{{item.id}}">{{item.menuName}}</button>
+                   value="{{item.id}}">{{item.menuName}}</button>
+                   <!-- (click)="getproductBycategoryId(item.id)" -->
               </div>
             </div>
           </div>
