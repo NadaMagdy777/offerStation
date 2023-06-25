@@ -50,6 +50,7 @@ namespace offerStation_BackEnd
             builder.Services.AddScoped<IOwnerMenuCategoryService, OwnerMenuCategoryService>();
             builder.Services.AddScoped<IsupplierAnalysisService, SupplierAnalysisService>();
 
+            builder.Services.AddScoped<IadminAnalysisService, AdminAnalysisService>();
 
 
             builder.Services.AddCors(opt =>
