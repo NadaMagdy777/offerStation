@@ -61,24 +61,24 @@ getAllProductsByOwnerId() {
 
 //   })
 // }
-getproductBycategoryId(id: number) {
-  if (id == 0) {
-    this.getAllProductsByOwnerId();
-  } 
-  else {
-    this.supplier.GetMenuCategoiesBySupplierId(id).subscribe({
-      next: (data: { data: any; }) => {
-        console.log(data);
-        this.ProductListByCategoryName = data.data
-        console.log("list" + this.ProductListByCategoryName);
-        console.log(id);
-      },
-      error: (error: any) => this.errorMessage = error
+// getproductBycategoryId(id: number) {
+//   if (id == 0) {
+//     this.getAllProductsByOwnerId();
+//   } 
+//   else {
+//     this.supplier.GetMenuCategoiesBySupplierId(id).subscribe({
+//       next: (data: { data: any; }) => {
+//         console.log(data);
+//         this.ProductListByCategoryName = data.data
+//         console.log("list" + this.ProductListByCategoryName);
+//         console.log(id);
+//       },
+//       error: (error: any) => this.errorMessage = error
 
-    })
-  }
+//     })
+//   }
 
-}
+// }
 // getAllProductsBySupplierId() ////مفيش ata راجعه
 // {
 //   this.supplier.allProducts(1002).subscribe({
