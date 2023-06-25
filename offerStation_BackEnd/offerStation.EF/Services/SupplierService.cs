@@ -354,11 +354,11 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-        public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
+        //public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
         //public async Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id)
         //{
         //    List<OfferDetailsDto> OfferListDto = null;
-        //    IEnumerable<SupplierOffer> offerList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID== id);
+        //    IEnumerable<SupplierOffer> offerList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == id);
 
         //    if (offerList is not null)
         //    {
@@ -366,8 +366,8 @@ namespace offerStation.EF.Services
         //    }
         //    return OfferListDto;
         //}
-     
-        public async Task<List<SupplierMenuCategoriesNameDTO>> GetMenuCategoiesBySupplierId(int id)
+
+        public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
         {
             List<MenuCategoryDetailsDto> MenuCategoriesDTOs;
 
