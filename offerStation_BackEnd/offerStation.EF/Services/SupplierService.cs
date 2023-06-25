@@ -354,19 +354,28 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-        //public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
-        //public async Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id)
-        //{
-        //    List<OfferDetailsDto> OfferListDto = null;
-        //    IEnumerable<SupplierOffer> offerList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == id);
+      
+        public async Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId)
+        {
+            List<ReviewDto> reviewListDto = null;
 
-        //    if (offerList is not null)
-        //    {
-        //        OfferListDto = _mapper.Map<List<OfferDetailsDto>>(offerList);
-        //    }
-        //    return OfferListDto;
-        //}
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews
+                .FindAllAsync(r => r.SupplierId == supplierId && !r.IsDeleted,
+                new List<Expression<Func<OwnerReview, object>>>()
+                {
+                    r => r.Owner.AppUser,
+                });
 
+            if (reviewList is not null)
+            {
+                reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
+            }
+            ResultrDto<OwnerReview> offerFilterResult = new ResultrDto<OwnerReview>();
+            offerFilterResult.itemsCount = reviewListDto.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            reviewListDto = reviewListDto.Skip(recSkip).Take(pageSize).ToList();
+            return reviewListDto;
+        }
         public async Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id)
         {
             List<MenuCategoryDetailsDto> MenuCategoriesDTOs;
