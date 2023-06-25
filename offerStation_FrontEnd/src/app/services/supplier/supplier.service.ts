@@ -105,6 +105,12 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
-
+  GetAllOwnerReviewsbysupplierID(id:any):Observable<any> 
+  {
+    return this._httpClient.get<any>(this.url+"/GetAllOwnerReviewsbysupplierID?supplierId="+id).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
+  }
 
 }
