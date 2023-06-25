@@ -69,12 +69,13 @@ export class SupplierService {
 
   //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
 
-  GetMenuCategorybySupplierId(id: number): Observable<ApiResponce> {
+  GetMenuCategoiesBySupplierId(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/GetMenuCategoiesBySupplierId?supplierid=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
+ 
   //https://localhost:7017/api/SupplierMenuCategory/id?id=1
   GetCategoryDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
