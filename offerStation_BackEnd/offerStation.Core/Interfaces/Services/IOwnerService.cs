@@ -24,14 +24,14 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddProduct(int ownerId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
-        Task<bool> AddCategory(OwnerCategoryInfoDto categoryDto);
-        Task<bool> EditCategory(int id, OwnerCategoryInfoDto categoryDto);
+        Task<bool> AddCategory(CategoryInfoDto categoryDto);
+        Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
         Task<bool> AddReview(int ownerId, int supplierId, ReviewInfoDto reviewDto);
         Task<bool> DeleteReview(int id);
         Task<List<ReviewDto>?> GetAllOwnersReviews();
         Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int id);
-        Task<List<OwnerCategoryDto>> GetAllCategories();
+        Task<List<CategoryDto>> GetAllCategories();
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
         Task<List<ProductInfoDto>> GetAllProductsByOwmerIDWithPagination(int pageNumber, int pageSize, int id);
@@ -47,20 +47,27 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);
         Task<List<AnalysisResult>> getTop5OwnerOffer(int OwnerId);
         Task<int> getOwnerTotalCustomer(int OwnerId);
-
         Task<int> getOwnerTotalOrders(int ownerId);
-
         Task<double> getTotalProfit(int ownerId);
-
         Task<int> getOffersCount(int ownerId);
-
         Task<int> getProductsCount(int ownerId);
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId);
         Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId);
-
         Task<List<customerInfoAnalysis>> getTopCustomerInfo(int ownerid);
-
-
     }
-
+    public interface IOwnerOfferService
+    {
+        Task<OfferDetailsDto?> GetOfferDetails(int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int ownerId);
+        Task<bool> AddOffer(int ownerId, OfferInfoDto offerDto);
+        Task<bool> EditOffer(int id, OfferInfoDto offerDto);
+        Task<bool> DeleteOffer(int id);
+    }
+    public interface IOwnerMenuCategoryService
+    {
+        Task<MenuCategoryDetailsDto?> GetMenuCategoryDetails(int id);
+        Task<bool> AddMenuCategory(int ownerId, MenuCategoryDto menuCategoryDto);
+        Task<bool> EditMenuCategory(int id, MenuCategoryDto menuCategoryDto);
+        Task<bool> DeleteMenuCategory(int id);
+    }
 }

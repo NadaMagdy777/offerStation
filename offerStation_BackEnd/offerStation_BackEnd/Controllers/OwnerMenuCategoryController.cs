@@ -18,17 +18,17 @@ namespace offerStation.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<ApiResponse>> ProductDetails(int id)
+        public async Task<ActionResult<ApiResponse>> MenuCategoryDetails(int id)
         {
-            MenuCategoryDetailsDto product = await _ownerMenuCategoryService.GetMenuCategoryDetails(id);
-            if (product is null)
+            MenuCategoryDetailsDto MenuCategory = await _ownerMenuCategoryService.GetMenuCategoryDetails(id);
+            if (MenuCategory is null)
             {
                 return BadRequest(new ApiResponse(404, false, "null object"));
             }
-            return Ok(new ApiResponse(200, true, product));
+            return Ok(new ApiResponse(200, true, MenuCategory));
         }
         [HttpPost("id")]
-        public async Task<ActionResult<ApiResponse>> AddProduct(int ownerId, MenuCategoryDto menuCategory)
+        public async Task<ActionResult<ApiResponse>> AddMenuCategory(int ownerId, MenuCategoryDto menuCategory)
         {
             bool success = await _ownerMenuCategoryService.AddMenuCategory(ownerId, menuCategory);
             if (success)
@@ -38,7 +38,7 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpPut("id")]
-        public async Task<ActionResult<ApiResponse>> EditProduct(int id, MenuCategoryDto menuCategory)
+        public async Task<ActionResult<ApiResponse>> EditMenuCategory(int id, MenuCategoryDto menuCategory)
         {
             bool success = await _ownerMenuCategoryService.EditMenuCategory(id, menuCategory);
             if (success)
@@ -48,7 +48,7 @@ namespace offerStation.API.Controllers
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
         [HttpDelete("id")]
-        public async Task<ActionResult<ApiResponse>> DeleteProduct(int id)
+        public async Task<ActionResult<ApiResponse>> DeleteMenuCategory(int id)
         {
             bool success = await _ownerMenuCategoryService.DeleteMenuCategory(id);
             if (success)

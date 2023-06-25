@@ -31,7 +31,7 @@ export class AddressServiceService {
     );
   }
 
-  GetCustomerAdresses(ApplicationUserId: string): Observable<ApiResponce> {
+  GetUserAdresses(ApplicationUserId: string): Observable<ApiResponce> {
     return this.http.get<ApiResponce>(this._url + "/all/id?userId=" + ApplicationUserId).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "Server Error");

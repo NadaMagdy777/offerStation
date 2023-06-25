@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupplierRoutingModule } from './supplier-routing.module';
-import { SuppliermainpageComponent } from 'src/app/pages/supplier-menu/suppliermainpage/suppliermainpage/suppliermainpage.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SupplierproductComponent } from 'src/app/pages/supplier-products/supplierproduct/supplierproduct.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { SupplierofferComponent } from 'src/app/pages/supplieroffers/supplieroffer/supplieroffer.component';
 import { SupplierreviewsComponent } from 'src/app/pages/supplierreviews/supplierreviews/supplierreviews.component';
@@ -17,21 +15,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { SupplierOffersComponent } from 'src/app/pages/supplier-offers/supplier-offers.component';
+import { SupplierproductComponent } from 'src/app/pages/supplierproduct/supplierproduct.component';
+
 
 const routes: Routes = [
   {
-    path: 'profile', component:SupplierProfileComponent, children: [
+    path: 'profile', component: SupplierProfileComponent, children: [
       { path: 'adresses', component: SupplierAddressesComponent },
-      { path: 'Info', component: SupplierInfoComponent},
-      { path: 'categories', component:SupplierCategoriesComponent },
-      { path: 'products', component: SupplierProductsComponent},
+      { path: 'Info', component: SupplierInfoComponent },
+      { path: 'categories', component: SupplierCategoriesComponent },
+      { path: 'products', component: SupplierProductsComponent },
+      { path: 'offers', component: SupplierOffersComponent },
     ]
   },
 ]
 
 @NgModule({
   declarations: [
-    SuppliermainpageComponent,
+    // SuppliermainpageComponent,
     SupplierproductComponent,
     SupplierofferComponent,
     SupplierreviewsComponent,
@@ -39,7 +43,7 @@ const routes: Routes = [
     SupplierInfoComponent,
     SupplierProductsComponent,
     SupplierCategoriesComponent,
-    SupplierAddressesComponent,
+    SupplierAddressesComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -52,7 +56,9 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })

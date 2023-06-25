@@ -69,7 +69,7 @@ export class OwnerAddressesComponent implements OnInit {
 
   LoadData() {
     //this.ApplicationuserId._value.nameid
-    this._addressService.GetCustomerAdresses("1").subscribe({
+    this._addressService.GetUserAdresses("1").subscribe({
       next: data => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
