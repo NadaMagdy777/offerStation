@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
 
@@ -13,7 +14,26 @@ export class AdminOwnerCategoryComponent {
   pageNumber = 1;
   pageSize = 10;
 
-  constructor(private _categoryService: AdminCategoriesService) { }
+  display: string = "";
+  categoryForm:FormGroup;
+
+  constructor(
+    private _categoryService: AdminCategoriesService,
+    private fb:FormBuilder
+    ) 
+    {
+      this.categoryForm = this.fb.group({
+        name:['',[Validators.required]],
+        profilePicture:[[],[Validators.required]]
+      });
+
+      this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
+        //this.categoryForm.name = data;
+      });
+      this.categoryForm.get('profilePicture')?.valueChanges.subscribe((data) => {
+        //this.categoryForm.profilePicture = data;
+      });
+    }
 
   ngOnInit(): void {
     this.getCategories();
@@ -24,8 +44,26 @@ export class AdminOwnerCategoryComponent {
       .subscribe(response => 
         {
           this.categories = response.data
-          console.log(this.categories);
-          
+          console.log(this.categories);     
         });
+  }
+
+  DeleteCategory(categoryId:number, index:number){
+
+  }
+  UpdateCategory(){
+
+  }
+  openModal(){
+    this.display = 'block';
+  }
+  openEditProductModal(productId: number) {
+
+  }
+  onCloseProductHandled() {
+    this.display = 'none';
+  }
+  OnSubmit(){
+
   }
 }

@@ -21,8 +21,14 @@ import { LandingTapsComponent } from './pages/landing-taps/landing-taps.componen
 import { MatSliderModule } from '@angular/material/slider';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SupplierLandingTapsComponent } from './pages/supplier-landing-taps/supplier-landing-taps.component';
+import { SupplierLandingNewestComponent } from './pages/supplier-landing-newest/supplier-landing-newest.component';
+import { SupplierLandingBestSellerComponent } from './pages/supplier-landing-best-seller/supplier-landing-best-seller.component';
+import { SupplierLandingTopRateComponent } from './pages/supplier-landing-top-rate/supplier-landing-top-rate.component';
 import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers.component';
 import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.component';
+import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -39,8 +45,14 @@ import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.componen
     LandingBestSellerComponent,
     LandingTopRateComponent,
     LandingTapsComponent,
+    SupplierLandingTapsComponent,
+    SupplierLandingNewestComponent,
+    SupplierLandingBestSellerComponent,
+    SupplierLandingTopRateComponent,
+
     SupplierOffersComponent,
     OwnerOffersComponent,
+      SupplierHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +70,7 @@ import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.componen
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

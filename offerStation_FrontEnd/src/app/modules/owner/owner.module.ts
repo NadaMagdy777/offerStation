@@ -21,7 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerOffersComponent } from 'src/app/pages/owner-offers/owner-offers.component';
 
 const routes: Routes = [
-  { path: 'product', component: OwnerProductComponent },
+  { path: 'mainpage', component: OwnerProductComponent },
   {
     path: 'profile', component: OwnerProfileComponent, children: [
       { path: 'branches', component: OwnerAddressesComponent },

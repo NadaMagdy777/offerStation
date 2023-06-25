@@ -23,13 +23,15 @@ namespace offerStation.Core.Interfaces.Services
         Task<SupplierInfoDto?> GetSupplierInfo(int id);
         Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id);
+        Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);
         Task<bool> AddCategory(CategoryInfoDto categoryDto);
         Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
-        Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int supplierId);
+        Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId);
+        //Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierCategory>> GetAllCategories();
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);

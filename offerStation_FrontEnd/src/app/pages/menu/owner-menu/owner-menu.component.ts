@@ -31,20 +31,22 @@ export class OwnerMenuComponent implements OnInit{
   ngOnInit(): void {
    
     
-      this.owner.getAllProductsByOwnerIdWithPagination(1,this.pagesize,1).subscribe({
+      // this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
 
-        next: data => {
-          console.log(data);
-          this.MenucategoryList = data.data
-        },
-        error: error => this.errorMessage = error
+      //   next: data => {
+      //     console.log(data);
+      //     this.MenucategoryList = data.data
+      //     console.log("menulist"+this.MenucategoryList)
+      //   },
+      //   error: error => this.errorMessage = error
   
-      });
+      // });
       this.owner.getMenuCategorybyOwnerId(1).subscribe({
 
         next: data => {
           console.log(data);
-          this.MenucategoryList = data.data
+          this.MenucategoryList = data;
+          console.log("menulist"+this.MenucategoryList)
         },
         error: error => this.errorMessage = error
   
