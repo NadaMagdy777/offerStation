@@ -27,7 +27,7 @@ export class SupplierService {
   getProductsByCategoryId(pageNumber:number,Pagesize:number,id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryIDWithPagination/id?pageNumber=" +pageNumber+"&pageSize="+Pagesize+"&id="+id);
   }
-  
+    //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
   GetMenuCategoiesBySupplierId(id:number):Observable<any> 
   {
     return this._httpClient.get<any>(this.url + "/GetMenuCategoiesBySupplierId?supplierid=" + id);
@@ -76,15 +76,7 @@ export class SupplierService {
 
   //Supplier Category Crud Operations
 
-  //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
 
-  GetMenuCategoiesBySupplierId(id: number): Observable<ApiResponce> {
-  GetMenuCategorybySupplierId(id: number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/GetMenuCategoiesBySupplierId?supplierid=${id}`).
-      pipe(catchError((err: any) => {
-        return throwError(() => err.message || "server error")
-      }));
-  }
  
   //https://localhost:7017/api/SupplierMenuCategory/id?id=1
 
