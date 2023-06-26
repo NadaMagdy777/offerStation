@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
 
@@ -14,6 +15,7 @@ export class OwnerCategoriesComponent implements OnInit {
   errorMessage: any;
   display = '';
   display1 = '';
+  imageUrl: string = '';
 
   ownerCategory: ownerCategory = {
     id: 0,
@@ -25,11 +27,12 @@ export class OwnerCategoriesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _ownerService: OwnerService) {
+    private _ownerService: OwnerService
+    , private _imageService: ImageService) {
 
     this.CategoryForm = this.fb.group({
       name: [''],
-      image: [''],
+      image: [[]],
     });
     this.CategoryForm.get('name')?.valueChanges.subscribe((data) => {
       this.ownerCategory.name = data;
@@ -57,6 +60,10 @@ export class OwnerCategoriesComponent implements OnInit {
     });
   }
 
+  OnImageLoad(image: any) {
+    this.imageUrl = this._imageService.base64ArrayToImage(image);
+  }
+
   SubmitData() {  //Error when choosing image from the system
 
     this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
@@ -73,29 +80,36 @@ export class OwnerCategoriesComponent implements OnInit {
     console.log(categoryId);
     this._ownerService.DeleteCategory(categoryId).subscribe({
       next: data => {
-
         this.categories.splice(index, 1);
         console.log(this.categories)
         this.LoadData();
-
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
   UpdateCategory() {
-    // console.log(this.CategoryForm.value);
+
     this._ownerService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
       next: data => {
-        // console.log(data);
         this.LoadData();
         this.onCloseEditCategoryHandled();
-        // console.log(this.CategoryForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.ownerCategory.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   openEditCategoryModal(categoryId: number) {
     this.display1 = 'block';
     this._ownerService.GetCategoryDetails(categoryId).subscribe({

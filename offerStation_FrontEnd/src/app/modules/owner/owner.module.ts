@@ -18,6 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OwnerOffersComponent } from 'src/app/pages/owner-offers/owner-offers.component';
 
 const routes: Routes = [
   { path: 'mainpage', component: OwnerProductComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'Info', component: OwnerInfoComponent },
       { path: 'categories', component: OwnerCategoriesComponent },
       { path: 'products', component: OwnerProductsComponent },
+      { path: 'offers', component: OwnerOffersComponent },
     ]
   },
 

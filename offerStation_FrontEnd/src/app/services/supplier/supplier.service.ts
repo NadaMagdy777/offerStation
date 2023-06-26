@@ -17,9 +17,12 @@ export class SupplierService {
   constructor(private _httpClient: HttpClient) { }
 
   //Supplier Product Crud Operations
-  GetAllProductsBySupplierId(id: number): Observable<any> {
+  GetAllProductsBySupplierId(id: number): Observable<ApiResponce> {
 
-    return this._httpClient.get<any>(this.url + "/allProducts/id?supplierId=" + id);
+    return this._httpClient.get<ApiResponce>(this.url + "/allProducts/id?supplierId=" + id)
+      .pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
   }
   getProductsByCategoryId(pageNumber:number,Pagesize:number,id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryIDWithPagination/id?pageNumber=" +pageNumber+"&pageSize="+Pagesize+"&id="+id);
@@ -45,7 +48,6 @@ export class SupplierService {
 
   }
 
-  //https://localhost:7017/api/Supplier/Product/id?supplierId=1
   AddProduct(supplierId: number, newProduct: any): Observable<ApiResponce> {
     return this._httpClient.post<ApiResponce>(`${this.url}/Product/id?supplierId=${supplierId}`, newProduct).
       pipe(catchError((err: any) => {
@@ -76,13 +78,16 @@ export class SupplierService {
 
   //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
 
+  GetMenuCategoiesBySupplierId(id: number): Observable<ApiResponce> {
   GetMenuCategorybySupplierId(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/GetMenuCategoiesBySupplierId?supplierid=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
+ 
   //https://localhost:7017/api/SupplierMenuCategory/id?id=1
+
   GetCategoryDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {
@@ -90,7 +95,6 @@ export class SupplierService {
       }));
   }
 
-  //https://localhost:7017/api/SupplierMenuCategory/id?ownerId=1
   AddCategory(supplierId: number, newCategory: any): Observable<ApiResponce> {
     return this._httpClient.post<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?ownerId=${supplierId}`, newCategory).
       pipe(catchError((err: any) => {
@@ -98,7 +102,6 @@ export class SupplierService {
       }));
   }
 
-  //https://localhost:7017/api/SupplierMenuCategory/id?id=1
   DeleteCategory(id: number): Observable<ApiResponce> {
     return this._httpClient.delete<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
       pipe(catchError((err: any) => {

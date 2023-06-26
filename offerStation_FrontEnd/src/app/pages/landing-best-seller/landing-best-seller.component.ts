@@ -11,7 +11,7 @@ export class LandingBestSellerComponent {
   categoryList!:any
   errorMessage: any;
   categoryName :any;
- 
+
   offerList: any;
   constructor(private ownerCategory:CategoryService,private route:ActivatedRoute, private Router:Router){
   }
@@ -23,9 +23,9 @@ export class LandingBestSellerComponent {
     this.ownerCategory.GetAllCategory().subscribe({
       next:data=>
       {
-        let dataJson=JSON.parse(JSON.stringify(data))
+        //let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
-        this.categoryList=dataJson.data;
+        this.categoryList=data.data;
         for(let category of this.categoryList){
            this.categoryName=category.name;
            console.log(this.categoryName)
@@ -40,6 +40,16 @@ export class LandingBestSellerComponent {
 
           })
         }
+      },
+      error:error=>this.errorMessage=error
+
+    })
+    this.ownerCategory.GetOffersWithOwner(this.categoryName,"MostPopular").subscribe({
+      next:data=>
+      {
+        let dataJson=JSON.parse(JSON.stringify(data))
+        console.log(dataJson);
+        this.offerList=dataJson.data;
       },
       error:error=>this.errorMessage=error
 

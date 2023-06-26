@@ -11,3 +11,13 @@ export class ProductInfo {
         // public categoryName:string,
     ) { }
 }
+export class ProductDetails {
+    constructor(
+        public name: string,
+        public description: string,
+        public price: any,
+        public discount: number,
+        public image: any,
+        public categoryId: number,
+    ) { }
+}
