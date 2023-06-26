@@ -262,6 +262,103 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<List<SupplierOfferProductsDto>?> GetOfferDetailsByOfferId(int id)
+        {
+            List<SupplierOfferProductsDto> OfferListDto = new List<SupplierOfferProductsDto> { };
+            IEnumerable<SupplierOfferProduct> offerList = await _unitOfWork.SupplierOfferProducts.FindAllAsync(o => o.OfferId == id,
+            new List<Expression<Func<SupplierOfferProduct, object>>>()
+            {
+                O=>O.Product,
+
+            });
+            foreach (SupplierOfferProduct offer in offerList)
+            {
+                SupplierOfferProductsDto OfferList = new SupplierOfferProductsDto();
+
+                OfferList.ProductName = offer.Product.Name;
+                OfferList.price = offer.Product.Price;
+                OfferList.ProductDescription = offer.Product.Description;
+                OfferList.Quantity = offer.Quantity;
+                OfferListDto.Add(OfferList);
+
+            }
+            return OfferListDto;
+
+        }
+        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
+        {
+            List<ProductInfoDto> SupplierProductsDTOs;
+
+            SupplierProductsDTOs = new List<ProductInfoDto>();
+            IEnumerable<SupplierProduct> result = await _unitOfWork.SupplierProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
+
+            foreach (SupplierProduct product in result)
+            {
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+
+
+                SupplierProductsDTOs.Add(ProductDTO);
+            }
+            ResultrDto<ProductInfoDto> ProductFilterResult = new ResultrDto<ProductInfoDto>();
+            ProductFilterResult.itemsCount = SupplierProductsDTOs.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            SupplierProductsDTOs = SupplierProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
+            return SupplierProductsDTOs;
+        }
+        public async Task<List<ProductInfoDto>> GetAllProductsBySupplierIDWithPagination(int pageNumber, int pageSize, int id)
+        {
+            List<ProductInfoDto> SupplierProductsDTOs;
+            SupplierProductsDTOs = new List<ProductInfoDto>();
+
+
+            IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts
+                .FindAllAsync(d => d.SupplierId== id && !d.IsDeleted);
+
+
+            foreach (SupplierProduct product in supplierProducts)
+            {
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+                SupplierProductsDTOs.Add(ProductDTO);
+            }
+            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
+            offerFilterResult.itemsCount = SupplierProductsDTOs.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            SupplierProductsDTOs = SupplierProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
+            return SupplierProductsDTOs;
+
+
+        }
+        public async Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int pageNumber, int pageSize, int id)
+        {
+            List<OfferDetailsDto> OfferListDto = null;
+            IEnumerable<SupplierOffer> offerList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == id);
+
+            if (offerList is not null)
+            {
+                OfferListDto = _mapper.Map<List<OfferDetailsDto>>(offerList);
+            }
+            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
+            offerFilterResult.itemsCount = OfferListDto.Count();
+            int recSkip = (pageNumber - 1) * pageSize;
+            OfferListDto = OfferListDto.Skip(recSkip).Take(pageSize).ToList();
+            return OfferListDto;
+        }
         public async Task<List<ProductInfoDto>?> GetAllProducts(int supplierId)
         {
             List<ProductInfoDto> products = null;
@@ -269,7 +366,7 @@ namespace offerStation.EF.Services
             IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts
                 .FindAllAsync(p => p.SupplierId == supplierId && !p.IsDeleted);
 
-            if(supplierProducts is not null)
+            if (supplierProducts is not null)
             {
                 products = _mapper.Map<List<ProductInfoDto>>(supplierProducts);
             }
@@ -394,34 +491,7 @@ namespace offerStation.EF.Services
             }
             return MenuCategoriesDTOs;
         }
-        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
-        {
-            List<ProductInfoDto> OwnerProductsDTOs;
-
-            OwnerProductsDTOs = new List<ProductInfoDto>();
-            IEnumerable<SupplierProduct> result = await _unitOfWork.SupplierProducts.FindAllAsync(d => d.CategoryId == id && !d.IsDeleted);
-
-            foreach (SupplierProduct product in result)
-            {
-                ProductInfoDto ProductDTO = new ProductInfoDto();
-                ProductDTO.Price = product.Price;
-                ProductDTO.Description = product.Description;
-                ProductDTO.Name = product.Name;
-                ProductDTO.Id = product.Id;
-                ProductDTO.Discount = product.Discount;
-                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
-                ProductDTO.Image = product.Image;
-
-
-
-                OwnerProductsDTOs.Add(ProductDTO);
-            }
-            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
-            offerFilterResult.itemsCount = OwnerProductsDTOs.Count();
-            int recSkip = (pageNumber - 1) * pageSize;
-            OwnerProductsDTOs = OwnerProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
-            return OwnerProductsDTOs;
-        }
+      
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {
 

@@ -30,10 +30,13 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddCategory(CategoryInfoDto categoryDto);
         Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
+       
         Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId);
-        //Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int id);
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
+        Task<List<SupplierOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
+        Task<List<ProductInfoDto>> GetAllProductsBySupplierIDWithPagination(int pageNumber, int pageSize, int id);
         Task<List<SupplierCategory>> GetAllCategories();
+        Task<List<OfferDetailsDto>?> GetAllOffersBySupplierIdWithPagination(int pageNumber, int pageSize, int id);
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);

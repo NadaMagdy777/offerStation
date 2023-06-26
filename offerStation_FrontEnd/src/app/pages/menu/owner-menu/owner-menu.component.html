@@ -17,19 +17,15 @@
             <div class="list-group">
               <button type="button" value="0" style="background-color:  #e12539;"
                 class="list-group-item active border-0 " (click)="getAllProductsByOwnerId()">
+              
                 All Categoies
               </button>
               <div *ngFor="let item of MenucategoryList">
-                <button type="button" class="list-group-item list-group-item-action"
-                  (click)="getproductBycategoryId(item.id)" value="{{item.id}}">{{item.menuName}}</button>
-                <!-- <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-                 <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
+                <button type="button" class="list-group-item list-group-item-action"(click)="getproductBycategoryId(item.id)"
+                  value="{{item.id}}">{{item.name}}</button>
               </div>
             </div>
           </div>
-          <!-- <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-             <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-          </div> -->
         </div>
 
         <div class="accordion-item">

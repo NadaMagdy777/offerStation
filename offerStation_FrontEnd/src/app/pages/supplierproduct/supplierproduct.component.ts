@@ -10,45 +10,69 @@ export class SupplierproductComponent  implements OnInit{
   pageNumber:number=1
   totalItems:number=0
   pagesize:number=3
+  allProductsBySupplierID:any;
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;
   constructor(private supplier: SupplierService) {
   }
   ngOnInit(): void {
-   
-    
-    this.supplier.allProducts(1002).subscribe({
+    this.supplier.GetMenuCategoiesBySupplierId(1).subscribe({
 
       next: (data: { data: any; }) => {
         console.log(data);
         this.MenucategoryList = data.data
+      
+      },
+      error: (error: any) => this.errorMessage = error
+
+    })
+  
+    }
+    getAllProductsBySupplierId()
+    {
+    this.supplier.allProductsBySupplierID(this.pageNumber,this.pagesize,1).subscribe({
+
+      next: (data: { data: any; }) => {
+        console.log(data);
+        this.ProductListByCategoryName = data.data
+        console.log(this.ProductListByCategoryName);
       },
       error: (error: any) => this.errorMessage = error
 
     });
-    // this.supplier.getMenuCategorybyOwnerId(1).subscribe({
-
-    //   next: (data: { data: any; }) => {
-    //     console.log(data);
-    //     this.MenucategoryList = data.data
-    //   },
-    //   error: (error: any) => this.errorMessage = error
-
-    // })
+  
  
 }
-getAllProductsByOwnerId() {
-  this.supplier.allProducts(1002).subscribe({
-    next: (data: { data: any; }) => {
-      console.log(data);
-      this.ProductListByCategoryName = data.data
-      console.log("list" + this.ProductListByCategoryName);
+getproductBycategoryId(id:number)
+{
+  if (id == 0) {
+   this.getAllProductsBySupplierId();
+  } 
+  else {
+    this.supplier.getProductsByCategoryId(this.pageNumber,this.pagesize,id).subscribe({
+      next: (data: { data: any; }) => {
+        console.log(data);
+        this.ProductListByCategoryName = data.data
+        console.log("list" + this.ProductListByCategoryName);
+        console.log(id);
+      },
+      error: (error: any) => this.errorMessage = error
 
-    },
-    error: error => this.errorMessage = error
-  });
+    })
+  }
 }
+// getAllProductsByOwnerId() {
+//   this.supplier.allProducts(1002).subscribe({
+//     next: (data: { data: any; }) => {
+//       console.log(data);
+//       this.ProductListByCategoryName = data.data
+//       console.log("list" + this.ProductListByCategoryName);
+
+//     },
+//     error: error => this.errorMessage = error
+//   });
+// }
 // getproductBycategoryId(id:number)
 // {
 //   this.supplier.GetAllProductsByMenuCategoryID(this.pageNumber,this.pagesize,id).subscribe({
@@ -99,3 +123,5 @@ this.pageNumber=value
     console.log("mayar"+value);
 }
 }
+
+
