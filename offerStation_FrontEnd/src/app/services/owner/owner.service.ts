@@ -130,7 +130,6 @@ export class OwnerService {
       }));
   }
 
-  //https://localhost:7017/api/OwnerOffer/Offer/id?ownerId=1
   AddOffer(OwnerId: number, newOffer: any): Observable<ApiResponce> {
     return this._httpClient.post<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?ownerId=${OwnerId}`, newOffer).
       pipe(catchError((err: any) => {
@@ -145,8 +144,8 @@ export class OwnerService {
       }));
   }
 
-  UpdateOffer(id: number, updatedCategory: any): Observable<ApiResponce> {
-    return this._httpClient.put<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?id=${id}`, updatedCategory).
+  UpdateOffer(id: number, updatedOffer: any): Observable<ApiResponce> {
+    return this._httpClient.put<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?id=${id}`, updatedOffer).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));

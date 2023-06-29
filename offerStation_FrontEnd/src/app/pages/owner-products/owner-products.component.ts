@@ -33,20 +33,40 @@ export class OwnerProductsComponent implements OnInit {
 
   categories!: ownerCategory[]
   category!: ownerCategory
-
-  productForm: any = this.fb.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    price: ['', [Validators.required]],
-    discount: ['', [Validators.required]],
-    image: [[]],
-    categoryId: ['', [Validators.required]],
-  });
+  productForm: FormGroup
 
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService
-    , private _imageService: ImageService) { }
+    , private _imageService: ImageService) {
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      discount: ['', [Validators.required]],
+      image: [[]],
+      categoryId: ['', [Validators.required]],
+    });
+
+    this.productForm.get('name')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.name = data;
+    });
+    this.productForm.get('description')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.description = data;
+    });
+    this.productForm.get('price')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.price = data;
+    });
+    this.productForm.get('discount')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.discount = data;
+    });
+    this.productForm.get('image')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.image = data;
+    });
+    this.productForm.get('categoryId')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.categoryId = data;
+    });
+  }
 
   ngOnInit(): void {
 
@@ -80,7 +100,7 @@ export class OwnerProductsComponent implements OnInit {
     this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
-  SubmitData() { 
+  SubmitData() {
 
     console.log(this.productForm.value);
     this._ownerService.AddProduct(1, this.productForm.value).subscribe({
@@ -88,7 +108,7 @@ export class OwnerProductsComponent implements OnInit {
         console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
-        console.log(this.productForm.value);
+        // console.log(this.productForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -123,6 +143,7 @@ export class OwnerProductsComponent implements OnInit {
       reader.onload = async (e: any) => {
         this.imageUrl = e.target.result;
         this.ownerProduct.image = await this._imageService.imageToBase64Array(this.imageUrl);
+        // this.productForm.image = await this._imageService.imageToBase64Array(this.imageUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -138,14 +159,14 @@ export class OwnerProductsComponent implements OnInit {
         name: product.name,
         categoryId: product.categoryId,
         discount: product.discount,
-        discountPrice: product.discountPrice,
+        // discountPrice: product.discountPrice,
         price: product.price,
         description: product.description,
         image: product.image
       }
     )
-    console.log(product.categoryId)
-    console.log(this.productForm.get('categoryId').value)
+    // console.log(product.categoryId)
+    // console.log(this.productForm.get('categoryId').value)
 
   }
 
@@ -180,8 +201,8 @@ export class OwnerProductsComponent implements OnInit {
   get categoryId() {
     return this.productForm.get('categoryId');
   }
-  get discountPrice() {
-    return this.productForm.get('discountPrice');
-  }
+  // get discountPrice() {
+  //   return this.productForm.get('discountPrice');
+  // }
 
 }
