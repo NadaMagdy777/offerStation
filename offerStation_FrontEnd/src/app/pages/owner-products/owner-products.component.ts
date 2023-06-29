@@ -39,12 +39,13 @@ export class OwnerProductsComponent implements OnInit {
     private fb: FormBuilder,
     private _ownerService: OwnerService
     , private _imageService: ImageService) {
+
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required]],
       discount: ['', [Validators.required]],
-      image: [[]],
+      image: [''],
       categoryId: ['', [Validators.required]],
     });
 
@@ -143,7 +144,6 @@ export class OwnerProductsComponent implements OnInit {
       reader.onload = async (e: any) => {
         this.imageUrl = e.target.result;
         this.ownerProduct.image = await this._imageService.imageToBase64Array(this.imageUrl);
-        // this.productForm.image = await this._imageService.imageToBase64Array(this.imageUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -159,14 +159,11 @@ export class OwnerProductsComponent implements OnInit {
         name: product.name,
         categoryId: product.categoryId,
         discount: product.discount,
-        // discountPrice: product.discountPrice,
         price: product.price,
         description: product.description,
         image: product.image
       }
     )
-    // console.log(product.categoryId)
-    // console.log(this.productForm.get('categoryId').value)
 
   }
 
@@ -201,8 +198,5 @@ export class OwnerProductsComponent implements OnInit {
   get categoryId() {
     return this.productForm.get('categoryId');
   }
-  // get discountPrice() {
-  //   return this.productForm.get('discountPrice');
-  // }
 
 }
