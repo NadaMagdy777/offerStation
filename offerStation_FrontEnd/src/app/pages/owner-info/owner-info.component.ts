@@ -30,7 +30,9 @@ export class OwnerInfoComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]]
   });
 
-  constructor(private fb: FormBuilder, private _ownerrServ: OwnerprofileService, private _imageService: ImageService) { }
+  constructor(private fb: FormBuilder,
+    private _ownerrServ: OwnerprofileService,
+    private _imageService: ImageService) { }
 
   ngOnInit(): void {
     this._ownerrServ.GetOwnerInfo(1).subscribe({

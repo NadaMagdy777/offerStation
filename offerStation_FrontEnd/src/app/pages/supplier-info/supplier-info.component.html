@@ -3,8 +3,16 @@
   <div class="mb-3 mt-5 border-style">
     <div class="p-3 row">
       <form [formGroup]="SupplierInfoForm" (ngSubmit)="SubmitData()">
-        {{SupplierInfoForm.value|json}}
+        <!-- {{SupplierInfoForm.value|json}} -->
         <div class="container">
+          
+          <div class="row">
+            <div class="col-6">
+              <img [src]="imageUrl" class="rounded-circle" width="100" height="100">
+              <input type="file" class="form-control" accept="image/*" (change)="ProcessFile($event)">
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-6">
               <label>Name</label>

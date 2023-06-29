@@ -37,8 +37,8 @@ export class OwnerProductsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _ownerService: OwnerService
-    , private _imageService: ImageService) {
+    private _ownerService: OwnerService,
+    private _imageService: ImageService) {
 
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],

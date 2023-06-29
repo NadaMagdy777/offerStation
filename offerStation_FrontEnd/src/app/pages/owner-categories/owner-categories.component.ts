@@ -27,8 +27,8 @@ export class OwnerCategoriesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _ownerService: OwnerService
-    , private _imageService: ImageService) {
+    private _ownerService: OwnerService,
+    private _imageService: ImageService) {
 
     this.CategoryForm = this.fb.group({
       name: ['', [Validators.required]],

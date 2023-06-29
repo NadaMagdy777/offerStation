@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 import { SupplierCategory } from 'src/app/sharedClassesAndTypes/SupplierCategory';
 
@@ -14,6 +15,7 @@ export class SupplierCategoriesComponent implements OnInit {
   errorMessage: any;
   display = '';
   display1 = '';
+  imageUrl: string = '';
 
   supplierCategory: SupplierCategory = {
     id: 0,
@@ -25,10 +27,11 @@ export class SupplierCategoriesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _supplierService: SupplierService) {
+    private _supplierService: SupplierService,
+    private _imageService: ImageService) {
 
     this.CategoryForm = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       image: [''],
     });
     this.CategoryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -38,9 +41,14 @@ export class SupplierCategoriesComponent implements OnInit {
       this.supplierCategory.image = data;
     });
   }
+
   ngOnInit(): void {
 
     this.LoadData();
+  }
+
+  OnImageLoad(image: any) {
+    this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
   LoadData() {
@@ -87,6 +95,18 @@ export class SupplierCategoriesComponent implements OnInit {
       },
       error: (error: any) => this.errorMessage = error,
     });
+  }
+
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.supplierCategory.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   openEditCategoryModal(categoryId: number) {

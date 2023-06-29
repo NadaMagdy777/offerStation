@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 import { ProductInfo } from 'src/app/sharedClassesAndTypes/ProductInfo';
 import { SupplierCategory } from 'src/app/sharedClassesAndTypes/SupplierCategory';
@@ -15,6 +16,7 @@ export class SupplierProductsComponent implements OnInit {
   errorMessage: any;
   ProductList: any
   index!: any;
+  imageUrl: string = '';
 
   display = '';
   display1 = '';
@@ -34,18 +36,19 @@ export class SupplierProductsComponent implements OnInit {
   category!: SupplierCategory
 
   productForm: any = this.fb.group({
-    name: [''],
-    description: [''],
-    price: [''],
-    discount: [''],
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    price: ['', [Validators.required]],
+    discount: ['', [Validators.required]],
     discountPrice: [''],
     image: [''],
-    categoryId: [''],
+    categoryId: ['', [Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
-    private _supplierService: SupplierService) { }
+    private _supplierService: SupplierService,
+    private _imageService: ImageService) { }
 
   ngOnInit(): void {
 
@@ -72,6 +75,10 @@ export class SupplierProductsComponent implements OnInit {
       },
       error: error => this.errorMessage = error
     });
+  }
+
+  OnImageLoad(image: any) {
+    this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
   SubmitData() {  //Error when choosing image from the system
@@ -106,6 +113,18 @@ export class SupplierProductsComponent implements OnInit {
       },
       error: (error: any) => this.errorMessage = error,
     });
+  }
+
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.supplierProduct.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   openEditProductModal(product: any, i: any) {

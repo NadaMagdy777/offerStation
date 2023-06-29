@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SupplierInfo } from 'src/app/sharedClassesAndTypes/SupplierInfo';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SupplierprofileService } from 'src/app/services/SupplierProfile/supplierprofile.service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-supplier-info',
@@ -13,6 +14,7 @@ export class SupplierInfoComponent implements OnInit {
   SupplierInfo: any;
   errorMessage: any;
   isUpdated: boolean = false;
+  imageUrl: string = '';
 
   supplier: SupplierInfo = {
     name: '',
@@ -22,13 +24,15 @@ export class SupplierInfoComponent implements OnInit {
   }
 
   SupplierInfoForm: any = this.fb.group({
-    image: [''],
+    image: [[]],
     name: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]]
   });
 
-  constructor(private fb: FormBuilder, private _supplierServ: SupplierprofileService) { }
+  constructor(private fb: FormBuilder,
+    private _supplierServ: SupplierprofileService,
+    private _imageService: ImageService) { }
 
   ngOnInit(): void {
     this._supplierServ.GetSupplierById(1).subscribe({
@@ -36,8 +40,9 @@ export class SupplierInfoComponent implements OnInit {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.supplier = dataJson.data;
+        this.imageUrl = this._imageService.base64ArrayToImage(this.supplier.image);
         this.SupplierInfoForm.patchValue({
-          image: this.supplier.image,
+          image: this.imageUrl,
           name: this.supplier.name,
           email: this.supplier.email,
           phoneNumber: this.supplier.phoneNumber
@@ -63,6 +68,17 @@ export class SupplierInfoComponent implements OnInit {
     this.isUpdated = !this.isUpdated;
   }
 
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.supplier.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   //Supplier Info Form
 
   get image() {
