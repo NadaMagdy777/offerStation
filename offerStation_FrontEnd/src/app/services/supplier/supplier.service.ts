@@ -25,9 +25,8 @@ export class SupplierService {
       }));
   }
 
-  GetAllProductsByMenuCategoryID(pageNumber:number,Pagesize:number,id:number):Observable<ProductsByMenuCategory>
-  {
-    return this._httpClient.get<ProductsByMenuCategory>(this.url+"/AllProductsByMenuCategoryIDWithPagination/id?pageNumber="+pageNumber+"&pageSize="+Pagesize+"&id="+id)
+  GetAllProductsByMenuCategoryID(pageNumber: number, Pagesize: number, id: number): Observable<ProductsByMenuCategory> {
+    return this._httpClient.get<ProductsByMenuCategory>(this.url + "/AllProductsByMenuCategoryIDWithPagination/id?pageNumber=" + pageNumber + "&pageSize=" + Pagesize + "&id=" + id)
   }
   allProducts(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/allProducts/id?supplierId=" + id)
@@ -51,7 +50,7 @@ export class SupplierService {
   GetSupplierInfo(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/GetSupplierInfo?id=" + id);
   }
-  
+
 
   DeleteProduct(id: number): Observable<ApiResponce> {
     return this._httpClient.delete<ApiResponce>(`${this.url}/Product/id?id=${id}`).
@@ -69,17 +68,14 @@ export class SupplierService {
 
   //Supplier Category Crud Operations
 
-  //https://localhost:7017/api/Supplier/GetMenuCategoiesBySupplierId?supplierid=1
 
-  GetMenuCategoiesBySupplierId(id: number): Observable<ApiResponce> {
   GetMenuCategorybySupplierId(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this.url}/GetMenuCategoiesBySupplierId?supplierid=${id}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
- 
-  //https://localhost:7017/api/SupplierMenuCategory/id?id=1
+
 
   GetCategoryDetails(id: number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(`${this._supplierUrl}SupplierMenuCategory/id?id=${id}`).
@@ -108,12 +104,11 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
-  GetAllOwnerReviewsbysupplierID(id:any):Observable<any> 
-  {
-    return this._httpClient.get<any>(this.url+"/GetAllOwnerReviewsbysupplierID?supplierId="+id).
-    pipe(catchError((err: any) => {
-      return throwError(() => err.message || "server error")
-    }));
+  GetAllOwnerReviewsbysupplierID(id: any): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOwnerReviewsbysupplierID?supplierId=" + id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
   }
 
 }

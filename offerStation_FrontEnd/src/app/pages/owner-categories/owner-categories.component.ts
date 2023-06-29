@@ -51,10 +51,10 @@ export class OwnerCategoriesComponent implements OnInit {
   LoadData() {
     this._ownerService.getMenuCategorybyOwnerId(1).subscribe({
       next: data => {
-        // console.log(data);
+
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
-        // console.log(this.categories)
+
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -114,10 +114,8 @@ export class OwnerCategoriesComponent implements OnInit {
     this.display1 = 'block';
     this._ownerService.GetCategoryDetails(categoryId).subscribe({
       next: data => {
-        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ownerCategory = dataJson.data;
-        // console.log(this.ownerCategory)
       },
       error: (error: any) => this.errorMessage = error,
     });
