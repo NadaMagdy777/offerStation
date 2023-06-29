@@ -82,12 +82,12 @@ export class OwnerService {
   }
 
   getMenuCategorybyOwnerId(id: number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url+"/AllMenuCategoriesByOwnerId/id?id="+id).
+    return this._httpClient.get<ApiResponce>(this.url + "/AllMenuCategoriesByOwnerId/id?id=" + id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
- 
+
   getProductsByCategoryId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
   }
@@ -114,4 +114,41 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId/id?id=" + id);
   }
 
+  //Owner Offer Crud Operations
+
+  GetOffersByOwnerId(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this._ownerUrl}OwnerOffer/all/id?ownerId=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  GetOfferDetails(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this._ownerUrl}OwnerOffer/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  //https://localhost:7017/api/OwnerOffer/Offer/id?ownerId=1
+  AddOffer(OwnerId: number, newOffer: any): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?ownerId=${OwnerId}`, newOffer).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  DeleteOffer(id: number): Observable<ApiResponce> {
+    return this._httpClient.delete<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  UpdateOffer(id: number, updatedCategory: any): Observable<ApiResponce> {
+    return this._httpClient.put<ApiResponce>(`${this._ownerUrl}OwnerOffer/Offer/id?id=${id}`, updatedCategory).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 }

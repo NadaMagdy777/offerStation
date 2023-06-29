@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { ProductDetails, ProductInfo } from 'src/app/sharedClassesAndTypes/ProductInfo';
 import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
@@ -14,6 +15,7 @@ export class OwnerProductsComponent implements OnInit {
   errorMessage: any;
   ProductList: any
   index!: any;
+  imageUrl: string = '';
 
   display = '';
   display1 = '';
@@ -33,18 +35,18 @@ export class OwnerProductsComponent implements OnInit {
   category!: ownerCategory
 
   productForm: any = this.fb.group({
-    name: [''],
-    description: [''],
-    price: [''],
-    discount: [''],
-    discountPrice: [''],
-    image: [''],
-    categoryId: [''],
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    price: ['', [Validators.required]],
+    discount: ['', [Validators.required]],
+    image: [[]],
+    categoryId: ['', [Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
-    private _ownerService: OwnerService) { }
+    private _ownerService: OwnerService
+    , private _imageService: ImageService) { }
 
   ngOnInit(): void {
 
@@ -74,16 +76,23 @@ export class OwnerProductsComponent implements OnInit {
     });
   }
 
-  SubmitData() {  //Error when choosing image from the system
+  OnImageLoad(image: any) {
+    this.imageUrl = this._imageService.base64ArrayToImage(image);
+  }
 
+  SubmitData() { 
+
+    console.log(this.productForm.value);
     this._ownerService.AddProduct(1, this.productForm.value).subscribe({
       next: data => {
-        // console.log(data);
+        console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
+        console.log(this.productForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });
+
   }
 
   DeleteProduct(productId: number, index: number) {
@@ -105,6 +114,18 @@ export class OwnerProductsComponent implements OnInit {
       },
       error: (error: any) => this.errorMessage = error,
     });
+  }
+
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.ownerProduct.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   openEditProductModal(product: any, i: any) {

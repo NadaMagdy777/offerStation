@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddressServiceService } from 'src/app/services/address/address';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
@@ -38,8 +38,8 @@ export class OwnerAddressesComponent implements OnInit {
     private _userDataService: AuthenticationService
   ) {
     this.addressForm = this.fb.group({
-      details: [''],
-      cityId: [''],
+      details: ['', [Validators.required]],
+      cityId: ['', [Validators.required]],
     })
 
     this.addressForm.get('details')?.valueChanges.subscribe((data) => {

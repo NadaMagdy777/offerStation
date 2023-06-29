@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
@@ -31,7 +31,7 @@ export class OwnerCategoriesComponent implements OnInit {
     , private _imageService: ImageService) {
 
     this.CategoryForm = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       image: [[]],
     });
     this.CategoryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -66,7 +66,7 @@ export class OwnerCategoriesComponent implements OnInit {
 
   SubmitData() {  //Error when choosing image from the system
 
-    this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
+    this._ownerService.AddCategory(1, this.ownerCategory).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
@@ -81,7 +81,7 @@ export class OwnerCategoriesComponent implements OnInit {
     this._ownerService.DeleteCategory(categoryId).subscribe({
       next: data => {
         this.categories.splice(index, 1);
-        console.log(this.categories)
+        // console.log(this.categories)
         this.LoadData();
       },
       error: (error: any) => this.errorMessage = error,
@@ -110,6 +110,7 @@ export class OwnerCategoriesComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+
   openEditCategoryModal(categoryId: number) {
     this.display1 = 'block';
     this._ownerService.GetCategoryDetails(categoryId).subscribe({

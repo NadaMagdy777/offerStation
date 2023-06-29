@@ -12,7 +12,6 @@
     <tbody>
       <tr *ngFor="let category of categories; index as i">
         <td><img [src]="imageUrl" width="100" height="100" (change)="OnImageLoad(category.image)"></td>
-        <!-- {{category.image}} -->
         <td>{{category.name}}</td>
         <td><button class="btn btn-danger" (click)="DeleteCategory(category.id,i)">Delete</button></td>
         <td><button class="btn btn-success" (click)="openEditCategoryModal(category.id)">Update</button></td>
@@ -46,7 +45,8 @@
 
                 <div class="mb-1">
                   <label for="image" class="col-form-label">Category Image</label>
-                  <input type="file" class="form-control" id="image" formControlName="image">
+                  <!-- <input type="file" class="form-control" id="image" formControlName="image"> -->
+                  <input type="file" class="form-control" accept="image/*" (change)="ProcessFile($event)">
                 </div>
 
               </div>
