@@ -44,7 +44,7 @@ export class SupplierCategoriesComponent implements OnInit {
   }
 
   LoadData() {
-    this._supplierService.GetMenuCategorybySupplierId(1).subscribe({
+    this._supplierService.GetMenuCategoiesBySupplierId(1).subscribe({
       next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;

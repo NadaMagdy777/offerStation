@@ -82,12 +82,12 @@ export class OwnerService {
   }
 
   getMenuCategorybyOwnerId(id: number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/AllMenuCategoriesByOwnerId/id?id=${id}`).
+    return this._httpClient.get<ApiResponce>(this.url+"/AllMenuCategoriesByOwnerId/id?id="+id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
-
+ 
   getProductsByCategoryId(id: number): Observable<any> {
     return this._httpClient.get<any>(this.url + "/AllProductsByMenuCategoryID/id?id=" + id);
   }

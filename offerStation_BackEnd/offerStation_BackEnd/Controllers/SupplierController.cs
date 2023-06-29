@@ -210,10 +210,22 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpGet("allProducts/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllProductsBySupplierId(int supplierId)
+        [HttpGet("AllProductsByMenuCategoryIDWithPaginatoion/id")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID(int pageNumber, int pageSize, int id)
         {
-            List<ProductInfoDto> products = await _supplierService.GetAllProducts(supplierId);
+            List<ProductInfoDto> product = await _supplierService.GetProductsByMenuCategoryIDWithPagination(pageNumber, pageSize,id);
+
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, product));
+        }
+
+        [HttpGet("allProductsBySupplierID/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsBySupplierId(int pageNumber, int pageSize ,int supplierId)
+        {
+            List<ProductInfoDto> products = await _supplierService.GetAllProductsBySupplierIDWithPagination(pageNumber, pageSize,supplierId);
             if(products is not null)
             {
                 return Ok(new ApiResponse(200, true, products));
@@ -258,7 +270,37 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-      
+        [HttpGet("GetAllOffersBySupplierIdWithPagination/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllOffersBySupplierIdWithPagination(int PageNumber, int pageSize, int id)
+        {
+            IEnumerable<OfferDto> offer = await _supplierService.GetAllOffersBySupplierIdWithPagination(PageNumber, pageSize,id);
+            if (offer is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, offer));
+        }
+        [HttpGet("GetOfferDetailsByOfferId/id")]
+        public async Task<ActionResult<ApiResponse>> GetOfferDetailsByOfferId(int id)
+        {
+            IEnumerable<SupplierOfferProductsDto> offer = await _supplierService.GetOfferDetailsByOfferId(id);
+            if (offer is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, offer));
+        }
+        [HttpGet("allProducts/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllProductsBySupplierId(int supplierId)
+        {
+            List<ProductInfoDto> products = await _supplierService.GetAllProducts(supplierId);
+            if (products is not null)
+            {
+                return Ok(new ApiResponse(200, true, products));
+            }
+            return BadRequest(new ApiResponse(404, false, "null object"));
+        }
+
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
         {
