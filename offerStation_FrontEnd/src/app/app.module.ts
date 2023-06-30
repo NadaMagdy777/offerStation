@@ -49,10 +49,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SupplierLandingNewestComponent,
     SupplierLandingBestSellerComponent,
     SupplierLandingTopRateComponent,
-
     SupplierOffersComponent,
     OwnerOffersComponent,
-      SupplierHeaderComponent,
+    SupplierHeaderComponent,
   ],
   imports: [
     BrowserModule,

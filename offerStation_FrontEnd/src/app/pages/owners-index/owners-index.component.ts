@@ -9,23 +9,16 @@ import { Base } from 'src/app/sharedClassesAndTypes/Base';
   styleUrls: ['./owners-index.component.css']
 
 })
-export class OwnersIndexComponent {
-  catName: any;
+export class OwnersIndexComponent implements OnInit {
+  catName: any="Category";
   private apiURL = Base.apiUrl + 'Owner';
   constructor(private activatedroute: ActivatedRoute, private http: HttpClient) {
   }
-  OnInit() {
+  
+  ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
       this.catName = paramMap.get('category');
-      //console.log(typeof(this.catName));
-      this.http.get(this.apiURL + this.catName).subscribe({
-        next: data => {
-          //console.log(data);
-          // this.ResturantDetails=data
-          console.log(data)
-        },
-        error: error => console.log(error)
-      });
+      console.log("hello"+this.catName);
 
     })
 

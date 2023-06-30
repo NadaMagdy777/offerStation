@@ -1,26 +1,41 @@
-    <section  style="width: 300px; ">
+    <section  style="width: 300px; " (mouseover)="hideElement = false"
+    (mouseleave)="hideElement = true">
       <div class="card testimonial-card mt-2 mb-3">
+        <span class="discount_3" >
+
+          <span class="disc-val text-center" >{{((prefPrice-afterPrice)/prefPrice)*100}}%</span>
+      </span>
         <div class="card-up aqua-gradient h-25">
             <img src="https://img.freepik.com/premium-photo/chicken-pork-beef-meat-skewers-with-vegetables-spicy-potatoes_52137-30827.jpg" class="img-fluid">
         </div>
-        <div class="avatar mx-auto white">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
+        <a class="link-warning avatar mx-auto white" href="">
+          <div class="">
+          
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
             alt="woman avatar">
+          
+        
         </div>
-
-        <div class="card-body " style="height: 200px;">
+        </a>
+      
+        
+        <div class="card-body "   >
           <div class="d-flex justify-content-between">
-            <p class="small text-danger"><s>$1099</s></p>
-            <h5 class="text-dark mb-0">$999</h5>
+            <p class="small text-danger"><s>{{prefPrice}}</s></p>
+            <h5 class="text-dark mb-0">{{afterPrice}}</h5>
           </div>
 
-          <h4 class="card-title font-weight-bold">Chicken Alferado</h4>
+          <h4 class="card-title font-weight-bold">{{name}}</h4>
 
            
 
-          <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,
-            adipisci</p>
-        </div>
+          <p><i class="fas fa-quote-left"></i> {{description}}</p>
+            <div class="">
+            <button [hidden]="hideElement" class="btn btn-outline-warning w-100">Add To Cart</button>
+            </div>
+                </div>
       </div>
     </section>
+    
+
 
