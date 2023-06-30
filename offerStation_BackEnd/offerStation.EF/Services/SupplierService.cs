@@ -17,9 +17,10 @@ namespace offerStation.EF.Services
         private IMapper _mapper;
         private IUnitOfWork _unitOfWork;
         private readonly IHelperService _helperService;
-        public SupplierService(IMapper mapper, IUnitOfWork unitOfWork, IHelperService helperService) {
-           _mapper = mapper;
-           _unitOfWork = unitOfWork;
+        public SupplierService(IMapper mapper, IUnitOfWork unitOfWork, IHelperService helperService)
+        {
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
             _helperService = helperService;
         }
         public async Task<PublicInfoDto?> GetSupplier(int id)
@@ -320,7 +321,7 @@ namespace offerStation.EF.Services
 
 
             IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts
-                .FindAllAsync(d => d.SupplierId== id && !d.IsDeleted);
+                .FindAllAsync(d => d.SupplierId == id && !d.IsDeleted);
 
 
             foreach (SupplierProduct product in supplierProducts)
@@ -375,7 +376,7 @@ namespace offerStation.EF.Services
         }
         public async Task<List<SupplierCategory>> GetAllCategories()
         {
-            List<SupplierCategory> supplierCategories = (List<SupplierCategory>) _unitOfWork.SupplierCategories.GetAll();
+            List<SupplierCategory> supplierCategories = (List<SupplierCategory>)_unitOfWork.SupplierCategories.GetAll();
             List<SupplierCategory> supplierCategoriesDto = _mapper.Map<List<SupplierCategory>>(supplierCategories);
             return supplierCategoriesDto;
         }
@@ -391,7 +392,7 @@ namespace offerStation.EF.Services
                     r => r.Owner.AppUser,
                 });
 
-            if(reviewList is not null)
+            if (reviewList is not null)
             {
                 reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
             }
@@ -406,7 +407,7 @@ namespace offerStation.EF.Services
                 {
                     o => o.AppUser,
                     o=>o.Reviews
-                }) ;
+                });
             if (supplier is not null)
             {
                 int ratingSum = supplier.Reviews.Select(r => r.Rating).Sum();
@@ -451,7 +452,7 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-      
+
         public async Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId)
         {
             List<ReviewDto> reviewListDto = null;
@@ -491,7 +492,7 @@ namespace offerStation.EF.Services
             }
             return MenuCategoriesDTOs;
         }
-      
+
         public async Task<List<SupplierOffer>> filterOffersByCity(int CityID, string categoryName)
         {
 
@@ -503,14 +504,14 @@ namespace offerStation.EF.Services
             });
             if (CityID != 0)
             {
-               
+
                 offers = offers.Where(s => _helperService.checkAddress(s.Supplier.AppUser.Addresses, CityID)).ToList();
                 return offers;
             }
-              return offers;
+            return offers;
 
-            
-          
+
+
         }
 
         public async Task<List<Supplier>> filterSupplierByCity(int CityID, string categoryName)
@@ -563,7 +564,7 @@ namespace offerStation.EF.Services
         }
         public async Task<int> calucaluteOrdersNumber(int supId)
         {
-            List<OwnerOrder> SupplierOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.FindAllAsync(o=>o.SupplierId == supId);
+            List<OwnerOrder> SupplierOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.FindAllAsync(o => o.SupplierId == supId);
             return SupplierOrders.Count();
         }
         public List<Supplier> sortingSupplierData(List<Supplier> suppliers, string sortBy)
@@ -581,10 +582,10 @@ namespace offerStation.EF.Services
             return suppliers;
         }
 
- 
+
         public double GetPriceBeforeOffer(SupplierOffer supplierOffer)
         {
-            List<SupplierOfferProduct> supplierOffers = (List<SupplierOfferProduct>) _unitOfWork.SupplierOfferProducts.FindAll(o => o.OfferId == supplierOffer.Id, new List<Expression<Func<SupplierOfferProduct, object>>>()
+            List<SupplierOfferProduct> supplierOffers = (List<SupplierOfferProduct>)_unitOfWork.SupplierOfferProducts.FindAll(o => o.OfferId == supplierOffer.Id, new List<Expression<Func<SupplierOfferProduct, object>>>()
             {
                    o=>o.Offer.Supplier,
                    o=>o.Product
@@ -678,6 +679,29 @@ namespace offerStation.EF.Services
 
             return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;
 
+        }
+        public async Task<List<AddressInfoDTO>> GetAddressesBySupplierID(int id)
+        {
+            var ID = Convert.ToString(id);
+            List<AddressInfoDTO> SupplierAddressesDTOs;
+
+            SupplierAddressesDTOs = new List<AddressInfoDTO>();
+            IEnumerable<Address> result = await _unitOfWork.Addresses.FindAllAsync(d => d.UserId == ID && !d.IsDeleted, new List<Expression<Func<Address, object>>>()
+            {
+                o=>o.City
+
+
+            });
+            foreach (Address address in result)
+            {
+                AddressInfoDTO AddressDTO = new AddressInfoDTO();
+                AddressDTO.details = address.details;
+                AddressDTO.CityName = address.City.Name;
+                AddressDTO.CityId = address.CityId;
+                AddressDTO.Id = address.Id;
+                SupplierAddressesDTOs.Add(AddressDTO);
+            }
+            return SupplierAddressesDTOs;
         }
     }
 }

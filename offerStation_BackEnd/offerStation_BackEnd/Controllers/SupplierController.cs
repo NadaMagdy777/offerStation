@@ -316,6 +316,16 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, data));
 
         }
+        [HttpGet("GetAddressBySupplierId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAddressesBySupplierID(int id)
+        {
+            IEnumerable<AddressInfoDTO> addres = await _supplierService.GetAddressesBySupplierID(id);
+            if (addres is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, addres));
+        }
         [HttpGet("All/Filter/Pagination")]
         public async Task<IActionResult> getAllSupplier(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "", string name = "")
         {
