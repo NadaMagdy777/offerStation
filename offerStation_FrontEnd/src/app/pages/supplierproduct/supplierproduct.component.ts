@@ -10,6 +10,7 @@ export class SupplierproductComponent  implements OnInit{
   pageNumber:number=1
   totalItems:number=0
   pagesize:number=3
+  selectedValue=150;
   allProductsBySupplierID:any;
   MenucategoryList: any;
   ProductListByCategoryName: any

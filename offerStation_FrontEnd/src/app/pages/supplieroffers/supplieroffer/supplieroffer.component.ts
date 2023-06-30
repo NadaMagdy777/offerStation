@@ -28,6 +28,9 @@ throw new Error('Method not implemented.');
   {
 
   }
+  onCloseAddressHandled() {
+    this.display = 'none';
+  }
   ngOnInit(): void {
   
  this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({

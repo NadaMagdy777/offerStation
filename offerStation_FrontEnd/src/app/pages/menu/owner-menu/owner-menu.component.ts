@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-
+import { Options, LabelType } from "@angular-slider/ngx-slider";
 
 @Component({
   selector: 'app-owner-menu',
@@ -13,6 +13,7 @@ export class OwnerMenuComponent implements OnInit{
   pageNumber:number=1
   totalItems:number=0
   pagesize:number=3
+  selectedValue=150;
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;

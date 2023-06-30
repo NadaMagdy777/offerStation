@@ -30,7 +30,6 @@ import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.componen
 import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +66,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
+  
   ],
 
   providers: [
