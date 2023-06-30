@@ -1,7 +1,7 @@
 
 
 
-<div class="container">
+<div class="container" >
   <div class="row">
     <div class="col-lg-3">
       <div class="accordion mt-2" id="ccordionPanelsStayOpenExample" s tyle="padding-inline: inherit">
@@ -79,7 +79,7 @@
           </div>
         </div> -->
       
-      <div class="row" *ngIf="ProductListByCategoryName?.length; then successblock; else failedblock;"></div>
+      <div class="row" *ngIf="ProductListByCategoryName?.length; then successblock; else failedblock;" ></div>
       <ng-template #successblock>
         <div class="row d-flex ">
           <div class="row d-flex flex-wrap justify-content-center">
@@ -118,7 +118,7 @@
       </ng-template>
       <ng-template #failedblock>
         <div class="col-12 mt-2 text-center index">
-          <h5>
+          <h5 >
             Sorry we can't find any categories that matches your search, please chooses from categories  to get results
           </h5>
         </div>

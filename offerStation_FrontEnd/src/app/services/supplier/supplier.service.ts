@@ -116,5 +116,20 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
+  //getsupplieroffers
+  GetAllOffersBySupplierIdWithPagination(PageNumber:any,pageSize:any,id:any): Observable<any> 
+  {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersBySupplierIdWithPagination/id?PageNumber="+PageNumber+"&pageSize="+pageSize+"&id="+id).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
+  }
+  //GetAddressBySupplierId
+  GetAddressBySupplierId(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetAddressBySupplierId/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 
 }

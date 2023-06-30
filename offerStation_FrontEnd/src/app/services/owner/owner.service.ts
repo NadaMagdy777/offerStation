@@ -150,4 +150,12 @@ export class OwnerService {
         return throwError(() => err.message || "server error")
       }));
   }
+  //GetAddressByOwnerId
+  GetAddressByOwnerId(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetAddressByOwnerId/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+ 
 }
