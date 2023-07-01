@@ -10,7 +10,9 @@ export class SupplierproductComponent  implements OnInit{
   pageNumber:number=1
   totalItems:number=0
   pagesize:number=3
-  selectedValue=150;
+  selectedValue=0
+  min=0;
+  max=500;
   allProductsBySupplierID:any;
   MenucategoryList: any;
   ProductListByCategoryName: any
@@ -27,9 +29,30 @@ export class SupplierproductComponent  implements OnInit{
       },
       error: (error: any) => this.errorMessage = error
 
-    })
-  
+    });
+    this.supplier.GetMinPriceoFProductBySupplierID(1).subscribe({
+
+      next: data => {
+        console.log(data);
+        this.min = data.data;
+        console.log("min "+this.min)
+      },
+      error: error => this.errorMessage = error
+
+    });
+    this.supplier.GetMaxPriceoFProductBySupplierID(1).subscribe({
+
+      next: data => {
+        console.log(data);
+        this.max = data.data;
+        console.log("max "+this.max)
+      },
+      error: error => this.errorMessage = error
+
+    });
+
     }
+    
     getAllProductsBySupplierId()
     {
     this.supplier.allProductsBySupplierID(this.pageNumber,this.pagesize,1).subscribe({
@@ -45,6 +68,7 @@ export class SupplierproductComponent  implements OnInit{
   
  
 }
+
 getproductBycategoryId(id:number)
 {
   if (id == 0) {
@@ -63,59 +87,21 @@ getproductBycategoryId(id:number)
     })
   }
 }
-// getAllProductsByOwnerId() {
-//   this.supplier.allProducts(1002).subscribe({
-//     next: (data: { data: any; }) => {
-//       console.log(data);
-//       this.ProductListByCategoryName = data.data
-//       console.log("list" + this.ProductListByCategoryName);
 
-//     },
-//     error: error => this.errorMessage = error
-//   });
-// }
-// getproductBycategoryId(id:number)
-// {
-//   this.supplier.GetAllProductsByMenuCategoryID(this.pageNumber,this.pagesize,id).subscribe({
+getselectedprice(value:number)
+{
+console.log("seleceted "+ value);
+this.supplier.GetProductsBySupplierIDAndPrice(1,value).subscribe({
+next: data => {
+  console.log(data);
+  this.ProductListByCategoryName = data.data
+  console.log("listprice" + this.ProductListByCategoryName);
 
-//     next: data => {
-//       console.log(data);
-//       this.MenucategoryList = data
-//     },
-//     error: error => this.errorMessage = error
+},
+error: error => this.errorMessage = error
 
-//   })
-// }
-// getproductBycategoryId(id: number) {
-//   if (id == 0) {
-//     this.getAllProductsByOwnerId();
-//   } 
-//   else {
-//     this.supplier.GetMenuCategoiesBySupplierId(id).subscribe({
-//       next: (data: { data: any; }) => {
-//         console.log(data);
-//         this.ProductListByCategoryName = data.data
-//         console.log("list" + this.ProductListByCategoryName);
-//         console.log(id);
-//       },
-//       error: (error: any) => this.errorMessage = error
-
-//     })
-//   }
-
-// }
-// getAllProductsBySupplierId() ////مفيش ata راجعه
-// {
-//   this.supplier.allProducts(1002).subscribe({
-
-//     next: (data: { data: any; }) => {
-//       console.log(data);
-//       this.MenucategoryList = data.data
-//     },
-//     error: (error: any) => this.errorMessage = error
-
-//   });
-// }
+})
+}
 PageNumberChanged(value:any){
 this.pageNumber=value
     //this.supplier.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1)

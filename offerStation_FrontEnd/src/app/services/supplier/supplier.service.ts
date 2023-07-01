@@ -138,5 +138,25 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
-
+  //GetMinProductPriceBySupplierId
+  GetMinPriceoFProductBySupplierID(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetMinPriceoFProductBySupplierID/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+   //GetMaxProductPriceBySupplierId
+   GetMaxPriceoFProductBySupplierID(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetMaxPriceoFProductBySupplierID/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+  //GetProductsBySupplierIDAndPrice
+  GetProductsBySupplierIDAndPrice(id:number,selectedprice:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetProductsBySupplierIDAndPrice/supplierid/selectedprice?supplierid="+id+"&selectedprice="+selectedprice).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 }
