@@ -40,6 +40,10 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<ResultrDto<SupplierDto>> getSupplierByCategory(int PageNumber, int pageSize, int cityId, string name, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
+        Task<List<AddressInfoDTO>> GetAddressesBySupplierID(int id);
+        Task<double> GetMinPriceoFProductBySupplierID(int id);
+        Task<double> GetMaxPriceoFProductBySupplierID(int id);
+        Task<List<ProductInfoDto>> GetProductsBySupplierIDAndPrice(int id, double selectedprice);
     }
 
     public interface IsupplierAnalysisService
@@ -54,6 +58,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int supplierId);
         Task<List<AnalysisResult>> getOrdersOffersProductCount(int supplierId);
         Task<List<customerInfoAnalysis>> getTopCustomerInfo(int supplierId);
+       
     }
     public interface ISupplierOfferService
     {

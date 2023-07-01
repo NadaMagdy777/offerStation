@@ -1,40 +1,19 @@
-<div class="container h-100">
-    <div class="row">
-      <div class="col-1">
-      </div>
-  
-  
-      <div>
-        <div _ngcontent-fbf-c16="" class="row d-flex justify-content-center">
-          <div _ngcontent-fbf-c16="" data-wow-delay="0.3s" class="col-lg-3 col-sm-6 wow card">
-            <div _ngcontent-fbf-c16="" class="service-item rounded pt-3">
-              <div _ngcontent-fbf-c16="" class="p-4">
-                <i _ngcontent-fbf-c16="" class="fa fa-3x fa fa-phone text-warning mb-4"></i>
-                <h5 _ngcontent-fbf-c16="" style="font-size: x-large;">Contact Us</h5>
-                <p _ngcontent-fbf-c16="">Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-              </div>
-            </div>
-          </div>
-          <div _ngcontent-fbf-c16="" data-wow-delay="0.5s" class="col-lg-3 col-sm-6 wow fadeInUp  card">
-            <div _ngcontent-fbf-c16="" class="service-item rounded pt-3">
-              <div _ngcontent-fbf-c16="" class="p-4">
-                <i _ngcontent-fbf-c16="" class="fa fa-3x fa fa-envelope  text-warning mb-4"></i>
-                <h5 _ngcontent-fbf-c16=""  style="font-size: x-large;">Mail Us</h5>
-                <p _ngcontent-fbf-c16="">Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-              </div>
-            </div>
-          </div> 
-          <div _ngcontent-fbf-c16="" data-wow-delay="0.7s" class="col-lg-3 col-sm-6 wow fadeInUp card">
-            <div _ngcontent-fbf-c16="" class="service-item rounded pt-3 ms-5">
-              <div _ngcontent-fbf-c16="" class="p-4">
-                <i _ngcontent-fbf-c16="" class="fa fa-3x fas fa-map-marker-alt text-warning mb-4"></i>
-                <h5 _ngcontent-fbf-c16=""  style="font-size: x-large;">Location</h5>
-                <p _ngcontent-fbf-c16="">Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-              </div>
-            </div>
-          </div>
-        </div>
+
+  <div class="container"  style="height: 650px;">
+  <table class="table table-hover mt-5">
+    <thead>
+      <tr>
+        <th scope="col" style="color:#FEA116">City</th>
+        <th scope="col"  style="color:#FEA116">More Details</th>
+   
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of AddressList; index as i">
+        <td>{{item.cityName}}</td>
+        <td>{{item.details}}</td>
         
-        </div>
-    </div>
-  </div>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -150,4 +150,32 @@ export class OwnerService {
         return throwError(() => err.message || "server error")
       }));
   }
+  //GetAddressByOwnerId
+  GetAddressByOwnerId(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetAddressByOwnerId/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+  //GetMinProductPriceByOwnerId
+  GetMinPriceoFProductByOwmerID(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetMinPriceoFProductByOwmerID/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+   //GetMaxProductPriceByOwnerId
+   GetMaxPriceoFProductByOwmerID(id:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetMaxPriceoFProductByOwmerID/id?id="+id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+  //GetProductsByOwmerIDAndPrice
+  GetProductsByOwmerIDAndPrice(id:number,selectedprice:number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetProductsByOwmerIDAndPrice/ownerid/selectedprice?ownerid="+id+"&selectedprice="+selectedprice).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 }

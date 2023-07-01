@@ -20,12 +20,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierOffersComponent } from 'src/app/pages/supplier-offers/supplier-offers.component';
 import { SupplierproductComponent } from 'src/app/pages/supplierproduct/supplierproduct.component';
 import { SuppliermainpageComponent } from 'src/app/pages/supplier-menu/suppliermainpage/suppliermainpage/suppliermainpage.component';
+import { SupplieraddressesComponent } from 'src/app/pages/supplieraddresses/supplieraddresses/supplieraddresses.component';
 
 
 const routes: Routes = [
   { path: 'mainpage', component: SuppliermainpageComponent },
   {
- 
+
     path: 'profile', component: SupplierProfileComponent, children: [
       { path: 'adresses', component: SupplierAddressesComponent },
       { path: 'Info', component: SupplierInfoComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
     SuppliermainpageComponent,
     SupplierProductsComponent,
     SupplierCategoriesComponent,
-    SupplierAddressesComponent
+    SupplierAddressesComponent,
+    SupplieraddressesComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -59,7 +61,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
-    MatTabsModule,
+   
     FormsModule,
     ReactiveFormsModule
 

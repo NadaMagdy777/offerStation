@@ -20,6 +20,9 @@ import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerOffersComponent } from 'src/app/pages/owner-offers/owner-offers.component';
 
+
+
+
 const routes: Routes = [
   { path: 'mainpage', component: OwnerProductComponent },
   {
@@ -56,6 +59,7 @@ const routes: Routes = [
     MatSliderModule,
     MatTabsModule,
     FormsModule,
+    
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     MatSidenavModule,

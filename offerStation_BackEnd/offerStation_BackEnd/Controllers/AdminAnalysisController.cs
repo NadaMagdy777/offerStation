@@ -31,7 +31,7 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, await _adminAnalysisService.getTotalOwners()));
             }
 
-            [HttpGet("Total/Suppplier")]
+            [HttpGet("Total/Supplier")]
             public async Task<ActionResult<ApiResponse>> getTotalSipplier()
             {
 

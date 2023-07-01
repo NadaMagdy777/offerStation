@@ -9,9 +9,6 @@ body {
   border-top-right-radius: .25rem;
 }
 
-.aqua-gradient {
- 
-}
 
 
 
@@ -27,6 +24,30 @@ body {
   overflow: hidden;
   border: 5px solid rgb(200, 193, 202);
   border-radius: 50%;
+}
+.discount_3 {
+  position: absolute;
+  right: 10px;
+  top: -6px;
+  background-image: url(../../../assets/imges/discount_orange.svg);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 47px;
+
+  color: #FFF;
+}
+.category-container
+{
+  background-color: white;
+  border: 20px gray;
+  border: 1px solid rgb(199, 193, 193);
+  border-radius:20px ;
+ /* height: 90%; */
+
+}
+.cartBtnStyle{
+  background-color: #ffc107;
+  color: white;
 }
 
 /* new*/

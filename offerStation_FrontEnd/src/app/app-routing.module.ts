@@ -7,6 +7,9 @@ import { OwnerregestrationComponent } from './components/regestration/ownerreges
 import { SupplierregestrationComponent } from './components/regestration/supplierregestration/supplierregestration.component';
 import { OwnerDashboardModule } from './modules/owner-dashboard/owner-dashboard.module';
 import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
+import { CartUserComponent } from './pages/cart-user/cart-user.component';
+import { CartOwnerComponent } from './pages/cart-owner/cart-owner.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 const routes: Routes = [
 
@@ -15,6 +18,10 @@ const routes: Routes = [
   { path: "owner", loadChildren: () => import('./modules/owner/owner.module').then(mod => mod.OwnerModule) },
   { path: "admin", loadChildren: () => import('./modules/admin/admin.module').then(mod => mod.AdminModule) },
   { path: '', component: HeaderComponent },
+  { path: 'cart-user', component: CartUserComponent },
+  { path: 'cart-owner', component: CartOwnerComponent },
+  { path: 'checkout', component: CheckoutComponent },
+
   { path: 'supplierHome', component: SupplierHeaderComponent },
 
   { path: 'login', component: LoginComponent },
@@ -23,8 +30,11 @@ const routes: Routes = [
   { path: 'ownerRegister', component: OwnerregestrationComponent },
   { path: 'supplierRegister', component: SupplierregestrationComponent },
   { path: 'owners', loadChildren: () => import('./modules/owners/owners.module').then(mod => mod.OwnersModule) },
+  { path: 'suppliers', loadChildren: () => import('./modules/suppliers-offers/suppliers-offers.module').then(mod => mod.SuppliersOffersModule) },
+
   { path: 'ownerDashboard', loadChildren: () => import('./modules/owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
   { path: 'supplierDashboard', loadChildren: () => import('./modules/supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+  { path: 'adminDashboard', loadChildren: () => import('./modules/admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
 
 
 

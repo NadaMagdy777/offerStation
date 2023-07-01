@@ -316,6 +316,47 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, data));
 
         }
+        [HttpGet("GetAddressBySupplierId/id")]
+        public async Task<ActionResult<ApiResponse>> GetAddressesBySupplierID(int id)
+        {
+            IEnumerable<AddressInfoDTO> addres = await _supplierService.GetAddressesBySupplierID(id);
+            if (addres is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, addres));
+        }
+        [HttpGet("GetMinPriceoFProductBySupplierID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMinPriceoFProductBySupplierID(int id)
+        {
+            double price = await _supplierService.GetMinPriceoFProductBySupplierID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetMaxPriceoFProductBySupplierID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMaxPriceoFProductBySupplierID(int id)
+        {
+            double price = await _supplierService.GetMaxPriceoFProductBySupplierID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetProductsBySupplierIDAndPrice/supplierid/selectedprice")]
+        public async Task<ActionResult<ApiResponse>> GetProductsBySupplierIDAndPrice(int supplierid, double selectedprice)
+        {
+            List<ProductInfoDto> products = await _supplierService.GetProductsBySupplierIDAndPrice(supplierid, selectedprice);
+
+            if (products is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, products));
+        }
         [HttpGet("All/Filter/Pagination")]
         public async Task<IActionResult> getAllSupplier(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "", string name = "")
         {
