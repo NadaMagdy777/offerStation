@@ -42,6 +42,9 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
         Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id);
         Task<List<AddressInfoDTO>> GetAddressesByOwnerID(int id);
+        Task<double> GetMinPriceoFProductByOwmerID(int id);
+        Task<double> GetMaxPriceoFProductByOwmerID(int id);
+        Task<List<ProductInfoDto>> GetProductsByOwnerIDAndPrice(int id, double selectedprice);
     }
     public interface IownerAnalysisService{
         Task<List<AnalysisResult>> getTop5OwnerProduct(int OwnerId);

@@ -311,7 +311,37 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, addres));
         }
+        [HttpGet("GetMinPriceoFProductByOwmerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMinPriceoFProductByOwmerID(int id)
+        {
+            double price = await _ownerService.GetMinPriceoFProductByOwmerID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetMaxPriceoFProductByOwmerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMaxPriceoFProductByOwmerID(int id)
+        {
+            double price = await _ownerService.GetMaxPriceoFProductByOwmerID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetProductsByOwmerIDAndPrice/ownerid/selectedprice")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByOwnerIDAndPrice(int ownerid, double selectedprice)
+        {
+            List<ProductInfoDto> products = await _ownerService.GetProductsByOwnerIDAndPrice(ownerid, selectedprice);
 
+            if (products is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, products));
+        }
         [HttpGet("GetOfferDetailsByOfferId/id")]
         public async Task<ActionResult<ApiResponse>> GetOfferDetailsByOfferId(int id)
         {

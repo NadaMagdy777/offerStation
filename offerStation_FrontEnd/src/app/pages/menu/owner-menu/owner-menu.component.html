@@ -39,16 +39,14 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body" style="padding-top: 34px;">
               
-              <mat-slider min="100" max="500" step="50" value="150" discrete="true">
+              <mat-slider  min={{min}}  max={{max}}  value=min discrete="true">
                 <input matSliderThumb [(ngModel)]="selectedValue">
             
               </mat-slider>
               <label class="d-flex justify-content-center"> Your Selected Price is {{selectedValue}} EGP</label>
               <div class="d-flex justify-content-center">
-               
-              
 
-                <button type="button" class=" btn btn-primary">Apply</button>
+                <button type="button" class=" btn btn-primary" (click)="getselectedprice(selectedValue)">Apply</button>
               </div>
             </div>
           </div>
