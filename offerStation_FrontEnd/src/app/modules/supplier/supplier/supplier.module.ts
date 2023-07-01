@@ -26,7 +26,7 @@ import { SupplieraddressesComponent } from 'src/app/pages/supplieraddresses/supp
 const routes: Routes = [
   { path: 'mainpage', component: SuppliermainpageComponent },
   {
- 
+
     path: 'profile', component: SupplierProfileComponent, children: [
       { path: 'adresses', component: SupplierAddressesComponent },
       { path: 'Info', component: SupplierInfoComponent },
@@ -61,7 +61,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
-    MatTabsModule,
+   
     FormsModule,
     ReactiveFormsModule
 

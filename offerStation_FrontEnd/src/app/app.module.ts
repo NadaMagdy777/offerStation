@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingNewestComponent } from './pages/landing-newest/landing-newest.component';
 import { LandingBestSellerComponent } from './pages/landing-best-seller/landing-best-seller.component';
@@ -29,6 +28,11 @@ import { SupplierOffersComponent } from './pages/supplier-offers/supplier-offers
 import { OwnerOffersComponent } from './pages/owner-offers/owner-offers.component';
 import { SupplierHeaderComponent } from './components/supplier-header/supplier-header.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CartUserComponent } from './pages/cart-user/cart-user.component';
+import { CartOwnerComponent } from './pages/cart-owner/cart-owner.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { OrderUserComponent } from './pages/order-user/order-user.component';
 
 @NgModule({
   declarations: [
@@ -49,11 +53,15 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SupplierLandingNewestComponent,
     SupplierLandingBestSellerComponent,
     SupplierLandingTopRateComponent,
-
     SupplierOffersComponent,
     OwnerOffersComponent,
-      SupplierHeaderComponent
-   
+      SupplierHeaderComponent,
+
+      CartUserComponent,
+      CartOwnerComponent,
+      CheckoutComponent,
+      OrderUserComponent
+
   ],
   imports: [
     BrowserModule,
@@ -66,7 +74,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
-  
+
   ],
 
   providers: [

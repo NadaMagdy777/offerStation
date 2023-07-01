@@ -676,6 +676,7 @@ namespace offerStation.EF.Services
             {
                 OfferDto ownerOffer = new OfferDto();
                 ownerOffer = _mapper.Map<OfferDto>(o);
+                ownerOffer.ownerId = o.OwnerId;
 
                 ownerOffer.PrefPrice = GetPriceBeforeOffer(o);
                 ownerOffer.TraderImage = o.Owner.Image;
