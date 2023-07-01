@@ -13,7 +13,9 @@ export class OwnerMenuComponent implements OnInit{
   pageNumber:number=1
   totalItems:number=0
   pagesize:number=3
-  selectedValue=150;
+  selectedValue=0
+  min=0;
+  max=500;
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;
@@ -31,7 +33,26 @@ export class OwnerMenuComponent implements OnInit{
   }
   ngOnInit(): void {
    
-    
+    this.owner.GetMinPriceoFProductByOwmerID(1).subscribe({
+
+      next: data => {
+        console.log(data);
+        this.min = data.data;
+        console.log("min "+this.min)
+      },
+      error: error => this.errorMessage = error
+
+    });
+    this.owner.GetMaxPriceoFProductByOwmerID(1).subscribe({
+
+      next: data => {
+        console.log(data);
+        this.max = data.data;
+        console.log("max "+this.max)
+      },
+      error: error => this.errorMessage = error
+
+    });
       // this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
 
       //   next: data => {
@@ -83,6 +104,20 @@ export class OwnerMenuComponent implements OnInit{
       })
     }
 
+  }
+  getselectedprice(value:number)
+  {
+console.log("seleceted "+ value);
+this.owner.GetProductsByOwmerIDAndPrice(1,value).subscribe({
+  next: data => {
+    console.log(data);
+    this.ProductListByCategoryName = data.data
+    console.log("listprice" + this.ProductListByCategoryName);
+
+  },
+  error: error => this.errorMessage = error
+
+})
   }
   PageNumberChanged(value:any){
     // this.pageNumber=value

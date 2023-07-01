@@ -267,7 +267,7 @@ namespace offerStation.API.Controllers
             var categories = await _ownerService.GetAllCategories();
             var pagedCategories = categories.ToPagedResponse(pagingParameters);
 
-            return Ok(new ApiResponse(200, true, pagedCategories));
+            return Ok(pagedCategories);
         }
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")
@@ -311,7 +311,37 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, addres));
         }
+        [HttpGet("GetMinPriceoFProductByOwmerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMinPriceoFProductByOwmerID(int id)
+        {
+            double price = await _ownerService.GetMinPriceoFProductByOwmerID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetMaxPriceoFProductByOwmerID/id")]
+        public async Task<ActionResult<ApiResponse>> GetMaxPriceoFProductByOwmerID(int id)
+        {
+            double price = await _ownerService.GetMaxPriceoFProductByOwmerID(id);
+            if (price is 0)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, price));
+        }
+        [HttpGet("GetProductsByOwmerIDAndPrice/ownerid/selectedprice")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByOwnerIDAndPrice(int ownerid, double selectedprice)
+        {
+            List<ProductInfoDto> products = await _ownerService.GetProductsByOwnerIDAndPrice(ownerid, selectedprice);
 
+            if (products is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, products));
+        }
         [HttpGet("GetOfferDetailsByOfferId/id")]
         public async Task<ActionResult<ApiResponse>> GetOfferDetailsByOfferId(int id)
         {

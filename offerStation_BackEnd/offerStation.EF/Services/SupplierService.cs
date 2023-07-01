@@ -703,5 +703,47 @@ namespace offerStation.EF.Services
             }
             return SupplierAddressesDTOs;
         }
+        public async Task<double> GetMinPriceoFProductBySupplierID(int id)
+        {
+            IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts.FindAllAsync(o => o.SupplierId == id);
+            return supplierProducts.Min(o => o.Price - (o.Price * o.Discount / 100));
+
+        }
+        public async Task<double> GetMaxPriceoFProductBySupplierID(int id)
+        {
+            IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts.FindAllAsync(o => o.SupplierId == id);
+
+            return supplierProducts.Max(o => o.Price - (o.Price * o.Discount / 100));
+
+        }
+        public async Task<List<ProductInfoDto>> GetProductsBySupplierIDAndPrice(int id, double selectedprice)
+        {
+            List<ProductInfoDto> SupplierProductsDTOs;
+            SupplierProductsDTOs = new List<ProductInfoDto>();
+
+
+            IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts
+                .FindAllAsync(d => d.SupplierId == id && !d.IsDeleted && d.Price - (d.Price * d.Discount / 100) <= selectedprice);
+
+
+            foreach (SupplierProduct product in supplierProducts)
+            {
+                ProductInfoDto ProductDTO = new ProductInfoDto();
+                ProductDTO.Price = product.Price;
+                ProductDTO.Description = product.Description;
+                ProductDTO.Name = product.Name;
+                ProductDTO.Id = product.Id;
+                ProductDTO.Discount = product.Discount;
+                ProductDTO.DiscountPrice = product.Price - (product.Price * product.Discount / 100);
+                ProductDTO.Image = product.Image;
+
+                SupplierProductsDTOs.Add(ProductDTO);
+            }
+
+
+            return SupplierProductsDTOs;
+
+
+        }
     }
 }

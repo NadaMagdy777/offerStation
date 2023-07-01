@@ -18,7 +18,7 @@ export class AdminCategoriesService {
 
   GetAllCategories(pageNumber: number, pageSize: number): Observable<PagedResponse<Category>> {
     const params = { PageNumber: pageNumber.toString(), PageSize: pageSize.toString() };
-    return this._http.get<PagedResponse<Category>>(this.url + "/Categories", { params }).pipe(catchError((err) => {
+    return this._http.get<PagedResponse<Category>>(this.url + "/CategoriesByPage", { params }).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     }));
   }
