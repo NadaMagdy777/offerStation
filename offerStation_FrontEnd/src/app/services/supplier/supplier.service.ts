@@ -124,6 +124,13 @@ export class SupplierService {
       return throwError(() => err.message || "server error")
     }));
   }
+  GetSuppliers(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string, Name: string): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url + "/All/Filter/Pagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy + "&name=" + Name);
+  }
+  GetSupplierOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
+    console.log(ownerCategory)
+    return this._httpClient.get<ApiResponce>(this.url + "/All/offers/filter/withPagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy);
+  }
   //GetAddressBySupplierId
   GetAddressBySupplierId(id:number): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(this.url+"/GetAddressBySupplierId/id?id="+id).

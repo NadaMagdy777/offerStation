@@ -4,13 +4,13 @@
 
 :host /deep/.ngx-pagination .current,
 .btn-info {
-  background: #e12539 !important;
+  background: #ed9d4a !important;
   border: transparent;
   border-radius: 20px;
 }
 
 :host /deep/.ngx-pagination :hover {
-  background: pink !important;
+  background: #ffc107 !important;
   border-radius: 20px;
   border: transparent;
   cursor: pointer;
