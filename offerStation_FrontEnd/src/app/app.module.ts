@@ -53,7 +53,6 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
     SupplierLandingNewestComponent,
     SupplierLandingBestSellerComponent,
     SupplierLandingTopRateComponent,
-
     SupplierOffersComponent,
     OwnerOffersComponent,
       SupplierHeaderComponent,

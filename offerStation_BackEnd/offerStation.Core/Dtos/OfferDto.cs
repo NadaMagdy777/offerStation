@@ -11,6 +11,7 @@ namespace offerStation.Core.Dtos
         public int Id { get; set; }
         public double PrefPrice { get; set; }
         public byte[]? TraderImage { get; set; }
+        public int ownerId { get; set; }
     }
     public class OfferInfoDto
     {
