@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 
 @Component({
@@ -8,13 +9,19 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
 })
 export class OwnerdetailsComponent implements OnInit {
   AddressList:any;
+  id:any;
   errorMessage: any;
-  constructor(private owner:OwnerService)
+  constructor(private owner:OwnerService,private activatedroute:ActivatedRoute)
   {
 
   }
   ngOnInit(): void {
-    this.owner.GetAddressByOwnerId(1).subscribe({
+    this.activatedroute.paramMap.subscribe(paramMap=>
+      {
+         this.id=Number(paramMap.get('id'));
+      
+      });
+    this.owner.GetAddressByOwnerId(this.id).subscribe({
   
       next: (data: { data: any; }) => {
         console.log(data);

@@ -23,7 +23,7 @@ namespace offerStation.Core.Dtos
     }
     public class OfferDetailsDto : OfferDto
     {
-        public int OwnerId { get; set; }
+       
         public DateTime CreatedTime { get; set; }
     }
 
