@@ -267,7 +267,7 @@ namespace offerStation.API.Controllers
             var categories = await _ownerService.GetAllCategories();
             var pagedCategories = categories.ToPagedResponse(pagingParameters);
 
-            return Ok(new ApiResponse(200, true, pagedCategories));
+            return Ok(pagedCategories);
         }
         [HttpGet("All/Offers/filter/WithPagination")]
         public async Task<IActionResult> getAllOffersWithPagination(int PageNumber, int pageSize, string category, int cityId = 0, string SortBy = "")

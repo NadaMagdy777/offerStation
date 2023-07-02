@@ -3,6 +3,7 @@ using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces;
 using offerStation.Core.Interfaces.Services;
 using offerStation.Core.Models;
+using OrderStation.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace offerStation.EF.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private OwnerOfferProduct ownerOfferProduct;
         public OwnerOfferService(IMapper mapper, IUnitOfWork unitOfWork) 
         {
             _mapper = mapper;
@@ -29,6 +31,7 @@ namespace offerStation.EF.Services
                 new List<Expression<Func<OwnerOffer, object>>>()
                 {
                     o => o.Owner,
+                    o => o.Products,
                 });
 
             if(offer is not null)
@@ -45,6 +48,7 @@ namespace offerStation.EF.Services
                 new List<Expression<Func<OwnerOffer, object>>>()
                 {
                     o => o.Owner,
+                    o => o.Products,
                 });
 
 
@@ -67,6 +71,11 @@ namespace offerStation.EF.Services
                 _unitOfWork.OwnerOffers.Add(Offer);
                 _unitOfWork.Complete();
 
+                Offer.Products = await AddOfferProducts(Offer.Id, offerDto.Products);
+                
+                _unitOfWork.OwnerOffers.Update(Offer);
+                _unitOfWork.Complete();
+                
                 return true;
             }
             return false;
@@ -102,6 +111,30 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        
+        private async Task<List<OwnerOfferProduct>?> AddOfferProducts(int offerId, List<OfferProductDto> offerProductList)
+        {
+            List<OwnerOfferProduct> ownerOfferProducts = null;
+
+            if (offerProductList is not null)
+            {
+                ownerOfferProducts = new();
+
+                foreach(var offerProduct in offerProductList)
+                {
+                    ownerOfferProduct = new ()
+                    { 
+                        OfferId = offerId,
+                        Quantity = offerProduct.Quantity,
+                        ProductId = offerProduct.ProductId
+                    };
+
+                    _unitOfWork.OwnerOfferProducts.Add(ownerOfferProduct);
+                    _unitOfWork.Complete();
+
+                    ownerOfferProducts.Add(ownerOfferProduct);
+                }          
+            }
+            return ownerOfferProducts;
+        }
     }
 }
