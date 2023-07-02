@@ -1,12 +1,42 @@
 <div class="container">
-<div class="example-container mat-elevation-z8">
-    <!-- <button class="btn btn-success m-3 float-end" (click)="openModal()">Add New Category</button> -->
-    <button mat-button color="primary" (click)="openModal()">New</button>
+<div class="example-container mat-elevation-z8 p-2">
+    <div>
+      <h1 class="float-start">Owner Divisions</h1>
+      <button class="btn btn-success m-3 float-end" (click)="openModal()">Add [+]</button>
+    </div>
+    <!-- <button mat-button color="primary" (click)="openModal()">New</button> -->
+    
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered py-3">
+      <thead class="table-dark text-white">
+        <tr>
+          <th>Division No.</th>
+          <th>Division Name</th>
+          <th>Division Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let division of categories">
+          <td>{{division.id}}</td>
+          <td>{{division.name}}</td>
+          <td>{{division.image}}</td>
+          <td style="text-align: center;">
+            <button mat-icon-button (click)="onUpdate(division)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDelete(division.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <!-- <mat-form-field>
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter()" placeholder="Search...">
     </mat-form-field> -->
-    <mat-table [dataSource]="dataSource">
+
+    <!-- <mat-table [dataSource]="dataSource">
       <ng-container  matColumnDef="divisionId">
         <mat-header-cell *matHeaderCellDef>Division No.</mat-header-cell>
         <mat-cell *matCellDef="let division">{{division.id}}</mat-cell>
@@ -40,11 +70,11 @@
                  aria-label="Select page of periodic elements">
                  (page)="onPageChange($event)"
     </mat-paginator>
-  </div>
+  </div> -->
   
 
   <!-- Start New Product Model -->
-  <div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
+  <!-- <div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -107,7 +137,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- End New Product Model -->
   
   

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subject } from 'rxjs';
 import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
@@ -25,14 +26,18 @@ export class AdminOwnerCategoryComponent {
     name: '',
     image: []
   };
-  tableColumns  :  string[] = ['divisionId','divisionName','divisionImage','actions'];
-  filterValue: string = '';
+
+  dtOptions:DataTables.Settings = {};
+  dtTrigger:Subject<any> = new Subject<any>(); 
+
+  // tableColumns  :  string[] = ['divisionId','divisionName','divisionImage','actions'];
+  // filterValue: string = '';
 
   display: string = 'none';
   categoryForm:FormGroup;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort) sort!: MatSort;
   
   constructor(
     private _categoryService: AdminCategoriesService,
@@ -54,6 +59,10 @@ export class AdminOwnerCategoryComponent {
     }
 
   ngOnInit(): void {
+
+    this.dtOptions={
+      pagingType:'full_numbers',
+    }
     this.getCategories();
   }
 
@@ -65,10 +74,11 @@ export class AdminOwnerCategoryComponent {
           
           this.categories = response.data
           console.log("categories: ",this.categories);
-          this.dataSource = new MatTableDataSource(this.categories);
-          console.log("DataSource: ",this.dataSource);  
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;   
+          this.dtTrigger.next(null);
+          // this.dataSource = new MatTableDataSource(this.categories);
+          // console.log("DataSource: ",this.dataSource);  
+          // this.dataSource.paginator = this.paginator;
+          // this.dataSource.sort = this.sort;   
         });
   }
 
@@ -83,12 +93,12 @@ export class AdminOwnerCategoryComponent {
       reader.readAsDataURL(file);
     }
   }
-  applyFilter() {
-    this.dataSource.filter = this.filterValue.trim().toLowerCase();
-  }
-  onPageChange(event: PageEvent) {
-    this.pageSize = event.pageSize;
-  }
+  // applyFilter() {
+  //   this.dataSource.filter = this.filterValue.trim().toLowerCase();
+  // }
+  // onPageChange(event: PageEvent) {
+  //   this.pageSize = event.pageSize;
+  // }
   onDelete(categoryId:number){
 
   }
