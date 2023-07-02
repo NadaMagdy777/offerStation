@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 
@@ -9,10 +10,16 @@ import { OwnerDetails } from 'src/app/sharedClassesAndTypes/OwnerDetails';
 })
 export class OwnerProductComponent implements OnInit{
 ownerInfo?:any;
+id:any
 errorMessage: any;
-constructor(private owner:OwnerService){}
+constructor(private owner:OwnerService,private activatedroute:ActivatedRoute){}
   ngOnInit(): void {
-    this.owner.GetOwnerInfo(1).subscribe({
+    this.activatedroute.paramMap.subscribe(paramMap=>
+      {
+         this.id=Number(paramMap.get('id'));
+      
+      });
+    this.owner.GetOwnerInfo(this.id).subscribe({
       next: (data: any) => {
         console.log(data);
         this.ownerInfo = data.data;
