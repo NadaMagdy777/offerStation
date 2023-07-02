@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSortModule,
     MatIconModule,
     MatDialogModule,
+    DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
   ],

@@ -24,7 +24,7 @@ import { OwnerOffersComponent } from 'src/app/pages/owner-offers/owner-offers.co
 
 
 const routes: Routes = [
-  { path: 'mainpage', component: OwnerProductComponent },
+  { path: 'mainpage/:id', component: OwnerProductComponent },
   {
     path: 'profile', component: OwnerProfileComponent, children: [
       { path: 'branches', component: OwnerAddressesComponent },

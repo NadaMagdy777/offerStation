@@ -13,8 +13,4 @@ namespace offerStation.Core.Dtos
         public int Quantity { get; set; }
         public int ProductId { get; set; }
     }
-    //public class OfferProductDetailsDto : OfferProductDto
-    //{
-    //}
-
 }

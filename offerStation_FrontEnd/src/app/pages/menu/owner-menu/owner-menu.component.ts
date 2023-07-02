@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-owner-menu',
@@ -14,12 +15,13 @@ export class OwnerMenuComponent implements OnInit{
   totalItems:number=0
   pagesize:number=3
   selectedValue=0
+  id:any
   min=0;
   max=500;
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;
-  constructor(private owner: OwnerService) {
+  constructor(private owner: OwnerService,private activatedroute:ActivatedRoute) {
 
     // this.owner.getMenuCategorybyOwnerId(1).subscribe({
 
@@ -32,8 +34,13 @@ export class OwnerMenuComponent implements OnInit{
     // })
   }
   ngOnInit(): void {
-   
-    this.owner.GetMinPriceoFProductByOwmerID(1).subscribe({
+   this.activatedroute.paramMap.subscribe(paramMap=>
+    {
+       this.id=Number(paramMap.get('id'));
+    
+    });
+    
+    this.owner.GetMinPriceoFProductByOwmerID(this.id).subscribe({
 
       next: data => {
         console.log(data);
@@ -43,7 +50,7 @@ export class OwnerMenuComponent implements OnInit{
       error: error => this.errorMessage = error
 
     });
-    this.owner.GetMaxPriceoFProductByOwmerID(1).subscribe({
+    this.owner.GetMaxPriceoFProductByOwmerID(this.id).subscribe({
 
       next: data => {
         console.log(data);
@@ -63,7 +70,7 @@ export class OwnerMenuComponent implements OnInit{
       //   error: error => this.errorMessage = error
   
       // });
-      this.owner.getMenuCategorybyOwnerId(1).subscribe({
+      this.owner.getMenuCategorybyOwnerId(this.id).subscribe({
 
         next: data => {
           console.log(data);
@@ -76,7 +83,7 @@ export class OwnerMenuComponent implements OnInit{
    
   }
   getAllProductsByOwnerId() {
-    this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
+    this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
       next: data => {
         console.log(data);
         this.ProductListByCategoryName = data.data
@@ -92,7 +99,7 @@ export class OwnerMenuComponent implements OnInit{
       this.getAllProductsByOwnerId();
     } else {
 
-      this.owner.getProductsByCategoryId(id).subscribe({
+      this.owner.getProductsByCategoryId(this.id).subscribe({
         next: data => {
           console.log(data);
           this.ProductListByCategoryName = data.data
