@@ -33,6 +33,7 @@ import { CartOwnerComponent } from './pages/cart-owner/cart-owner.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
+import { CustomerReviewComponent } from './pages/customer-review/customer-review.component';
 
  
 @NgModule({
@@ -62,6 +63,7 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
       CartOwnerComponent,
       CheckoutComponent,
       OrderUserComponent,
+      CustomerReviewComponent,
       
  
   ],

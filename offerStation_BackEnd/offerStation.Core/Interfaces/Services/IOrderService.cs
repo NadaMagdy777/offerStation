@@ -12,7 +12,11 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<bool> ChangeOwnerOrderStatus(int id, OrderStatus status);
         Task<bool> ChangeCustomerOrderStatus(int id, OrderStatus status);
-        Task<List<OrderDto>?> GetAllOwnerOrders(int customerId);
-        Task<List<OrderDto>?> GetAllCustomerOrders(int customerId);
+        Task<List<OrderDto>?> GetPendingOwnerOrders();
+        Task<List<OrderDto>?> GetPendingCustomerOrders();
+        Task<List<OrderDetailsDto>?> GetAllOwnerOrders(int customerId);
+        Task<List<OrderDetailsDto>?> GetAllCustomerOrders(int customerId);
+        Task<List<RequestedOrderDto>?> GetOwnerOrdersRequested(int ownerId);
+        Task<List<RequestedOrderDto>?> GetSupplierOrdersRequested(int supplierId);
     }
 }
