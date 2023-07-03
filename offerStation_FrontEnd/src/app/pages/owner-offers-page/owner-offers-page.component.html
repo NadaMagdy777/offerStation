@@ -36,9 +36,10 @@
           <div class="row d-flex ">
             <div class="row d-flex flex-wrap justify-content-center">
              <div style="width: 300px;" class="me-3"  *ngFor="let product of ProductList | paginate:{itemsPerPage:pagesize,currentPage:pageNumber ,totalItems: totalItems}">
-              <app-product-card [name]="product.name" [description]="product.description" [afterPrice]="product.price" [prefPrice]="product.prefPrice"
-              >
-            </app-product-card>
+              <app-product-card [name]="product.name" [SellerId]="product.ownerId" [offerId]="product.id" Type="owner" [description]="product.description" [afterPrice]="product.price" [prefPrice]="product.prefPrice"
+                >
+              </app-product-card>
+            
              </div>
             
             </div>
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+  
 
 </body>
 

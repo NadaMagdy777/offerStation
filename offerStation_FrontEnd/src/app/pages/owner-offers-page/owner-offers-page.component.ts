@@ -17,6 +17,7 @@ export class ownerOffersPageComponent implements OnInit {
   pagesize: number = 4
   sortBy: string = ""
   OwnerCategory: string = "Clothes"
+  display :string="none"
 
   constructor(private OwnerService: OwnerService, private route: ActivatedRoute) {
   }
@@ -60,6 +61,13 @@ export class ownerOffersPageComponent implements OnInit {
     this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, this.sortBy)
 
 
+  }
+  openAddressModal() {
+    this.display = 'block';
+  }
+
+  onCloseAddressHandled() {
+    this.display = 'none';
   }
 
 }

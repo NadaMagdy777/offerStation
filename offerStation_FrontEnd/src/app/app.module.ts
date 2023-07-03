@@ -34,7 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
 
-
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,8 +61,9 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
       CartUserComponent,
       CartOwnerComponent,
       CheckoutComponent,
-      OrderUserComponent
-
+      OrderUserComponent,
+      
+ 
   ],
   imports: [
     BrowserModule,
