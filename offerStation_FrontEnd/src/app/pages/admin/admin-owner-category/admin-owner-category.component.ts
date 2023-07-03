@@ -62,6 +62,9 @@ export class AdminOwnerCategoryComponent {
 
     this.dtOptions={
       pagingType:'full_numbers',
+      pageLength: 5,
+      lengthMenu : [5, 10, 20],
+      processing: true
     }
     this.getCategories();
   }
