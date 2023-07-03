@@ -12,7 +12,7 @@ namespace offerStation.Core.Dtos
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public int TraderProductId { get; set; }
+        public int TraderOfferId { get; set; }
         public int Quantity { get; set; }
     }
 }

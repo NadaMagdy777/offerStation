@@ -14,14 +14,28 @@ namespace offerStation.Core.MappingProfiles
     {
         public OrderProfile()
         {
-            CreateMap<OwnerOrder, OrderDto>().ReverseMap();
+            CreateMap<OwnerOrder, OrderDto>()
+                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.SupplierId))
+                .ReverseMap();
 
             CreateMap<OwnerOrderProduct, OrderProductDto>()
                 .ForMember(des => des.TraderProductId, a => a.MapFrom(src => src.SupplierProductId))
                 .ReverseMap();
             
             CreateMap<OwnerOrderOffer, OrderOfferDto>()
-                .ForMember(des => des.TraderProductId, a => a.MapFrom(src => src.SupplierOffertId))
+                .ForMember(des => des.TraderOfferId, a => a.MapFrom(src => src.SupplierOffertId))
+                .ReverseMap();
+
+            CreateMap<CustomerOrder, OrderDto>()
+                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.OwnerId))
+                .ReverseMap();
+
+            CreateMap<CustomerOrderProduct, OrderProductDto>()
+                .ForMember(des => des.TraderProductId, a => a.MapFrom(src => src.OwnerProductId))
+                .ReverseMap();
+
+            CreateMap<CustomerOrderOffer, OrderOfferDto>()
+                .ForMember(des => des.TraderOfferId, a => a.MapFrom(src => src.OwnerOffertId))
                 .ReverseMap();
         }
     }

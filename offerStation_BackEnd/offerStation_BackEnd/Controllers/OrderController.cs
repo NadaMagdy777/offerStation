@@ -37,10 +37,21 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpGet("ownerId")]
+        [HttpGet("ownerOrders/ownerId")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrders(int ownerId)
         {
              List<OrderDto> orders = await _orderService.GetAllOwnerOrders(ownerId);
+
+            if (orders is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, orders));
+        }
+        [HttpGet("customerOrders/customerId")]
+        public async Task<ActionResult<ApiResponse>> AllCustomerOrders(int customerId)
+        {
+            List<OrderDto> orders = await _orderService.GetAllCustomerOrders(customerId);
 
             if (orders is null)
             {

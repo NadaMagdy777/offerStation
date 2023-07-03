@@ -70,6 +70,23 @@ namespace offerStation.EF.Services
             }
             return ordersList;
         }
-        
+        public async Task<List<OrderDto>?> GetAllCustomerOrders(int customerId)
+        {
+            List<OrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.CustomerOrders
+                .FindAllAsync(o => o.CustomerId == customerId && o.orderStatus != OrderStatus.delivered,
+                new List<Expression<Func<CustomerOrder, object>>>()
+                {
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<OrderDto>>(orders);
+            }
+            return ordersList;
+        }
     }
 }
