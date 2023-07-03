@@ -14,5 +14,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> ChangeCustomerOrderStatus(int id, OrderStatus status);
         Task<List<OrderDto>?> GetAllOwnerOrders(int customerId);
         Task<List<OrderDto>?> GetAllCustomerOrders(int customerId);
+        Task<List<OrderDto>?> GetOwnerOrdersRequested(int ownerId);
+        Task<List<OrderDto>?> GetSupplierOrdersRequested(int supplierId);
     }
 }

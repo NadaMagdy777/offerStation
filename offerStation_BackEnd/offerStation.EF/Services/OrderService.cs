@@ -88,5 +88,41 @@ namespace offerStation.EF.Services
             }
             return ordersList;
         }
+        public async Task<List<OrderDto>?> GetOwnerOrdersRequested(int ownerId)
+        {
+            List<OrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.CustomerOrders
+                .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus == OrderStatus.ordered,
+                new List<Expression<Func<CustomerOrder, object>>>()
+                {
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<OrderDto>>(orders);
+            }
+            return ordersList;
+        }
+        public async Task<List<OrderDto>?> GetSupplierOrdersRequested(int supplierId)
+        {
+            List<OrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.OwnerOrders
+                .FindAllAsync(o => o.SupplierId == supplierId && o.orderStatus == OrderStatus.ordered,
+                new List<Expression<Func<OwnerOrder, object>>>()
+                {
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<OrderDto>>(orders);
+            }
+            return ordersList;
+        }
     }
 }
