@@ -82,7 +82,10 @@ export class RegestrationComponent {
     this._AuthService.registerUser(this.registerForm.value).subscribe({
       next: data => {
         console.log(data);
-        this.router.navigate(['login']);
+        if(data.success)
+          this.router.navigate(['login']);
+        else
+          this.error = data.data;
       },
       error: error => console.log(error)
     })

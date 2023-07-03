@@ -19,11 +19,12 @@
       </small>
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="addAddress()">Add Address</button>
+  <button type="button" class="btn btn-primary float-end mb-2" (click)="addAddress()">Add Address</button>
     <ng-container formArrayName="Address" *ngFor="let adress of AddressControls; let i=index">
       <ng-container [formGroup]="adress">
         <div class="from-group">
-          <select class="custom-select" formControlName="CityId">
+          <select class="form-select my-3" formControlName="CityId">
+            <option selected = "true" disabled value="">Select City</option>
             <option *ngFor="let city of Cities" value="{{city.id}}">
               {{city.name}}
             </option>
@@ -35,7 +36,7 @@
           <input type="text" class="form-control" placeholder="Details" formControlName="details">
         </div>
         <div class="input-group input-group-outline">
-          <button type="button" class="btn btn-danger btn-sm" (click)="deleteAddress(i)">Delete</button>
+          <button type="button" class="btn btn-danger btn-sm float-end my-3" (click)="deleteAddress(i)">Delete</button>
         </div>
       </ng-container>
     </ng-container>
