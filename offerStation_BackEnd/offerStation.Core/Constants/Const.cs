@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Constants
 {
-    public enum OrderStatus
+    public static class Const
     {
-        pending,
-        ordered,
-        shipped, 
-        delivered
+        public const int Fee = 5; // percentage
     }
 }

@@ -34,6 +34,7 @@ namespace offerStation.EF.Data
         public DbSet<CustomerCardDetails> CustomerCardDetails { get; set; }
         public DbSet<CustomerCartProduct> CustomerCartProduct { get; set; }
         public DbSet<CustomerOrderProduct> CustomerOrderProduct { get; set; }
+        public DbSet<CustomerOrderDelivery> CustomerOrderDelivery { get; set; }
 
         public DbSet<Owner> Owner { get; set; }
         public DbSet<OwnerCart> OwnerCart { get; set; }
@@ -49,6 +50,7 @@ namespace offerStation.EF.Data
         public DbSet<OwnerMenuCategory> OwnerMenuCategory { get; set; }
         public DbSet<OwnerOrderProduct> OwnerOrderProduct { get; set; }
         public DbSet<OwnerOfferProduct> OwnerOfferProduct { get; set; }
+        public DbSet<OwnerOrderDelivery> OwnerOrderDelivery { get; set; }
 
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<SupplierOffer> SupplierOffer { get; set; }
@@ -452,7 +454,7 @@ namespace offerStation.EF.Data
                        OwnerId=1,
                        IsDeleted=false,
                        orderDate=DateTime.Now,
-                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       PaymentMethod=PaymentMethods.cash,
                        orderStatus=OrderStatus.pending
 
                     },
@@ -464,7 +466,7 @@ namespace offerStation.EF.Data
                        OwnerId=1,
                        IsDeleted=false,
                        orderDate=DateTime.Now,
-                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       PaymentMethod=PaymentMethods.cash,
                        orderStatus=OrderStatus.pending
 
                     },
@@ -476,7 +478,7 @@ namespace offerStation.EF.Data
                        OwnerId=2,
                        IsDeleted=false,
                        orderDate=DateTime.Now,
-                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       PaymentMethod=PaymentMethods.cash,
                        orderStatus=OrderStatus.pending
 
                     },
@@ -488,7 +490,7 @@ namespace offerStation.EF.Data
                        OwnerId=2,
                        IsDeleted=false,
                        orderDate=DateTime.Now,
-                       PaymentMethod=PaymentMethod.CashOnDelivery,
+                       PaymentMethod=PaymentMethods.cash,
                        orderStatus=OrderStatus.pending
                     },
 

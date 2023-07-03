@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SuppliersOffersRoutingModule } from './suppliers-offers-routing.module';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+ 
 import { SupplierIndexComponent } from 'src/app/pages/supplier-index/supplier-index.component';
 import { SupplierOffersPageComponent } from 'src/app/pages/supplier-offers-page/supplier-offers-page.component';
 import { OffersFilterModule } from '../components-shared/offers-filter/offers-filter.module';
@@ -42,7 +42,7 @@ import { BrowserModule } from '@angular/platform-browser';
     SellerCardModule  ,
     ProductCardModule,
     BannerModule,
-    
+     
   ]
 })
 export class SuppliersOffersModule { }

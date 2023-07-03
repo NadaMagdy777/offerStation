@@ -44,6 +44,7 @@ namespace offerStation_BackEnd
             builder.Services.AddScoped<ISupplierService, SupplierService>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
             builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<ICustomerCartService, CustomerCartService>();
             builder.Services.AddScoped<IownerAnalysisService, ownerAnalysisService>();

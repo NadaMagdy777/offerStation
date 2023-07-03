@@ -14,9 +14,7 @@ namespace offerStation.Core.Models
         public OrderStatus orderStatus { get; set; }
         public DateTime orderDate { get; set; }
 
-        [ForeignKey("Delivery")]
-        public int DeliveryId { get; set; }
-        public Delivery Delivery { get; set; }
+        public OwnerOrderDelivery Delivery { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
@@ -27,7 +25,7 @@ namespace offerStation.Core.Models
         public int OwnerId { get; set; }
         public  Owner Owner { get; set; }
         
-        public string PaymentMethod { get; set; } //=> Enum of PaymentMethod
+        public PaymentMethods PaymentMethod { get; set; }
         public OwnerCardDetails OwnerCardDetails { get; set; }
 
         public  List<OwnerOrderProduct> Products { get; set; }

@@ -16,7 +16,6 @@ import { Category } from 'src/app/sharedClassesAndTypes/Category';
 export class AdminOwnerCategoryComponent {
 
   categories: Category[] = [];
-  dataSource!: MatTableDataSource<Category>;
   pageNumber = 1;
   pageSize = 5;
   imageUrl: string = '';
@@ -30,14 +29,8 @@ export class AdminOwnerCategoryComponent {
   dtOptions:DataTables.Settings = {};
   dtTrigger:Subject<any> = new Subject<any>(); 
 
-  // tableColumns  :  string[] = ['divisionId','divisionName','divisionImage','actions'];
-  // filterValue: string = '';
-
   display: string = 'none';
   categoryForm:FormGroup;
-
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
   
   constructor(
     private _categoryService: AdminCategoriesService,
@@ -62,6 +55,9 @@ export class AdminOwnerCategoryComponent {
 
     this.dtOptions={
       pagingType:'full_numbers',
+      pageLength: 5,
+      lengthMenu : [5, 10, 20],
+      processing: true
     }
     this.getCategories();
   }
@@ -70,15 +66,9 @@ export class AdminOwnerCategoryComponent {
     this._categoryService.GetAllCategories(this.pageNumber, this.pageSize)
       .subscribe(response => 
         {
-          console.log("response: ",response);
-          
           this.categories = response.data
           console.log("categories: ",this.categories);
           this.dtTrigger.next(null);
-          // this.dataSource = new MatTableDataSource(this.categories);
-          // console.log("DataSource: ",this.dataSource);  
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;   
         });
   }
 
@@ -93,9 +83,6 @@ export class AdminOwnerCategoryComponent {
       reader.readAsDataURL(file);
     }
   }
-  // applyFilter() {
-  //   this.dataSource.filter = this.filterValue.trim().toLowerCase();
-  // }
   // onPageChange(event: PageEvent) {
   //   this.pageSize = event.pageSize;
   // }
@@ -108,12 +95,7 @@ export class AdminOwnerCategoryComponent {
   openModal(){
     this.display = 'block';
   }
-  openEditProductModal(productId: number) {
 
-  }
-  onCloseProductHandled() {
-    this.display = 'none';
-  }
   OnSubmit(){
 
   }

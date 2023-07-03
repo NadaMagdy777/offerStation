@@ -44,6 +44,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<double> GetMinPriceoFProductBySupplierID(int id);
         Task<double> GetMaxPriceoFProductBySupplierID(int id);
         Task<List<ProductInfoDto>> GetProductsBySupplierIDAndPrice(int id, double selectedprice);
+        Task<List<offerProductInfo>> getofferProduct(int OfferId);
     }
 
     public interface IsupplierAnalysisService
