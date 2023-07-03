@@ -1,5 +1,4 @@
 .address-container {
-    /* background-color: rgb(241, 237, 237); */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 55%;
 }
@@ -13,10 +12,15 @@
     color: rgb(100, 100, 100);
 }
 
+.addproduct {
+    background-color: rgb(0, 165, 60);
+    color: white;
+}
+
 #update {
     color: white;
     border: 0.5px solid gray;
-    background-color: rgb(0, 165, 60);
+    background-color: #FEA116;
     height: 2.2rem;
     width: 10rem;
 }
@@ -30,7 +34,7 @@
 }
 
 .modal-title {
-    color: #3b71ca;
+    color: #FEA116;
 }
 
 

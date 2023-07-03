@@ -32,7 +32,7 @@ export class OwnerCategoriesComponent implements OnInit {
 
     this.CategoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      image: [[]],
+      image: [''],
     });
     this.CategoryForm.get('name')?.valueChanges.subscribe((data) => {
       this.ownerCategory.name = data;
@@ -66,7 +66,7 @@ export class OwnerCategoriesComponent implements OnInit {
 
   SubmitData() {  //Error when choosing image from the system
 
-    this._ownerService.AddCategory(1, this.ownerCategory).subscribe({
+    this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()

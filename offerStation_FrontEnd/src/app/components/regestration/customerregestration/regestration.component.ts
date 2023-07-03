@@ -12,15 +12,16 @@ import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.val
 })
 export class RegestrationComponent {
 
-  constructor(private _AuthService: AuthenticationService, 
-              private fb: FormBuilder,
-              private cityService:CityService,
-              private router: Router) { 
+  constructor(private _AuthService: AuthenticationService,
+    private fb: FormBuilder,
+    private cityService: CityService,
+    private router: Router) {
 
   }
-  
-  Cities:any;
+
+  Cities: any;
   error: string = ''
+
   registerForm = this.fb.group({
     Name: ['', [Validators.required]],
     Phone: ['', [Validators.required]],
@@ -28,7 +29,7 @@ export class RegestrationComponent {
     Password: ['', [Validators.required]],
     Confirm: ['', [Validators.required]],
     Email: ['', [Validators.required, Validators.email]],
-  },{validator:[ConfirmPasswordValidator]})
+  }, { validator: [ConfirmPasswordValidator] })
 
   get FirstName() {
     return this.registerForm.get('FirstName');
@@ -54,38 +55,36 @@ export class RegestrationComponent {
   get Email() {
     return this.registerForm.get('Email');
   }
-  
-  ngOnInit(){    
+
+  ngOnInit() {
     this.cityService.GetAllCities().subscribe({
-      next:data=>this.Cities=data.data,
-      error:error=>console.log(error)
+      next: data => this.Cities = data.data,
+      error: error => console.log(error)
     })
   }
 
-  addAddress()
-  {
+  addAddress() {
     this.Address.push(this.createAddress());
   }
-  
+
   createAddress() {
     return this.fb.group({
-      details: ['',[Validators.required]],
-      CityId: ['',[Validators.required]],
+      details: ['', [Validators.required]],
+      CityId: ['', [Validators.required]],
     });
   }
 
-  deleteAddress(index:any)
-  {    
-   this.Address.removeAt(index);
+  deleteAddress(index: any) {
+    this.Address.removeAt(index);
   }
 
-  submitData() {    
+  submitData() {
     this._AuthService.registerUser(this.registerForm.value).subscribe({
-      next:data=>{
-        console.log(data);          
+      next: data => {
+        console.log(data);
         this.router.navigate(['login']);
-    },
-      error:error=>console.log(error)     
+      },
+      error: error => console.log(error)
     })
   }
 }

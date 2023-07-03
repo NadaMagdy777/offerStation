@@ -738,6 +738,29 @@ namespace offerStation.EF.Services
             return ownerProducts.Max(o => o.Price - (o.Price * o.Discount / 100));
 
         }
+        public async Task<List<offerProductInfo>> getofferProduct(int OfferId)
+        {
+           List<OwnerOfferProduct> offers= _unitOfWork.OwnerOfferProducts.FindAllAsync(O => O.OfferId == OfferId && O.IsDeleted == false, new List<Expression<Func<OwnerOfferProduct, object>>>()
+            {
+                o=>o.Product
+
+
+            }).Result.ToList();
+            List< offerProductInfo > result= new List<offerProductInfo>();
+            foreach (OwnerOfferProduct Offer in offers)
+            {
+                offerProductInfo offerProduct = new offerProductInfo
+                {
+                    Description = Offer.Product.Description,
+                    Quantity = Offer.Quantity,
+                    Name = Offer.Product.Name,
+                    Image = Offer.Product.Image,
+                    Price = Offer.Product.Price
+                };
+                result.Add(offerProduct);
+            }
+            return result;
+        }
         public async Task<List<ProductInfoDto>> GetProductsByOwnerIDAndPrice(int id,double selectedprice)
         {
             List<ProductInfoDto> OwnerProductsDTOs;
