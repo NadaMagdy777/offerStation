@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { OwnerOfferInfo } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
+import { Offer } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
 
 @Component({
   selector: 'app-owner-offers',
@@ -12,15 +12,17 @@ import { OwnerOfferInfo } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
 
 export class OwnerOffersComponent implements OnInit {
 
-  errorMessage: any;
-  OfferList: any
+  OfferList: any;
+  ProductList: any;
+
   index!: any;
   imageUrl: string = '';
+  errorMessage: any;
 
   display = '';
   display1 = '';
 
-  ownerOffer: OwnerOfferInfo = {
+  ownerOffer: Offer = {
     ownerId: 0,
     createdTime: '',
     id: 0,
@@ -29,48 +31,46 @@ export class OwnerOffersComponent implements OnInit {
     name: '',
     description: '',
     price: 0,
-    image: ''
+    image: '',
+    products: []
   }
-  OfferForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService
-    , private _imageService: ImageService) {
+    , private _imageService: ImageService) { }
 
-    this.OfferForm = this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      image: [[]],
-    });
-
-    this.OfferForm.get('name')?.valueChanges.subscribe((data) => {
-      this.ownerOffer.name = data;
-    });
-    this.OfferForm.get('description')?.valueChanges.subscribe((data) => {
-      this.ownerOffer.description = data;
-    });
-    this.OfferForm.get('price')?.valueChanges.subscribe((data) => {
-      this.ownerOffer.price = data;
-    });
-    this.OfferForm.get('image')?.valueChanges.subscribe((data) => {
-      this.ownerOffer.image = data;
-    });
-
-  }
+  OfferForm = this.fb.group({
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    price: ['', [Validators.required]],
+    image: [''],
+    products: this.fb.array([]),
+  });
 
   ngOnInit(): void {
+
     this.LoadData()
+
+    this._ownerService.getAllProductsByOwnerId(1).subscribe({
+      next: data => {
+
+        console.log(data);
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.ProductList = dataJson.data;
+
+      },
+      error: error => this.errorMessage = error
+    });
   }
 
   LoadData() {
     this._ownerService.GetOffersByOwnerId(1).subscribe({
       next: data => {
+
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.OfferList = dataJson.data;
-        // console.log(this.OfferList);
 
       },
       error: error => this.errorMessage = error
@@ -81,16 +81,32 @@ export class OwnerOffersComponent implements OnInit {
     this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
-  SubmitData() {  //Error when choosing image from the system
+  SubmitData() {
 
     this._ownerService.AddOffer(1, this.OfferForm.value).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
         this.onCloseOfferHandled();
+        this.OfferForm.reset();
       },
       error: (error: any) => this.errorMessage = error,
     });
+  }
+
+  AddProduct() {
+    this.products.push(this.CreateProduct());
+  }
+
+  CreateProduct() {
+    return this.fb.group({
+      quantity: ['', [Validators.required]],
+      productId: ['', [Validators.required]],
+    });
+  }
+
+  DeleteProduct(index: any) {
+    this.products.removeAt(index);
   }
 
   DeleteOffer(offerId: number, index: number) {
@@ -99,16 +115,6 @@ export class OwnerOffersComponent implements OnInit {
       next: data => {
         this.OfferList.splice(index, 1);
         this.LoadData();
-      },
-      error: (error: any) => this.errorMessage = error,
-    });
-  }
-
-  UpdateOffer() {
-    this._ownerService.UpdateOffer(this.ownerOffer.id, this.OfferForm.value).subscribe({
-      next: data => {
-        this.OfferList[this.index] = this.OfferForm.value;
-        this.onCloseEditOfferHandled();
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -126,31 +132,13 @@ export class OwnerOffersComponent implements OnInit {
     }
   }
 
-  openEditOfferModal(offer: any, i: any) {
-    this.display1 = 'block';
-    this.index = i;
-    console.log(offer)
-    this.ownerOffer.id = offer.id
-    this.OfferForm.patchValue(
-      {
-        name: offer.name,
-        description: offer.description,
-        price: offer.price,
-        image: offer.image
-      }
-    )
-  }
-
   openOfferModal() {
     this.display = 'block';
   }
 
   onCloseOfferHandled() {
     this.display = 'none';
-  }
-
-  onCloseEditOfferHandled() {
-    this.display1 = 'none';
+    this.OfferForm.reset();
   }
 
   //Offer Form
@@ -165,6 +153,12 @@ export class OwnerOffersComponent implements OnInit {
   }
   get image() {
     return this.OfferForm.get('image');
+  }
+  get products() {
+    return this.OfferForm.get('products') as FormArray;
+  }
+  get productsControls() {
+    return (this.OfferForm.get('products') as FormArray).controls as FormGroup[];
   }
 
 }

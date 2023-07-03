@@ -19,11 +19,11 @@ namespace offerStation.Core.Dtos
         public string Description { get; set; }
         public double Price { get; set; }
         public byte[]? Image { get; set; }
-
+        public List<OfferProductDto> Products { get; set; }
     }
     public class OfferDetailsDto : OfferDto
     {
-        public int OwnerId { get; set; }
+       
         public DateTime CreatedTime { get; set; }
     }
 

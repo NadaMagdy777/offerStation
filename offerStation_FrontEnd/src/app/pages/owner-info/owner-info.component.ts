@@ -14,7 +14,7 @@ export class OwnerInfoComponent implements OnInit {
   OwnerInfo: any;
   errorMessage: any;
   isUpdated: boolean = false;
-  imageUrl: string = '';
+  imageUrl = '';
 
   owner: OwnerInfo = {
     name: '',
@@ -79,6 +79,9 @@ export class OwnerInfoComponent implements OnInit {
     }
   }
 
+  delete() {
+    this.imageUrl = '';
+  }
   //Owner Info Form
 
   get image() {

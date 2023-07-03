@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let category of categories; index as i">
-        <td><img [src]="imageUrl" width="100" height="100" (change)="OnImageLoad(category.image)"></td>
+        <td><img [src]="category.image" width="100" height="100" (change)="OnImageLoad(category.image)"></td>
         <td>{{category.name}}</td>
         <td><button class="btn btn-danger" (click)="DeleteCategory(category.id,i)">Delete</button></td>
         <td><button class="btn btn-success" (click)="openEditCategoryModal(category.id)">Update</button></td>

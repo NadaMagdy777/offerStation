@@ -8,7 +8,7 @@
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Description</th>
-        <th scope="col"></th>
+        <th scope="col">Products</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -19,8 +19,8 @@
         <td>{{offer.name}}</td>
         <td>{{offer.price}}</td>
         <td>{{offer.description}}</td>
+        <td></td>
         <td><button class="btn btn-danger" (click)="DeleteOffer(offer.id,i)">Delete</button></td>
-        <td><button class="btn btn-success" (click)="openEditOfferModal(offer,i)">Update</button></td>
       </tr>
     </tbody>
   </table>
@@ -34,7 +34,7 @@
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onCloseOfferHandled()"><span
             aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="font-size: initial;">Offer Details </h4>
+        <h4 class="modal-title" style="font-size: initial;">Add New Offer </h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="OfferForm" (ngSubmit)="SubmitData()">
@@ -64,11 +64,40 @@
                   <input type="file" class="form-control" accept="image/*" (change)="ProcessFile($event)">
                 </div>
 
+                <button type="button" class="btn mt-3 addproduct" (click)="AddProduct()">Add Product</button>
+                <ng-container formArrayName="products" *ngFor="let product of productsControls; let i=index">
+                  <ng-container [formGroup]="product">
+
+                    <div class="from-group">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <label class="col-form-label">Product Name</label>
+                          <select class=" form-select" formControlName="productId">
+                            <option *ngFor="let product of ProductList" value="{{product.id}}">
+                              {{product.name}}
+                            </option>
+                          </select>
+
+                        </div>
+
+                        <div>
+                          <label for="quantity" class="col-form-label">Quantity</label>
+                          <input type="number" id="quantity" class="form-control" formControlName="quantity">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group input-group-outline mt-2">
+                      <button type="button" class="btn btn-danger btn-sm" (click)="DeleteProduct(i)">Delete</button>
+                    </div>
+                  </ng-container>
+                </ng-container>
+
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" id="update" class="btn">SUBMIT</button>
+            <button type="submit" id="update" class="btn" [disabled]="OfferForm.invalid">SUBMIT</button>
           </div>
         </form>
       </div>
@@ -76,54 +105,3 @@
   </div>
 </div>
 <!-- End New Offer Model -->
-
-
-<!-- Start Edit Offer Model -->
-<div class="modal" id="exampleModal" [ngStyle]="{'display':display1}" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" (click)="onCloseEditOfferHandled()"><span
-            aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="font-size: initial;">Edit Offer </h4>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="OfferForm" (ngSubmit)="UpdateOffer()">
-          <div class="mb-3">
-            <p>Edit Offer Details</p>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-
-                <div class="mb-3">
-                  <label class="col-form-label">Name</label>
-                  <input type="text" formControlName="name" class="form-control" [value]="name?.value">
-                </div>
-                <div class="mb-3">
-                  <label class="col-form-label">Price</label>
-                  <input type="text" formControlName="price" class="form-control" [value]="price?.value">
-                </div>
-                <div class="mb-3">
-                  <label class="col-form-label">Description</label>
-                  <input type="text" formControlName="description" class="form-control" [value]="description?.value">
-                </div>
-
-                <div class="mb-3">
-                  <label class="col-form-label">Offer Image</label>
-                  <input type="file" class="form-control" accept="image/*" (change)="ProcessFile($event)">
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" id="update" class="btn">SUBMIT</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Edit Offer Model -->

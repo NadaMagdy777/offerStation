@@ -37,7 +37,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, offerList));
         }
-        [HttpPost("Offer/id")]
+        [HttpPost("Offer/id")] 
         public async Task<ActionResult<ApiResponse>> AddOffer(int ownerId, OfferInfoDto Offer)
         {
             bool success = await _ownerOfferService.AddOffer(ownerId, Offer);

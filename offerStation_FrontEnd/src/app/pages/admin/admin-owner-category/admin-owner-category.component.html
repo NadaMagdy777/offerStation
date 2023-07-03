@@ -1,21 +1,78 @@
 <div class="container">
-    <button class="btn btn-success m-3 float-end" (click)="openModal()">Add New Category</button>
-    <table class="table table-hover mt-5">
-      <thead>
+<div class="example-container mat-elevation-z8 p-2">
+    <div>
+      <h1 class="float-start">Owner Divisions</h1>
+      <button class="btn btn-success m-3 float-end" (click)="openModal()">Add [+]</button>
+    </div>
+    <!-- <button mat-button color="primary" (click)="openModal()">New</button> -->
+    
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered py-3">
+      <thead class="table-dark text-white">
         <tr>
-          <th scope="col">Name</th>
+          <th>Division No.</th>
+          <th>Division Name</th>
+          <th>Division Image</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let category of categories; index as i">
-          <td>{{category.name}}</td>          
-          <td><button class="btn btn-danger" (click)="DeleteCategory(category.id, i)">Delete</button></td>
-          <td><button class="btn btn-success" (click)="openEditProductModal(category.id)">Update</button></td>
+        <tr *ngFor="let division of categories">
+          <td>{{division.id}}</td>
+          <td>{{division.name}}</td>
+          <td>{{division.image}}</td>
+          <td style="text-align: center;">
+            <button mat-icon-button (click)="onUpdate(division)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDelete(division.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
-  </div>
+    <!-- <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter()" placeholder="Search...">
+    </mat-form-field> -->
+
+    <!-- <mat-table [dataSource]="dataSource">
+      <ng-container  matColumnDef="divisionId">
+        <mat-header-cell *matHeaderCellDef>Division No.</mat-header-cell>
+        <mat-cell *matCellDef="let division">{{division.id}}</mat-cell>
+      </ng-container>
+      <ng-container  matColumnDef="divisionName">
+        <mat-header-cell *matHeaderCellDef>Division Name</mat-header-cell>
+        <mat-cell *matCellDef="let division">{{division.name}}</mat-cell>
+      </ng-container>
+      <ng-container  matColumnDef="divisionImage">
+        <mat-header-cell *matHeaderCellDef>Division Image</mat-header-cell>
+        <mat-cell *matCellDef="let division">{{division.image}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let category">
+          <button mat-icon-button (click)="onUpdate(category)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onDelete(category.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableColumns">
+        
+      </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+                 (page)="onPageChange($event)"
+    </mat-paginator>
+  </div> -->
   
+
   <!-- Start New Product Model -->
   <!-- <div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -59,7 +116,7 @@
                     <label for="categoryId" class="form-label">Category</label>
                     <select class="form-select form-select-lg" formControlName="categoryId" name="categoryId">
                       <option *ngFor="let category of categories;" value={{category.id}}>
-                        {{category.menuName}}</option>
+                        {{category.name}}</option>
                     </select>
                   </div>
                  </div>
@@ -74,7 +131,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" id="update" class="btn">SUBMIT</button>
+              <button type="submit" id="update" class="btn">Submit</button>
             </div>
           </form>
         </div>
@@ -145,4 +202,4 @@
     </div>
   </div> -->
   <!-- End Edit Product Model -->
-  
+</div>

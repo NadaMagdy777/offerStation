@@ -14,7 +14,7 @@ export class SupplierInfoComponent implements OnInit {
   SupplierInfo: any;
   errorMessage: any;
   isUpdated: boolean = false;
-  imageUrl: string = '';
+  imageUrl = '';
 
   supplier: SupplierInfo = {
     name: '',
@@ -57,7 +57,7 @@ export class SupplierInfoComponent implements OnInit {
     console.log(this.SupplierInfoForm.value);
 
     if (window.confirm('Are you sure, you want to update?')) {
-      this._supplierServ.UpdateSupplierInfo(1, this.SupplierInfoForm.value).subscribe({
+      this._supplierServ.UpdateSupplierInfo(1, this.supplier).subscribe({
         next: (data: any) => {
           console.log(data);
           this.SupplierInfo = data;
@@ -79,6 +79,11 @@ export class SupplierInfoComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+
+  delete() {
+    this.imageUrl = '';
+  }
+
   //Supplier Info Form
 
   get image() {
