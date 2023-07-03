@@ -14,6 +14,8 @@ namespace offerStation.Core.Models
         public int Id { get; set; }
         public DateTime orderDate { get; set; }
         public OrderStatus  orderStatus { get; set; }
+        public CustomerOrderDelivery Delivery { get; set; }
+
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
@@ -22,12 +24,9 @@ namespace offerStation.Core.Models
         public int OwnerId { get; set; }
         public virtual Owner Owner { get; set; }
 
-        public string PaymentMethod { get; set; } // enum paymnet method
+        public PaymentMethods PaymentMethod { get; set; }
 
         public virtual CustomerCardDetails? CardDetails { get; set; }
-
-        //public bool HasDelivary { get; set; }
-        public virtual Delivery? Delivery { get; set; }
 
         public virtual List<CustomerOrderProduct> Products { get; set; }
         public virtual List<CustomerOrderOffer> Offers { get; set; }

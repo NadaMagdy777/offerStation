@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace offerStation.Core.Constants
 {
-    public enum OrderStatus
+    public enum PaymentMethods
     {
-        pending,
-        ordered,
-        shipped, 
-        delivered
+        cash,
+        credit
     }
 }
