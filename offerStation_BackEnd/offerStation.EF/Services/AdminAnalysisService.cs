@@ -10,6 +10,7 @@ using Microsoft.Identity.Client;
 using offerStation.Core.Dtos;
 using offerStation.Core.Models;
 using System.Linq.Expressions;
+using offerStation.Core.Constants;
 
 namespace offerStation.EF.Services
 {
@@ -63,7 +64,15 @@ namespace offerStation.EF.Services
 
         public async Task<double> getTotalProfit()
         {
-            return 0;
+            double sum = 0;
+
+            List<CustomerOrder> customerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.GetAllAsync();
+            List<OwnerOrder> ownerOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.FindAllAsync(o => o.SupplierId == supplierId);
+            
+            sum += customerOrders.Select(o => o.Total * (Const.Fee / 100)).Sum();
+            sum += ownerOrders.Select(o => o.Total * (Const.Fee / 100)).Sum();
+
+            return sum;
         }  
         public async Task<List<customerInfoAnalysis>> getOrderdCustomer()
         {

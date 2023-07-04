@@ -16,7 +16,7 @@ namespace OrderStation.Core.Dtos
         public DateTime orderDate { get; set; }      
         public string TraderName { get; set; }
         public string RequesterName { get; set; }
-        public double Total { get; set; } = 0;
+        public double AdminTotal { get; set; } = 0;
         //public virtual double CalcTotal { get => Total * (Const.Fee / 100); }
     }
     public class RequestedOrderDto
@@ -24,7 +24,7 @@ namespace OrderStation.Core.Dtos
         //public double CalcTotal { get => Total - (Total * (Const.Fee / 100)); }
         public int Id { get; set; }
         public DateTime orderDate { get; set; }
-        public double Total { get; set; } = 0;
+        public double NetTotal { get; set; } = 0;
         public int RequesterId { get; set; }
         public string RequesterName { get; set; }
         public List<OrderProductDto> Products { get; set; }
