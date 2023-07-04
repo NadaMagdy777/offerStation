@@ -29,9 +29,54 @@ namespace offerStation.EF
             _mapper = mapper;
         }
 
-        public Task<ApiResponse> GetCartDetails()
+        public async Task<ApiResponse> GetCartDetails(int userIdentifier)
         {
-            throw new NotImplementedException();
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(200, true, null, "Cart Is Empty!");
+            }
+
+            CustomerCartDto result;
+            string ownername = "";
+            if(customer.CustomerCart.Products.Count() > 0)
+            {
+                int currentId = customer.CustomerCart.Products[0].Id;
+
+                OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == currentId,
+                new List<Expression<Func<OwnerProduct, object>>>()
+                {
+                    p => p.Owner.AppUser,
+                });
+                ownername = op.Owner.AppUser.Name;
+            }
+            else
+            {
+                int currentId = customer.CustomerCart.Offers[0].Id;
+
+                OwnerOffer of = await _unitOfWork.OwnerOffers.FindAsync(o => o.Id == currentId,
+                new List<Expression<Func<OwnerOffer, object>>>()
+                {
+                    o => o.Owner.AppUser,
+                });
+                ownername = of.Owner.AppUser.Name;
+            }
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = ownername;
+
+            return new ApiResponse(200, true, result, "Cart Info");
         }
 
         public async Task<ApiResponse> AddProductToCart(int userIdentifier, ProductDetailsDto Product)
@@ -191,15 +236,162 @@ namespace offerStation.EF
             return new ApiResponse(200, true, result, "Added Successfully");
         }
 
-        public Task<ApiResponse> RemoveProductFromCart(int id)
+        public async Task<ApiResponse> RemoveProductFromCart(int userIdentifier, int productId)
         {
-            throw new NotImplementedException();
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == productId,
+                new List<Expression<Func<OwnerProduct, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(200, false, null, "Cart Is Null !");
+            }
+            CustomerCartProduct product = customer.CustomerCart.Products.FirstOrDefault(p => p.Id == productId);
+
+            if (product is not null)
+            {
+                customer.CustomerCart.Products.Remove(product);
+                _unitOfWork.Complete();
+            }
+
+            CustomerCartDto result;
+
+            customer.CustomerCart.Total -= product.Total;
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = op.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Removed Successfully");
         }
 
-        public Task<ApiResponse> RemoveOfferFromCart(int id)
+        public async Task<ApiResponse> RemoveOfferFromCart(int userIdentifier, int offerId)
         {
-            throw new NotImplementedException();
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            OwnerOffer op = await _unitOfWork.OwnerOffers.FindAsync(p => p.Id == offerId,
+                new List<Expression<Func<OwnerOffer, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(200, false, null, "Cart Is Null !");
+            }
+
+            CustomerCartOffer offer = customer.CustomerCart.Offers.FirstOrDefault(p => p.Id == offerId);
+
+            if (offer is not null)
+            {
+                customer.CustomerCart.Offers.Remove(offer);
+                _unitOfWork.Complete();
+            }
+
+            CustomerCartDto result;
+
+            customer.CustomerCart.Total -= offer.Total;
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = op.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Removed Successfully");
         }
 
+        public async Task<ApiResponse> GetCreateOrder(int userIdentifier)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(200, true, null, "Cart Is Empty!");
+            }
+
+            int ProductsCount = customer.CustomerCart.Products.Count();
+            int OffersCount = customer.CustomerCart.Offers.Count();
+            int itemsCount = ProductsCount + OffersCount;
+
+            double total = customer.CustomerCart.Total;
+
+            CreateOrderDto result = new() { ItemsCount = itemsCount, Total = total};
+
+            return new ApiResponse(200, true, result, "Cart Info");
+        }
+
+        public async Task<ApiResponse> PostCreateOrder(int userIdentifier)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(200, true, null, "Cart Is Empty!");
+            }
+
+            CustomerOrder order = new CustomerOrder()
+            {
+                Total = customer.CustomerCart.Total,
+                orderDate = DateTime.Now,
+                orderStatus = OrderStatus.pending,
+                CustomerId = userIdentifier,
+                IsDeleted = false,
+                OwnerId = customer.CustomerCart.OwnerId,
+            };
+
+            await _unitOfWork.CustomerOrders.Add(order);
+            _unitOfWork.Complete();
+
+            List<CustomerOrderProduct> products = customer.CustomerCart.Products.Select(p => new CustomerOrderProduct { IsDeleted = false, OrderId = order.Id, OwnerProductId = p.Id, Quantity = p.Quantity }).ToList();
+            List<CustomerOrderOffer> offers = customer.CustomerCart.Offers.Select(o => new CustomerOrderOffer { IsDeleted = false, OrderId = order.Id, OwnerOffertId = o.Id, Quantity = o.Quantity }).ToList();
+            
+            order.Products = products;
+            order.Offers = offers;
+            
+            _unitOfWork.Complete();
+
+            return new ApiResponse(200, true, null, "The Order Created Successfully");
+
+        }
     }
 }   

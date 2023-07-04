@@ -52,12 +52,12 @@ namespace offerStation.EF.Services
             }
             return false;
         }
-        public async Task<List<OrderDto>?> GetAllOwnerOrders(int ownerId)
+        public async Task<List<OrderDetailsDto>?> GetAllOwnerOrders(int ownerId)
         {
-            List<OrderDto> ordersList = null;
+            List<OrderDetailsDto> ordersList = null;
 
             var orders = await _unitOfWork.OwnerOrders
-                .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus != OrderStatus.delivered,
+                .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus != OrderStatus.delivered && !o.IsDeleted,
                 new List<Expression<Func<OwnerOrder, object>>>()
                 {
                     o => o.Products,
@@ -66,16 +66,16 @@ namespace offerStation.EF.Services
 
             if(orders is not null)
             {
-                ordersList = _mapper.Map<List<OrderDto>>(orders);
+                ordersList = _mapper.Map<List<OrderDetailsDto>>(orders);
             }
             return ordersList;
         }
-        public async Task<List<OrderDto>?> GetAllCustomerOrders(int customerId)
+        public async Task<List<OrderDetailsDto>?> GetAllCustomerOrders(int customerId)
         {
-            List<OrderDto> ordersList = null;
+            List<OrderDetailsDto> ordersList = null;
 
             var orders = await _unitOfWork.CustomerOrders
-                .FindAllAsync(o => o.CustomerId == customerId && o.orderStatus != OrderStatus.delivered,
+                .FindAllAsync(o => o.CustomerId == customerId && o.orderStatus != OrderStatus.delivered && !o.IsDeleted,
                 new List<Expression<Func<CustomerOrder, object>>>()
                 {
                     o => o.Products,
@@ -84,9 +84,71 @@ namespace offerStation.EF.Services
 
             if (orders is not null)
             {
-                ordersList = _mapper.Map<List<OrderDto>>(orders);
+                ordersList = _mapper.Map<List<OrderDetailsDto>>(orders);
             }
             return ordersList;
+        }
+        public async Task<List<RequestedOrderDto>?> GetOwnerOrdersRequested(int ownerId)
+        {
+            List<RequestedOrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.CustomerOrders
+                .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus == OrderStatus.ordered && !o.IsDeleted,
+                new List<Expression<Func<CustomerOrder, object>>>()
+                {
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<RequestedOrderDto>>(orders);
+            }
+            return ordersList;
+        }
+        public async Task<List<RequestedOrderDto>?> GetSupplierOrdersRequested(int supplierId)
+        {
+            List<RequestedOrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.OwnerOrders
+                .FindAllAsync(o => o.SupplierId == supplierId && o.orderStatus == OrderStatus.ordered && !o.IsDeleted,
+                new List<Expression<Func<OwnerOrder, object>>>()
+                {
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<RequestedOrderDto>>(orders);
+            }
+            return ordersList;
+        }
+        public async Task<List<OrderDto>?> GetPendingOwnerOrders()
+        {
+            List<OrderDto> pendingOrdersList = null;
+
+            var pendingOrders = await _unitOfWork.OwnerOrders
+                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted);
+
+            if (pendingOrders is not null)
+            {
+                pendingOrdersList = _mapper.Map<List<OrderDto>>(pendingOrders);
+            }
+            return pendingOrdersList;
+        }
+        public async Task<List<OrderDto>?> GetPendingCustomerOrders()
+        {
+            List<OrderDto> pendingOrdersList = null;
+
+            var pendingOrders = await _unitOfWork.CustomerOrders
+                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted);
+
+            if (pendingOrders is not null)
+            {
+                pendingOrdersList = _mapper.Map<List<OrderDto>>(pendingOrders);
+            }
+            return pendingOrdersList;
         }
     }
 }
