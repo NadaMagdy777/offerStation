@@ -418,6 +418,36 @@ namespace offerStation.EF.Data
                        IsDeleted=false,
                        Price=400,
                     },
+                            new OwnerOffer
+                    {
+
+                       Id=10,
+                       Name="OFFER10",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=400,
+                    },
+                    new OwnerOffer
+                    {
+
+                       Id=11,
+                       Name="OFFER11",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=400,
+                    },
+                    new OwnerOffer
+                    {
+
+                       Id=12,
+                       Name="OFFER12",
+                       Description="new offer",
+                       OwnerId=3,
+                       IsDeleted=false,
+                       Price=400,
+                    },
 
               }
           ); ;

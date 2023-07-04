@@ -13,8 +13,13 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="mx-auto my-5 col" style="max-width: 23rem;" *ngFor="let offer of offerList" >
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="cards-wrapper">
+
+        <div class="mx-auto my-5 " style="max-width: 52rem;" *ngFor="let offer of offerList" >
           <div class="card testimonial-card mt-2 mb-3">
             <span class="discount_3" >
               <!-- <div class="disc-val"> </div> -->
@@ -50,10 +55,11 @@
         </div>
 
       </div>
-
+    </div>
     </div>
   </div>
 </div>
-
+</div>
+</div>
 <!-- ********************************* -->
 
