@@ -8,7 +8,9 @@ export class CustomerOrders {
       public traderId: number,
       public total: any,
       public products: CustomerOrdersProduct[],
-      public offers: CustomerOrdersOffer[]
+      public offers: CustomerOrdersOffer[],
+      public traderName:string
+
     ) { }
 }
 
@@ -24,7 +26,7 @@ export class CustomerOrdersProduct {
         public id:number,
         public orderId :number,
         public traderProductId :number,
-        public quantity :number
+        public quantity :number,
     ){}
 }
 
