@@ -47,7 +47,9 @@ namespace offerStation.Core.MappingProfiles
             CreateMap<OwnerOfferProduct, OfferProductDto>();
             CreateMap<OwnerMenuCategory, MenuCategoryDto>().ReverseMap();
             CreateMap<OwnerMenuCategory, MenuCategoryDetailsDto>().ReverseMap();
-            CreateMap<OwnerReview, ReviewInfoDto>().ReverseMap();
+            CreateMap<OwnerReview, ReviewInfoDto>()
+                .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
+                .ReverseMap();
             CreateMap<OfferInfoDto, OwnerOffer>()
                 .ForMember(o => o.Products, opt => opt.Ignore());
             CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();
