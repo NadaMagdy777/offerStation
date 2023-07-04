@@ -32,6 +32,8 @@ const routes: Routes = [
       { path: 'categories/:id', component: SupplierCategoriesComponent },
       { path: 'products/:id', component: SupplierProductsComponent },
       { path: 'offers/:id', component: SupplierOffersComponent },
+      { path: 'supplierDashboard/:id', loadChildren: () => import('../../supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+
     ]
   },
 ]

@@ -47,7 +47,7 @@ export class SupplierProductOfferDetailsComponent implements OnInit
 
 }
 getOffers(){
-  this.SupplierService.GetOfferdetails(this.id).subscribe((res) => {
+  this.SupplierService.GetofferDetails(this.id).subscribe((res) => {
     if (res.success) {
       let dataJson = JSON.parse(JSON.stringify(res))
       this.product=dataJson.data
