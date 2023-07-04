@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ImageService } from 'src/app/services/image.service';
-import { OwnerService } from 'src/app/services/owner/owner.service';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
 import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
-  selector: 'app-offer-product-details',
-  templateUrl: './offer-product-details.component.html',
-  styleUrls: ['./offer-product-details.component.css']
+  selector: 'app-supplier-product-offer-details',
+  templateUrl: './supplier-product-offer-details.component.html',
+  styleUrls: ['./supplier-product-offer-details.component.css']
 })
-export class OfferProductDetailsComponent  implements OnInit  
+export class SupplierProductOfferDetailsComponent implements OnInit  
 {
 
  
@@ -16,7 +16,7 @@ export class OfferProductDetailsComponent  implements OnInit
  @Input() id:number=0
  @Input() Quantity:number=0
  @Input() Type:string=""
- constructor(private OwnerService:OwnerService,private _imageservice:ImageService) 
+ constructor(private SupplierService:SupplierService ,private _imageservice:ImageService) 
   {} 
  
   ngOnInit(): void {
@@ -33,12 +33,12 @@ export class OfferProductDetailsComponent  implements OnInit
 
  getProduct(){
   
-  this.OwnerService.GetProductDetails(this.id).subscribe((res) => {
+  this.SupplierService.GetProductDetails(this.id).subscribe((res) => {
     if (res.success) {
       let dataJson = JSON.parse(JSON.stringify(res))
       this.product=dataJson.data
       this.product.image=this._imageservice.base64ArrayToImage(this.product.image)
-
+      console.log(this.product)
 
     } else {
       console.log(res.message); 
@@ -47,12 +47,12 @@ export class OfferProductDetailsComponent  implements OnInit
 
 }
 getOffers(){
-  this.OwnerService.GetOfferdetails(this.id).subscribe((res) => {
+  this.SupplierService.GetOfferdetails(this.id).subscribe((res) => {
     if (res.success) {
       let dataJson = JSON.parse(JSON.stringify(res))
       this.product=dataJson.data
       this.product.image=this._imageservice.base64ArrayToImage(this.product.image)
-
+      console.log(this.product)
 
     } else {
       console.log(res.message); 

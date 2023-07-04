@@ -165,4 +165,11 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
+  GetOfferdetails(offerId:number){
+    return this._httpClient.get<ApiResponce>(Base.apiUrl+"SupplierOffer/id?id="+offerId).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+  
 }
