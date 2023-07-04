@@ -34,6 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
 import { CustomerReviewComponent } from './pages/customer-review/customer-review.component';
+import {DataTablesModule} from 'angular-datatables';
 
  
 @NgModule({
@@ -65,9 +66,12 @@ import { CustomerReviewComponent } from './pages/customer-review/customer-review
       OrderUserComponent,
       CustomerReviewComponent,
       
+      
  
   ],
+
   imports: [
+    DataTablesModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

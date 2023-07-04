@@ -37,7 +37,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpPost("ownerOrderDelivery/id")]
+        [HttpPost("ownerOrderDelivery")]
         public async Task<ActionResult<ApiResponse>> OwnerOrderDelivery(int ownerOrderId, int deliveryId)
         {
             var success = await _orderService.CreateOwnerOrderDelivery(ownerOrderId, deliveryId);
@@ -47,7 +47,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpPost("customerOrderDelivery/id")]
+        [HttpPost("customerOrderDelivery")]
         public async Task<ActionResult<ApiResponse>> CustomerOrderDelivery(int customerOrderId, int deliveryId)
         {
             var success = await _orderService.CreateCustomerOrderDelivery(customerOrderId, deliveryId);
@@ -57,7 +57,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpGet("ownerOrders/ownerId")]
+        [HttpGet("ownerOrders")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrders(int ownerId)
         {
              List<OrderDetailsDto> orders = await _orderService.GetAllOwnerOrders(ownerId);
@@ -68,7 +68,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("customerOrders/customerId")]
+        [HttpGet("customerOrders")]
         public async Task<ActionResult<ApiResponse>> AllCustomerOrders(int customerId)
         {
             List<OrderDetailsDto> orders = await _orderService.GetAllCustomerOrders(customerId);
@@ -79,7 +79,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("ownerOrdersRequested/ownerId")]
+        [HttpGet("ownerOrdersRequested")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrdersRequested(int ownerId)
         {
             List<RequestedOrderDto> orders = await _orderService.GetOwnerOrdersRequested(ownerId);
@@ -90,7 +90,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("supplierOrdersRequested/supplierId")]
+        [HttpGet("supplierOrdersRequested")]
         public async Task<ActionResult<ApiResponse>> AllSupplierOrdersRequested(int supplierId)
         {
             List<RequestedOrderDto> orders = await _orderService.GetSupplierOrdersRequested(supplierId);
