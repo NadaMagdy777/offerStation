@@ -17,7 +17,7 @@ namespace offerStation.API.Controllers
         {
             _orderService = orderService;
         }
-        [HttpPut("OwnerOrderStatus")]
+        [HttpGet("OwnerOrderStatus")]
         public async Task<ActionResult<ApiResponse>> OwnerOrderStatus(int id, OrderStatus status)
         {
             var success = await _orderService.ChangeOwnerOrderStatus(id, status);
@@ -27,7 +27,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpPut("CustomerOrderStatus")]
+        [HttpGet("CustomerOrderStatus")]
         public async Task<ActionResult<ApiResponse>> CustomerOrderStatus(int id, OrderStatus status)
         {
             var success = await _orderService.ChangeCustomerOrderStatus(id, status);
@@ -68,6 +68,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
+        
         [HttpGet("customerOrders")]
         public async Task<ActionResult<ApiResponse>> AllCustomerOrders(int customerId)
         {
