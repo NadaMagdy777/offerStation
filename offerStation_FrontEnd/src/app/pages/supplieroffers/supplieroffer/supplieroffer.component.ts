@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -7,33 +8,31 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
   styleUrls: ['./supplieroffer.component.css']
 })
 export class SupplierofferComponent implements OnInit{
-  display = '';
-  display1 = '';
-  openModal() {
-  this.display = 'block';
-}
-closeModel()
-{
-  this.display = 'none';
-}
-
-PageNumberChanged($event: number) {
-throw new Error('Method not implemented.');
-}
   supplieroffers:any;
+  id:any;
   pageNumber:number=1
   pagesize:number=3
+  ProductListofOffer:any
+
+PageNumberChanged(value: number) {
+  this.pageNumber = value
+  this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber, this.pagesize,this.id)
+  this.pageNumber = 1
+  console.log(value);
+
+}
   errorMessage: any;
-  constructor(private supplier:SupplierService)
+  constructor(private supplier:SupplierService, private activatedroute: ActivatedRoute)
   {
 
   }
-  onCloseAddressHandled() {
-    this.display = 'none';
-  }
+
   ngOnInit(): void {
-  
- this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+
+    });
+ this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
   
     next: (data: { data: any; }) => {
       console.log(data);
@@ -44,6 +43,22 @@ throw new Error('Method not implemented.');
   
   });
     
+  }
+  display = '';
+  openModal(id:number) {
+    this.display = 'block';
+    console.log(id);
+    this.supplier.GetofferDetails(id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.ProductListofOffer = data.data;
+      },
+      error: (error: any) => this.errorMessage = error,
+    })
+  }
+  
+  closeModal() {
+    this.display = 'none';
   }
 
 }
