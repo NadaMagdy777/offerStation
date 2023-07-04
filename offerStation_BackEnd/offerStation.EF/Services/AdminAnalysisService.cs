@@ -67,7 +67,7 @@ namespace offerStation.EF.Services
             double sum = 0;
 
             List<CustomerOrder> customerOrders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.GetAllAsync();
-            List<OwnerOrder> ownerOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.FindAllAsync(o => o.SupplierId == supplierId);
+            List<OwnerOrder> ownerOrders = (List<OwnerOrder>)await _unitOfWork.OwnerOrders.GetAllAsync();
             
             sum += customerOrders.Select(o => o.Total * (Const.Fee / 100)).Sum();
             sum += ownerOrders.Select(o => o.Total * (Const.Fee / 100)).Sum();
