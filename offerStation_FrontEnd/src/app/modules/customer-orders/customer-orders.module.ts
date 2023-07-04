@@ -6,13 +6,17 @@ import { CustomerOrdersComponent } from 'src/app/pages/customer-orders/customer-
 
 import {DataTablesModule} from 'angular-datatables';
 import { OfferProductDetailsComponent } from 'src/app/components/offer-product-details/offer-product-details.component';
-
+import { CustomerReviewComponent } from 'src/app/pages/customer-review/customer-review.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [CustomerOrdersComponent,OfferProductDetailsComponent], 
+  declarations: [CustomerOrdersComponent,OfferProductDetailsComponent,CustomerReviewComponent], 
   imports: [
     CommonModule,
     CustomerOrdersRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    NgbModule,
+    ReactiveFormsModule
   ]
 })
 export class CustomerOrdersModule { }

@@ -12,8 +12,13 @@ export class CustomerReviewService {
   constructor(private _httpClient: HttpClient) { }
 
   url = Base.apiUrl + 'Customer';
+  urlowner = Base.apiUrl + 'OwnerReview';
   postReview(data:Review,customerId:number,ownerId:number):Observable<ApiResponce>{
     return this._httpClient.post<ApiResponce>(this.url + '/CustomerReview/id?CustomerId='+customerId+'&ownerId='+ownerId, data);
+
+  }
+  postOwnertReview(data:Review,ownerId:number,supplierId:number):Observable<ApiResponce>{
+    return this._httpClient.post<ApiResponce>(this.urlowner + '/OwnerReview/id?ownerId='+ownerId+'&supplierId='+supplierId, data);
 
   }
 }
