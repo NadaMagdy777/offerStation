@@ -52,6 +52,46 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> CreateOwnerOrderDelivery(int ownerOrderId, int deliveryId)
+        {
+            var delivery = await _unitOfWork.Deliveries.GetByIdAsync(deliveryId);
+            var ownerOrder = await _unitOfWork.OwnerOrders.GetByIdAsync(ownerOrderId);
+
+            if (ownerOrder is not null && delivery is not null)
+            {
+                OwnerOrderDelivery orderDelivery = new()
+                {
+                    OwnerOrderId = ownerOrderId,
+                    DeliveryId = deliveryId,
+                };
+
+                _unitOfWork.OwnerOrderDeliveries.Add(orderDelivery);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> CreateCustomerOrderDelivery(int customerOrderId, int deliveryId)
+        {
+            var delivery = await _unitOfWork.Deliveries.GetByIdAsync(deliveryId);
+            var customerOrder = await _unitOfWork.CustomerOrders.GetByIdAsync(customerOrderId);
+
+            if (customerOrder is not null && delivery is not null)
+            {
+                CustomerOrderDelivery orderDelivery = new()
+                {
+                    CustomerOrderId = customerOrderId,
+                    DeliveryId = deliveryId,
+                };
+
+                _unitOfWork.CustomerOrderDeliveries.Add(orderDelivery);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<OrderDetailsDto>?> GetAllOwnerOrders(int ownerId)
         {
             List<OrderDetailsDto> ordersList = null;

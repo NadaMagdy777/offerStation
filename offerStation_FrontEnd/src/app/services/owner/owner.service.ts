@@ -175,4 +175,10 @@ export class OwnerService {
         return throwError(() => err.message || "server error")
       }));
   }
+  GetOfferdetails(offerId:number){
+    return this._httpClient.get<ApiResponce>(Base.apiUrl+"OwnerOffer/id?id="+offerId).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 }
