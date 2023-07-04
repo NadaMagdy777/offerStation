@@ -46,16 +46,14 @@ export class SupplierCategoriesComponent implements OnInit {
 
     this.LoadData();
   }
-
-  OnImageLoad(image: any) {
-    this.imageUrl = this._imageService.base64ArrayToImage(image);
-  }
-
   LoadData() {
     this._supplierService.GetMenuCategoiesBySupplierId(1).subscribe({
       next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
+        this.categories.forEach((category:SupplierCategory)=>{
+          category.image=this._imageService.base64ArrayToImage(category.image)          
+          });
       },
       error: (error: any) => this.errorMessage = error,
     });
