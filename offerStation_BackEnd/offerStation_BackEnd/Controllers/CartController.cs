@@ -11,6 +11,8 @@ using System.Security.Claims;
 
 namespace offerStation.API.Controllers
 {
+
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CartController : ControllerBase
@@ -20,7 +22,7 @@ namespace offerStation.API.Controllers
         {
             this.cartService = cartService;
         }
-        [Authorize]
+
         [HttpGet("GetCartDetails")]
         public async Task<ActionResult<ApiResponse>> GetCartDetails()
         {
@@ -31,7 +33,7 @@ namespace offerStation.API.Controllers
 
             return Ok(await cartService.GetCartDetails(int.Parse(useridentifier)));
         }
-        [Authorize]
+
         [HttpPost("addProductToCart")]
         public async Task<ActionResult<ApiResponse>> AddProductToCart(ProductDetailsDto Product)
         {
@@ -42,6 +44,7 @@ namespace offerStation.API.Controllers
 
             return Ok(await cartService.AddProductToCart( int.Parse(useridentifier), Product));
         }
+
 
         [HttpPost("addOfferToCart")]
         public async Task<ActionResult<ApiResponse>> AddOfferToCart(ProductDetailsDto Product)
@@ -54,7 +57,6 @@ namespace offerStation.API.Controllers
 
         }
 
-        [Authorize]
         [HttpPost("removeProductToCart")]
         public async Task<ActionResult<ApiResponse>> RemoveProductToCart(int ProductId)
         {
@@ -85,6 +87,7 @@ namespace offerStation.API.Controllers
 
             return Ok(await cartService.GetCreateOrder(int.Parse(useridentifier)));
         }
+
         [HttpPost("postCreateOrder")]
         public async Task<ActionResult<ApiResponse>> PostCreateOrder()
         {

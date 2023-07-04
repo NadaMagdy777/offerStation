@@ -12,14 +12,17 @@ export class OwnerofferdetailComponent implements OnInit {
   //OwnerOffer:OwnerDetails[]=[];
   OwnerOffer: any;
   id: any
+  pageNumber=1;
+  pagesize=3;
   errorMessage: any;
+  ProductListofOffer:any
   constructor(private owner: OwnerService, private activatedroute: ActivatedRoute) { }
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
       this.id = Number(paramMap.get('id'));
 
     });
-    this.owner.GetAllOfferByOwnerId(this.id).subscribe({
+    this.owner.GetAllOffersByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
       next: (data: any) => {
         console.log(data);
         this.OwnerOffer = data.data;
@@ -30,11 +33,25 @@ export class OwnerofferdetailComponent implements OnInit {
 
   display = '';
 
-  openModal() {
+  openModal(id:number) {
     this.display = 'block';
+    console.log(id);
+    this.owner.GetOfferDetatils(id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.ProductListofOffer = data.data;
+      },
+      error: (error: any) => this.errorMessage = error,
+    })
   }
   
   closeModal() {
     this.display = 'none';
+  }
+  PageNumberChanged(id:any){
+    // this.pageNumber = value
+    // this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, this.sortBy)
+    // this.pageNumber = 1
+    // console.log(value);
   }
 }

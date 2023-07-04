@@ -11,6 +11,8 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
 export class OwnerreviewComponent implements OnInit {
 
   customerreview:any;
+  pageNumber=1;
+  pagesize=3;
   errorMessage: any;
   id:any
   constructor(private owner:OwnerService,private activatedroute:ActivatedRoute)
@@ -23,7 +25,7 @@ export class OwnerreviewComponent implements OnInit {
          this.id=Number(paramMap.get('id'));
       
       });
-    this.owner.GetAllCustomerReviewsByOwnerId(this.id).subscribe({
+    this.owner.GetAllCustomerReviewsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
       next:data=>
       {
         console.log(data);
@@ -32,5 +34,11 @@ export class OwnerreviewComponent implements OnInit {
       },
       error:error=>this.errorMessage=error
     })
+  }
+  PageNumberChanged(id:number){
+    // this.pageNumber = value
+    // this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, this.sortBy)
+    // this.pageNumber = 1
+    // console.log(value);
   }
 }
