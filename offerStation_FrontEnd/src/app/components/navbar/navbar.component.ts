@@ -20,6 +20,8 @@ export class NavbarComponent {
 
     this.authenticationservice.userData.subscribe({
       next: data => {
+        console.log(data);
+        
         this.userdata = data;
         this.userName = this.userdata ? this.userdata['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : ''
       },

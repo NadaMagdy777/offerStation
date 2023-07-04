@@ -37,10 +37,30 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpGet("ownerOrders/ownerId")]
+        [HttpPost("ownerOrderDelivery")]
+        public async Task<ActionResult<ApiResponse>> OwnerOrderDelivery(int ownerOrderId, int deliveryId)
+        {
+            var success = await _orderService.CreateOwnerOrderDelivery(ownerOrderId, deliveryId);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPost("customerOrderDelivery")]
+        public async Task<ActionResult<ApiResponse>> CustomerOrderDelivery(int customerOrderId, int deliveryId)
+        {
+            var success = await _orderService.CreateCustomerOrderDelivery(customerOrderId, deliveryId);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpGet("ownerOrders")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrders(int ownerId)
         {
-             List<OrderDto> orders = await _orderService.GetAllOwnerOrders(ownerId);
+             List<OrderDetailsDto> orders = await _orderService.GetAllOwnerOrders(ownerId);
 
             if (orders is null)
             {
@@ -48,10 +68,10 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("customerOrders/customerId")]
+        [HttpGet("customerOrders")]
         public async Task<ActionResult<ApiResponse>> AllCustomerOrders(int customerId)
         {
-            List<OrderDto> orders = await _orderService.GetAllCustomerOrders(customerId);
+            List<OrderDetailsDto> orders = await _orderService.GetAllCustomerOrders(customerId);
 
             if (orders is null)
             {
@@ -59,10 +79,10 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("ownerOrdersRequested/ownerId")]
+        [HttpGet("ownerOrdersRequested")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrdersRequested(int ownerId)
         {
-            List<OrderDto> orders = await _orderService.GetOwnerOrdersRequested(ownerId);
+            List<RequestedOrderDto> orders = await _orderService.GetOwnerOrdersRequested(ownerId);
 
             if (orders is null)
             {
@@ -70,10 +90,32 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("supplierOrdersRequested/supplierId")]
+        [HttpGet("supplierOrdersRequested")]
         public async Task<ActionResult<ApiResponse>> AllSupplierOrdersRequested(int supplierId)
         {
-            List<OrderDto> orders = await _orderService.GetSupplierOrdersRequested(supplierId);
+            List<RequestedOrderDto> orders = await _orderService.GetSupplierOrdersRequested(supplierId);
+
+            if (orders is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, orders));
+        }
+        [HttpGet("pendingOwnersOrders")]
+        public async Task<ActionResult<ApiResponse>> PendingOwnersOrders()
+        {
+            List<OrderDto> orders = await _orderService.GetPendingOwnerOrders();
+
+            if (orders is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, orders));
+        }
+        [HttpGet("pendingCustomersOrders")]
+        public async Task<ActionResult<ApiResponse>> PendingCustomersOrders()
+        {
+            List<OrderDto> orders = await _orderService.GetPendingCustomerOrders();
 
             if (orders is null)
             {

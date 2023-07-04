@@ -187,4 +187,10 @@ export class OwnerService {
     }));
 
   }
+  GetOfferdetails(offerId:number){
+    return this._httpClient.get<ApiResponce>(Base.apiUrl+"OwnerOffer/id?id="+offerId).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
 }
