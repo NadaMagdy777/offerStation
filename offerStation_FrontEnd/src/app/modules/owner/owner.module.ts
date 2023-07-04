@@ -27,11 +27,11 @@ const routes: Routes = [
   { path: 'mainpage/:id', component: OwnerProductComponent },
   {
     path: 'profile', component: OwnerProfileComponent, children: [
-      { path: 'branches', component: OwnerAddressesComponent },
-      { path: 'Info', component: OwnerInfoComponent },
-      { path: 'categories', component: OwnerCategoriesComponent },
-      { path: 'products', component: OwnerProductsComponent },
-      { path: 'offers', component: OwnerOffersComponent },
+      { path: 'branches/:id', component: OwnerAddressesComponent },
+      { path: 'Info/:id', component: OwnerInfoComponent },
+      { path: 'categories/:id', component: OwnerCategoriesComponent },
+      { path: 'products/:id', component: OwnerProductsComponent },
+      { path: 'offers/:id', component: OwnerOffersComponent },
     ]
   },
 

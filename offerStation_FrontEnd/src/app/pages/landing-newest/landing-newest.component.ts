@@ -27,9 +27,6 @@ export class LandingNewestComponent {
       {
        // let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
-
-
-
         this.categoryList=data.data;
         for(let category of this.categoryList){
            this.categoryName=category.name;

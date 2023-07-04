@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { CustomerOrders, CustomerOrdersOffer, CustomerOrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
-import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
-  selector: 'app-customer-orders',
-  templateUrl: './customer-orders.component.html',
-  styleUrls: ['./customer-orders.component.css']
+  selector: 'app-owner-orders',
+  templateUrl: './owner-orders.component.html',
+  styleUrls: ['./owner-orders.component.css']
 })
-export class CustomerOrdersComponent implements OnInit {
-  
-  
-  ownerId:number=1;
-  customerId:number=1;
+export class OwnerOrdersComponent {
+  SupplierId:number=1;
+  OwnerId:number=1;
   ordertList:CustomerOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -24,15 +19,12 @@ export class CustomerOrdersComponent implements OnInit {
   offersResult!:CustomerOrdersOffer[]
   productResult!:CustomerOrdersProduct[]
   orderStatus!:any
-  constructor(private OrderService:OrdersService,private OwnerService:OwnerService, private route:ActivatedRoute  , private _userDataService: AuthenticationService
-) 
-  {}
+  constructor(private OrderService:OrdersService,private OwnerService:OwnerService) 
+  {
+    
+  }
  
   ngOnInit(): void {
-    
-     this.customerId = this.route.snapshot.params['id']
-     console.log(this.customerId)
-
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -40,11 +32,10 @@ export class CustomerOrdersComponent implements OnInit {
       processing: true
       
     };
-    this.OrderService.GetCustomerOrders(this.customerId).subscribe((res) => {
+    this.OrderService.GetOwnerOrders(this.OwnerId).subscribe((res) => {
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
         this.ordertList=dataJson.data
-        console.log(this.ordertList)
         this.dtTrigger.next(null);
 
       } else {
@@ -71,4 +62,5 @@ export class CustomerOrdersComponent implements OnInit {
   onCloseAddressHandled() {
     this.display = 'none';
   }  
+
 }

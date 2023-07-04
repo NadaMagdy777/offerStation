@@ -23,7 +23,7 @@ export class CustomerOrdersProduct {
     constructor(
         public id:number,
         public orderId :number,
-        public productId :number,
+        public traderProductId :number,
         public quantity :number
     ){}
 }
@@ -33,7 +33,7 @@ export class CustomerOrdersOffer {
     constructor(
         public id:number,
         public orderId :number,
-        public offerId :number,
+        public traderOfferId :number,
         public quantity :number
     ){}
 }

@@ -59,7 +59,6 @@ import {DataTablesModule} from 'angular-datatables';
     SupplierOffersComponent,
     OwnerOffersComponent,
       SupplierHeaderComponent,
-
       CartUserComponent,
       CartOwnerComponent,
       CheckoutComponent,
@@ -82,6 +81,7 @@ import {DataTablesModule} from 'angular-datatables';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
+    
 
   ],
 
