@@ -34,6 +34,7 @@ const routes: Routes = [
 
   { path: 'ownerDashboard', loadChildren: () => import('./modules/owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
   { path: 'supplierDashboard', loadChildren: () => import('./modules/supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+  { path: 'customerOrders', loadChildren: () => import('./modules/customer-orders/customer-orders.module').then(mod => mod.CustomerOrdersModule) },
   // { path: 'adminDashboard', loadChildren: () => import('./modules/admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
 
 

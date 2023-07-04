@@ -5,6 +5,17 @@ export class Product {
         public description: string,
         public price: any,
         public prefPrice: any,
-        public ownerId: number
+        public ownerId: number,
+        public image:any
+    ) { }
+}
+export class OfferProducts {
+    constructor(
+        public name: string,
+        public description: string,
+        public price: number,
+        public image:any,
+        public quantity:number
+
     ) { }
 }

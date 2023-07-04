@@ -30,6 +30,7 @@ namespace offerStation.EF
         public IBaseRepository <CustomerOrderOffer> CustomerOrderOffers { get; private set; }
         public IBaseRepository <CustomerCardDetails> CustomerCardDetails { get; private set; }
         public IBaseRepository <CustomerOrderProduct> CustomerOrderProducts { get; private set; }
+        public IBaseRepository <CustomerOrderDelivery> CustomerOrderDeliveries { get; private set; }
 
         public IBaseRepository <Owner> Owners { get; private set; }
         public IBaseRepository <OwnerCart> OwnerCarts { get; private set; }
@@ -43,6 +44,7 @@ namespace offerStation.EF
         public IBaseRepository <OwnerMenuCategory> OwnerMenuCategories { get; private set; }
         public IBaseRepository <OwnerOrderProduct> OwnerOrderProducts { get; private set; }
         public IBaseRepository <OwnerOfferProduct> OwnerOfferProducts { get; private set; }
+        public IBaseRepository <OwnerOrderDelivery> OwnerOrderDeliveries { get; private set; }
 
         public IBaseRepository<Supplier> Suppliers { get; private set; }
         public IBaseRepository<SupplierOffer> SupplierOffers { get; private set; }
@@ -71,6 +73,7 @@ namespace offerStation.EF
             CustomerCardDetails = new BaseRepository<CustomerCardDetails>(_context);
             CustomerCartProducts = new BaseRepository<CustomerCartProduct>(_context);
             CustomerOrderProducts = new BaseRepository<CustomerOrderProduct>(_context);
+            CustomerOrderDeliveries = new BaseRepository<CustomerOrderDelivery>(_context);
 
             Owners = new BaseRepository<Owner>(_context);
             OwnerCarts = new BaseRepository<OwnerCart>(_context);
@@ -85,6 +88,7 @@ namespace offerStation.EF
             OwnerOrderProducts = new BaseRepository<OwnerOrderProduct>(_context);
             OwnerOfferProducts = new BaseRepository<OwnerOfferProduct>(_context);
             OwnerMenuCategories = new BaseRepository<OwnerMenuCategory>(_context);
+            OwnerOrderDeliveries = new BaseRepository<OwnerOrderDelivery>(_context);
 
             Suppliers = new BaseRepository<Supplier>(_context);
             SupplierOffers = new BaseRepository<SupplierOffer>(_context);

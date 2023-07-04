@@ -8,7 +8,8 @@ namespace offerStation.Core.Constants
 {
     public enum OrderStatus
     {
-        pending, 
+        pending,
+        ordered,
         shipped, 
         delivered
     }

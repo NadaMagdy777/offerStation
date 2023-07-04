@@ -33,8 +33,10 @@ import { CartOwnerComponent } from './pages/cart-owner/cart-owner.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
+import { CustomerReviewComponent } from './pages/customer-review/customer-review.component';
+import {DataTablesModule} from 'angular-datatables';
 
-
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,10 +63,15 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
       CartUserComponent,
       CartOwnerComponent,
       CheckoutComponent,
-      OrderUserComponent
-
+      OrderUserComponent,
+      CustomerReviewComponent,
+      
+      
+ 
   ],
+
   imports: [
+    DataTablesModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

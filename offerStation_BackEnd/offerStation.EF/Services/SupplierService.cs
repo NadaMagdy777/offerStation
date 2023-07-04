@@ -745,5 +745,28 @@ namespace offerStation.EF.Services
 
 
         }
+        public async Task<List<offerProductInfo>> getofferProduct(int OfferId)
+        {
+            List<SupplierOfferProduct> offers = _unitOfWork.SupplierOfferProducts.FindAllAsync(O => O.OfferId == OfferId && O.IsDeleted == false, new List<Expression<Func<SupplierOfferProduct, object>>>()
+            {
+                o=>o.Product
+
+
+            }).Result.ToList();
+            List<offerProductInfo> result = new List<offerProductInfo>();
+            foreach (SupplierOfferProduct Offer in offers)
+            {
+                offerProductInfo offerProduct = new offerProductInfo
+                {
+                    Description = Offer.Product.Description,
+                    Quantity = Offer.Quantity,
+                    Name = Offer.Product.Name,
+                    Image = Offer.Product.Image,
+                    Price = Offer.Product.Price
+                };
+                result.Add(offerProduct);
+            }
+            return result;
+        }
     }
 }

@@ -364,5 +364,11 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, data));
 
         }
+        [HttpGet("Offer/Products/Details")]
+        public async Task<ActionResult<ApiResponse>> GetOfferProductDetails(int Offerid)
+        {
+
+            return Ok(new ApiResponse(200, true, await _supplierService.getofferProduct(Offerid)));
+        }
     }
 }
