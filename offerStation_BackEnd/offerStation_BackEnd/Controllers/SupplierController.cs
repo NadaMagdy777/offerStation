@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
 using offerStation.Core.Models;
+using offerStation.Core.Wrappers;
 using offerStation.EF.Services;
 using System.Drawing.Printing;
 
@@ -221,6 +222,14 @@ namespace offerStation.API.Controllers
                 return Ok(new ApiResponse(200, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpGet("CategoriesByPage")]
+        public async Task<IActionResult> GetAllCategoriesByPage([FromQuery] PagingParameters pagingParameters)
+        {
+            var categories = await _supplierService.GetAllCategories();
+            var pagedCategories = categories.ToPagedResponse(pagingParameters);
+
+            return Ok(pagedCategories);
         }
         [HttpGet("AllProductsByMenuCategoryIDWithPaginatoion/id")]
         public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID(int pageNumber, int pageSize, int id)

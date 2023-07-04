@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { CategoryService } from 'src/app/services/Category/category.service';
 import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
+import { AdminSupplierCategoryService } from 'src/app/services/admin/admin-supplier-category.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
+import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters';
 
 @Component({
   selector: 'app-admin-supplier-category',
@@ -13,14 +16,14 @@ import { Category } from 'src/app/sharedClassesAndTypes/Category';
 export class AdminSupplierCategoryComponent {
 
   categories: Category[] = [];
-  pageNumber = 1;
-  pageSize = 5;
+  // pageNumber = 1;
+  // pageSize = 5;
   imageUrl: string = '';
 
   newCategory: Category = {
     id: 0,
     name: '',
-    image: []
+    image: ''
   };
 
   dtOptions:DataTables.Settings = {};
@@ -30,7 +33,7 @@ export class AdminSupplierCategoryComponent {
   categoryForm:FormGroup;
 
   constructor(
-    private _categoryService: AdminCategoriesService,
+    private _categoryService: CategoryService,//AdminSupplierCategoryService,
     private _imageService:ImageService,
     private fb:FormBuilder,
     ) 
@@ -41,10 +44,10 @@ export class AdminSupplierCategoryComponent {
       });
 
       this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
-        //this.categoryForm.name = data;
+        // this.categoryForm.name = data;
       });
       this.categoryForm.get('profilePicture')?.valueChanges.subscribe((data) => {
-        //this.categoryForm.profilePicture = data;
+        // this.categoryForm.profilePicture = data;
       });
     }
     ngOnInit(): void {
@@ -59,13 +62,16 @@ export class AdminSupplierCategoryComponent {
     }
 
     getCategories(): void {
-      // this._categoryService.GetAllSupplierCategory(this.pageNumber, this.pageSize)
-      //   .subscribe(response => 
-      //     {
-      //       this.categories = response.data
-      //       console.log("categories: ",this.categories);
-      //       this.dtTrigger.next(null);
-      //     });
+      this._categoryService.GetAllSupplierCategory()
+        .subscribe(response => 
+          {
+            this.categories = response.data
+            console.log("categories: ",this.categories);
+            this.dtTrigger.next(null);
+            this.categories.forEach((category:Category)=>{
+              category.image =this._imageService.base64ArrayToImage(category.image)          
+              });
+          });
     }
     public async ProcessFile(event: any) {
       const file = event.target.files[0];

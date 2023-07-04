@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { CategoryService } from 'src/app/services/Category/category.service';
 import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
+import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters';
 
 @Component({
   selector: 'app-admin-owner-category',
@@ -13,14 +15,12 @@ import { Category } from 'src/app/sharedClassesAndTypes/Category';
 export class AdminOwnerCategoryComponent {
 
   categories: Category[] = [];
-  pageNumber = 1;
-  pageSize = 5;
   imageUrl: string = '';
 
   newCategory: Category = {
     id: 0,
     name: '',
-    image: []
+    image: ''
   };
 
   dtOptions:DataTables.Settings = {};
@@ -30,7 +30,7 @@ export class AdminOwnerCategoryComponent {
   categoryForm:FormGroup;
   
   constructor(
-    private _categoryService: AdminCategoriesService,
+    private _categoryService: CategoryService,//AdminCategoriesService,
     private _imageService:ImageService,
     private fb:FormBuilder,
     ) 
@@ -60,12 +60,15 @@ export class AdminOwnerCategoryComponent {
   }
 
   getCategories(): void {
-    this._categoryService.GetAllCategories(this.pageNumber, this.pageSize)
+    this._categoryService.GetAllCategory()
       .subscribe(response => 
         {
           this.categories = response.data
           console.log("categories: ",this.categories);
           this.dtTrigger.next(null);
+          this.categories.forEach((category:Category)=>{
+            category.image =this._imageService.base64ArrayToImage(category.image)          
+            });
         });
   }
 

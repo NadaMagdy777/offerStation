@@ -4,7 +4,6 @@
       <h1 class="float-start">Owner Divisions</h1>
       <button class="btn btn-success m-3 float-end" (click)="openModal()">Add [+]</button>
     </div>
-    <!-- <button mat-button color="primary" (click)="openModal()">New</button> -->
     
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered py-3">
       <thead class="table-dark text-white">
@@ -19,7 +18,7 @@
         <tr *ngFor="let division of categories">
           <td>{{division.id}}</td>
           <td>{{division.name}}</td>
-          <td>{{division.image}}</td>
+          <td style="text-align: center;"><img [src]="division.image" width="50" height="50" class="rounded-circle"></td>
           <td style="text-align: center;">
             <button mat-icon-button (click)="onUpdate(division)">
               <mat-icon>edit</mat-icon>

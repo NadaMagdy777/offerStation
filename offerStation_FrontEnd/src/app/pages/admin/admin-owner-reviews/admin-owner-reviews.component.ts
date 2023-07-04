@@ -4,11 +4,11 @@ import { ReviewService } from 'src/app/services/admin/Review/review.service';
 import { ReviewInfo } from 'src/app/sharedClassesAndTypes/ReviewInfo';
 
 @Component({
-  selector: 'app-admin-reviews',
-  templateUrl: './admin-reviews.component.html',
-  styleUrls: ['./admin-reviews.component.css']
+  selector: 'app-admin-owner-reviews',
+  templateUrl: './admin-owner-reviews.component.html',
+  styleUrls: ['./admin-owner-reviews.component.css']
 })
-export class AdminReviewsComponent {
+export class AdminOwnerReviewsComponent {
 
   reviews: ReviewInfo[] = [];
 
@@ -29,7 +29,7 @@ export class AdminReviewsComponent {
   }
 
   getReviews(): void {
-    this._reviewService.GetAllCustomersReviews()
+    this._reviewService.GetAllOwnerReviews()
       .subscribe(response => 
         {
           this.reviews = response.data
@@ -38,7 +38,7 @@ export class AdminReviewsComponent {
         });
   }
   onDelete(index:number, reviewId:number){
-    this._reviewService.DeleteCustomerReview(reviewId)
+    this._reviewService.DeleteOwnerReview(reviewId)
     .subscribe({
       next: data => {
         this.reviews.splice(index, 1);

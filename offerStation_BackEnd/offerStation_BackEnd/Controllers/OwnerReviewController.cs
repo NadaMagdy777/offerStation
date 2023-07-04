@@ -47,7 +47,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-        [HttpDelete("OwnerReview/id")]
+        [HttpDelete("id")]
         public async Task<ActionResult<ApiResponse>> DeleteOwnerReview(int id)
         {
             bool success = await _ownerService.DeleteReview(id);

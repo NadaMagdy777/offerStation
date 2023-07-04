@@ -316,10 +316,28 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> DeleteReview(int id)
+        {
+            OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
+
+            if (review is not null)
+            {
+                _unitOfWork.OwnerReviews.Delete(review);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<ReviewDto>?> GetAllOwnersReviews()
         {
             List<ReviewDto> reviewListDto = null;
-            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews.GetAllAsync();
+            IEnumerable<OwnerReview> reviewList = await _unitOfWork.OwnerReviews
+                .FindAllAsync(r => !r.IsDeleted,
+                new List<Expression<Func<OwnerReview, object>>>()
+                {
+                    r => r.Owner.AppUser,
+                });
 
             if (reviewList is not null)
             {
@@ -424,19 +442,6 @@ namespace offerStation.EF.Services
                 reviewListDto = _mapper.Map<List<ReviewDto>>(reviewList);
             }
             return reviewListDto;
-        }
-        public async Task<bool> DeleteReview(int id)
-        {
-            OwnerReview review = await _unitOfWork.OwnerReviews.GetByIdAsync(id);
-
-            if (review is not null)
-            {
-                _unitOfWork.OwnerReviews.Delete(review);
-                _unitOfWork.Complete();
-
-                return true;
-            }
-            return false;
         }
         public async Task<List<OwnerOffer>> filterOffersByCity(int CityID, string categoryName)
         {
