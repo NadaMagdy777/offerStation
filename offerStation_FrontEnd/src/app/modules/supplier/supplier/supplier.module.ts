@@ -24,7 +24,7 @@ import { SupplieraddressesComponent } from 'src/app/pages/supplieraddresses/supp
 
 
 const routes: Routes = [
-  { path: 'mainpage', component: SuppliermainpageComponent },
+  { path: 'mainpage/:id', component: SuppliermainpageComponent },
   {
 
     path: 'profile', component: SupplierProfileComponent, children: [

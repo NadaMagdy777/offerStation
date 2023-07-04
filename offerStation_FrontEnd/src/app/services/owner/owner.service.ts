@@ -102,16 +102,19 @@ export class OwnerService {
     return this._httpClient.get<any>(this.url + "/AllProductsByOwnerID/id?ownerid=" + id);
   }
 
-  GetAllCustomerReviewsByOwnerId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/AllCustomerReviewsByOwnerID/id?ownerid=" + id);
+  GetAllCustomerReviewsByOwnerIdWithPagination(pgNum: number, pageSize: number, id: number): Observable<any> {
+    return this._httpClient.get<any>(this._ownerUrl+ "OwnerReview/GetAllCustomerReviewsByOwnerIdWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&id="+id)
   }
 
   GetOwnerInfo(id: number): Observable<OwnerDetails> {
     return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id)
   }
 
-  GetAllOfferByOwnerId(id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId/id?id=" + id);
+  GetAllOffersByOwnerIdWithPagination(pgNum: number, pageSize: number, id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerIdWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&id="+id).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
   }
 
   //Owner Offer Crud Operations
@@ -174,5 +177,14 @@ export class OwnerService {
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
+  }
+  //GetOfferDetails
+  GetOfferDetatils(offerID:number)
+  {
+    return this._httpClient.get<ApiResponce>(this.url+"/GetOfferDetailsByOfferId/id?id="+offerID).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
+
   }
 }

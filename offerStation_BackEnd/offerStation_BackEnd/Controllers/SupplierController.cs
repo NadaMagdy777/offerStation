@@ -54,6 +54,18 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, supplierList));
 
         }
+        [HttpGet("GetAllOwnersReviewsBySupplierIdWithPagination")]
+        public async Task<ActionResult<ApiResponse>> GetAllOwnersReviewsBySupplierIdWithPagination(int pageNumber, int pageSize, int supplierId)
+        {
+            List<ReviewDto> supplierList = await _supplierService.GetAllOwnersReviewsBySupplierIdWithPagination(pageNumber, pageSize, supplierId);
+
+            if (supplierList is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, supplierList));
+
+        }
         [HttpGet("GetMenuCategoiesBySupplierId")]
         public async Task<ActionResult<ApiResponse>> GetMenuCategoiesBySupplierId(int supplierid)
         {
@@ -260,16 +272,8 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, supplier));
         }
-        [HttpGet("AllOwnersReviewsBySupplierId/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId)
-        {
-            List<ReviewDto> reviews = await _supplierService.GetAllOwnersReviewsBySupplierId(pageNumber, pageSize,supplierId);
-            if(reviews is null)
-            {
-                return BadRequest(new ApiResponse(404, false, "null object"));
-            }
-            return Ok(new ApiResponse(200, true, reviews));
-        }
+
+     
         [HttpGet("GetAllOffersBySupplierIdWithPagination/id")]
         public async Task<ActionResult<ApiResponse>> GetAllOffersBySupplierIdWithPagination(int PageNumber, int pageSize, int id)
         {

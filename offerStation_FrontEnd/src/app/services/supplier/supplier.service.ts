@@ -110,8 +110,8 @@ export class SupplierService {
       }));
   }
 
-  GetAllOwnerReviewsbysupplierID(id: any): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/GetAllOwnerReviewsbysupplierID?supplierId=" + id).
+  GetAllOwnerReviewsbysupplierIDWithPagination(PageNumber:any,pageSize:any,id: any): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOwnersReviewsBySupplierIdWithPagination?pageNumber="+PageNumber+"&pageSize="+pageSize+"&supplierId="+id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
@@ -164,5 +164,13 @@ export class SupplierService {
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
+  }
+  GetofferDetails(offerId:any)
+  {
+   
+    return this._httpClient.get<ApiResponce>(this.url+"/GetOfferDetailsByOfferId/id?id="+offerId).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
   }
 }
