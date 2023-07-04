@@ -37,6 +37,26 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        [HttpPost("ownerOrderDelivery/id")]
+        public async Task<ActionResult<ApiResponse>> OwnerOrderDelivery(int ownerOrderId, int deliveryId)
+        {
+            var success = await _orderService.CreateOwnerOrderDelivery(ownerOrderId, deliveryId);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
+        [HttpPost("customerOrderDelivery/id")]
+        public async Task<ActionResult<ApiResponse>> CustomerOrderDelivery(int customerOrderId, int deliveryId)
+        {
+            var success = await _orderService.CreateCustomerOrderDelivery(customerOrderId, deliveryId);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         [HttpGet("ownerOrders/ownerId")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrders(int ownerId)
         {
