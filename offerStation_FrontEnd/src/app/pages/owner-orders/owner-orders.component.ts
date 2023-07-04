@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
@@ -19,12 +20,28 @@ export class OwnerOrdersComponent {
   offersResult!:CustomerOrdersOffer[]
   productResult!:CustomerOrdersProduct[]
   orderStatus!:any
-  constructor(private OrderService:OrdersService,private OwnerService:OwnerService) 
+  orderId!: number;
+  displayModel2: string="none";
+
+  
+  openReviewsModal(SupplierId:number,orderId:number){
+    this.SupplierId=SupplierId
+    this.orderId=orderId
+    this.displayModel2="block"
+
+  }
+  onCloseReviewHandled(){
+    this.displayModel2="none"
+
+  }
+  constructor(private OrderService:OrdersService,private OwnerService:OwnerService,private route:ActivatedRoute) 
   {
     
   }
  
   ngOnInit(): void {
+    this.OwnerId = this.route.snapshot.params['id']
+    console.log(this.OwnerId)
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
