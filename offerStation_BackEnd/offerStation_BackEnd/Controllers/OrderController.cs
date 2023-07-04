@@ -37,7 +37,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpGet("ownerOrders/ownerId")]
+        [HttpGet("ownerOrders")]
         public async Task<ActionResult<ApiResponse>> AllOwnerOrders(int ownerId)
         {
              List<OrderDto> orders = await _orderService.GetAllOwnerOrders(ownerId);
@@ -48,7 +48,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
-        [HttpGet("customerOrders/customerId")]
+        [HttpGet("customerOrders")]
         public async Task<ActionResult<ApiResponse>> AllCustomerOrders(int customerId)
         {
             List<OrderDto> orders = await _orderService.GetAllCustomerOrders(customerId);
