@@ -12,6 +12,8 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<bool> ChangeOwnerOrderStatus(int id, OrderStatus status);
         Task<bool> ChangeCustomerOrderStatus(int id, OrderStatus status);
+        Task<bool> CreateOwnerOrderDelivery(int ownerOrderId, int deliveryId);
+        Task<bool> CreateCustomerOrderDelivery(int customerOrderId, int deliveryId);
         Task<List<OrderDto>?> GetPendingOwnerOrders();
         Task<List<OrderDto>?> GetPendingCustomerOrders();
         Task<List<OrderDetailsDto>?> GetAllOwnerOrders(int customerId);
