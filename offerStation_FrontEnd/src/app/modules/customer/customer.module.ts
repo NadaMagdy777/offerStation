@@ -15,8 +15,10 @@ const routes: Routes = [
 
   {
     path: 'profile', component: CustomerProfileComponent, children: [
-      { path: 'adresses', component: AddressesComponent },
-      { path: 'Info', component: CustomerInfoComponent },
+      { path: 'adresses/:id', component: AddressesComponent },
+      { path: 'Info/:id', component: CustomerInfoComponent },
+      { path: 'customerOrders/:id', loadChildren: () => import('../customer-orders/customer-orders.module').then(mod => mod.CustomerOrdersModule) },
+
     ]
   },
 

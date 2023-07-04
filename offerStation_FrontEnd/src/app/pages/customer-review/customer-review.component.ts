@@ -2,8 +2,10 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerReviewService } from 'src/app/services/customer-review/customer-review.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { Review } from 'src/app/sharedClassesAndTypes/Review';
+import { orderStatus } from 'src/app/sharedClassesAndTypes/order';
 
 @Component({
   selector: 'app-customer-review',
@@ -13,13 +15,14 @@ import { Review } from 'src/app/sharedClassesAndTypes/Review';
 export class CustomerReviewComponent {
   review:Review={rating:0,comment:""};
   NewReviewForm:FormGroup;
-  ownerId!:number;
-  customerId!:number;
+  @Input() ownerId!:number;
+  @Input() customerId!:number;
+  @Input() OrderId!:number;
   
 
 
   constructor(private CustomerReviewService:CustomerReviewService,private router:Router ,private route:ActivatedRoute,
-  private fb:FormBuilder) 
+  private fb:FormBuilder,private orderService:OrdersService) 
   {
     this.NewReviewForm = this.fb.group({
 
@@ -39,7 +42,6 @@ export class CustomerReviewComponent {
     return this.NewReviewForm.get('Rating');
   }
   
-
   get comment()
   {
     return this.NewReviewForm.get('comment');
@@ -51,8 +53,16 @@ export class CustomerReviewComponent {
       this.CustomerReviewService.postReview(this.review,this.customerId,this.ownerId).subscribe((res) => {
         if (res.success) {
            console.log("success");
-           this.router.navigate(['/account/Appointment/Confirmed'])
-        } else {
+           console.log()
+           this.orderService.CustomerOrderStatus(this.OrderId,orderStatus.delivered).subscribe((res) => {
+            if (res.success) {   
+               this.router.navigate(['customer/profile/customerOrders/',this.customerId])
+            } else {
+              console.log(res.message); 
+            }
+          })
+        } 
+        else {
           console.log(res.message); 
         }
       })

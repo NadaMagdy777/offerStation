@@ -85,7 +85,7 @@ namespace offerStation.EF.Services
         public async  Task<double> getTotalProfit(int ownerId)
         {
             List<CustomerOrder> orders = (List<CustomerOrder>)await _unitOfWork.CustomerOrders.FindAllAsync(o => o.OwnerId == ownerId);
-            return orders.Select(o => o.Total).Sum();
+            return orders.Select(o => (o.Total) - (o.Total * (Const.Fee / 100))).Sum();
         }
 
         public async Task<int> getProductsCount(int ownerId)

@@ -24,15 +24,16 @@ import { SupplieraddressesComponent } from 'src/app/pages/supplieraddresses/supp
 
 
 const routes: Routes = [
-  { path: 'mainpage', component: SuppliermainpageComponent },
+  { path: 'mainpage/:id', component: SuppliermainpageComponent },
   {
-
     path: 'profile', component: SupplierProfileComponent, children: [
-      { path: 'adresses', component: SupplierAddressesComponent },
-      { path: 'Info', component: SupplierInfoComponent },
-      { path: 'categories', component: SupplierCategoriesComponent },
-      { path: 'products', component: SupplierProductsComponent },
-      { path: 'offers', component: SupplierOffersComponent },
+      { path: 'adresses/:id', component: SupplierAddressesComponent },
+      { path: 'Info/:id', component: SupplierInfoComponent },
+      { path: 'categories/:id', component: SupplierCategoriesComponent },
+      { path: 'products/:id', component: SupplierProductsComponent },
+      { path: 'offers/:id', component: SupplierOffersComponent },
+      { path: 'supplierDashboard/:id', loadChildren: () => import('../../supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+
     ]
   },
 ]

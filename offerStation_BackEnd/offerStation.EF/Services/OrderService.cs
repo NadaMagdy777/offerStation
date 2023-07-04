@@ -52,6 +52,46 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> CreateOwnerOrderDelivery(int ownerOrderId, int deliveryId)
+        {
+            var delivery = await _unitOfWork.Deliveries.GetByIdAsync(deliveryId);
+            var ownerOrder = await _unitOfWork.OwnerOrders.GetByIdAsync(ownerOrderId);
+
+            if (ownerOrder is not null && delivery is not null)
+            {
+                OwnerOrderDelivery orderDelivery = new()
+                {
+                    OwnerOrderId = ownerOrderId,
+                    DeliveryId = deliveryId,
+                };
+
+                _unitOfWork.OwnerOrderDeliveries.Add(orderDelivery);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> CreateCustomerOrderDelivery(int customerOrderId, int deliveryId)
+        {
+            var delivery = await _unitOfWork.Deliveries.GetByIdAsync(deliveryId);
+            var customerOrder = await _unitOfWork.CustomerOrders.GetByIdAsync(customerOrderId);
+
+            if (customerOrder is not null && delivery is not null)
+            {
+                CustomerOrderDelivery orderDelivery = new()
+                {
+                    CustomerOrderId = customerOrderId,
+                    DeliveryId = deliveryId,
+                };
+
+                _unitOfWork.CustomerOrderDeliveries.Add(orderDelivery);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<List<OrderDetailsDto>?> GetAllOwnerOrders(int ownerId)
         {
             List<OrderDetailsDto> ordersList = null;
@@ -60,6 +100,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus != OrderStatus.delivered && !o.IsDeleted,
                 new List<Expression<Func<OwnerOrder, object>>>()
                 {
+                    o => o.Supplier.AppUser,
                     o => o.Products,
                     o => o.Offers,
                 });
@@ -78,6 +119,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(o => o.CustomerId == customerId && o.orderStatus != OrderStatus.delivered && !o.IsDeleted,
                 new List<Expression<Func<CustomerOrder, object>>>()
                 {
+                    o => o.Owner.AppUser,
                     o => o.Products,
                     o => o.Offers,
                 });
@@ -96,6 +138,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(o => o.OwnerId == ownerId && o.orderStatus == OrderStatus.ordered && !o.IsDeleted,
                 new List<Expression<Func<CustomerOrder, object>>>()
                 {
+                    o => o.Customer.AppUser,
                     o => o.Products,
                     o => o.Offers,
                 });
@@ -114,6 +157,7 @@ namespace offerStation.EF.Services
                 .FindAllAsync(o => o.SupplierId == supplierId && o.orderStatus == OrderStatus.ordered && !o.IsDeleted,
                 new List<Expression<Func<OwnerOrder, object>>>()
                 {
+                    o => o.Owner.AppUser,
                     o => o.Products,
                     o => o.Offers,
                 });
@@ -129,7 +173,12 @@ namespace offerStation.EF.Services
             List<OrderDto> pendingOrdersList = null;
 
             var pendingOrders = await _unitOfWork.OwnerOrders
-                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted);
+                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted,
+                new List<Expression<Func<OwnerOrder, object>>>()
+                {
+                    o => o.Owner.AppUser,
+                    o => o.Supplier.AppUser,
+                });
 
             if (pendingOrders is not null)
             {
@@ -142,7 +191,12 @@ namespace offerStation.EF.Services
             List<OrderDto> pendingOrdersList = null;
 
             var pendingOrders = await _unitOfWork.CustomerOrders
-                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted);
+                .FindAllAsync(o => o.orderStatus == OrderStatus.pending && !o.IsDeleted,
+                new List<Expression<Func<CustomerOrder, object>>>()
+                {
+                    o => o.Owner.AppUser,
+                    o => o.Customer.AppUser,
+                });
 
             if (pendingOrders is not null)
             {

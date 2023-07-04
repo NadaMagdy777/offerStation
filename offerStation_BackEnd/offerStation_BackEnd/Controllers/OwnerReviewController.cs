@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces.Services;
+using System.Drawing.Printing;
 
 namespace offerStation.API.Controllers
 {
@@ -35,10 +36,10 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-        [HttpGet("AllCustomerReviewsByOwnerId/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllCustomerReviews(int ownerId)
+        [HttpGet("GetAllCustomerReviewsByOwnerIdWithPagination/id")]
+        public async Task<ActionResult<ApiResponse>> GetAllCustomerReviewsByOwnerIdWithPagination(int pageNumber, int pageSize, int id)
         {
-            List<ReviewDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerId(ownerId);
+            List<ReviewDto> reviews = await _ownerService.GetAllCustomerReviewsByOwnerIdWithPagination(pageNumber, pageSize, id);
 
             if (reviews is null)
             {
@@ -46,7 +47,7 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, reviews));
         }
-        [HttpDelete("OwnerReview/id")]
+        [HttpDelete("id")]
         public async Task<ActionResult<ApiResponse>> DeleteOwnerReview(int id)
         {
             bool success = await _ownerService.DeleteReview(id);

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OwnerAnalysisService } from 'src/app/services/owner/owner-analysis/owner-analysis.service';
 import { AnalysisResult, customerResult } from 'src/app/sharedClassesAndTypes/analysisResult';
@@ -14,14 +15,14 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor( private _ownerAnalysisServ: OwnerAnalysisService) { }
+  constructor( private _ownerAnalysisServ: OwnerAnalysisService,private route:ActivatedRoute) { }
 
   totalCustomers:number=0
   totalOrders:number=0;
   totalProfits:number=0;
   totalProducts:number=0
   totalOffers:number=0;
-  ownerId:number=1
+  ownerId!:number
   topOffers!:AnalysisResult[]
   topProduct!:AnalysisResult[]
   orderStatus!:AnalysisResult[]
@@ -30,6 +31,8 @@ export class OwnerDashboardComponent implements OnDestroy, OnInit{
   
   
   ngOnInit(): void {
+    this.ownerId = this.route.snapshot.params['id']
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,

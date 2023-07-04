@@ -27,11 +27,13 @@ const routes: Routes = [
   { path: 'mainpage/:id', component: OwnerProductComponent },
   {
     path: 'profile', component: OwnerProfileComponent, children: [
-      { path: 'branches', component: OwnerAddressesComponent },
-      { path: 'Info', component: OwnerInfoComponent },
-      { path: 'categories', component: OwnerCategoriesComponent },
-      { path: 'products', component: OwnerProductsComponent },
-      { path: 'offers', component: OwnerOffersComponent },
+      { path: 'ownerDashboard/:id', loadChildren: () => import('../owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
+      { path: 'branches/:id', component: OwnerAddressesComponent },
+      { path: 'Info/:id', component: OwnerInfoComponent },
+      { path: 'categories/:id', component: OwnerCategoriesComponent },
+      { path: 'products/:id', component: OwnerProductsComponent },
+      { path: 'offers/:id', component: OwnerOffersComponent },
+      { path: 'ownerOrders/:id', loadChildren: () => import('../owner-orders/owner-orders.module').then(mod => mod.OwnerOrdersModule) },
     ]
   },
 
