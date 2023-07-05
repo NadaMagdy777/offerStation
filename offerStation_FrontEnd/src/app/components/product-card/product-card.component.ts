@@ -7,7 +7,10 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit{
- 
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
   @Input() name:string=""
   @Input() offerId:number=0
   @Input() prefPrice:number=0
@@ -20,20 +23,14 @@ export class ProductCardComponent implements OnInit{
   hideElement:boolean=true
   display: string="none";
 
- constructor(private imageService:ImageService){
-
- }
-  ngOnInit(): void {
-    this.sellerImage=this.imageService.base64ArrayToImage(this.sellerImage)
-    this.OfferImage=this.imageService.base64ArrayToImage(this.OfferImage)
-  }
-
   openAddressModal() {
     this.display = 'block';
   }
 
   onCloseAddressHandled() {
     this.display = 'none';
-  }  
+  }
+  // AddProductToCart(){
 
+  // }
 }

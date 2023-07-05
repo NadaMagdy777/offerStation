@@ -9,11 +9,8 @@ body {
   border-top-right-radius: .25rem;
 }
 
-
-
-
 @keyframes animatedBackground {
-   
+
     from {background-size:contain}
   to   {background-size:cover}
   }

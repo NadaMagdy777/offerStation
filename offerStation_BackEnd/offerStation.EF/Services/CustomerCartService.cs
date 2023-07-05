@@ -154,9 +154,10 @@ namespace offerStation.EF
                     ccp.Total += op.Price;
                 }
             }
-            _unitOfWork.Complete();
-
+            
             customer.CustomerCart.Total += op.Price;
+
+            _unitOfWork.Complete();
 
             result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
             
@@ -231,9 +232,10 @@ namespace offerStation.EF
 
                 }
             }
-            _unitOfWork.Complete();
-
+            
             customer.CustomerCart.Total += of.Price;
+
+            _unitOfWork.Complete();
 
             result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
            
@@ -350,6 +352,240 @@ namespace offerStation.EF
             return new ApiResponse(200, true, result, "Removed Successfully");
         }
 
+
+        public async Task<ApiResponse> ProductPlus(int userIdentifier, int ProductId)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == ProductId,
+                new List<Expression<Func<OwnerProduct, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Products PLZ!");
+            }
+
+            CustomerCartDto result;
+
+            if (customer.CustomerCart.OwnerId != op.OwnerId)
+                return new ApiResponse(200, false, null, "You Can Only Buy From One Place!");
+
+            if (customer.CustomerCart.Products is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Products PLZ!");
+            }
+            else
+            {
+                CustomerCartProduct ccp = customer.CustomerCart.Products.FirstOrDefault(p => p.OwnerProductId == op.Id);
+                if (ccp is null)
+                    return new ApiResponse(400, false, null, "The Cart Doesn't Contain this product!");
+                else
+                {
+                    ccp.Quantity++;
+                    ccp.Total += op.Price;
+                }
+            }
+
+            customer.CustomerCart.Total += op.Price;
+
+            _unitOfWork.Complete();
+            
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = op.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Added Successfully");
+        }
+        public async Task<ApiResponse> OfferPlus(int userIdentifier, int offerId)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            OwnerOffer of = await _unitOfWork.OwnerOffers.FindAsync(p => p.Id == offerId,
+                new List<Expression<Func<OwnerOffer, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Offers PLZ!");
+            }
+
+            CustomerCartDto result;
+
+            if (customer.CustomerCart.OwnerId != of.OwnerId)
+                return new ApiResponse(200, false, null, "You Can Only Buy From One Place!");
+
+            if (customer.CustomerCart.Offers is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Offers PLZ!");
+            }
+            else
+            {
+                CustomerCartOffer ccf = customer.CustomerCart.Offers.FirstOrDefault(p => p.OwnerOffertId == of.Id);
+                if (ccf is null)
+                    return new ApiResponse(400, false, null, "The Cart Doesn't Contain this Offer!");
+                else
+                {
+                    ccf.Quantity++;
+                    ccf.Total += of.Price;
+                }
+            }
+
+            customer.CustomerCart.Total += of.Price;
+            
+            _unitOfWork.Complete();
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = of.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Added Successfully");
+        }
+
+
+        public async Task<ApiResponse> ProductMinus(int userIdentifier, int ProductId)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == ProductId,
+                new List<Expression<Func<OwnerProduct, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Products PLZ!");
+            }
+
+            CustomerCartDto result;
+
+            if (customer.CustomerCart.OwnerId != op.OwnerId)
+                return new ApiResponse(200, false, null, "You Can Only Buy From One Place!");
+
+            if (customer.CustomerCart.Products is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Products PLZ!");
+            }
+            else
+            {
+                CustomerCartProduct ccp = customer.CustomerCart.Products.FirstOrDefault(p => p.OwnerProductId == op.Id);
+                if (ccp is null)
+                    return new ApiResponse(400, false, null, "The Cart Doesn't Contain this product!");
+                else
+                {
+                    ccp.Quantity--;
+                    ccp.Total -= op.Price;
+
+                    if (ccp.Quantity == 0)
+                    {
+                        customer.CustomerCart.Products.Remove(ccp);
+                    }
+                }
+            }
+
+            customer.CustomerCart.Total -= op.Price;
+
+            _unitOfWork.Complete();
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = op.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Added Successfully");
+        }
+        public async Task<ApiResponse> OfferMinus(int userIdentifier, int offerId)
+        {
+            Customer customer = await _unitOfWork.Customers
+                .FindAsync(c => c.Id == userIdentifier && !c.IsDeleted,
+                new List<Expression<Func<Customer, object>>>()
+                {
+                    c => c.CustomerCart.Offers,
+                    c => c.CustomerCart.Products,
+                });
+
+            if (customer is null)
+                return new ApiResponse(401, false);
+
+            OwnerOffer of = await _unitOfWork.OwnerOffers.FindAsync(p => p.Id == offerId,
+                new List<Expression<Func<OwnerOffer, object>>>()
+                {
+                    p =>p.Owner.AppUser,
+                });
+
+            if (customer.CustomerCart is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Offers PLZ!");
+            }
+
+            CustomerCartDto result;
+
+            if (customer.CustomerCart.OwnerId != of.OwnerId)
+                return new ApiResponse(200, false, null, "You Can Only Buy From One Place!");
+
+            if (customer.CustomerCart.Offers is null)
+            {
+                return new ApiResponse(400, false, null, "the cart is Empty Add some Offers PLZ!");
+            }
+            else
+            {
+                CustomerCartOffer ccf = customer.CustomerCart.Offers.FirstOrDefault(p => p.OwnerOffertId == of.Id);
+                if (ccf is null)
+                    return new ApiResponse(400, false, null, "The Cart Doesn't Contain this Offer!");
+                else
+                {
+                    ccf.Quantity--;
+                    ccf.Total -= of.Price;
+
+                    if(ccf.Quantity == 0)
+                    {
+                        customer.CustomerCart.Offers.Remove(ccf);
+                    }
+                }
+            }
+            
+            customer.CustomerCart.Total -= of.Price;
+
+            _unitOfWork.Complete();
+
+            result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
+
+            result.OwnerName = of.Owner.AppUser.Name;
+
+            return new ApiResponse(200, true, result, "Added Successfully");
+        }
+
         public async Task<ApiResponse> GetCreateOrder(int userIdentifier)
         {
             Customer customer = await _unitOfWork.Customers
@@ -405,6 +641,7 @@ namespace offerStation.EF
                 CustomerId = userIdentifier,
                 IsDeleted = false,
                 OwnerId = customer.CustomerCart.OwnerId,
+                PaymentMethod = PaymentMethods.cash
             };
 
             await _unitOfWork.CustomerOrders.Add(order);

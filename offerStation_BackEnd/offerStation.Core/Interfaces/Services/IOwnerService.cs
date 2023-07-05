@@ -46,7 +46,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<double> GetMinPriceoFProductByOwmerID(int id);
         Task<double> GetMaxPriceoFProductByOwmerID(int id);
         Task<List<ProductInfoDto>> GetProductsByOwnerIDAndPrice(int id, double selectedprice);
-        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination(int pageNumber, int pageSize, int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination( int id);
 
         Task<List<offerProductInfo>> getofferProduct(int OfferId);
     }
@@ -85,6 +85,10 @@ namespace offerStation.Core.Interfaces.Services
         Task<ApiResponse> AddOfferToCart(int userIdentifier, ProductDetailsDto Offer);
         Task<ApiResponse> RemoveProductFromCart(int userIdentifier, int productId);
         Task<ApiResponse> RemoveOfferFromCart(int userIdentifier, int offerId);
+        Task<ApiResponse> ProductPlus(int userIdentifier, int offerId);
+        Task<ApiResponse> OfferPlus(int userIdentifier, int offerId);
+        Task<ApiResponse> ProductMinus(int userIdentifier, int offerId);
+        Task<ApiResponse> OfferMinus(int userIdentifier, int offerId);
         Task<ApiResponse> GetCreateOrder(int userIdentifier);
         Task<ApiResponse> PostCreateOrder(int userIdentifier);
     }
