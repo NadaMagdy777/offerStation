@@ -11,6 +11,7 @@ import { AdminWaitingSuppliersComponent } from 'src/app/pages/admin/admin-waitin
 
 const routes: Routes = [
   { path:'', component:AdminComponent, children: [
+    { path: '', redirectTo: 'analysis', pathMatch: 'full' },
     { path:'ownerCategory', component:AdminOwnerCategoryComponent},
     { path:'supplierCategory', component:AdminSupplierCategoryComponent},
     { path:'delivery', component:AdminDeliveryComponent},
@@ -18,7 +19,7 @@ const routes: Routes = [
     { path:'customerReview', component:AdminReviewsComponent},
     { path:'waitingOwners', component:AdminWaitingOwnersComponent},
     { path:'waitingSuppliers', component:AdminWaitingSuppliersComponent},
-    { path: 'dashboard', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
+    { path: 'analysis', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
   ]}, 
 ];
 
