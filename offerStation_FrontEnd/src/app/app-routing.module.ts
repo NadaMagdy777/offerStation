@@ -21,6 +21,8 @@ const routes: Routes = [
   { path: 'cart-user', component: CartUserComponent },
   { path: 'cart-owner', component: CartOwnerComponent },
   { path: 'checkout', component: CheckoutComponent },
+  
+
 
   { path: 'supplierHome', component: SupplierHeaderComponent },
 
