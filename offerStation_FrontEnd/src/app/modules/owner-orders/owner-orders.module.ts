@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { OwnerOrdersRoutingModule } from './owner-orders-routing.module';
 import { OwnerOrdersComponent } from 'src/app/pages/owner-orders/owner-orders.component';
 import { DataTablesModule } from 'angular-datatables';
-import { SupplierProductOfferDetailsComponent } from 'src/app/components/supplier-product-offer-details/supplier-product-offer-details.component';
 import { OwnerReviewComponent } from 'src/app/pages/owner-review/owner-review.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SupplierOfferProductDetailsModule } from '../components-shared/supplier-offer-product-details/supplier-offer-product-details.module';
 @NgModule({
-  declarations: [OwnerOrdersComponent,SupplierProductOfferDetailsComponent,OwnerReviewComponent],
+  declarations: [OwnerOrdersComponent,OwnerReviewComponent],
   imports: [
     CommonModule,
     DataTablesModule,
     OwnerOrdersRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SupplierOfferProductDetailsModule
   ]
 })
 export class OwnerOrdersModule { }

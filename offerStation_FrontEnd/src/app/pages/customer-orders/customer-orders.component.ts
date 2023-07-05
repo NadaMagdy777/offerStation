@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { CustomerOrders, CustomerOrdersOffer, CustomerOrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
+import { CustomerOrders, OrdersOffer, OrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
 import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
@@ -23,8 +23,8 @@ export class CustomerOrdersComponent implements OnInit {
   display:string="none"
   displayModel2:string="none"
 
-  offersResult!:CustomerOrdersOffer[]
-  productResult!:CustomerOrdersProduct[]
+  offersResult!:OrdersOffer[]
+  productResult!:OrdersProduct[]
   orderStatus!:any
 
   openReviewsModal(OwnerId:number,orderId:number){

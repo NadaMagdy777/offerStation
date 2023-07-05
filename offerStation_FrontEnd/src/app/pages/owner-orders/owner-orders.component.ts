@@ -1,24 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { CustomerOrders, CustomerOrdersOffer, CustomerOrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
+import { CustomerOrders, OrdersOffer, OrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
 
 @Component({
   selector: 'app-owner-orders',
   templateUrl: './owner-orders.component.html',
   styleUrls: ['./owner-orders.component.css']
 })
-export class OwnerOrdersComponent {
+export class OwnerOrdersComponent implements OnInit {
   SupplierId:number=1;
   OwnerId:number=1;
   ordertList:CustomerOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   display:string="none"
-  offersResult!:CustomerOrdersOffer[]
-  productResult!:CustomerOrdersProduct[]
+  offersResult!:OrdersOffer[]
+  productResult!:OrdersProduct[]
   orderStatus!:any
   orderId!: number;
   displayModel2: string="none";

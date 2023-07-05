@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/Category/category.service';
 // import { OwnerCategoryServiceService } from 'src/app/services/OwnerCategory/owner-category-service.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CityService } from 'src/app/services/city/city.service';
@@ -15,7 +17,8 @@ export class OwnerregestrationComponent {
   constructor(private _AuthService: AuthenticationService,
     private fb: FormBuilder,
     private cityService: CityService,
-    // private categoryService:OwnerCategoryServiceService
+  private category:CategoryService,
+  private router: Router
   ) {
 
   }
@@ -24,21 +27,19 @@ export class OwnerregestrationComponent {
   categories: any;
   error: string = ''
   registerForm = this.fb.group({
-    FirstName: ['', [Validators.required]],
-    LastName: ['', [Validators.required]],
+    Name: ['', [Validators.required]],
     Phone: ['', [Validators.required]],
     Address: this.fb.array([]),
     Password: ['', [Validators.required]],
+    ownerCategory:['',[Validators.required]],
     Confirm: ['', [Validators.required]],
     Email: ['', [Validators.required, Validators.email]],
   }, { validator: [ConfirmPasswordValidator] })
 
-  get FirstName() {
-    return this.registerForm.get('FirstName');
+  get Name() {
+    return this.registerForm.get('Name');
   }
-  get LastName() {
-    return this.registerForm.get('LastName');
-  }
+  
   get Phone() {
     return this.registerForm.get('Phone');
   }
@@ -64,10 +65,11 @@ export class OwnerregestrationComponent {
       next: data => this.Cities = data.data,
       error: error => console.log(error)
     });
-    // this.categoryService.GetAllCategories().subscribe({
-    //   next: data => this.categories = data.data,
-    //   error: error => console.log(error)
-    // })
+    this.category.GetAllCategory().subscribe({
+      next: data => this.categories = data.data,
+      error: error => console.log(error)
+    });
+
   }
 
   addAddress() {
@@ -85,15 +87,17 @@ export class OwnerregestrationComponent {
 
   submitData() {
     this._AuthService.registerOwner(this.registerForm.value).subscribe({
-      next:data=>{        
-        if (data.success == true) {
-        }
-        else {
-          this.msg = data.message;
-        }},
-      error:error=>console.log(error)
+      next:data=>{      
+        if(data.success)
+          this.router.navigate(['login']);
+        else
+          this.error = data.data;
+      },
+      error: error => console.log(error)
     })
   }
+
+
   removemesage(){
     this.msg="";
   }

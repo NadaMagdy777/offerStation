@@ -48,7 +48,7 @@ namespace offerStation.EF.Services
             List<SupplierDto> supplierDtoList = null;
 
             IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
-                .FindAllAsync(o => !o.IsDeleted && o.Approved);
+                .FindAllAsync(s => !s.IsDeleted && s.Approved);
 
             if (supplierList is not null)
             {
@@ -57,31 +57,39 @@ namespace offerStation.EF.Services
             }
             return supplierDtoList;
         }
-        public async Task<List<SupplierDto>?> GetSuspendedSuppliers()
+        public async Task<List<TraderDetailsDto>?> GetSuspendedSuppliers()
         {
-            List<SupplierDto> supplierDtoList = null;
+            List<TraderDetailsDto> supplierDtoList = null;
 
             IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
-                .FindAllAsync(o => o.IsDeleted && o.Approved);
+                .FindAllAsync(s => s.IsDeleted && s.Approved, 
+                new List<Expression<Func<Supplier, object>>>()
+                {
+                    s => s.AppUser,
+                });
 
             if (supplierList is not null)
             {
-                supplierDtoList = new List<SupplierDto>();
-                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+                supplierDtoList = new ();
+                supplierDtoList = _mapper.Map<List<TraderDetailsDto>>(supplierList);
             }
             return supplierDtoList;
         }
-        public async Task<List<SupplierDto>?> GetWaitingSuppliers()
+        public async Task<List<TraderDetailsDto>?> GetWaitingSuppliers()
         {
-            List<SupplierDto> supplierDtoList = null;
+            List<TraderDetailsDto> supplierDtoList = null;
 
             IEnumerable<Supplier> supplierList = await _unitOfWork.Suppliers
-                .FindAllAsync(o => !o.IsDeleted && !o.Approved);
+                .FindAllAsync(s => !s.IsDeleted && !s.Approved,
+                new List<Expression<Func<Supplier, object>>>()
+                {
+                    s => s.AppUser,
+                });
 
             if (supplierList is not null)
             {
-                supplierDtoList = new List<SupplierDto>();
-                supplierDtoList = _mapper.Map<List<SupplierDto>>(supplierList);
+                supplierDtoList = new ();
+                supplierDtoList = _mapper.Map<List<TraderDetailsDto>>(supplierList);
             }
             return supplierDtoList;
         }
