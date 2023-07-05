@@ -34,6 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
 import {DataTablesModule} from 'angular-datatables';
+import { ProductCardModule } from './modules/components-shared/product-card/product-card.module';
 
  
 @NgModule({
@@ -80,6 +81,7 @@ import {DataTablesModule} from 'angular-datatables';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
+    ProductCardModule
     
 
   ],

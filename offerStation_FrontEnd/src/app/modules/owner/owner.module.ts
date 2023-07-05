@@ -34,6 +34,8 @@ const routes: Routes = [
       { path: 'products/:id', component: OwnerProductsComponent },
       { path: 'offers/:id', component: OwnerOffersComponent },
       { path: 'ownerOrders/:id', loadChildren: () => import('../owner-orders/owner-orders.module').then(mod => mod.OwnerOrdersModule) },
+      { path: 'CustomerOrders/:id', loadChildren: () => import('../owner-requestied-orders-tabs/owner-requestied-orders-tabs.module').then(mod => mod.OwnerRequestiedOrdersTabsModule) },
+
     ]
   },
 
