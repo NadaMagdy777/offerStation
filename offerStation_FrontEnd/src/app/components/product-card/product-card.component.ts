@@ -15,13 +15,15 @@ export class ProductCardComponent {
   @Input() Type:string=""
   hideElement:boolean=true
   display: string="none";
-
+  constructor(){}
   openAddressModal() {
     this.display = 'block';
   }
 
   onCloseAddressHandled() {
     this.display = 'none';
-  }  
+  }
+  AddProductToCart(){
 
+  }
 }

@@ -7,12 +7,22 @@ import { Base } from 'src/app/sharedClassesAndTypes/Base';
   providedIn: 'root'
 })
 export class CartService {
-  private apiURL = Base.apiUrl + 'Owner';
+  private apiURL = Base.apiUrl +'Cart';
   constructor(private http: HttpClient) { }
- AddOferrToCart(): Observable<any> {
-    return this.http.get<any>(this.apiURL + "/Categories").pipe(catchError((err) => {
+ AddProductToCart(newProduct:any): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/addProductToCart",newProduct).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
-      // console.log( this.http.get<any>(this.apiURL+"/Categories"))
     }));
   }
+  GetCartdetails(): Observable<any>{
+    return this.http.get<any>(this.apiURL+"/GetCartDetails").pipe(catchError((err) => {
+      return throwError(() => err.message || "server error");
+
+    }));
+  }
+  RemoveProductToCart(productId:any): Observable<any>{
+    return this.http.get<any>(this.apiURL + "/removeProductToCart?ProductId=" + productId).pipe(catchError((err) => {
+      return throwError(() => err.message || "server error");
+  }));
+}
 }

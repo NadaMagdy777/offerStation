@@ -1,20 +1,46 @@
+import { Offer } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
+import { Product } from 'src/app/sharedClassesAndTypes/product';
+import { CartService } from './../../services/cart/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-cart-user',
   templateUrl: './cart-user.component.html',
   styleUrls: ['./cart-user.component.css']
 })
-export class CartUserComponent {
+export class CartUserComponent implements OnInit{
   display = '';
-    constructor(){
+  productList:any;
+   offerList:any;
+  errorMessage: any;
+    constructor(private cartService:CartService){
 
   }
-  OnInit(){
+  ngOnInit(): void {
+    this.cartService.GetCartdetails().subscribe({
+      next:data=>
+      {
+        console.log(data);
+        this.offerList=data.data.offers;
+        this.productList=data.data.products;
+      },
+      error:(error: any)=>this.errorMessage=error
 
+    })
   }
-  onDeleteProduct(){
-    this.display = 'none';
 
+  onDeleteProduct(ProductID:any){
+    // this.display = 'none';
+this.cartService.RemoveProductToCart(ProductID).subscribe({
+
+})
+  }
+  Sub(value:any){
+   let newvalue=value--
+  //  document.getElementById("quantity").value=newvalue;
+  }
+  Add(value:any){
+  value++
   }
 }
