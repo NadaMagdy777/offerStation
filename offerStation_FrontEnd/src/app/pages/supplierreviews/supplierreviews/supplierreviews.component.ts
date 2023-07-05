@@ -12,12 +12,13 @@ export class SupplierreviewsComponent implements OnInit {
   id:any;
   pageNumber:number=1
   totalItems:number=0
-  pagesize:number=3
+  pagesize:number=1
   errorMessage: any;
   constructor(private suppler:SupplierService,private activatedroute:ActivatedRoute)
   {
 
   } 
+
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
       this.id = Number(paramMap.get('id'));
@@ -33,11 +34,23 @@ export class SupplierreviewsComponent implements OnInit {
       error:(error: any)=>this.errorMessage=error
     })
   }
-  PageNumberChanged(value:any)
+  getAllreviews(pgNum: number, pageSize: number,id:number)
   {
-    // this.pageNumber = value
-    // this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, this.sortBy)
-    // this.pageNumber = 1
-    // console.log(value); 
+    this.suppler.GetAllOwnerReviewsbysupplierIDWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+      next:(data: { data: any; })=>
+      {
+        console.log(data);
+        this.OwnerReview=data.data
+        console.log("list"+this.OwnerReview);
+      },
+      error:(error: any)=>this.errorMessage=error
+    })
+  }
+  pageNumberChanged(value:any)
+  {
+    this.pageNumber = value
+    this.getAllreviews(this.pageNumber,this.pagesize,this.id)
+    this.pageNumber = 1
+    console.log("page"+value); 
   }
 }
