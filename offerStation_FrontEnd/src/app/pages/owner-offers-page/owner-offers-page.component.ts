@@ -14,7 +14,7 @@ export class ownerOffersPageComponent implements OnInit {
   selectedcityId: number = 0
   pageNumber: number = 1
   totalItems: number = 0
-  pagesize: number = 4
+  pagesize: number = 6
   sortBy: string = ""
   OwnerCategory: string = "Clothes"
   display :string="none"
@@ -24,7 +24,7 @@ export class ownerOffersPageComponent implements OnInit {
 
   cityIdChanges(value: any) {
     this.selectedcityId = value;
-    this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, " ")
+    this.getproduct(this.pageNumber, this.pagesize, this.OwnerCategory, this.selectedcityId, this.sortBy)
     this.pageNumber = 1
 
   }

@@ -16,6 +16,7 @@ import { OwnersFiltersModule } from '../components-shared/owners-filters/owners-
 import { OffersFilterModule } from '../components-shared/offers-filter/offers-filter.module';
 import { BannerModule } from '../components-shared/banner/banner.module';
 import { ProductCardModule } from '../components-shared/product-card/product-card.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     ownerOffersPageComponent,
@@ -37,7 +38,8 @@ import { ProductCardModule } from '../components-shared/product-card/product-car
     OffersFilterModule,
     SellerCardModule,
     ProductCardModule,
-    BannerModule
+    BannerModule,
+    NgbModule
  
     
   ]

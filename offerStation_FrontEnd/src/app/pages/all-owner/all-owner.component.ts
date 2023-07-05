@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner/owner.service';
+import { Seller } from 'src/app/sharedClassesAndTypes/Owner';
 import { Product } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
@@ -9,7 +10,7 @@ import { Product } from 'src/app/sharedClassesAndTypes/product';
   styleUrls: ['./all-owner.component.css']
 })
 export class AllOwnerComponent implements OnInit {
-  ProductList!: Product[]
+  ownerList!: Seller[]
   selectedcityId: number = 0
   pageNumber: number = 1
   totalItems: number = 0
@@ -40,7 +41,7 @@ export class AllOwnerComponent implements OnInit {
         let dataJson = JSON.parse(JSON.stringify(data))
         console.log(dataJson.data)
         this.totalItems = dataJson.data.itemsCount
-        this.ProductList = dataJson.data.list
+        this.ownerList = dataJson.data.list
 
       },
       error: error => { console.log(error) }

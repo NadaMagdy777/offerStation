@@ -9,3 +9,13 @@ export class Owner{
         OwnerCategoryId:number
     ){}
 }
+
+export class Seller{
+    constructor(
+        public id:number,
+        public  name:string,
+        public rating:number,
+        public image:any,
+       
+    ){}
+}

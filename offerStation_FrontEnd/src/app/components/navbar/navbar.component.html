@@ -7,8 +7,7 @@
             <img src="../../../assets/imges/logo.PNG" width="200px">
           </a>
         </div>
-        <!-- Left elements -->
-        <!-- Center elements -->
+       
         <div class="order-lg-last col-lg-6 col-sm-8 col-8 me-4">
           <div class="d-flex float-end">
 
@@ -109,7 +108,7 @@
             </a>
             <ul class="dropdown-menu">
               <li *ngFor="let category of categoryList"><a class="dropdown-item"
-                  (click)="showAllOffers(category.name)">{{category.name}}</a></li>
+                   href="/owners/{{category.name}}">{{category.name}}</a></li>
 
             </ul>
           </li>
