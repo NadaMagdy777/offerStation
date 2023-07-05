@@ -24,7 +24,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
         Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierIdWithPagination(int pageNumber, int pageSize, int supplierId);
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id);
-        Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id);
+        Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
         Task<bool> EditProduct(int id, ProductDto productDto);
         Task<bool> DeleteProduct(int id);

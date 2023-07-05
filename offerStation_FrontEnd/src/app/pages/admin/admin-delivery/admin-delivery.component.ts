@@ -40,8 +40,8 @@ export class AdminDeliveryComponent {
     private fb: FormBuilder,
   ) {
     this.deliveryForm = this.fb.group({
-      name: ['', [Validators.required]],
-      phone: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.min(3), Validators.max(30)]],
+      phone: ['', [Validators.required, Validators.pattern(/^01\d{9}$/)]]
     });
 
     this.deliveryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -99,8 +99,6 @@ export class AdminDeliveryComponent {
   }
 
   OnSubmit() {
-    console.log("form", this.deliveryForm.value);
-
     this._deliveryService.AddDelivery(this.deliveryForm.value).subscribe({
       next: data => {
         //  this.dtTrigger.unsubscribe();

@@ -23,15 +23,7 @@ export class OwnerMenuComponent implements OnInit{
   errorMessage: any;
   constructor(private owner: OwnerService,private activatedroute:ActivatedRoute) {
 
-    // this.owner.getMenuCategorybyOwnerId(1).subscribe({
 
-    //   next: data => {
-    //     console.log(data);
-    //     this.MenucategoryList = data.data
-    //   },
-    //   error: error => this.errorMessage = error
-
-    // })
   }
   ngOnInit(): void {
    this.activatedroute.paramMap.subscribe(paramMap=>
@@ -60,16 +52,7 @@ export class OwnerMenuComponent implements OnInit{
       error: error => this.errorMessage = error
 
     });
-      // this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1).subscribe({
-
-      //   next: data => {
-      //     console.log(data);
-      //     this.MenucategoryList = data.data
-      //     console.log("menulist"+this.MenucategoryList)
-      //   },
-      //   error: error => this.errorMessage = error
-  
-      // });
+     
       this.owner.getMenuCategorybyOwnerId(this.id).subscribe({
 
         next: data => {
@@ -83,7 +66,7 @@ export class OwnerMenuComponent implements OnInit{
    
   }
   getAllProductsByOwnerId() {
-    this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+    this.owner.getAllProductsByOwnerId(this.id).subscribe({
       next: data => {
         console.log(data);
         this.ProductListByCategoryName = data.data

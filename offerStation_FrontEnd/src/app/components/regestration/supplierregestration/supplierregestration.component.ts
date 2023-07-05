@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/Category/category.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CityService } from 'src/app/services/city/city.service';
+import { PhoneValidator } from 'src/app/validators/PhoneValidator.validation';
 import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.validation';
+import { SupplierPhoneValidator } from 'src/app/validators/supplierPhone.validation';
+
 
 @Component({
   selector: 'app-supplierregestration',
@@ -27,7 +30,7 @@ msg='';
   error: string = ''
   registerForm = this.fb.group({
     name: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
+    phone: ['', [Validators.required],SupplierPhoneValidator],
     address: this.fb.array([]),
     Password: ['', [Validators.required]],
     supplierCategoryId:['',[Validators.required]],
