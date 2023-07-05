@@ -28,7 +28,7 @@ export class CategoryService {
 
   ////////For Supplier
   GetAllSupplierCategory(): Observable<any> {
-    return this.http.get<any>(this.apiURLSup  + "/Categories").pipe(catchError((err) => {
+    return this.http.get<any>(this.apiURLSup + "/Categories").pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
       // console.log( this.http.get<any>(this.apiURL+"/Categories"))
     }));

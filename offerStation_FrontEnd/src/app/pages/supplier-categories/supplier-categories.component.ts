@@ -51,15 +51,15 @@ export class SupplierCategoriesComponent implements OnInit {
       next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
-        this.categories.forEach((category:SupplierCategory)=>{
-          category.image=this._imageService.base64ArrayToImage(category.image)          
-          });
+        this.categories.forEach((category: SupplierCategory) => {
+          category.image = this._imageService.base64ArrayToImage(category.image)
+        });
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
-  SubmitData() {  
+  SubmitData() {
 
     this._supplierService.AddCategory(1, this.CategoryForm.value).subscribe({
       next: data => {
