@@ -127,10 +127,10 @@ this.owner.GetProductsByOwmerIDAndPrice(1,value).subscribe({
 })
   }
   PageNumberChanged(value:any){
-    // this.pageNumber=value
-    // this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1)
-    // this.pageNumber=1
-    // console.log("page"+value);
+    this.pageNumber=value
+    this.owner.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id)
+    this.pageNumber=1
+    console.log("page"+value);
     console.log("mayar"+value);
 
   }

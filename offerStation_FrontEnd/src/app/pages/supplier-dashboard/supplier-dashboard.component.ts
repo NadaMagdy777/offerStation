@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AnalysisResult, customerResult } from 'src/app/sharedClassesAndTypes/analysisResult';
 import { SupplierDashboardService } from 'src/app/services/supplier/supplier-dashboard/supplier-dashboard.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-supplier-dashboard',
   templateUrl: './supplier-dashboard.component.html',
@@ -13,7 +14,7 @@ export class SupplierDashboardComponent implements OnDestroy, OnInit{
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor( private _SupplierAnalysisServ: SupplierDashboardService) { }
+  constructor( private _SupplierAnalysisServ: SupplierDashboardService,private route: ActivatedRoute) { }
 
   totalCustomers:number=0
   totalOrders:number=0;
@@ -29,6 +30,8 @@ export class SupplierDashboardComponent implements OnDestroy, OnInit{
   
   
   ngOnInit(): void {
+    this.supplierId = this.route.snapshot.params['id']
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,

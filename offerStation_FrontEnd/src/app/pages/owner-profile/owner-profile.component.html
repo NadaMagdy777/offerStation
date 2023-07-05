@@ -4,6 +4,12 @@
       <mat-list-item class="mb-2">
         <div class="d-flex">
           <i class="fa-solid fa-user pe-2"></i>
+          <a routerLink="ownerDashboard/{{ownerId}}">DashBoard</a>
+        </div>
+      </mat-list-item>
+      <mat-list-item class="mb-2">
+        <div class="d-flex">
+          <i class="fa-solid fa-user pe-2"></i>
           <a routerLink="Info/{{ownerId}}">Your Acount </a>
         </div>
       </mat-list-item>
@@ -30,6 +36,18 @@
         <div class="d-flex">
           <i class="fa-solid fa-location-dot pe-2"></i>
           <a routerLink="offers/{{ownerId}}">All Offers</a>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="d-flex">
+          <i class="fa-solid fa-location-dot pe-2"></i>
+          <a routerLink="ownerOrders/{{ownerId}}">Your Orders</a>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="d-flex">
+          <i class="fa-solid fa-location-dot pe-2"></i>
+          <a routerLink="CustomerOrders/{{ownerId}}">Customer Orders</a>
         </div>
       </mat-list-item>
       <!-- <mat-list-item>Paprika</mat-list-item> -->

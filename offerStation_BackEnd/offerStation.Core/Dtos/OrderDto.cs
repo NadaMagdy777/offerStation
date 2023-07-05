@@ -23,6 +23,7 @@ namespace OrderStation.Core.Dtos
         public int Id { get; set; }
         public DateTime orderDate { get; set; }
         public double NetTotal { get; set; } = 0;
+        public OrderStatus orderStatus { get; set; }
         public int RequesterId { get; set; }
         public string RequesterName { get; set; }
         public List<OrderProductDto> Products { get; set; }

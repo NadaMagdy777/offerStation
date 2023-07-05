@@ -7,8 +7,10 @@ export class CustomerOrders {
       public orderDate: Date,
       public traderId: number,
       public total: any,
-      public products: CustomerOrdersProduct[],
-      public offers: CustomerOrdersOffer[]
+      public products: OrdersProduct[],
+      public offers: OrdersOffer[],
+      public traderName:string
+
     ) { }
 }
 
@@ -18,17 +20,17 @@ export enum orderStatus {
     shipped, 
     delivered
 }
-export class CustomerOrdersProduct {
+export class OrdersProduct {
 
     constructor(
         public id:number,
         public orderId :number,
         public traderProductId :number,
-        public quantity :number
+        public quantity :number,
     ){}
 }
 
-export class CustomerOrdersOffer {
+export class OrdersOffer {
 
     constructor(
         public id:number,
@@ -37,4 +39,25 @@ export class CustomerOrdersOffer {
         public quantity :number
     ){}
 }
+
+
+export class RequestedOrders {
+
+    constructor(
+      public id: number,
+      public orderDate: Date,
+      public requesterId: number,
+      public orderStatus: orderStatus,
+      public netTotal: any,
+      public products: OrdersProduct[],
+      public offers: OrdersOffer[],
+      public requesterName:string
+
+    ) { }
+}
+
+
+
+
+
 

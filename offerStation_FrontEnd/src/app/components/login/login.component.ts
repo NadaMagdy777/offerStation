@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  
   constructor(private fb: FormBuilder, private _AuthenticationService: AuthenticationService, private router: Router) {
 
   }

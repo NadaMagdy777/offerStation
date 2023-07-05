@@ -32,6 +32,9 @@ const routes: Routes = [
       { path: 'categories/:id', component: SupplierCategoriesComponent },
       { path: 'products/:id', component: SupplierProductsComponent },
       { path: 'offers/:id', component: SupplierOffersComponent },
+      { path: 'supplierDashboard/:id', loadChildren: () => import('../../supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
+      { path: 'customerOrders/:id', loadChildren: () => import('../../supplier-requestied-orders-tabs/supplier-requestied-orders-tabs.module').then(mod => mod.SupplierRequestiedOrdersTabsModule) },
+
     ]
   },
 ]
@@ -43,7 +46,7 @@ const routes: Routes = [
     SupplierofferComponent,
     SupplierreviewsComponent,
     SupplierProfileComponent,
-    SuppliermainpageComponent,
+    SuppliermainpageComponent, 
     SupplierProductsComponent,
     SupplierCategoriesComponent,
     SupplierAddressesComponent,

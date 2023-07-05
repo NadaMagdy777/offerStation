@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -9,18 +10,23 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
 export class SupplierproductComponent  implements OnInit{
   pageNumber:number=1
   totalItems:number=0
-  pagesize:number=3
+  pagesize:number=1
   selectedValue=0
   min=0;
   max=500;
+  id:any
   allProductsBySupplierID:any;
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;
-  constructor(private supplier: SupplierService) {
+  constructor(private supplier: SupplierService,private activatedroute:ActivatedRoute) {
   }
   ngOnInit(): void {
-    this.supplier.GetMenuCategoiesBySupplierId(1).subscribe({
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+
+    });
+    this.supplier.GetMenuCategoiesBySupplierId(this.id).subscribe({
 
       next: (data: { data: any; }) => {
         console.log(data);
@@ -30,7 +36,7 @@ export class SupplierproductComponent  implements OnInit{
       error: (error: any) => this.errorMessage = error
 
     });
-    this.supplier.GetMinPriceoFProductBySupplierID(1).subscribe({
+    this.supplier.GetMinPriceoFProductBySupplierID(this.id).subscribe({
 
       next: data => {
         console.log(data);
@@ -40,7 +46,7 @@ export class SupplierproductComponent  implements OnInit{
       error: error => this.errorMessage = error
 
     });
-    this.supplier.GetMaxPriceoFProductBySupplierID(1).subscribe({
+    this.supplier.GetMaxPriceoFProductBySupplierID(this.id).subscribe({
 
       next: data => {
         console.log(data);
@@ -55,7 +61,7 @@ export class SupplierproductComponent  implements OnInit{
     
     getAllProductsBySupplierId()
     {
-    this.supplier.allProductsBySupplierID(this.pageNumber,this.pagesize,1).subscribe({
+    this.supplier.allProductsBySupplierID(this.pageNumber,this.pagesize,this.id).subscribe({
 
       next: (data: { data: any; }) => {
         console.log(data);
@@ -91,7 +97,7 @@ getproductBycategoryId(id:number)
 getselectedprice(value:number)
 {
 console.log("seleceted "+ value);
-this.supplier.GetProductsBySupplierIDAndPrice(1,value).subscribe({
+this.supplier.GetProductsBySupplierIDAndPrice(this.id,value).subscribe({
 next: data => {
   console.log(data);
   this.ProductListByCategoryName = data.data
@@ -103,8 +109,8 @@ error: error => this.errorMessage = error
 })
 }
 PageNumberChanged(value:any){
-this.pageNumber=value
-    //this.supplier.getAllProductsByOwnerIdWithPagination(this.pageNumber,this.pagesize,1)
+    this.pageNumber=value
+    // this.supplier.get(this.pageNumber,this.pagesize,1)
     this.pageNumber=1
     console.log("page"+value);
     console.log("mayar"+value);
