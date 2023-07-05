@@ -13,6 +13,9 @@ const routes: Routes = [
     { path:'ownerReview', component:AdminOwnerReviewsComponent},
     { path:'customerReview', component:AdminReviewsComponent},
     { path: 'dashboard', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
+    { path: 'userOrders', loadChildren: () => import('../admin-confirm-usercustomer-order/admin-confirm-usercustomer-order.module').then(mod => mod.AdminConfirmUsercustomerOrderModule) },
+    { path: 'ownerOrders', loadChildren: () => import('../admin-confirm-ownercustomer-order/admin-confirm-ownercustomer-order.module').then(mod => mod.AdminConfirmOwnercustomerOrderModule) },
+
   ]}, 
 ];
 

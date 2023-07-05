@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SupplierRequestedOrdersComponent } from 'src/app/pages/supplier-requested-orders/supplier-requested-orders.component';
 
 const routes: Routes = [
-  {path:'',component:SupplierRequestedOrdersComponent}
 ];
 
 @NgModule({
