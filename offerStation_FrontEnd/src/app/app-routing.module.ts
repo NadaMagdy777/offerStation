@@ -21,8 +21,7 @@ const routes: Routes = [
   { path: 'cart-user', component: CartUserComponent },
   { path: 'cart-owner', component: CartOwnerComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'ordeeeeeeeeeeeeeeer', loadChildren: () => import('./modules/admin-assign-delivery-order/admin-assign-delivery-order.module').then(mod => mod.AdminAssignDeliveryOrderModule) },
-  { path: 'Userorder', loadChildren: () => import('./modules/admin-confirm-usercustomer-order/admin-confirm-usercustomer-order.module').then(mod => mod.AdminConfirmUsercustomerOrderModule) },
+  
 
 
   { path: 'supplierHome', component: SupplierHeaderComponent },
