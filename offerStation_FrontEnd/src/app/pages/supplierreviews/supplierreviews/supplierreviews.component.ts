@@ -24,15 +24,7 @@ export class SupplierreviewsComponent implements OnInit {
       this.id = Number(paramMap.get('id'));
 
     });
-    this.suppler.GetAllOwnerReviewsbysupplierIDWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
-      next:(data: { data: any; })=>
-      {
-        console.log(data);
-        this.OwnerReview=data.data
-        console.log("list"+this.OwnerReview);
-      },
-      error:(error: any)=>this.errorMessage=error
-    })
+    this.getAllreviews(this.pageNumber,this.pagesize,this.id)
   }
   getAllreviews(pgNum: number, pageSize: number,id:number)
   {
