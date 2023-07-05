@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ActivatedRoute } from '@angular/router';
 import { CustomerprofileService } from 'src/app/services/CustomerProfile/customerprofile-service.service';
+
+
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 
 @Component({
@@ -12,6 +16,7 @@ import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 export class CustomerInfoComponent implements OnInit {
 
   CustomerInfo: any;
+  id: any;
   errorMessage: any;
   isUpdated: boolean = false;
 
@@ -27,15 +32,21 @@ export class CustomerInfoComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]]
   });
 
-  constructor(private fb: FormBuilder, private customerServ: CustomerprofileService) { }
+  constructor(private fb: FormBuilder,
+    private customerServ: CustomerprofileService,
+    private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
 
-    this.customerServ.GetCustomerById(1).subscribe({
+    });
+    this.customerServ.GetCustomerById(this.id).subscribe({
       next: (data: any) => {
 
         let dataJson = JSON.parse(JSON.stringify(data))
         this.customer = dataJson.data;
+        console.log(this.customer);
 
         this.CustomerInfoForm.patchValue({
           name: this.customer.name,
@@ -51,11 +62,11 @@ export class CustomerInfoComponent implements OnInit {
   SubmitData() {
 
     if (window.confirm('Are you sure, you want to update?')) {
-      this.customerServ.UpdateCustomerInfo(1, this.CustomerInfoForm.value).subscribe({
+      this.customerServ.UpdateCustomerInfo(this.id, this.CustomerInfoForm.value).subscribe({
         next: (data: any) => {
           this.CustomerInfo = data;
           console.log(this.CustomerInfo);
-          
+
         },
         error: (error: any) => this.errorMessage = error,
       });

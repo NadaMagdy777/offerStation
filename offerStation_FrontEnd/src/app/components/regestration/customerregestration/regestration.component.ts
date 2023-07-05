@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CityService } from 'src/app/services/city/city.service';
+import { PhoneValidator } from 'src/app/validators/PhoneValidator.validation';
 import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.validation';
 
 @Component({
@@ -24,7 +25,7 @@ export class RegestrationComponent {
 
   registerForm = this.fb.group({
     Name: ['', [Validators.required]],
-    Phone: ['', [Validators.required]],
+    Phone: ['', [Validators.required],PhoneValidator()],
     Address: this.fb.array([]),
     Password: ['', [Validators.required]],
     Confirm: ['', [Validators.required]],

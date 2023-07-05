@@ -231,10 +231,10 @@ namespace offerStation.API.Controllers
 
             return Ok(pagedCategories);
         }
-        [HttpGet("AllProductsByMenuCategoryIDWithPaginatoion/id")]
-        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID(int pageNumber, int pageSize, int id)
+        [HttpGet("GetProductsByMenuCategoryID/id")]
+        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryID( int id)
         {
-            List<ProductInfoDto> product = await _supplierService.GetProductsByMenuCategoryIDWithPagination(pageNumber, pageSize,id);
+            List<ProductInfoDto> product = await _supplierService.GetProductsByMenuCategoryID(id);
 
             if (product is null)
             {
@@ -253,17 +253,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(404, false, "null object"));
         }
-        [HttpGet("AllProductsByMenuCategoryIDWithPagination/id")]
-        public async Task<ActionResult<ApiResponse>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
-        {
-            List<ProductInfoDto> product = await _supplierService.GetProductsByMenuCategoryIDWithPagination(pageNumber, pageSize,id);
 
-            if (product is null)
-            {
-                return BadRequest(new ApiResponse(404, false, "null object"));
-            }
-            return Ok(new ApiResponse(200, true, product));
-        }
         [HttpGet("Categories")]
         public async Task<IActionResult> GetAllCategories()
         {

@@ -5,6 +5,7 @@ import { CategoryService } from 'src/app/services/Category/category.service';
 // import { OwnerCategoryServiceService } from 'src/app/services/OwnerCategory/owner-category-service.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CityService } from 'src/app/services/city/city.service';
+import { PhoneValidator } from 'src/app/validators/PhoneValidator.validation';
 import { ConfirmPasswordValidator } from 'src/app/validators/confirmPassword.validation';
 
 @Component({
@@ -28,10 +29,10 @@ export class OwnerregestrationComponent {
   error: string = ''
   registerForm = this.fb.group({
     Name: ['', [Validators.required]],
-    Phone: ['', [Validators.required]],
+    Phone: ['', [Validators.required,PhoneValidator()]],
     Address: this.fb.array([]),
     Password: ['', [Validators.required]],
-    ownerCategory:['',[Validators.required]],
+    ownerCategoryId:['',[Validators.required]],
     Confirm: ['', [Validators.required]],
     Email: ['', [Validators.required, Validators.email]],
   }, { validator: [ConfirmPasswordValidator] })
@@ -87,7 +88,8 @@ export class OwnerregestrationComponent {
 
   submitData() {
     this._AuthService.registerOwner(this.registerForm.value).subscribe({
-      next:data=>{      
+      next:data=>{  
+        console.log(this.registerForm.value);    
         if(data.success)
           this.router.navigate(['login']);
         else

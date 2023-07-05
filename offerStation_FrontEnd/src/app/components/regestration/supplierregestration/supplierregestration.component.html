@@ -7,7 +7,7 @@
             
                     <div class="form-group">
                         <label  class="fas fa-user-alt" ></label>
-                      <input type="text" formControlName="Name"  placeholder="Your Name "[class.is-invalid]="Name?.invalid && Name?.touched">
+                      <input type="text" formControlName="name"  placeholder="Your Name "[class.is-invalid]="Name?.invalid && Name?.touched">
                     </div>
                     <small *ngIf="Name?.errors?.['required'] && (Name?.dirty || Name?.touched)" class="text-danger">
                         Name Is Required
@@ -19,17 +19,23 @@
                  
                     <div class="form-group">
                       <label  class="fas fa-phone" ></label>
-                      <input type="text" formControlName="Phone" placeholder="Your Phone " 
+                      <input type="text" formControlName="phone" placeholder="Your Phone " 
                       [class.is-invalid]="Phone?.errors && Phone?.touched" />
                   </div>
                   <small *ngIf="Phone?.errors?.['required'] && (Phone?.dirty || Phone?.touched)" class="text-danger">
                     Phone Is Required
                   </small>
+                  <small *ngIf="registerForm.get('Phone')?.hasError('invalidSupplierPhone') && (Phone?.dirty )"  class="text-danger">
+                    Phone number is invalid. Please enter 11 digits without non-numeric characters.
+                  </small>
+                  
+               
+
               
   <br>
                     <div class="form-group">
                       <label class="fa fa-envelope"></label>
-                      <input type="email" formControlName="Email" placeholder="Email Address" [class.is-invalid]="Email?.errors && Email?.touched" />
+                      <input type="email" formControlName="email" placeholder="Email Address" [class.is-invalid]="Email?.errors && Email?.touched" />
                     </div>
                     <small *ngIf="Email?.errors?.['required'] && (Email?.dirty || Email?.touched)" class="text-danger">
                       Email Is Required
@@ -57,7 +63,7 @@
                       
                         <div class="from-group">
                          
-                          <select class="form-select my-3" formControlName="ownerCategory">
+                          <select class="form-select my-3" formControlName="supplierCategoryId">
                             <option selected disabled value="">Select Category</option>
                             <option *ngFor="let category of categories" value="{{category.id}}">
                               {{category.name}}
@@ -68,10 +74,10 @@
                       
                       <br>
                         <button type="button" class="btn btn-primary float-center mb-2" (click)="addAddress()">Add Address</button>
-                        <ng-container formArrayName="Address" *ngFor="let adress of AddressControls; let i=index">
+                        <ng-container formArrayName="address" *ngFor="let adress of AddressControls; let i=index">
                           <ng-container [formGroup]="adress">
                             <div class="from-group">
-                              <select class="form-select my-3" formControlName="CityId">
+                              <select class="form-select my-3" formControlName="cityId">
                                 <option selected = "true" disabled value="">Select City</option>
                                 <option *ngFor="let city of Cities" value="{{city.id}}">
                                   {{city.name}}
@@ -79,7 +85,7 @@
                               </select>
                             </div>
                             <div class="input-group input-group-outline">
-                              <input type="text" class="form-control" placeholder="Details" formControlName="details">
+                              <input type="text"  placeholder="Details" formControlName="details">
                             </div>
                             <div class="input-group input-group-outline">
                               <button type="button" class="btn btn-danger btn-sm float-end my-3" (click)="deleteAddress(i)">Delete</button>

@@ -5,7 +5,7 @@ import { CategoryService } from 'src/app/services/Category/category.service';
 import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
-import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-admin-owner-category',
@@ -13,6 +13,9 @@ import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters
   styleUrls: ['./admin-owner-category.component.css']
 })
 export class AdminOwnerCategoryComponent {
+
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement!: DataTableDirective;
 
   errorMessage: any;
   display = '';
@@ -59,7 +62,12 @@ export class AdminOwnerCategoryComponent {
       pageLength: 5,
       lengthMenu: [5, 10, 20],
       processing: true,
-      destroy:true
+      destroy:true,
+      responsive: true,
+      language: {
+        search: '_INPUT_',
+        searchPlaceholder: 'Search records',
+      }
     }
     this.getCategories();
   }
@@ -68,9 +76,7 @@ export class AdminOwnerCategoryComponent {
     this._categoryService.GetAllCategory()
       .subscribe(response => {
         this.categories = response.data
-        console.log("categories: ", this.categories);
         this.dtTrigger.next(null);
-        // this.totalCount = this.categories.length;
         this.categories.forEach((category: Category) => {
           category.image = this._imageService.base64ArrayToImage(category.image)
         });
@@ -92,7 +98,10 @@ export class AdminOwnerCategoryComponent {
   onDelete(divisionId: number, index: number) {
     this._adminService.DeleteCategory(divisionId).subscribe({
       next: data => {
-        this.dtTrigger.unsubscribe();
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.categories.splice(index, 1);
         this.getCategories();
       },
@@ -104,10 +113,11 @@ export class AdminOwnerCategoryComponent {
 
     this._adminService.AddCategory(this.categoryForm.value).subscribe({
       next: data => {
-        console.log(data);
-        this.dtTrigger.unsubscribe();
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.getCategories()
-        this.dtTrigger.next(null);
         this.onCloseCategoryHandled();
         this.categoryForm.reset();
       },
@@ -119,18 +129,25 @@ export class AdminOwnerCategoryComponent {
     this.display1 = 'block';
     this.index = i;
     this.ownerCategory.id = division.id
+    console.log(division.image);
+    
     this.categoryForm.patchValue(
       {
         name: division.name,
-        image: division.image
+        image: division.image,//this._imageService.base64ArrayToImage(division.image)
       }
     )
   }
 
   onUpdate() {
-    this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
+    this._adminService.UpdateCategory(this.ownerCategory.id, this.categoryForm.value).subscribe({
       next: data => {
-        this.dtTrigger.unsubscribe();
+        console.log("data",data);
+        
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.getCategories()
         this.onCloseEditCategoryHandled();
       },
@@ -153,7 +170,6 @@ export class AdminOwnerCategoryComponent {
     this.display1 = 'none';
   }
 
-  //Category Form
   get name() {
     return this.categoryForm.get('name');
   }
