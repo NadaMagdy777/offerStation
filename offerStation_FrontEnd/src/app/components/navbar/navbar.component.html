@@ -42,17 +42,21 @@
                   <small class="ms-2 mb-0">{{ userName }}</small>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Something</a></li>
-                  <li><a class="dropdown-item">Something else</a></li>
+                  <li   *ngIf="UserRole =='customer'">
+                    <a class="dropdown-item " routerLink="/customer/profile">Profile</a>
+                  </li>
+                  <li  *ngIf="UserRole =='owner'">
+                    <a class="dropdown-item " routerLink="/owner/profile">Profile</a>
+                  </li>
+                  <li  *ngIf="UserRole =='supplier'">
+                    <a class="dropdown-item " routerLink="/supplier/profile">Profile</a>
+                  </li>
                   <li><a class="dropdown-item"  routerLink="http://localhost:4200/" (click)="LogOut()">Log Out</a></li>
                 </ul>
               </a>
             </ng-template>
 
-            <a href="#" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-              <i class="fas fa-heart m-1 me-md-2"></i>
-              <p class="d-none d-md-block mb-0">Wishlist</p>
-            </a>
+          
             <!-- bydefault -->
             <a   routerLink="" class="border rounded py-1 px-3 nav-link d-flex align-items-center">
               <i class="fas fa-shopping-cart m-1 me-md-2"></i>
@@ -100,19 +104,7 @@
             <a class="nav-link text-white" routerLink="/admin">Home</a>
           </li>
          
-            <li class="nav-item " *ngIf="UserRole =='owner'">
-              <a class="nav-link text-white" routerLink="/owner/profile">Owner Profile</a>
-            </li>
-   
-        
-            <li class="nav-item "  *ngIf="UserRole =='customer'">
-              <a class="nav-link text-white" routerLink="/customer/profile">Customer Profile</a>
-            </li>
             
-         
-            <li class="nav-item " *ngIf="UserRole =='supplier'">
-              <a class="nav-link text-white" routerLink="/supplier/profile">Supplier Profile</a>
-            </li>
      
         
           <!-- <li class="nav-item">
@@ -125,16 +117,28 @@
             <a class="nav-link text-white" href="#">Menu item</a>
           </li> -->
 
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           <li class="nav-item dropdown" *ngIf="UserRole =='customer' || UserRole =='supplier'">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Categories
             </a>
-             <ul class="dropdown-menu"  *ngIf="UserRole =='owner'">
-              <li *ngFor="let category of ownercategoryList"><a class="dropdown-item"
-                  (click)="showAllOffers(category.name)">{{category.name}}</a></li>
+             <ul class="dropdown-menu"   >
+              <li *ngFor="let category of categoryList"><a class="dropdown-item"
+                  href="/owners/{{category.name}}">{{category.name}}</a></li>
 
             </ul> 
-          </li> -->
+          </li> 
+
+
+          <li class="nav-item dropdown"  *ngIf="UserRole =='owner'">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+             <ul class="dropdown-menu" >
+              <li *ngFor="let category of suppliercategoryList"><a class="dropdown-item"
+                  href="/owners/{{category.name}}">{{category.name}}</a></li>
+
+            </ul> 
+          </li> 
 
           <li class="nav-item">
             <a class="nav-link text-white" (click)="testToken()">test token</a>
