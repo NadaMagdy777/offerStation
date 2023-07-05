@@ -24,7 +24,7 @@ export class SupplierreviewsComponent implements OnInit {
       this.id = Number(paramMap.get('id'));
 
     });
-    this.getAllreviews(this.pageNumber,this.pagesize,this.id)
+    this.getAllreviews(1,this.pagesize,this.id)
   }
   getAllreviews(pgNum: number, pageSize: number,id:number)
   {

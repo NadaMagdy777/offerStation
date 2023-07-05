@@ -2,24 +2,18 @@
     <div class="container">
         <div class="signup-content">
             <div class="signup-form">
-                <h2 class="form-title">Sign up</h2>
+                <h2 class="form-title">Sign up </h2>
                 <form  [formGroup]="registerForm" (ngSubmit)="submitData()">
-             
+            
                     <div class="form-group">
                         <label  class="fas fa-user-alt" ></label>
-                      <input type="text" formControlName="FirstName"  placeholder="Your FirstName "[class.is-invalid]="FirstName?.invalid && FirstName?.touched">
+                      <input type="text" formControlName="Name"  placeholder="Your Name "[class.is-invalid]="Name?.invalid && Name?.touched">
                     </div>
-                    <small *ngIf="FirstName?.errors?.['required'] && (FirstName?.dirty || FirstName?.touched)" class="text-danger">
-                        FirstName Is Required
+                    <small *ngIf="Name?.errors?.['required'] && (Name?.dirty || Name?.touched)" class="text-danger">
+                        Name Is Required
                     </small>
                     <br>
-                    <div class="form-group">
-                        <label  class="fas fa-user-alt" ></label>
-                      <input type="text" formControlName="LastName"  placeholder="Your LastName "[class.is-invalid]="LastName?.invalid && LastName?.touched">
-                    </div>
-                    <small *ngIf="LastName?.errors?.['required'] && (LastName?.dirty || LastName?.touched)" class="text-danger">
-                        LastName Is Required
-                    </small>
+            
                     <br>
                    
                  
@@ -60,6 +54,19 @@
                       <small class="text-danger" *ngIf="registerForm?.errors?.['misMatch']">Password and confirm password not
                         match</small>
                        <br> 
+                      
+                        <div class="from-group">
+                         
+                          <select class="form-select my-3" formControlName="ownerCategory">
+                            <option selected disabled value="">Select Category</option>
+                            <option *ngFor="let category of categories" value="{{category.id}}">
+                              {{category.name}}
+                            </option>
+                          </select>
+                        </div>
+                  
+                      
+                      <br>
                         <button type="button" class="btn btn-primary float-center mb-2" (click)="addAddress()">Add Address</button>
                         <ng-container formArrayName="Address" *ngFor="let adress of AddressControls; let i=index">
                           <ng-container [formGroup]="adress">

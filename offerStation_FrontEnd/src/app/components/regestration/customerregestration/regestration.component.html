@@ -8,9 +8,9 @@
            
                   <div class="form-group">
                       <label  class="fas fa-user-alt" ></label>
-                    <input type="text" formControlName="Name"  placeholder="Your Name "[class.is-invalid]="FirstName?.invalid && FirstName?.touched">
+                    <input type="text" formControlName="Name"  placeholder="Your Name "[class.is-invalid]="Name?.invalid && Name?.touched">
                   </div>
-                  <small *ngIf="FirstName?.errors?.['required'] && (FirstName?.dirty || FirstName?.touched)" class="text-danger">
+                  <small *ngIf="Name?.errors?.['required'] && (Name?.dirty || Name?.touched)" class="text-danger">
                     Name Is Required
                   </small>
                  

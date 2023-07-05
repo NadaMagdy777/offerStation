@@ -30,10 +30,10 @@ export class AuthenticationService {
     return this._httpClient.post<ApiResponce>(this.url + `/Customer/register`, user);
   }
   registerOwner(owner: Owner): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(this.url + ``, owner);
+    return this._httpClient.post<ApiResponce>(this.url + `/Owner/register`, owner);
   }
   registerSupplier(supplier: Supplier): Observable<ApiResponce> {
-    return this._httpClient.post<ApiResponce>(this.url + ``, supplier);
+    return this._httpClient.post<ApiResponce>(this.url + `/Supplier/register`, supplier);
   }
 
   saveUserData() {    
