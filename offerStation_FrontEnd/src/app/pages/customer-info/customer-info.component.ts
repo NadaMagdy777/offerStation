@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
 
 import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
@@ -13,6 +14,7 @@ import { Customer } from 'src/app/sharedClassesAndTypes/Customer';
 export class CustomerInfoComponent implements OnInit {
 
   CustomerInfo: any;
+  id:any;
   errorMessage: any;
   isUpdated: boolean = false;
 
@@ -28,11 +30,14 @@ export class CustomerInfoComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]]
   });
 
-  constructor(private fb: FormBuilder, private customerServ: CustomerprofileService) { }
+  constructor(private fb: FormBuilder, private customerServ: CustomerprofileService,private activatedroute:ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
 
-    this.customerServ.GetCustomerById(1).subscribe({
+    });
+    this.customerServ.GetCustomerById(this.id).subscribe({
       next: (data: any) => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
