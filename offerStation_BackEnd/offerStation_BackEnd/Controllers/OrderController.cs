@@ -91,10 +91,32 @@ namespace offerStation.API.Controllers
             }
             return Ok(new ApiResponse(200, true, orders));
         }
+        [HttpGet("ownerOrdersRequestedAfterShipped")]
+        public async Task<ActionResult<ApiResponse>> AllOwnerOrdersRequestedAfterShipped(int ownerId)
+        {
+            List<RequestedOrderDto> orders = await _orderService.GetOwnerOrdersRequestedAftershipped(ownerId);
+
+            if (orders is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, orders));
+        }
         [HttpGet("supplierOrdersRequested")]
         public async Task<ActionResult<ApiResponse>> AllSupplierOrdersRequested(int supplierId)
         {
             List<RequestedOrderDto> orders = await _orderService.GetSupplierOrdersRequested(supplierId);
+
+            if (orders is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, orders));
+        }
+        [HttpGet("supplierOrdersRequestedAfterShipped")]
+        public async Task<ActionResult<ApiResponse>> AllSupplierOrdersRequestedAfterShipped(int supplierId)
+        {
+            List<RequestedOrderDto> orders = await _orderService.GetSupplierOrdersRequestedAfterShipped(supplierId);
 
             if (orders is null)
             {

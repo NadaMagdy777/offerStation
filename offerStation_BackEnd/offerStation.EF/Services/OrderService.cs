@@ -149,12 +149,50 @@ namespace offerStation.EF.Services
             }
             return ordersList;
         }
+        public async Task<List<RequestedOrderDto>?> GetOwnerOrdersRequestedAftershipped(int ownerId)
+        {
+            List<RequestedOrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.CustomerOrders
+                .FindAllAsync(o => o.OwnerId == ownerId && (o.orderStatus == OrderStatus.shipped || o.orderStatus== OrderStatus.delivered) && !o.IsDeleted,
+                new List<Expression<Func<CustomerOrder, object>>>()
+                {
+                    o => o.Customer.AppUser,
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<RequestedOrderDto>>(orders);
+            }
+            return ordersList;
+        }
         public async Task<List<RequestedOrderDto>?> GetSupplierOrdersRequested(int supplierId)
         {
             List<RequestedOrderDto> ordersList = null;
 
             var orders = await _unitOfWork.OwnerOrders
                 .FindAllAsync(o => o.SupplierId == supplierId && o.orderStatus == OrderStatus.ordered && !o.IsDeleted,
+                new List<Expression<Func<OwnerOrder, object>>>()
+                {
+                    o => o.Owner.AppUser,
+                    o => o.Products,
+                    o => o.Offers,
+                });
+
+            if (orders is not null)
+            {
+                ordersList = _mapper.Map<List<RequestedOrderDto>>(orders);
+            }
+            return ordersList;
+        }
+        public async Task<List<RequestedOrderDto>?> GetSupplierOrdersRequestedAfterShipped(int supplierId)
+        {
+            List<RequestedOrderDto> ordersList = null;
+
+            var orders = await _unitOfWork.OwnerOrders
+                .FindAllAsync(o => o.SupplierId == supplierId && (o.orderStatus == OrderStatus.shipped || o.orderStatus == OrderStatus.delivered) && !o.IsDeleted,
                 new List<Expression<Func<OwnerOrder, object>>>()
                 {
                     o => o.Owner.AppUser,

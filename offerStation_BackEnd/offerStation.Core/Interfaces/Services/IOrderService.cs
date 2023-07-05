@@ -20,5 +20,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<OrderDetailsDto>?> GetAllCustomerOrders(int customerId);
         Task<List<RequestedOrderDto>?> GetOwnerOrdersRequested(int ownerId);
         Task<List<RequestedOrderDto>?> GetSupplierOrdersRequested(int supplierId);
+        Task<List<RequestedOrderDto>?> GetOwnerOrdersRequestedAftershipped(int ownerId);
+        Task<List<RequestedOrderDto>?> GetSupplierOrdersRequestedAfterShipped(int supplierId);
+
     }
 }
