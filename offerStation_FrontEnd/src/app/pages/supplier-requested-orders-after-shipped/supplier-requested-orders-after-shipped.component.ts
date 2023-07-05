@@ -1,17 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { OrdersOffer, OrdersProduct, RequestedOrders, orderStatus } from 'src/app/sharedClassesAndTypes/order';
+import { OrdersOffer, OrdersProduct, RequestedOrders } from 'src/app/sharedClassesAndTypes/order';
 
 @Component({
-  selector: 'app-owner-requested-orders',
-  templateUrl: './owner-requested-orders.component.html',
-  styleUrls: ['./owner-requested-orders.component.css'] 
+  selector: 'app-supplier-requested-orders-after-shipped',
+  templateUrl: './supplier-requested-orders-after-shipped.component.html',
+  styleUrls: ['./supplier-requested-orders-after-shipped.component.css']
 })
-export class OwnerRequestedOrdersComponent implements OnInit {
-  customerId:number=1;
-  @Input() OwnerId:number=1;
+export class SupplierRequestedOrdersAfterShippedComponent implements OnInit {
+  @Input() SupplierId:number=1;
   ordertList:RequestedOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -21,28 +19,16 @@ export class OwnerRequestedOrdersComponent implements OnInit {
   orderStatus!:any
   orderId!: number;
   displayModel2: string="none";
- 
-  constructor(private OrderService:OrdersService,private route:ActivatedRoute,private router:Router) 
+  getOrderStatus(num:number){
+    return this.orderStatus[num] 
+ }
+  constructor(private OrderService:OrdersService) 
   {
     
   }
-  changeStatus(orderId:number)
-  {
-    this.OrderService.CustomerOrderStatus(orderId,orderStatus.shipped).subscribe((res) => {
-      if (res.success) {
-        this.router.navigate(['owner/profile'])
-
-
-      } else {
-        console.log(res.message); 
-      }
-    })
-
-  }
- 
+  
   
   ngOnInit(): void {
-   
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -50,7 +36,7 @@ export class OwnerRequestedOrdersComponent implements OnInit {
       processing: true
       
     };
-    this.OrderService.getOwnerOrdersRequested(this.OwnerId).subscribe((res) => {
+    this.OrderService.getSupplierOrdersRequestedAfterShipped(this.SupplierId).subscribe((res) => {
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
         this.ordertList=dataJson.data
