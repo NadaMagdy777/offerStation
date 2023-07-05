@@ -134,6 +134,7 @@ export class OwnerOffersComponent implements OnInit {
 
   openOfferModal() {
     this.display = 'block';
+    this.OfferForm.reset();
   }
 
   onCloseOfferHandled() {

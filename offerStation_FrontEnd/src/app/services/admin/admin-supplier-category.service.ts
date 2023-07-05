@@ -21,21 +21,21 @@ export class AdminSupplierCategoryService {
     }));
   }
 
-  AddCategory(category:any) {
+  AddCategory(category: any) {
     return this._http.post(`${this.url}/SupplierCategory`, category).pipe(catchError((err) => {
-      return throwError(() => err.message || "server error"); 
+      return throwError(() => err.message || "server error");
     }));
   }
 
-  UpdateCategory(id:number, category:any) {
+  UpdateCategory(id: number, category: any) {
     return this._http.put(`${this.url}/SupplierCategory/id?id=${id}`, category).pipe(catchError((err) => {
-      return throwError(() => err.message || "server error"); 
+      return throwError(() => err.message || "server error");
     }));
   }
 
-  DeleteCategory(id:number) {
+  DeleteCategory(id: number) {
     return this._http.delete(`${this.url}/SupplierCategory/id?id=${id}`).pipe(catchError((err) => {
-      return throwError(() => err.message || "server error"); 
+      return throwError(() => err.message || "server error");
     }));
   }
 }

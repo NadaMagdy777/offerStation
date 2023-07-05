@@ -116,51 +116,81 @@ export class SupplierService {
         return throwError(() => err.message || "server error")
       }));
   }
-  //getsupplieroffers
-  GetAllOffersBySupplierIdWithPagination(PageNumber:any,pageSize:any,id:any): Observable<any> 
-  {
-    return this._httpClient.get<any>(this.url + "/GetAllOffersBySupplierIdWithPagination/id?PageNumber="+PageNumber+"&pageSize="+pageSize+"&id="+id).
-    pipe(catchError((err: any) => {
-      return throwError(() => err.message || "server error")
-    }));
+
+  //Supplier Offer Crud Operations
+
+  GetOffersBySupplierId(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this._supplierUrl}SupplierOffer/all/id?supplierId=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
   }
+
+  AddOffer(SupplierId: number, newOffer: any): Observable<ApiResponce> {
+    return this._httpClient.post<ApiResponce>(`${this._supplierUrl}SupplierOffer/Offer/id?supplierId=${SupplierId}`, newOffer).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  DeleteOffer(id: number): Observable<ApiResponce> {
+    return this._httpClient.delete<ApiResponce>(`${this._supplierUrl}SupplierOffer/Offer/id?id=${id}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
+  //getsupplieroffers
+  GetAllOffersBySupplierIdWithPagination(PageNumber: any, pageSize: any, id: any): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersBySupplierIdWithPagination/id?PageNumber=" + PageNumber + "&pageSize=" + pageSize + "&id=" + id).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "server error")
+      }));
+  }
+
   GetSuppliers(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string, Name: string): Observable<ApiResponce> {
     return this._httpClient.get<ApiResponce>(this.url + "/All/Filter/Pagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy + "&name=" + Name);
   }
+
   GetSupplierOffer(pageNumber: number, pagesize: number, ownerCategory: string, cityId: number, SortBy: string): Observable<ApiResponce> {
     console.log(ownerCategory)
     return this._httpClient.get<ApiResponce>(this.url + "/All/offers/filter/withPagination?PageNumber=" + pageNumber + "&pageSize=" + pagesize + "&category=" + ownerCategory + "&cityId=" + cityId + "&SortBy=" + SortBy);
   }
+
   //GetAddressBySupplierId
-  GetAddressBySupplierId(id:number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url+"/GetAddressBySupplierId/id?id="+id).
+  GetAddressBySupplierId(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url + "/GetAddressBySupplierId/id?id=" + id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
+
   //GetMinProductPriceBySupplierId
-  GetMinPriceoFProductBySupplierID(id:number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url+"/GetMinPriceoFProductBySupplierID/id?id="+id).
+  GetMinPriceoFProductBySupplierID(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url + "/GetMinPriceoFProductBySupplierID/id?id=" + id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
-   //GetMaxProductPriceBySupplierId
-   GetMaxPriceoFProductBySupplierID(id:number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url+"/GetMaxPriceoFProductBySupplierID/id?id="+id).
+
+  //GetMaxProductPriceBySupplierId
+  GetMaxPriceoFProductBySupplierID(id: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url + "/GetMaxPriceoFProductBySupplierID/id?id=" + id).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
+
   //GetProductsBySupplierIDAndPrice
-  GetProductsBySupplierIDAndPrice(id:number,selectedprice:number): Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(this.url+"/GetProductsBySupplierIDAndPrice/supplierid/selectedprice?supplierid="+id+"&selectedprice="+selectedprice).
+  GetProductsBySupplierIDAndPrice(id: number, selectedprice: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(this.url + "/GetProductsBySupplierIDAndPrice/supplierid/selectedprice?supplierid=" + id + "&selectedprice=" + selectedprice).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
   }
-  GetOfferProduct(offerId:number){
-    return this._httpClient.get<ApiResponce>(this.url+"/Offer/Products/Details?Offerid="+offerId).
+
+  GetOfferProduct(offerId: number) {
+    return this._httpClient.get<ApiResponce>(this.url + "/Offer/Products/Details?Offerid=" + offerId).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));
