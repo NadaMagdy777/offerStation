@@ -10,7 +10,8 @@ namespace offerStation.Core.Dtos
     {
         
         public int Quantity { get; set; }
-        public double price { get; set; }  
+        public double price { get; set; }
+        public byte[]? ProductImage { get; set; }
         public string ProductName { get; set; } 
         public string ProductDescription { get; set; }
 

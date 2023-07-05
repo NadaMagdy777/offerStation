@@ -12,8 +12,8 @@ namespace offerStation.Core.Interfaces.Services
     {
         Task<PublicInfoDto?> GetSupplier(int id);
         Task<List<SupplierDto>?> GetAllSuppliers();
-        Task<List<SupplierDto>?> GetWaitingSuppliers();
-        Task<List<SupplierDto>?> GetSuspendedSuppliers();
+        Task<List<TraderDetailsDto>?> GetWaitingSuppliers();
+        Task<List<TraderDetailsDto>?> GetSuspendedSuppliers();
         Task<bool> EditSupplier(int id, PublicInfoDto supplierInfo);
         Task<bool> PermanentDeleteSupplier(int id);
         Task<bool> SuspendSupplier(int id);
@@ -22,6 +22,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<ProductInfoDto?> GetProductDetails(int id);
         Task<SupplierInfoDto?> GetSupplierInfo(int id);
         Task<List<ReviewDto>?> GetAllOwnerReviewsBySupplierId(int supplierId);
+        Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierIdWithPagination(int pageNumber, int pageSize, int supplierId);
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesBySupplierId(int id);
         Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id);
         Task<bool> AddProduct(int supplierId, ProductDto productDto);
@@ -30,8 +31,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddCategory(CategoryInfoDto categoryDto);
         Task<bool> EditCategory(int id, CategoryInfoDto categoryDto);
         Task<bool> DeleteCategory(int id);
-       
-        Task<List<ReviewDto>?> GetAllOwnersReviewsBySupplierId(int pageNumber, int pageSize, int supplierId);
+   
         Task<List<ProductInfoDto>?> GetAllProducts(int supplierId);
         Task<List<SupplierOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
         Task<List<ProductInfoDto>> GetAllProductsBySupplierIDWithPagination(int pageNumber, int pageSize, int id);

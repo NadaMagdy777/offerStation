@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { ApiResponce } from 'src/app/sharedClassesAndTypes/ApiResponce';
 import { Base } from 'src/app/sharedClassesAndTypes/Base';
 import { OwnerInfo } from 'src/app/sharedClassesAndTypes/OwnerInfo';
 
@@ -26,7 +27,7 @@ export class OwnerprofileService {
   }
 
   UpdateOwnerInfo(id: number, profileForm: any) {
-    return this.http.put(`${this.apiURL}/id?id=${id}`, profileForm).pipe(catchError((err) => {
+    return this.http.put<ApiResponce>(`${this.apiURL}/id?id=${id}`, profileForm).pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     }));
   }

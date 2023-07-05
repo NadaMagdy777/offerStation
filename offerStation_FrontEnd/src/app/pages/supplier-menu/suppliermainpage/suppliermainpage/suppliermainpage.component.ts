@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -8,10 +9,15 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
 })
 export class SuppliermainpageComponent implements OnInit{
   supplierinfo:any;
+  id:any;
   errorMessage: any;
-  constructor(private supplier:SupplierService){}
+  constructor(private supplier:SupplierService,private activatedroute:ActivatedRoute){}
   ngOnInit(): void {
-    this.supplier.GetSupplierInfo(1).subscribe({
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+
+    });
+    this.supplier.GetSupplierInfo(this.id).subscribe({
       next: (data: any) => {
         console.log(data);
         this.supplierinfo = data.data;

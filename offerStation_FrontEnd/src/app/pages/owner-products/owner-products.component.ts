@@ -33,40 +33,39 @@ export class OwnerProductsComponent implements OnInit {
 
   categories!: ownerCategory[]
   category!: ownerCategory
-  productForm: FormGroup
+  productForm: any = this.fb.group({
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    price: ['', [Validators.required]],
+    discount: ['', [Validators.required]],
+    discountPrice: [''],
+    image: [''],
+    categoryId: ['', [Validators.required]],
+  });
 
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService,
     private _imageService: ImageService) {
 
-    this.productForm = this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      discount: ['', [Validators.required]],
-      image: [''],
-      categoryId: ['', [Validators.required]],
-    });
-
-    this.productForm.get('name')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.name = data;
-    });
-    this.productForm.get('description')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.description = data;
-    });
-    this.productForm.get('price')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.price = data;
-    });
-    this.productForm.get('discount')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.discount = data;
-    });
-    this.productForm.get('image')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.image = data;
-    });
-    this.productForm.get('categoryId')?.valueChanges.subscribe((data) => {
-      this.ownerProduct.categoryId = data;
-    });
+    // this.productForm.get('name')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.name = data;
+    // });
+    // this.productForm.get('description')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.description = data;
+    // });
+    // this.productForm.get('price')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.price = data;
+    // });
+    // this.productForm.get('discount')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.discount = data;
+    // });
+    // this.productForm.get('image')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.image = data;
+    // });
+    // this.productForm.get('categoryId')?.valueChanges.subscribe((data) => {
+    //   this.ownerProduct.categoryId = data;
+    // });
   }
 
   ngOnInit(): void {
@@ -75,10 +74,9 @@ export class OwnerProductsComponent implements OnInit {
 
     this._ownerService.getMenuCategorybyOwnerId(1).subscribe({
       next: data => {
-        // console.log(data);
+
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data
-        console.log(this.categories)
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -90,7 +88,6 @@ export class OwnerProductsComponent implements OnInit {
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ProductList = dataJson.data;
-        // console.log(this.ProductList);
 
       },
       error: error => this.errorMessage = error
@@ -109,7 +106,6 @@ export class OwnerProductsComponent implements OnInit {
         console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
-        // console.log(this.productForm.value);
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -159,6 +155,7 @@ export class OwnerProductsComponent implements OnInit {
         name: product.name,
         categoryId: product.categoryId,
         discount: product.discount,
+        discountPrice: product.discountPrice,
         price: product.price,
         description: product.description,
         image: product.image
@@ -169,6 +166,7 @@ export class OwnerProductsComponent implements OnInit {
 
   openProductModal() {
     this.display = 'block';
+    this.productForm.reset();
   }
 
   onCloseProductHandled() {
@@ -191,6 +189,9 @@ export class OwnerProductsComponent implements OnInit {
   }
   get discount() {
     return this.productForm.get('discount');
+  }
+  get discountPrice() {
+    return this.productForm.get('discountPrice');
   }
   get image() {
     return this.productForm.get('image');

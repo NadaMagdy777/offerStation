@@ -13,8 +13,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<PublicInfoDto?> GetOwner(int id);
         Task<OwnerInfoDto?> GetOwnerInfo(int id);
         Task<List<OwnerDto>?> GetAllOwners();
-        Task<List<OwnerDto>?> GetWaitingOwners();
-        Task<List<OwnerDto>?> GetSuspendedOwners();
+        Task<List<TraderDetailsDto>?> GetWaitingOwners();
+        Task<List<TraderDetailsDto>?> GetSuspendedOwners();
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
         Task<bool> PermanentDeleteOwner(int id);
         Task<bool> SuspendOwner(int id);
@@ -30,6 +30,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddReview(int ownerId, int supplierId, ReviewInfoDto reviewDto);
         Task<bool> DeleteReview(int id);
         Task<List<ReviewDto>?> GetAllOwnersReviews();
+        Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerIdWithPagination(int pageNumber, int pageSize, int id);
         Task<List<ReviewDto>?> GetAllCustomerReviewsByOwnerId(int id);
         Task<List<CategoryDto>> GetAllCategories();
         Task<List<MenuCategoryDetailsDto>> GetMenuCategoiesByOwnerId(int id);
@@ -40,11 +41,12 @@ namespace offerStation.Core.Interfaces.Services
         Task<ResultrDto<OfferDto>> GetAllOffersWithPagination(int PageNumber, int pageSize, int cityId, String SortBy, string Category);
         Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy);
         Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id);
-        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerId(int id);
+   
         Task<List<AddressInfoDTO>> GetAddressesByOwnerID(int id);
         Task<double> GetMinPriceoFProductByOwmerID(int id);
         Task<double> GetMaxPriceoFProductByOwmerID(int id);
         Task<List<ProductInfoDto>> GetProductsByOwnerIDAndPrice(int id, double selectedprice);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination(int pageNumber, int pageSize, int id);
 
         Task<List<offerProductInfo>> getofferProduct(int OfferId);
     }
@@ -59,6 +61,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<AnalysisResult>> getDiffernentOrdersStatus(int ownerId);
         Task<List<AnalysisResult>> ownerOrdersOffersProductCount(int ownerId);
         Task<List<customerInfoAnalysis>> getTopCustomerInfo(int ownerid);
+       
     }
     public interface IOwnerOfferService
     {

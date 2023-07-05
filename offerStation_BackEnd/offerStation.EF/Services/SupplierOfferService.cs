@@ -16,6 +16,7 @@ namespace offerStation.EF.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private SupplierOfferProduct supplierOfferProduct;
 
         public SupplierOfferService(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -31,6 +32,7 @@ namespace offerStation.EF.Services
                 new List<Expression<Func<SupplierOffer, object>>>()
                 {
                     o => o.Supplier,
+                    o => o.Products,    
                 });
 
             if (offer is not null)
@@ -43,10 +45,11 @@ namespace offerStation.EF.Services
         {
             List<OfferDetailsDto> offersDtoList = null;
 
-            IEnumerable<SupplierOffer> offersList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == supplierId && !o.IsDeleted,
+            IEnumerable<SupplierOffer> offersList = await _unitOfWork.SupplierOffers.FindAllAsync(s => s.SupplierID == supplierId && !s.IsDeleted,
                 new List<Expression<Func<SupplierOffer, object>>>()
                 {
-                    o => o.Supplier,
+                    s => s.Supplier,
+                    s => s.Products,
                 });
 
 
@@ -67,6 +70,11 @@ namespace offerStation.EF.Services
                 Offer.CreatedTime = DateTime.Now;
 
                 _unitOfWork.SupplierOffers.Add(Offer);
+                _unitOfWork.Complete();
+
+                Offer.Products = await AddOfferProducts(Offer.Id, offerDto.Products);
+
+                _unitOfWork.SupplierOffers.Update(Offer);
                 _unitOfWork.Complete();
 
                 return true;
@@ -103,6 +111,31 @@ namespace offerStation.EF.Services
                 return true;
             }
             return false;
+        }
+        private async Task<List<SupplierOfferProduct>?> AddOfferProducts(int offerId, List<OfferProductDto> offerProductList)
+        {
+            List<SupplierOfferProduct> supplierOfferProducts = null;
+
+            if (offerProductList is not null)
+            {
+                supplierOfferProducts = new();
+
+                foreach (var offerProduct in offerProductList)
+                {
+                    supplierOfferProduct = new()
+                    {
+                        OfferId = offerId,
+                        Quantity = offerProduct.Quantity,
+                        ProductId = offerProduct.ProductId
+                    };
+
+                    _unitOfWork.SupplierOfferProducts.Add(supplierOfferProduct);
+                    _unitOfWork.Complete();
+
+                    supplierOfferProducts.Add(supplierOfferProduct);
+                }
+            }
+            return supplierOfferProducts;
         }
     }
 }

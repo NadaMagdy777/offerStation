@@ -33,9 +33,10 @@ import { CartOwnerComponent } from './pages/cart-owner/cart-owner.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
-import { CustomerReviewComponent } from './pages/customer-review/customer-review.component';
 import {DataTablesModule} from 'angular-datatables';
+import { ProductCardModule } from './modules/components-shared/product-card/product-card.module';
 
+ 
  
 @NgModule({
   declarations: [
@@ -59,12 +60,12 @@ import {DataTablesModule} from 'angular-datatables';
     SupplierOffersComponent,
     OwnerOffersComponent,
       SupplierHeaderComponent,
-
       CartUserComponent,
       CartOwnerComponent,
       CheckoutComponent,
       OrderUserComponent,
-      CustomerReviewComponent,
+     
+      
       
       
  
@@ -82,6 +83,8 @@ import {DataTablesModule} from 'angular-datatables';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
+    ProductCardModule
+    
 
   ],
 

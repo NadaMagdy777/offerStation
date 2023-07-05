@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 
@@ -15,7 +16,7 @@ export class OfferProductDetailsComponent  implements OnInit
  @Input() id:number=0
  @Input() Quantity:number=0
  @Input() Type:string=""
- constructor(private OwnerService:OwnerService) 
+ constructor(private OwnerService:OwnerService,private _imageservice:ImageService) 
   {} 
  
   ngOnInit(): void {
@@ -36,7 +37,8 @@ export class OfferProductDetailsComponent  implements OnInit
     if (res.success) {
       let dataJson = JSON.parse(JSON.stringify(res))
       this.product=dataJson.data
-      console.log(this.product)
+      this.product.image=this._imageservice.base64ArrayToImage(this.product.image)
+
 
     } else {
       console.log(res.message); 
@@ -49,7 +51,8 @@ getOffers(){
     if (res.success) {
       let dataJson = JSON.parse(JSON.stringify(res))
       this.product=dataJson.data
-      console.log(this.product)
+      this.product.image=this._imageservice.base64ArrayToImage(this.product.image)
+
 
     } else {
       console.log(res.message); 

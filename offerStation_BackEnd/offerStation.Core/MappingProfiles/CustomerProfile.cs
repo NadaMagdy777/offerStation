@@ -21,6 +21,7 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<CustomerReview, ReviewInfoDto>()
+                .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
                 .ReverseMap();
             
             CreateMap<CustomerReview, ReviewDto>()

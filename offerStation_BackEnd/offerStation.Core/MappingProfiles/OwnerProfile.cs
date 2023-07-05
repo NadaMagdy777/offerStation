@@ -28,6 +28,12 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.Addresses, a => a.MapFrom(src => src.AppUser.Addresses))
                 .ReverseMap();
 
+            CreateMap<Owner, TraderDetailsDto>()
+               .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
+               .ForMember(des => des.Email, a => a.MapFrom(src => src.AppUser.Email))
+               .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
+               .ReverseMap();
+
             CreateMap<ProductDto, OwnerProduct>()
                 .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
                 .ReverseMap();
@@ -47,7 +53,9 @@ namespace offerStation.Core.MappingProfiles
             CreateMap<OwnerOfferProduct, OfferProductDto>();
             CreateMap<OwnerMenuCategory, MenuCategoryDto>().ReverseMap();
             CreateMap<OwnerMenuCategory, MenuCategoryDetailsDto>().ReverseMap();
-            CreateMap<OwnerReview, ReviewInfoDto>().ReverseMap();
+            CreateMap<OwnerReview, ReviewInfoDto>()
+                .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
+                .ReverseMap();
             CreateMap<OfferInfoDto, OwnerOffer>()
                 .ForMember(o => o.Products, opt => opt.Ignore());
             CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();

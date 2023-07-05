@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces;
 using offerStation.Core.Interfaces.Services;

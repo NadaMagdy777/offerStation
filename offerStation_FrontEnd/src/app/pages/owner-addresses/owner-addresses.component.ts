@@ -85,6 +85,7 @@ export class OwnerAddressesComponent implements OnInit {
       next: data => {
         this.LoadData()
         this.onCloseAddressHandled();
+        this.addressForm.reset();
       },
       error: (error: any) => this.errorMessage = error,
     });

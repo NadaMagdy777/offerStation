@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnerProfileComponent } from './owner-profile.component';
+import { OwnerReviewComponent } from './owner-review.component';
 
-describe('OwnerProfileComponent', () => {
-  let component: OwnerProfileComponent;
-  let fixture: ComponentFixture<OwnerProfileComponent>;
+describe('OwnerReviewComponent', () => {
+  let component: OwnerReviewComponent;
+  let fixture: ComponentFixture<OwnerReviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnerProfileComponent ]
+      declarations: [ OwnerReviewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OwnerProfileComponent);
+    fixture = TestBed.createComponent(OwnerReviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

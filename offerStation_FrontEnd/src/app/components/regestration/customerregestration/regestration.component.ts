@@ -31,8 +31,8 @@ export class RegestrationComponent {
     Email: ['', [Validators.required, Validators.email]],
   }, { validator: [ConfirmPasswordValidator] })
 
-  get FirstName() {
-    return this.registerForm.get('FirstName');
+  get Name() {
+    return this.registerForm.get('Name');
   }
   get LastName() {
     return this.registerForm.get('LastName');

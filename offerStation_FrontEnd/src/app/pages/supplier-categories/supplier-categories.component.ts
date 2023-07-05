@@ -46,28 +46,27 @@ export class SupplierCategoriesComponent implements OnInit {
 
     this.LoadData();
   }
-
-  OnImageLoad(image: any) {
-    this.imageUrl = this._imageService.base64ArrayToImage(image);
-  }
-
   LoadData() {
     this._supplierService.GetMenuCategoiesBySupplierId(1).subscribe({
       next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
+        this.categories.forEach((category: SupplierCategory) => {
+          category.image = this._imageService.base64ArrayToImage(category.image)
+        });
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
-  SubmitData() {  //Error when choosing image from the system
+  SubmitData() {
 
     this._supplierService.AddCategory(1, this.CategoryForm.value).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
         this.onCloseCategoryHandled();
+        this.CategoryForm.reset();
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -123,6 +122,7 @@ export class SupplierCategoriesComponent implements OnInit {
 
   openCategoryModal() {
     this.display = 'block';
+    this.CategoryForm.reset();
   }
 
   onCloseCategoryHandled() {
