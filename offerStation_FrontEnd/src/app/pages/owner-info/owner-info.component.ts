@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { OwnerprofileService } from 'src/app/services/OwnerProfile/ownerprofile.service';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerInfo } from 'src/app/sharedClassesAndTypes/OwnerInfo';
@@ -15,6 +16,7 @@ export class OwnerInfoComponent implements OnInit {
   errorMessage: any;
   isUpdated: boolean = false;
   imageUrl = '';
+  id: any;
 
   owner: OwnerInfo = {
     name: '',
@@ -32,10 +34,16 @@ export class OwnerInfoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private _ownerrServ: OwnerprofileService,
-    private _imageService: ImageService) { }
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._ownerrServ.GetOwnerInfo(1).subscribe({
+
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+
+    this._ownerrServ.GetOwnerInfo(this.id).subscribe({
       next: (data: any) => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
@@ -57,7 +65,7 @@ export class OwnerInfoComponent implements OnInit {
   SubmitData() {
 
     if (window.confirm('Are you sure, you want to update?')) {
-      this._ownerrServ.UpdateOwnerInfo(1, this.owner).subscribe({
+      this._ownerrServ.UpdateOwnerInfo(this.id, this.owner).subscribe({
         next: (data: any) => {
           console.log(data);
           this.OwnerInfo = data;
@@ -85,6 +93,7 @@ export class OwnerInfoComponent implements OnInit {
   delete() {
     this.imageUrl = '';
   }
+
   //Owner Info Form
 
   get image() {
