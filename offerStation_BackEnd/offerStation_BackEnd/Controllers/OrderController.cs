@@ -37,7 +37,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpPost("ownerOrderDelivery")]
+        [HttpGet("ownerOrderDelivery")]
         public async Task<ActionResult<ApiResponse>> OwnerOrderDelivery(int ownerOrderId, int deliveryId)
         {
             var success = await _orderService.CreateOwnerOrderDelivery(ownerOrderId, deliveryId);
@@ -47,7 +47,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
-        [HttpPost("customerOrderDelivery")]
+        [HttpGet("customerOrderDelivery")]
         public async Task<ActionResult<ApiResponse>> CustomerOrderDelivery(int customerOrderId, int deliveryId)
         {
             var success = await _orderService.CreateCustomerOrderDelivery(customerOrderId, deliveryId);
@@ -145,6 +145,19 @@ namespace offerStation.API.Controllers
                 return BadRequest(new ApiResponse(404, false, "null object"));
             }
             return Ok(new ApiResponse(200, true, orders));
+        }
+
+        [HttpGet("AllDeliveries")]
+        public async Task<ActionResult<ApiResponse>> getAllDeliveres()
+        {
+            List<DeliveryDto> Deliveraes = await _orderService.getAllDelivaries();
+
+
+            if (Deliveraes is null)
+            {
+                return BadRequest(new ApiResponse(404, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, Deliveraes));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using offerStation.Core.Constants;
+using offerStation.Core.Dtos;
 using OrderStation.Core.Dtos;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<List<RequestedOrderDto>?> GetSupplierOrdersRequested(int supplierId);
         Task<List<RequestedOrderDto>?> GetOwnerOrdersRequestedAftershipped(int ownerId);
         Task<List<RequestedOrderDto>?> GetSupplierOrdersRequestedAfterShipped(int supplierId);
+        Task<List<DeliveryDto>> getAllDelivaries();
 
     }
 }
