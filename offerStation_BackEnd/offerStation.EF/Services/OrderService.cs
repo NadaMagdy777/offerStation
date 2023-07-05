@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using offerStation.Core.Constants;
+using offerStation.Core.Dtos;
 using offerStation.Core.Interfaces;
 using offerStation.Core.Interfaces.Services;
 using offerStation.Core.Models;
@@ -241,6 +242,17 @@ namespace offerStation.EF.Services
                 pendingOrdersList = _mapper.Map<List<OrderDto>>(pendingOrders);
             }
             return pendingOrdersList;
+        }
+        public async Task<List<DeliveryDto>> getAllDelivaries()
+        {
+           var deliveries=await _unitOfWork.Deliveries.FindAllAsync(d => d.IsDeleted == false);
+            List<DeliveryDto> deliveryOrdersList = null;
+            if (deliveries is not null)
+            {
+                deliveryOrdersList = _mapper.Map<List<DeliveryDto>>(deliveries);
+            }
+            return deliveryOrdersList;
+
         }
     }
 }
