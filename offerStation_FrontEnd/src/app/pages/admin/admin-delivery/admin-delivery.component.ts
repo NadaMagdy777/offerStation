@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Delivery } from 'src/app/sharedClassesAndTypes/Delivery';
+import { DeliveryInfo } from 'src/app/sharedClassesAndTypes/DeliveryInfo';
 
 @Component({
   selector: 'app-admin-delivery',
@@ -9,10 +9,10 @@ import { Delivery } from 'src/app/sharedClassesAndTypes/Delivery';
 })
 export class AdminDeliveryComponent {
 
-  Deliveries:Delivery[] = [];
+  Deliveries:DeliveryInfo[] = [];
 
   dtOptions:DataTables.Settings = {};
   dtTrigger:Subject<any> = new Subject<any>(); 
 
-  
+
 }
