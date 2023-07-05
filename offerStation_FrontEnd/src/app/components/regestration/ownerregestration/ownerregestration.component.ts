@@ -87,7 +87,8 @@ export class OwnerregestrationComponent {
 
   submitData() {
     this._AuthService.registerOwner(this.registerForm.value).subscribe({
-      next:data=>{      
+      next:data=>{  
+        console.log(data);    
         if(data.success)
           this.router.navigate(['login']);
         else
