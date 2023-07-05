@@ -85,6 +85,10 @@ namespace offerStation.Core.Interfaces.Services
         Task<ApiResponse> AddOfferToCart(int userIdentifier, ProductDetailsDto Offer);
         Task<ApiResponse> RemoveProductFromCart(int userIdentifier, int productId);
         Task<ApiResponse> RemoveOfferFromCart(int userIdentifier, int offerId);
+        Task<ApiResponse> ProductPlus(int userIdentifier, int offerId);
+        Task<ApiResponse> OfferPlus(int userIdentifier, int offerId);
+        Task<ApiResponse> ProductMinus(int userIdentifier, int offerId);
+        Task<ApiResponse> OfferMinus(int userIdentifier, int offerId);
         Task<ApiResponse> GetCreateOrder(int userIdentifier);
         Task<ApiResponse> PostCreateOrder(int userIdentifier);
     }
