@@ -35,6 +35,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderUserComponent } from './pages/order-user/order-user.component';
 import {DataTablesModule} from 'angular-datatables';
 import { ProductCardModule } from './modules/components-shared/product-card/product-card.module';
+import { HomeComponent } from './components/Home/home/home.component';
 
  
  
@@ -64,6 +65,7 @@ import { ProductCardModule } from './modules/components-shared/product-card/prod
     CartOwnerComponent,
     CheckoutComponent,
     OrderUserComponent,
+    HomeComponent,
      
       
       

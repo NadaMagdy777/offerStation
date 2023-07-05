@@ -27,7 +27,7 @@ export class RegestrationComponent {
     Name: ['', [Validators.required]],
     Phone: ['', [Validators.required],PhoneValidator()],
     Address: this.fb.array([]),
-    Password: ['', [Validators.required]],
+    Password: ['', [Validators.required,Validators.maxLength(6)]],
     Confirm: ['', [Validators.required]],
     Email: ['', [Validators.required, Validators.email]],
   }, { validator: [ConfirmPasswordValidator] })

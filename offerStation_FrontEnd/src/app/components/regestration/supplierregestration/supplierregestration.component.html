@@ -51,6 +51,7 @@
                     <small *ngIf="Password?.errors?.['required'] && (Password?.dirty || Password?.touched)" class="text-danger">
                       Password Is Required
                     </small>
+                    <small *ngIf="Password?.errors?.['maxLength'] && (Password?.dirty || Password?.touched)">Password should be 6</small>
                     <br>
                     <div class="form-group">
                       

@@ -32,7 +32,7 @@ msg='';
     name: ['', [Validators.required]],
     phone: ['', [Validators.required],SupplierPhoneValidator],
     address: this.fb.array([]),
-    Password: ['', [Validators.required]],
+    Password: ['', [Validators.required,Validators.maxLength(6)]],
     supplierCategoryId:['',[Validators.required]],
     Confirm: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],

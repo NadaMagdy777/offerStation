@@ -1,4 +1,4 @@
-
+<!-- 
 <header class="d-flex justify-content-center mt-2  ">
 
   <div
@@ -18,7 +18,7 @@
           <div class="col-5">
             <p class="text-white" style="font-size: 25px;"><i class=" fa fa-phone mb-4"></i> {{ownerInfo.phoneNumber}}</p>
     
-            <!-- <h5 ><i class="fa-duotone fa-phone text-white">{{ownerInfo.phoneNumber}}</i></h5> -->
+           
           </div>
           <div class="col-5">
             <p class="text-white" style="font-size: 25px;"><i class=" fa fa-envelope mb-4"></i> {{ownerInfo.email}}</p>
@@ -34,7 +34,25 @@
               
     </div>
   </div>
-</header>
+</header> -->
+
+<div class="w-75 mx-auto py-1">
+  <div class="row ">
+    <div class="col-6">
+      <img src="{{ownerInfo.image}}" class="img-fluid rounded-start" [alt]="ownerInfo.id"> 
+    </div>
+    <div class="col-6">
+     <div></div>
+        
+             <h1 style="padding-top: 31px;">{{ownerInfo.name}}</h1>
+          
+
+             <ngb-rating class="starRateColor " [max]="5" [rate]="ownerInfo.rating" [readonly]="true" style="margin-top: 88px;"></ngb-rating>
+   
+      
+    </div>
+  </div>
+</div>
 
 
 
