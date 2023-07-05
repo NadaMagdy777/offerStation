@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminDeliveryComponent } from 'src/app/pages/admin/admin-delivery/admin-delivery.component';
 import { AdminComponent } from 'src/app/pages/admin/admin-main/admin.component';
 import { AdminOwnerCategoryComponent } from 'src/app/pages/admin/admin-owner-category/admin-owner-category.component';
 import { AdminOwnerReviewsComponent } from 'src/app/pages/admin/admin-owner-reviews/admin-owner-reviews.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path:'', component:AdminComponent, children: [
     { path:'ownerCategory', component:AdminOwnerCategoryComponent},
     { path:'supplierCategory', component:AdminSupplierCategoryComponent},
+    { path:'delivery', component:AdminDeliveryComponent},
     { path:'ownerReview', component:AdminOwnerReviewsComponent},
     { path:'customerReview', component:AdminReviewsComponent},
     { path:'waitingOwners', component:AdminWaitingOwnersComponent},
