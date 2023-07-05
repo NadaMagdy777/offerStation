@@ -47,7 +47,6 @@ namespace offerStation.API.Controllers
             return Ok(await _CustomerCartService.AddProductToCart( int.Parse(useridentifier), Product));
         }
 
-
         [HttpPost("addOfferToCart")]
         public async Task<ActionResult<ApiResponse>> AddOfferToCart(ProductDetailsDto Product)
         {
@@ -79,6 +78,56 @@ namespace offerStation.API.Controllers
 
             return Ok(await _CustomerCartService.RemoveOfferFromCart(int.Parse(useridentifier), OfferId));
         }
+
+
+
+
+        [HttpPost("productPlus")]
+        public async Task<ActionResult<ApiResponse>> ProductPlus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.ProductPlus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("offerPlus")]
+        public async Task<ActionResult<ApiResponse>> OfferPlus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.OfferPlus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("productMinus")]
+        public async Task<ActionResult<ApiResponse>> ProductMinus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.ProductMinus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("offerMinus")]
+        public async Task<ActionResult<ApiResponse>> OfferMinus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.OfferMinus(int.Parse(useridentifier), OfferId));
+        }
+
+
+
+
+
+
+
 
         [HttpGet("getCreateOrder")]
         public async Task<ActionResult<ApiResponse>> GetCreateOrder()
@@ -158,6 +207,53 @@ namespace offerStation.API.Controllers
 
             return Ok(await _OwnercartService.RemoveOfferFromCart(int.Parse(useridentifier), OfferId));
         }
+
+
+
+
+        [HttpPost("ownerProductPlus")]
+        public async Task<ActionResult<ApiResponse>> OwnerProductPlus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.ProductPlus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("ownerofferPlus")]
+        public async Task<ActionResult<ApiResponse>> OwnerOfferPlus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.OfferPlus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("ownerproductMinus")]
+        public async Task<ActionResult<ApiResponse>> OwnerProductMinus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.ProductMinus(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpPost("ownerofferMinus")]
+        public async Task<ActionResult<ApiResponse>> OwnerOfferMinus(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _CustomerCartService.OfferMinus(int.Parse(useridentifier), OfferId));
+        }
+
+
+
+
 
         [HttpGet("getOwnerCreateOrder")]
         public async Task<ActionResult<ApiResponse>> GetOwnerCreateOrder()
