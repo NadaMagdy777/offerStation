@@ -6,7 +6,9 @@ export class Product {
         public price: any,
         public prefPrice: any,
         public ownerId: number,
-        public image:any
+        public image:any,
+        public traderImage:any
+
     ) { }
 }
 export class OfferProducts {

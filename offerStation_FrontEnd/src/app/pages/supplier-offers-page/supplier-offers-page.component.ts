@@ -23,7 +23,7 @@ export class SupplierOffersPageComponent {
 
   cityIdChanges(value: any) {
     this.selectedcityId = value;
-    this.getproduct(this.pageNumber, this.pagesize, this.SupplierCategory, this.selectedcityId, " ")
+    this.getproduct(this.pageNumber, this.pagesize, this.SupplierCategory, this.selectedcityId, this.sortBy)
     this.pageNumber = 1
 
   }

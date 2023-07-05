@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CategoryService } from 'src/app/services/Category/category.service';
-import { AdminCategoriesService } from 'src/app/services/admin/admin-owner-categories.service';
 import { AdminSupplierCategoryService } from 'src/app/services/admin/admin-supplier-category.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Category } from 'src/app/sharedClassesAndTypes/Category';
-import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-admin-supplier-category',
@@ -15,7 +14,9 @@ import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters
 })
 export class AdminSupplierCategoryComponent {
 
-
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement!: DataTableDirective;
+  
   errorMessage: any;
   display = '';
   display1 = '';
@@ -62,7 +63,13 @@ export class AdminSupplierCategoryComponent {
       pagingType: 'full_numbers',
       pageLength: 5,
       lengthMenu: [5, 10, 20],
-      processing: true
+      processing: true,
+      destroy:true,
+      responsive: true,
+      language: {
+        search: '_INPUT_',
+        searchPlaceholder: 'Search records',
+      }
     }
     this.getCategories();
   }
@@ -71,7 +78,6 @@ export class AdminSupplierCategoryComponent {
     this._categoryService.GetAllSupplierCategory()
       .subscribe(response => {
         this.categories = response.data
-        console.log("categories: ", this.categories);
         this.dtTrigger.next(null);
         this.categories.forEach((category: Category) => {
           category.image = this._imageService.base64ArrayToImage(category.image)
@@ -90,13 +96,13 @@ export class AdminSupplierCategoryComponent {
     }
   }
 
-  // onPageChange(event: PageEvent) {
-  //   this.pageSize = event.pageSize;
-  // }
-  
   onDelete(divisionId: number, index: number) {
     this._adminSupplierService.DeleteCategory(divisionId).subscribe({
       next: data => {
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.categories.splice(index, 1);
         this.getCategories();
       },
@@ -108,7 +114,10 @@ export class AdminSupplierCategoryComponent {
 
     this._adminSupplierService.AddCategory(this.categoryForm.value).subscribe({
       next: data => {
-        console.log(data);
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.getCategories()
         this.onCloseCategoryHandled();
         this.categoryForm.reset();
@@ -132,6 +141,10 @@ export class AdminSupplierCategoryComponent {
   onUpdate() {
     this._adminSupplierService.UpdateCategory(this.supplierCategory.id, this.supplierCategory).subscribe({
       next: data => {
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.getCategories()
         this.onCloseEditCategoryHandled();
       },

@@ -36,7 +36,7 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
 import {DataTablesModule} from 'angular-datatables';
 import { ProductCardModule } from './modules/components-shared/product-card/product-card.module';
 
-
+ 
  
 @NgModule({
   declarations: [
@@ -59,11 +59,12 @@ import { ProductCardModule } from './modules/components-shared/product-card/prod
     SupplierLandingTopRateComponent,
     SupplierOffersComponent,
     OwnerOffersComponent,
-      SupplierHeaderComponent,
-      CartUserComponent,
-      CartOwnerComponent,
-      CheckoutComponent,
-      OrderUserComponent,
+    SupplierHeaderComponent,
+    CartUserComponent,
+    CartOwnerComponent,
+    CheckoutComponent,
+    OrderUserComponent,
+     
       
       
       

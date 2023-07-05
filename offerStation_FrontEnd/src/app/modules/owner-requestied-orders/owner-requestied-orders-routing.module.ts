@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnerRequestedOrdersComponent } from 'src/app/pages/owner-requested-orders/owner-requested-orders.component';
 
 const routes: Routes = [
-  {path:'',component:OwnerRequestedOrdersComponent}
 ];
 
 @NgModule({

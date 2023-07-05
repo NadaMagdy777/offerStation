@@ -12,6 +12,10 @@ export class NavbarComponent {
 
   userdata: any;
   userName: any;
+  UserRole:any;
+  ownercategoryList:any
+  ownercategoryName:any
+  suppliercategoryList:any
   categoryList: any;
   categoryName: any;
   errorMessage: any;
@@ -24,6 +28,9 @@ export class NavbarComponent {
         
         this.userdata = data;
         this.userName = this.userdata ? this.userdata['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : ''
+        this.UserRole= this.userdata? this.userdata['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] : ''
+     
+
       },
       error: error => console.log(error)
     })
@@ -51,6 +58,18 @@ export class NavbarComponent {
       },
       error: error => this.errorMessage = error
     })
+      
+
+  this.ownerCategory.GetAllSupplierCategory().subscribe({
+    next: data => {
+      let dataJson = JSON.parse(JSON.stringify(data))
+      console.log(data);
+      this.suppliercategoryList = dataJson.data;
+      
+    },
+    error: error => this.errorMessage = error
+  })
+    
 
   }
 

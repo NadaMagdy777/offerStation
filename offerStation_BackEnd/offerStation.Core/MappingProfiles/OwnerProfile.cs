@@ -61,6 +61,26 @@ namespace offerStation.Core.MappingProfiles
             CreateMap<Owner, OwnerRegestrationDto>().ReverseMap();
             CreateMap<OwnerCategory, CategoryDto>().ReverseMap();
             CreateMap<OwnerCategory, CategoryInfoDto>().ReverseMap();
+
+
+
+
+
+            CreateMap<OwnerCart, OwnerCartDto>()
+                .ForMember(des => des.SupplierName, a => a.MapFrom(src => src.Supplier.AppUser.Name))
+                .ForMember(des => des.SupplierId, a => a.MapFrom(src => src.Supplier.Id))
+                //.ForMember(des => des.Total, a => a.MapFrom(src => src.OwnerOffer.Price * src.Quantity))
+                .ReverseMap();
+
+            CreateMap<OwnerCartProduct, OwnerCartProductDto>()
+                .ForMember(des => des.ProductName, a => a.MapFrom(src => src.SupplierProduct.Name))
+                //.ForMember(des => des.Total, a => a.MapFrom(src => src.OwnerProduct.Price * src.Quantity))
+                .ReverseMap();
+
+            CreateMap<OwnerCartOffer, OwnerCartOfferDto>()
+                .ForMember(des => des.OfferName, a => a.MapFrom(src => src.SupplierOffer.Name))
+                //.ForMember(des => des.Total, a => a.MapFrom(src => src.OwnerOffer.Price * src.Quantity))
+                .ReverseMap();
         }
     }
 }

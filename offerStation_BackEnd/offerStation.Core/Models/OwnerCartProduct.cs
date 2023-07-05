@@ -19,6 +19,9 @@ namespace offerStation.Core.Models
         [ForeignKey("SupplierProduct")]
         public int SupplierProductId { get; set; }
         public virtual SupplierProduct SupplierProduct { get; set; }
+
         public int Quantity { get; set; }
+        public double Price { get; set; }
+        public double Total { get; set; }
     }
 }

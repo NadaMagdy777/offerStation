@@ -36,6 +36,22 @@ namespace offerStation.EF.Services
             }
             return false;
         }
+        public async Task<bool> EditDelivery(int id, DeliveryDto deliveryDto)
+        {
+            Delivery delivery = await _unitOfWork.Deliveries.GetByIdAsync(id);
+
+            if (delivery is not null)
+            {
+                delivery.Name = deliveryDto.Name;
+                delivery.Phone = deliveryDto.Phone;
+
+                _unitOfWork.Deliveries.Update(delivery);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> DeleteDelivery(int id)
         {
             Delivery delivery = await _unitOfWork.Deliveries.GetByIdAsync(id);

@@ -173,7 +173,7 @@ namespace offerStation.EF
 
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
 
-            await _userManager.AddToRoleAsync(user, Role.Owner);
+            await _userManager.AddToRoleAsync(user, Role.Supplier);
 
             _unitOfWork.CommitChanges();
 

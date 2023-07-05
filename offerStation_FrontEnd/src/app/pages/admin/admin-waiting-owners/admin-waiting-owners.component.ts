@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AdminApprovalWaitingService } from 'src/app/services/admin/waiting/admin-approval-waiting.service';
 import { ImageService } from 'src/app/services/image.service';
 import { TraderDetails } from 'src/app/sharedClassesAndTypes/TraderDetails';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-admin-waiting-owners',
@@ -11,6 +12,9 @@ import { TraderDetails } from 'src/app/sharedClassesAndTypes/TraderDetails';
 })
 export class AdminWaitingOwnersComponent {
  
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement!: DataTableDirective;
+  
   Owners: TraderDetails[] = [];
 
   dtOptions:DataTables.Settings = {};
@@ -28,7 +32,12 @@ export class AdminWaitingOwnersComponent {
       pageLength: 5,
       lengthMenu : [5, 10, 20],
       processing: true,
-      destroy:true
+      destroy:true,
+      responsive: true,
+      language: {
+        search: '_INPUT_',
+        searchPlaceholder: 'Search records',
+      }
     }
     this.getWaitingOwners();
   }
@@ -49,7 +58,11 @@ export class AdminWaitingOwnersComponent {
     this._waitingOwnersService.DeleteOwner(ownerId)
     .subscribe({
       next: data => {
-        this.dtTrigger.unsubscribe();
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
+        // this.dtTrigger.unsubscribe();
         this.Owners.splice(index, 1);
         this.getWaitingOwners();
       }
@@ -59,7 +72,11 @@ export class AdminWaitingOwnersComponent {
     this._waitingOwnersService.ApproveOwner(ownerId)
     .subscribe({
       next: data => {
-        this.dtTrigger.unsubscribe();
+        // this.dtTrigger.unsubscribe();
+        this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });
         this.Owners.splice(index, 1);
         this.getWaitingOwners();
       }
