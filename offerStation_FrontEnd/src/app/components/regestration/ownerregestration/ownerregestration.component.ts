@@ -31,7 +31,7 @@ export class OwnerregestrationComponent {
     Name: ['', [Validators.required]],
     Phone: ['', [Validators.required,PhoneValidator()]],
     Address: this.fb.array([]),
-    Password: ['', [Validators.required,Validators.maxLength(6)]],
+    Password: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(6)]],
     ownerCategoryId:['',[Validators.required]],
     Confirm: ['', [Validators.required]],
     Email: ['', [Validators.required, Validators.email]],

@@ -50,7 +50,12 @@
                     <small *ngIf="Password?.errors?.['required'] && (Password?.dirty || Password?.touched)" class="text-danger">
                       Password Is Required
                     </small>
-                    <small *ngIf="registerForm.get('Password')?.errors?.['maxLength']&& (Password?.dirty || Password?.touched)"  class="text-danger">Password should be 6</small>
+                    <small *ngIf="Password?.errors?.['minLength'] && (Password?.dirty || Password?.touched)" class="text-danger">
+                      Password should be greater than 6
+                    </small>
+                    <small *ngIf="Password?.errors?.['maxLength'] && (Password?.dirty || Password?.touched)" class="text-danger">
+                      Password should be At max  10
+                    </small>
                     <br>
                     <div class="form-group">
                       
