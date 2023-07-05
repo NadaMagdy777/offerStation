@@ -32,8 +32,8 @@ export class SupplierService {
     return this._httpClient.get<any>(this.url + "/GetMenuCategoiesBySupplierId?supplierid=" + id);
   }
 
-  GetAllProductsByMenuCategoryID(pageNumber: number, Pagesize: number, id: number): Observable<ProductsByMenuCategory> {
-    return this._httpClient.get<ProductsByMenuCategory>(this.url + "/AllProductsByMenuCategoryIDWithPagination/id?pageNumber=" + pageNumber + "&pageSize=" + Pagesize + "&id=" + id)
+  GetAllProductsByMenuCategoryID(id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetProductsByMenuCategoryID/id?id=" + id)
   }
 
   allProductsBySupplierID(pageNumber: number, Pagesize: number, id: number): Observable<any> {
@@ -202,5 +202,12 @@ export class SupplierService {
     pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error")
     }));
+  }
+  GetAllReviews(id:any){
+    return this._httpClient.get<ApiResponce>(this.url+"/GetAllOwnerReviewsbysupplierID?supplierId="+id).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
+   
   }
 }

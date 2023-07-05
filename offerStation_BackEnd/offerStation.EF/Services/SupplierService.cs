@@ -295,7 +295,7 @@ namespace offerStation.EF.Services
             return OfferListDto;
 
         }
-        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryIDWithPagination(int pageNumber, int pageSize, int id)
+        public async Task<List<ProductInfoDto>> GetProductsByMenuCategoryID(int id)
         {
             List<ProductInfoDto> SupplierProductsDTOs;
 
@@ -317,10 +317,7 @@ namespace offerStation.EF.Services
 
                 SupplierProductsDTOs.Add(ProductDTO);
             }
-            ResultrDto<ProductInfoDto> ProductFilterResult = new ResultrDto<ProductInfoDto>();
-            ProductFilterResult.itemsCount = SupplierProductsDTOs.Count();
-            int recSkip = (pageNumber - 1) * pageSize;
-            SupplierProductsDTOs = SupplierProductsDTOs.Skip(recSkip).Take(pageSize).ToList();
+            
             return SupplierProductsDTOs;
         }
         public async Task<List<ProductInfoDto>> GetAllProductsBySupplierIDWithPagination(int pageNumber, int pageSize, int id)

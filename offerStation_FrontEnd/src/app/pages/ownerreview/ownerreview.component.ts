@@ -26,7 +26,8 @@ export class OwnerreviewComponent implements OnInit {
          this.id=Number(paramMap.get('id'));
       
       });
-      this.owner.GetAllCustomerReviewsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+      
+      this.owner.GetAllCustomerReviewByOwnerId(this.id).subscribe({
         next:data=>
         {
           console.log(data);
@@ -37,23 +38,23 @@ export class OwnerreviewComponent implements OnInit {
       })
   
   }
-  getAllReviews(pgNum: number, pageSize: number,id:number) 
-  {
-this.owner.GetAllCustomerReviewsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
-  next:data=>
-  {
-    console.log(data);
-    this.customerreview=data.data
-    console.log("list"+this.customerreview);
-  },
-  error:error=>this.errorMessage=error
-})
-}
+//   getAllReviews(pgNum: number, pageSize: number,id:number) 
+//   {
+// this.owner.GetAllCustomerReviewsByOwnerIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+//   next:data=>
+//   {
+//     console.log(data);
+//     this.customerreview=data.data
+//     console.log("list"+this.customerreview);
+//   },
+//   error:error=>this.errorMessage=error
+// })
+// }
 
   PageNumberChanged(value:number)
   {
     this.pageNumber = value
-    this.getAllReviews(this.pageNumber, this.pagesize,this.id)
+    // this.getAllReviews(this.pageNumber, this.pagesize,this.id)
     this.pageNumber = 1
     console.log(value);
     
