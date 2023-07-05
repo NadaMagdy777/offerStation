@@ -41,6 +41,7 @@ namespace offerStation.EF
         public IBaseRepository <OwnerCategory> OwnerCategories { get; private set; }
         public IBaseRepository <OwnerCardDetails> OwnerCardDetails { get; private set; }
         public IBaseRepository <OwnerCartProduct> OwnerCartProducts { get; private set; }
+        public IBaseRepository <OwnerCartOffer> OwnerCartOffers { get; private set; }
         public IBaseRepository <OwnerMenuCategory> OwnerMenuCategories { get; private set; }
         public IBaseRepository <OwnerOrderProduct> OwnerOrderProducts { get; private set; }
         public IBaseRepository <OwnerOfferProduct> OwnerOfferProducts { get; private set; }
@@ -85,6 +86,7 @@ namespace offerStation.EF
             OwnerCardDetails = new BaseRepository<OwnerCardDetails>(_context);
             OwnerCartProducts = new BaseRepository<OwnerCartProduct>(_context);
             OwnerCartProducts = new BaseRepository<OwnerCartProduct>(_context);
+            OwnerCartOffers = new BaseRepository<OwnerCartOffer>(_context);
             OwnerOrderProducts = new BaseRepository<OwnerOrderProduct>(_context);
             OwnerOfferProducts = new BaseRepository<OwnerOfferProduct>(_context);
             OwnerMenuCategories = new BaseRepository<OwnerMenuCategory>(_context);

@@ -49,27 +49,37 @@ namespace offerStation.EF
 
             CustomerCartDto result;
             string ownername = "";
-            if(customer.CustomerCart.Products.Count() > 0)
-            {
-                int currentId = customer.CustomerCart.Products[0].Id;
+            int productsCount = customer.CustomerCart.Products.Count();
+            int offersCount = customer.CustomerCart.Offers.Count();
 
-                OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == currentId,
-                new List<Expression<Func<OwnerProduct, object>>>()
+            if(productsCount > 0 || offersCount > 0)
+            {
+                if (productsCount > 0)
                 {
+                    int currentId = customer.CustomerCart.Products[0].Id;
+
+                    OwnerProduct op = await _unitOfWork.OwnerProducts.FindAsync(p => p.Id == currentId,
+                    new List<Expression<Func<OwnerProduct, object>>>()
+                    {
                     p => p.Owner.AppUser,
-                });
-                ownername = op.Owner.AppUser.Name;
+                    });
+                    ownername = op.Owner.AppUser.Name;
+                }
+                else
+                {
+                    int currentId = customer.CustomerCart.Offers[0].Id;
+
+                    OwnerOffer of = await _unitOfWork.OwnerOffers.FindAsync(o => o.Id == currentId,
+                    new List<Expression<Func<OwnerOffer, object>>>()
+                    {
+                    o => o.Owner.AppUser,
+                    });
+                    ownername = of.Owner.AppUser.Name;
+                }
             }
             else
             {
-                int currentId = customer.CustomerCart.Offers[0].Id;
-
-                OwnerOffer of = await _unitOfWork.OwnerOffers.FindAsync(o => o.Id == currentId,
-                new List<Expression<Func<OwnerOffer, object>>>()
-                {
-                    o => o.Owner.AppUser,
-                });
-                ownername = of.Owner.AppUser.Name;
+                return new ApiResponse(200, true, null, "Cart Is Empty!");
             }
 
             result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
@@ -97,8 +107,6 @@ namespace offerStation.EF
                 {
                     p =>p.Owner.AppUser,
                 });
-
-            
 
             if(customer.CustomerCart is null)
             {
@@ -176,8 +184,6 @@ namespace offerStation.EF
                 {
                     o =>o.Owner.AppUser,
                 });
-
-            
 
             if (customer.CustomerCart is null)
             {
@@ -260,17 +266,27 @@ namespace offerStation.EF
             {
                 return new ApiResponse(200, false, null, "Cart Is Null !");
             }
-            CustomerCartProduct product = customer.CustomerCart.Products.FirstOrDefault(p => p.Id == productId);
+            CustomerCartProduct product;
+            
+            if (customer.CustomerCart.Products.Count() > 0)
+                product = customer.CustomerCart.Products.FirstOrDefault(p => p.OwnerProductId == productId);
+            
+            else
+                return new ApiResponse(200, false, null, "Cart Is Null !");
 
-            if (product is not null)
+
+            if (product is null)
             {
-                customer.CustomerCart.Products.Remove(product);
-                _unitOfWork.Complete();
+                return new ApiResponse(200, false, null, "Product Not Found !");
             }
 
-            CustomerCartDto result;
-
+            customer.CustomerCart.Products.Remove(product);
+            
             customer.CustomerCart.Total -= product.Total;
+
+            _unitOfWork.Complete();
+
+            CustomerCartDto result;
 
             result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
 
@@ -303,17 +319,29 @@ namespace offerStation.EF
                 return new ApiResponse(200, false, null, "Cart Is Null !");
             }
 
-            CustomerCartOffer offer = customer.CustomerCart.Offers.FirstOrDefault(p => p.Id == offerId);
+            CustomerCartOffer offer;
 
-            if (offer is not null)
+            if(customer.CustomerCart.Offers.Count() > 0)
             {
-                customer.CustomerCart.Offers.Remove(offer);
-                _unitOfWork.Complete();
+                offer = customer.CustomerCart.Offers.FirstOrDefault(p => p.OwnerOffertId == offerId);
+            }
+            else
+            {
+                return new ApiResponse(200, false, null, "Ther Is No Offers!");
             }
 
-            CustomerCartDto result;
-
+            if (offer is null)
+            {
+                return new ApiResponse(200, false, null, "Offer Not Found !");
+            }
+            
+            customer.CustomerCart.Offers.Remove(offer);
+            
             customer.CustomerCart.Total -= offer.Total;
+            
+            _unitOfWork.Complete();
+
+            CustomerCartDto result;
 
             result = _mapper.Map<CustomerCartDto>(customer.CustomerCart);
 

@@ -75,4 +75,14 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> EditMenuCategory(int id, MenuCategoryDto menuCategoryDto);
         Task<bool> DeleteMenuCategory(int id);
     }
+    public interface IOwnerCartService
+    {
+        Task<ApiResponse> AddProductToCart(int userIdentifier, ProductDetailsDto Product);
+        Task<ApiResponse> GetCartDetails(int userIdentifier);
+        Task<ApiResponse> AddOfferToCart(int userIdentifier, ProductDetailsDto Offer);
+        Task<ApiResponse> RemoveProductFromCart(int userIdentifier, int productId);
+        Task<ApiResponse> RemoveOfferFromCart(int userIdentifier, int offerId);
+        Task<ApiResponse> GetCreateOrder(int userIdentifier);
+        Task<ApiResponse> PostCreateOrder(int userIdentifier);
+    }
 }
