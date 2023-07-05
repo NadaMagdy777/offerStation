@@ -68,5 +68,36 @@ export class OrdersService {
         return throwError(() => err.message || "Server Error");
       }));
   }
+  getPendingCustomerOrders():Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/pendingCustomersOrders`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  getPendingOwnerOrders():Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/pendingOwnersOrders`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  
+  postCustomerOrderDelivary(customerOrderId:number,deliveryId:number,):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/customerOrderDelivery?customerOrderId=${customerOrderId}&deliveryId=${deliveryId}'`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  postOwnerOrderDelivary(OwnerOrderId:number,deliveryId:number,):Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/ownerOrderDelivery?ownerOrderId=${OwnerOrderId}&deliveryId=${deliveryId}'`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  GetAllDeliveres():Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/AllDeliveries`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
 
 }
