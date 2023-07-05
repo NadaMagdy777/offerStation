@@ -46,7 +46,7 @@ namespace offerStation.Core.Interfaces.Services
         Task<double> GetMinPriceoFProductByOwmerID(int id);
         Task<double> GetMaxPriceoFProductByOwmerID(int id);
         Task<List<ProductInfoDto>> GetProductsByOwnerIDAndPrice(int id, double selectedprice);
-        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination(int pageNumber, int pageSize, int id);
+        Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination( int id);
 
         Task<List<offerProductInfo>> getofferProduct(int OfferId);
     }
