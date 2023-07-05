@@ -17,10 +17,12 @@ namespace offerStation.API.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly ICustomerCartService cartService;
-        public CartController(ICustomerCartService cartService)
+        private readonly ICustomerCartService _CustomerCartService;
+        private readonly IOwnerCartService _OwnercartService;
+        public CartController(ICustomerCartService CustomercartService, IOwnerCartService OwnercartService)
         {
-            this.cartService = cartService;
+            _CustomerCartService = CustomercartService;
+            _OwnercartService = OwnercartService;
         }
 
         [HttpGet("GetCartDetails")]
@@ -31,7 +33,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.GetCartDetails(int.Parse(useridentifier)));
+            return Ok(await _CustomerCartService.GetCartDetails(int.Parse(useridentifier)));
         }
 
         [HttpPost("addProductToCart")]
@@ -42,7 +44,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.AddProductToCart( int.Parse(useridentifier), Product));
+            return Ok(await _CustomerCartService.AddProductToCart( int.Parse(useridentifier), Product));
         }
 
 
@@ -53,7 +55,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.AddOfferToCart(int.Parse(useridentifier), Product));
+            return Ok(await _CustomerCartService.AddOfferToCart(int.Parse(useridentifier), Product));
 
         }
 
@@ -65,7 +67,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.RemoveProductFromCart(int.Parse(useridentifier), ProductId));
+            return Ok(await _CustomerCartService.RemoveProductFromCart(int.Parse(useridentifier), ProductId));
         }
 
         [HttpPost("removeOfferToCart")]
@@ -75,7 +77,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.RemoveOfferFromCart(int.Parse(useridentifier), OfferId));
+            return Ok(await _CustomerCartService.RemoveOfferFromCart(int.Parse(useridentifier), OfferId));
         }
 
         [HttpGet("getCreateOrder")]
@@ -85,7 +87,7 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.GetCreateOrder(int.Parse(useridentifier)));
+            return Ok(await _CustomerCartService.GetCreateOrder(int.Parse(useridentifier)));
         }
 
         [HttpPost("postCreateOrder")]
@@ -95,7 +97,86 @@ namespace offerStation.API.Controllers
 
             var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            return Ok(await cartService.PostCreateOrder(int.Parse(useridentifier)));
+            return Ok(await _CustomerCartService.PostCreateOrder(int.Parse(useridentifier)));
+        }
+
+
+
+
+
+        [HttpGet("GetOwnerCartDetails")]
+        public async Task<ActionResult<ApiResponse>> GetOwnerCartDetails()
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.GetCartDetails(int.Parse(useridentifier)));
+        }
+
+        [HttpPost("addOwnerProductToCart")]
+        public async Task<ActionResult<ApiResponse>> AddOwnerProductToCart(ProductDetailsDto Product)
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.AddProductToCart(int.Parse(useridentifier), Product));
+        }
+
+
+        [HttpPost("addOwnerOfferToCart")]
+        public async Task<ActionResult<ApiResponse>> AddOwnerOfferToCart(ProductDetailsDto Product)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.AddOfferToCart(int.Parse(useridentifier), Product));
+
+        }
+
+        [HttpPost("removeOwnerProductToCart")]
+        public async Task<ActionResult<ApiResponse>> RemoveOwnerProductToCart(int ProductId)
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.RemoveProductFromCart(int.Parse(useridentifier), ProductId));
+        }
+
+        [HttpPost("removeOwnerOfferToCart")]
+        public async Task<ActionResult<ApiResponse>> RemoveOwnerOfferToCart(int OfferId)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.RemoveOfferFromCart(int.Parse(useridentifier), OfferId));
+        }
+
+        [HttpGet("getOwnerCreateOrder")]
+        public async Task<ActionResult<ApiResponse>> GetOwnerCreateOrder()
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.GetCreateOrder(int.Parse(useridentifier)));
+        }
+
+        [HttpPost("postOwnerCreateOrder")]
+        public async Task<ActionResult<ApiResponse>> PostOwnerCreateOrder()
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); }
+
+            var useridentifier = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            return Ok(await _OwnercartService.PostCreateOrder(int.Parse(useridentifier)));
         }
     }
 }

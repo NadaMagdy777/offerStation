@@ -25,3 +25,8 @@
 .img-content:hover .middle {
   opacity: 1;
 }
+
+.starRateColor{
+  color: #ffb624;
+  font-size: 35px;
+}

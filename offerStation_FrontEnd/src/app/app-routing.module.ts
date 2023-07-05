@@ -21,6 +21,8 @@ const routes: Routes = [
   { path: 'cart-user', component: CartUserComponent },
   { path: 'cart-owner', component: CartOwnerComponent },
   { path: 'checkout', component: CheckoutComponent },
+  
+
 
   { path: 'supplierHome', component: SupplierHeaderComponent },
 
@@ -32,10 +34,6 @@ const routes: Routes = [
   { path: 'owners', loadChildren: () => import('./modules/owners/owners.module').then(mod => mod.OwnersModule) },
   { path: 'suppliers', loadChildren: () => import('./modules/suppliers-offers/suppliers-offers.module').then(mod => mod.SuppliersOffersModule) },
 
-  { path: 'ownerDashboard', loadChildren: () => import('./modules/owner-dashboard/owner-dashboard.module').then(mod => mod.OwnerDashboardModule) },
-  { path: 'supplierDashboard', loadChildren: () => import('./modules/supplier-dashboard/supplier-dashboard.module').then(mod => mod.SupplierDashboardModule) },
-  { path: 'customerOrders', loadChildren: () => import('./modules/customer-orders/customer-orders.module').then(mod => mod.CustomerOrdersModule) },
-  // { path: 'adminDashboard', loadChildren: () => import('./modules/admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
 
 
 

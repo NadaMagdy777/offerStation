@@ -10,6 +10,29 @@ import { Offer } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
 
 export class SupplierOffersComponent implements OnInit {
 
+  OfferList: any;
+  ProductList: any;
+
+  index!: any;
+  imageUrl: string = '';
+  errorMessage: any;
+
+  display = '';
+  display1 = '';
+
+  supplierOffer: Offer = {
+    ownerId: 0,
+    createdTime: '',
+    id: 0,
+    prefPrice: 0,
+    traderImage: '',
+    name: '',
+    description: '',
+    price: 0,
+    image: '',
+    products: []
+  }
+
   offerForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -19,32 +42,11 @@ export class SupplierOffersComponent implements OnInit {
       description: ['', Validators.required],
       price: ['', Validators.required],
       image: [''],
-      products: this.fb.array([]) // Initialize an empty FormArray for products
+      products: this.fb.array([]) 
     });
   }
   ngOnInit(): void {
 
   }
 
-
-  // get products(): FormArray {
-  //   return this.offerForm.get('products') as FormArray;
-  // }
-
-  addProduct(): void {
-    // const productFormGroup = this.fb.group({
-    //   quantity: ['', Validators.required],
-    //   productId: ['', Validators.required]
-    // });
-
-    // this.products.push(productFormGroup);
-  }
-
-  removeProduct(index: number): void {
-    // this.products.removeAt(index);
-  }
-
-  submitForm() {
-
-  }
 }

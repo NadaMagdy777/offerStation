@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
-import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
+import { OfferProducts, Product } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
   selector: 'app-offer-products',
@@ -10,7 +11,7 @@ import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 })
 export class OfferProductsComponent implements OnInit {
   
-  constructor(private OwnerService: OwnerService, private supplierService: SupplierService) {
+  constructor(private OwnerService: OwnerService, private supplierService: SupplierService,private _imageService :ImageService) {
   }
   @Input() id:number=0
   @Input() Type:string=""
@@ -24,6 +25,9 @@ export class OfferProductsComponent implements OnInit {
           let dataJson = JSON.parse(JSON.stringify(data))
           console.log(dataJson.data)
           this.productList = dataJson.data
+          this.productList.forEach((product:OfferProducts)=>{
+            product.image=this._imageService.base64ArrayToImage(product.image)
+          })
           
   
         },
@@ -38,6 +42,9 @@ export class OfferProductsComponent implements OnInit {
           let dataJson = JSON.parse(JSON.stringify(data))
           console.log(dataJson.data)
           this.productList = dataJson.data
+          this.productList.forEach((product:OfferProducts)=>{
+            product.image=this._imageService.base64ArrayToImage(product.image)
+          })
           
   
         },

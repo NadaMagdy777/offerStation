@@ -97,7 +97,12 @@ namespace offerStation.EF.Services
         {
             List<ReviewDto> reviewListDto = null;
 
-            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews.GetAllAsync();
+            IEnumerable<CustomerReview> reviewList = await _unitOfWork.CustomerReviews
+                .FindAllAsync(r => !r.IsDeleted, 
+                new List<Expression<Func<CustomerReview, object>>>()
+                {
+                    r => r.Customer.AppUser,
+                });
 
             if(reviewList is not null)
             {

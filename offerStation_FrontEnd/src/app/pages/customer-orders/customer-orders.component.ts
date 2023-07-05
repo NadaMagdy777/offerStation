@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { CustomerOrders, CustomerOrdersOffer, CustomerOrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
+import { CustomerOrders, OrdersOffer, OrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
 import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 
 @Component({
@@ -12,19 +14,38 @@ import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
 })
 export class CustomerOrdersComponent implements OnInit {
   
-  ownerId:number=1;
-  customerId:number=1;
+  orderId!:number
+  ownerId!:number;
+  customerId!:number;
   ordertList:CustomerOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   display:string="none"
-  offersResult!:CustomerOrdersOffer[]
-  productResult!:CustomerOrdersProduct[]
+  displayModel2:string="none"
+
+  offersResult!:OrdersOffer[]
+  productResult!:OrdersProduct[]
   orderStatus!:any
-  constructor(private OrderService:OrdersService,private OwnerService:OwnerService) 
+
+  openReviewsModal(OwnerId:number,orderId:number){
+    this.ownerId=OwnerId
+    this.orderId=orderId
+    this.displayModel2="block"
+
+  }
+  onCloseReviewHandled(){
+    this.displayModel2="none"
+
+  }
+
+  constructor(private OrderService:OrdersService,private OwnerService:OwnerService, private route:ActivatedRoute  , private _userDataService: AuthenticationService
+) 
   {}
  
   ngOnInit(): void {
+    
+     this.customerId = this.route.snapshot.params['id']
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,

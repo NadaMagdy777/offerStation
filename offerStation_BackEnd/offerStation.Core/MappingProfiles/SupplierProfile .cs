@@ -20,6 +20,12 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
                 .ReverseMap();
 
+            CreateMap<Supplier, TraderDetailsDto>()
+              .ForMember(des => des.Name, a => a.MapFrom(src => src.AppUser.Name))
+              .ForMember(des => des.Email, a => a.MapFrom(src => src.AppUser.Email))
+              .ForMember(des => des.PhoneNumber, a => a.MapFrom(src => src.AppUser.PhoneNumber))
+              .ReverseMap();
+
             CreateMap<ProductDto, SupplierProduct>()
                 .ForMember(des => des.CreatedTime, a => a.MapFrom(src => DateTime.Now))
                 .ReverseMap();
@@ -41,9 +47,11 @@ namespace offerStation.Core.MappingProfiles
                 .ForMember(des => des.TraderImage, a => a.MapFrom(src => src.Supplier.Image))
                 .ReverseMap();
 
+            CreateMap<SupplierOfferProduct, OfferProductDto>();
             CreateMap<SupplierMenuCategory, MenuCategoryDto>().ReverseMap();
             CreateMap<SupplierMenuCategory, MenuCategoryDetailsDto>().ReverseMap();
-            CreateMap<SupplierOffer, OfferInfoDto>().ReverseMap();
+            CreateMap<OfferInfoDto, SupplierOffer>()
+                .ForMember(o => o.Products, opt => opt.Ignore());
             CreateMap<Supplier, SupplierRegestrationDto>().ReverseMap();
             CreateMap<SupplierCategory, CategoryDto>().ReverseMap();
             CreateMap<SupplierCategory, CategoryInfoDto>().ReverseMap();

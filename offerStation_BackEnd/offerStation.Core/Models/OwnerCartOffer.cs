@@ -11,7 +11,6 @@ namespace offerStation.Core.Models
     public class OwnerCartOffer : BaseModel
     {
         public int Id { get; set; }
-        public int Quantity { get; set; }
 
         [ForeignKey("Cart")]
         public int CartId { get; set; }
@@ -20,5 +19,9 @@ namespace offerStation.Core.Models
         [ForeignKey("SupplierOffer")]
         public int SupplierOffertId { get; set; }
         public virtual SupplierOffer SupplierOffer { get; set; }
+
+        public int Quantity { get; set; }
+        public double Price { get; set; }
+        public double Total { get; set; }
     }
 }

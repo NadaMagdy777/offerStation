@@ -8,6 +8,6 @@ namespace offerStation.Core.Constants
 {
     public static class Const
     {
-        public const int Fee = 5; // percentage
+        public const double Fee = 5; // percentage
     }
 }

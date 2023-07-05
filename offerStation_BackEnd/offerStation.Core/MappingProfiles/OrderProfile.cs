@@ -16,19 +16,18 @@ namespace offerStation.Core.MappingProfiles
         public OrderProfile()
         {
             CreateMap<OwnerOrder, OrderDto>()
-                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.SupplierId))
-                .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.OwnerId))
-                .ForMember(des => des.Total, a => a.MapFrom(src => src.Total * (Const.Fee / 100)))
+                .ForMember(des => des.TraderName, a => a.MapFrom(src => src.Supplier.AppUser.Name))
+                .ForMember(des => des.RequesterName, a => a.MapFrom(src => src.Owner.AppUser.Name))
+                .ForMember(des => des.AdminTotal, a => a.MapFrom(src => src.Total * (Const.Fee / 100)))
                 .ReverseMap();
             CreateMap<OwnerOrder, OrderDetailsDto>()
                 .ForMember(des => des.TraderId, a => a.MapFrom(src => src.SupplierId))
-                .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.OwnerId))
-                .ForMember(des => des.Total, a => a.MapFrom(src => src.Total))
+                .ForMember(des => des.TraderName, a => a.MapFrom(src => src.Supplier.AppUser.Name))
                 .ReverseMap();
             CreateMap<OwnerOrder, RequestedOrderDto>()
-                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.SupplierId))
                 .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.OwnerId))
-                .ForMember(des => des.Total, a => a.MapFrom(src => src.Total - (src.Total * (Const.Fee / 100))));
+                .ForMember(des => des.RequesterName, a => a.MapFrom(src => src.Owner.AppUser.Name))
+                .ForMember(des => des.NetTotal, a => a.MapFrom(src => src.Total - (src.Total * (Const.Fee / 100))));
 
             CreateMap<OwnerOrderProduct, OrderProductDto>()
                 .ForMember(des => des.TraderProductId, a => a.MapFrom(src => src.SupplierProductId))
@@ -38,19 +37,19 @@ namespace offerStation.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<CustomerOrder, OrderDto>()
-                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.OwnerId))
-                .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.CustomerId))
-                .ForMember(des => des.Total, a => a.MapFrom(src => src.Total * (Const.Fee / 100)))
+                .ForMember(des => des.TraderName, a => a.MapFrom(src => src.Owner.AppUser.Name))
+                .ForMember(des => des.RequesterName, a => a.MapFrom(src => src.Customer.AppUser.Name))
+                .ForMember(des => des.AdminTotal, a => a.MapFrom(src => src.Total * (Const.Fee / 100)))
                 .ReverseMap();
             CreateMap<CustomerOrder, OrderDetailsDto>()
                 .ForMember(des => des.TraderId, a => a.MapFrom(src => src.OwnerId))
-                .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.CustomerId))
+                .ForMember(des => des.TraderName, a => a.MapFrom(src => src.Owner.AppUser.Name))
                 .ForMember(des => des.Total, a => a.MapFrom(src => src.Total))
                 .ReverseMap();
             CreateMap<CustomerOrder, RequestedOrderDto>()
-                .ForMember(des => des.TraderId, a => a.MapFrom(src => src.OwnerId))
                 .ForMember(des => des.RequesterId, a => a.MapFrom(src => src.CustomerId))
-                .ForMember(des => des.Total, a => a.MapFrom(src => src.Total - (src.Total * (Const.Fee / 100))))
+                .ForMember(des => des.RequesterName, a => a.MapFrom(src => src.Customer.AppUser.Name))
+                .ForMember(des => des.NetTotal, a => a.MapFrom(src => src.Total - (src.Total * (Const.Fee / 100))))
                 .ReverseMap();
 
             CreateMap<CustomerOrderProduct, OrderProductDto>()

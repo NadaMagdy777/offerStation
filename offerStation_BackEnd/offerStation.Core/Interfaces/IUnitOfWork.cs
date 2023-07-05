@@ -37,6 +37,7 @@ namespace offerStation.Core.Interfaces
         public IBaseRepository <OwnerCategory> OwnerCategories { get;  }
         public IBaseRepository <OwnerCardDetails> OwnerCardDetails { get; }
         public IBaseRepository <OwnerCartProduct> OwnerCartProducts { get; }
+        public IBaseRepository <OwnerCartOffer> OwnerCartOffers { get; }
         public IBaseRepository <OwnerMenuCategory> OwnerMenuCategories { get; }
         public IBaseRepository <OwnerOrderProduct> OwnerOrderProducts { get; }
         public IBaseRepository <OwnerOfferProduct> OwnerOfferProducts { get; }

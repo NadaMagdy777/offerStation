@@ -64,13 +64,14 @@ export class OwnerCategoriesComponent implements OnInit {
     this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
-  SubmitData() {  //Error when choosing image from the system
+  SubmitData() { 
 
     this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
         this.onCloseCategoryHandled();
+        this.CategoryForm.reset();
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -81,7 +82,6 @@ export class OwnerCategoriesComponent implements OnInit {
     this._ownerService.DeleteCategory(categoryId).subscribe({
       next: data => {
         this.categories.splice(index, 1);
-        // console.log(this.categories)
         this.LoadData();
       },
       error: (error: any) => this.errorMessage = error,
@@ -125,10 +125,12 @@ export class OwnerCategoriesComponent implements OnInit {
 
   openCategoryModal() {
     this.display = 'block';
+    this.CategoryForm.reset();
   }
 
   onCloseCategoryHandled() {
     this.display = 'none';
+    
   }
 
   onCloseEditCategoryHandled() {

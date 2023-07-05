@@ -56,10 +56,9 @@ export class SupplierProductsComponent implements OnInit {
 
     this._supplierService.GetMenuCategoiesBySupplierId(1).subscribe({
       next: data => {
-        // console.log(data);
+
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data
-        console.log(this.categories)
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -68,10 +67,10 @@ export class SupplierProductsComponent implements OnInit {
   LoadData() {
     this._supplierService.GetAllProductsBySupplierId(1).subscribe({
       next: data => {
-        // console.log(data);
+
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ProductList = dataJson.data;
-        // console.log(this.ProductList);
+
       },
       error: error => this.errorMessage = error
     });
@@ -81,11 +80,10 @@ export class SupplierProductsComponent implements OnInit {
     this.imageUrl = this._imageService.base64ArrayToImage(image);
   }
 
-  SubmitData() {  //Error when choosing image from the system
+  SubmitData() {
 
     this._supplierService.AddProduct(1, this.productForm.value).subscribe({
       next: data => {
-        // console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
       },
@@ -147,6 +145,7 @@ export class SupplierProductsComponent implements OnInit {
 
   openProductModal() {
     this.display = 'block';
+    this.productForm.reset();
   }
 
   onCloseProductHandled() {
@@ -170,14 +169,14 @@ export class SupplierProductsComponent implements OnInit {
   get discount() {
     return this.productForm.get('discount');
   }
+  get discountPrice() {
+    return this.productForm.get('discountPrice');
+  }
   get image() {
     return this.productForm.get('image');
   }
   get categoryId() {
     return this.productForm.get('categoryId');
-  }
-  get discountPrice() {
-    return this.productForm.get('discountPrice');
   }
 
 }
