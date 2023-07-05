@@ -5,6 +5,8 @@ import { AdminOwnerCategoryComponent } from 'src/app/pages/admin/admin-owner-cat
 import { AdminOwnerReviewsComponent } from 'src/app/pages/admin/admin-owner-reviews/admin-owner-reviews.component';
 import { AdminReviewsComponent } from 'src/app/pages/admin/admin-reviews/admin-reviews.component';
 import { AdminSupplierCategoryComponent } from 'src/app/pages/admin/admin-supplier-category/admin-supplier-category.component';
+import { AdminWaitingOwnersComponent } from 'src/app/pages/admin/admin-waiting-owners/admin-waiting-owners.component';
+import { AdminWaitingSuppliersComponent } from 'src/app/pages/admin/admin-waiting-suppliers/admin-waiting-suppliers.component';
 
 const routes: Routes = [
   { path:'', component:AdminComponent, children: [
@@ -12,6 +14,8 @@ const routes: Routes = [
     { path:'supplierCategory', component:AdminSupplierCategoryComponent},
     { path:'ownerReview', component:AdminOwnerReviewsComponent},
     { path:'customerReview', component:AdminReviewsComponent},
+    { path:'waitingOwners', component:AdminWaitingOwnersComponent},
+    { path:'waitingSuppliers', component:AdminWaitingSuppliersComponent},
     { path: 'dashboard', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(mod => mod.AdminDashboardModule) },
   ]}, 
 ];

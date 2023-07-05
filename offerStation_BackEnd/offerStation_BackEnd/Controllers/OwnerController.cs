@@ -51,7 +51,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetWaitingOwners")]
         public async Task<ActionResult<ApiResponse>> GetWaitingOwners()
         {
-            List<OwnerDto> ownerList = await _ownerService.GetWaitingOwners();
+            List<TraderDetailsDto> ownerList = await _ownerService.GetWaitingOwners();
 
             if (ownerList is null)
             {
@@ -62,7 +62,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetSuspendedOwners")]
         public async Task<ActionResult<ApiResponse>> GetSuspendedOwners()
         {
-            List<OwnerDto> ownerList = await _ownerService.GetSuspendedOwners();
+            List<TraderDetailsDto> ownerList = await _ownerService.GetSuspendedOwners();
 
             if (ownerList is null)
             {
@@ -111,7 +111,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpPut("Approve/id")]
+        [HttpGet("Approve/id")]
         public async Task<ActionResult<ApiResponse>> ApproveOwner(int id)
         {
             bool success = await _ownerService.ApproveOwner(id);
