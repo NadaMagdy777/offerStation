@@ -15,7 +15,7 @@ namespace offerStation.API.Controllers
         {
             _deliveryService = deliveryService;
         }
-        [HttpPost("id")]
+        [HttpPost]
         public async Task<ActionResult<ApiResponse>> Delivery(DeliveryDto delivery)
         {
             bool success = await _deliveryService.AddDelivery(delivery);

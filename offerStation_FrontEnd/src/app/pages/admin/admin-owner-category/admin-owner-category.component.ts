@@ -58,7 +58,8 @@ export class AdminOwnerCategoryComponent {
       pagingType: 'full_numbers',
       pageLength: 5,
       lengthMenu: [5, 10, 20],
-      processing: true
+      processing: true,
+      destroy:true
     }
     this.getCategories();
   }
@@ -69,6 +70,7 @@ export class AdminOwnerCategoryComponent {
         this.categories = response.data
         console.log("categories: ", this.categories);
         this.dtTrigger.next(null);
+        // this.totalCount = this.categories.length;
         this.categories.forEach((category: Category) => {
           category.image = this._imageService.base64ArrayToImage(category.image)
         });
@@ -87,13 +89,10 @@ export class AdminOwnerCategoryComponent {
     }
   }
 
-  // onPageChange(event: PageEvent) {
-  //   this.pageSize = event.pageSize;
-  // }
-
   onDelete(divisionId: number, index: number) {
     this._adminService.DeleteCategory(divisionId).subscribe({
       next: data => {
+        this.dtTrigger.unsubscribe();
         this.categories.splice(index, 1);
         this.getCategories();
       },
@@ -106,7 +105,9 @@ export class AdminOwnerCategoryComponent {
     this._adminService.AddCategory(this.categoryForm.value).subscribe({
       next: data => {
         console.log(data);
+        this.dtTrigger.unsubscribe();
         this.getCategories()
+        this.dtTrigger.next(null);
         this.onCloseCategoryHandled();
         this.categoryForm.reset();
       },
@@ -129,6 +130,7 @@ export class AdminOwnerCategoryComponent {
   onUpdate() {
     this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
       next: data => {
+        this.dtTrigger.unsubscribe();
         this.getCategories()
         this.onCloseEditCategoryHandled();
       },
