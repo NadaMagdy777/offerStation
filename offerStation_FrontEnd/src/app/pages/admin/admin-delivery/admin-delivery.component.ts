@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { AdminDeliveryService } from 'src/app/services/admin/Delivery/admin-delivery.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { DeliveryInfo } from 'src/app/sharedClassesAndTypes/DeliveryInfo';
+import { delivery } from 'src/app/sharedClassesAndTypes/delivery';
 
 @Component({
   selector: 'app-admin-delivery',
@@ -12,9 +12,9 @@ import { DeliveryInfo } from 'src/app/sharedClassesAndTypes/DeliveryInfo';
 })
 export class AdminDeliveryComponent {
 
-  Deliveries:DeliveryInfo[] = [];
+  Deliveries:delivery[] = [];
 
-  delivery: DeliveryInfo = {
+  delivery: delivery = {
     id: 0,
     name: '',
     phone: '',
