@@ -7,7 +7,10 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit{
- 
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
   @Input() name:string=""
   @Input() offerId:number=0
   @Input() prefPrice:number=0
@@ -27,7 +30,7 @@ export class ProductCardComponent implements OnInit{
   onCloseAddressHandled() {
     this.display = 'none';
   }
-  AddProductToCart(){
+  // AddProductToCart(){
 
-  }
+  // }
 }
