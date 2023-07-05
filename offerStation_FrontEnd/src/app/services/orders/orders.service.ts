@@ -41,5 +41,32 @@ export class OrdersService {
         return throwError(() => err.message || "Server Error");
       }));
   }
+  getOwnerOrdersRequested(ownerId: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/ownerOrdersRequested?ownerId=${ownerId}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  
+  getOwnerOrdersRequestedAfterShipped(ownerId: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/ownerOrdersRequestedAfterShipped?ownerId=${ownerId}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+  
+  getSupplierOrdersRequested(supplierId: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/supplierOrdersRequested?supplierId=${supplierId}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
+
+  getSupplierOrdersRequestedAfterShipped(supplierId: number): Observable<ApiResponce> {
+    return this._httpClient.get<ApiResponce>(`${this.url}/supplierOrdersRequestedAfterShipped?supplierId=${supplierId}`).
+      pipe(catchError((err: any) => {
+        return throwError(() => err.message || "Server Error");
+      }));
+  }
 
 }

@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { OwnerService } from 'src/app/services/owner/owner.service';
-import { CustomerOrders, OrdersOffer, OrdersProduct, orderStatus } from 'src/app/sharedClassesAndTypes/order';
+import { OrdersOffer, OrdersProduct, RequestedOrders } from 'src/app/sharedClassesAndTypes/order';
 
 @Component({
-  selector: 'app-owner-orders',
-  templateUrl: './owner-orders.component.html',
-  styleUrls: ['./owner-orders.component.css']
+  selector: 'app-supplier-requested-orders-after-shipped',
+  templateUrl: './supplier-requested-orders-after-shipped.component.html',
+  styleUrls: ['./supplier-requested-orders-after-shipped.component.css']
 })
-export class OwnerOrdersComponent implements OnInit {
-  SupplierId:number=1;
-  OwnerId:number=1;
-  ordertList:CustomerOrders[]=[]
+export class SupplierRequestedOrdersAfterShippedComponent implements OnInit {
+  @Input() SupplierId:number=1;
+  ordertList:RequestedOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   display:string="none"
@@ -22,26 +19,16 @@ export class OwnerOrdersComponent implements OnInit {
   orderStatus!:any
   orderId!: number;
   displayModel2: string="none";
-
-  
-  openReviewsModal(SupplierId:number,orderId:number){
-    this.SupplierId=SupplierId
-    this.orderId=orderId
-    this.displayModel2="block"
-
-  }
-  onCloseReviewHandled(){
-    this.displayModel2="none"
-
-  }
-  constructor(private OrderService:OrdersService,private OwnerService:OwnerService,private route:ActivatedRoute) 
+  getOrderStatus(num:number){
+    return this.orderStatus[num] 
+ }
+  constructor(private OrderService:OrdersService) 
   {
     
   }
- 
+  
+  
   ngOnInit(): void {
-    this.OwnerId = this.route.snapshot.params['id']
-    console.log(this.OwnerId)
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -49,7 +36,7 @@ export class OwnerOrdersComponent implements OnInit {
       processing: true
       
     };
-    this.OrderService.GetOwnerOrders(this.OwnerId).subscribe((res) => {
+    this.OrderService.getSupplierOrdersRequestedAfterShipped(this.SupplierId).subscribe((res) => {
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
         this.ordertList=dataJson.data
@@ -73,11 +60,8 @@ export class OwnerOrdersComponent implements OnInit {
     
     
   }
-  getOrderStatus(num:number){
-     return orderStatus[num] 
-  }
+ 
   onCloseAddressHandled() {
     this.display = 'none';
   }  
-
 }
