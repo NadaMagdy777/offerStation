@@ -23,7 +23,8 @@ export class AdminOwnerReviewsComponent {
       pagingType:'full_numbers',
       pageLength: 5,
       lengthMenu : [5, 10, 20],
-      processing: true
+      processing: true,
+      destroy:true
     }
     this.getReviews();
   }
@@ -33,14 +34,14 @@ export class AdminOwnerReviewsComponent {
       .subscribe(response => 
         {
           this.reviews = response.data
-          console.log("categories: ",this.reviews);
           this.dtTrigger.next(null);
         });
   }
   onDelete(index:number, reviewId:number){
     this._reviewService.DeleteOwnerReview(reviewId)
     .subscribe({
-      next: data => {
+      next: data => {    
+        this.dtTrigger.unsubscribe();
         this.reviews.splice(index, 1);
         this.getReviews();
       }

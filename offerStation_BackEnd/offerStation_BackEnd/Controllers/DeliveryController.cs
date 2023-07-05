@@ -25,6 +25,16 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }
+        [HttpPut("id")]
+        public async Task<ActionResult<ApiResponse>> Delivery(int Id, DeliveryDto delivery)
+        {
+            bool success = await _deliveryService.EditDelivery(Id, delivery);
+            if (success)
+            {
+                return Ok(new ApiResponse(201, true, success));
+            }
+            return BadRequest(new ApiResponse(500, false, "server error"));
+        }
         [HttpDelete("id")]
         public async Task<ActionResult<ApiResponse>> Delivery(int id)
         {

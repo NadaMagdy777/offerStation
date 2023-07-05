@@ -10,6 +10,7 @@ namespace offerStation.Core.Interfaces.Services
     public interface IDeliveryService
     {
         Task<bool> AddDelivery(DeliveryDto deliveryDto);
+        Task<bool> EditDelivery(int id, DeliveryDto deliveryDto);
         Task<bool> DeleteDelivery(int id);
     }
 }

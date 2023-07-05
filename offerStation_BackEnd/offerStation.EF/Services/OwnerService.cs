@@ -85,31 +85,38 @@ namespace offerStation.EF.Services
             }
             return ownerDtoList;
         }
-        public async Task<List<OwnerDto>?> GetSuspendedOwners()
+        public async Task<List<TraderDetailsDto>?> GetSuspendedOwners()
         {
-            List<OwnerDto> ownerDtoList = null;
+            List<TraderDetailsDto> ownerDtoList = null;
 
             IEnumerable<Owner> ownerList = await _unitOfWork.Owners
-                .FindAllAsync(o => o.IsDeleted && o.Approved);
+                .FindAllAsync(o => o.IsDeleted && o.Approved, new List<Expression<Func<Owner, object>>>()
+                {
+                    o => o.AppUser,
+                });
 
             if (ownerList is not null)
             {
-                ownerDtoList = new List<OwnerDto>();
-                ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
+                ownerDtoList = new ();
+                ownerDtoList = _mapper.Map<List<TraderDetailsDto>>(ownerList);
             }
             return ownerDtoList;
         }
-        public async Task<List<OwnerDto>?> GetWaitingOwners()
+        public async Task<List<TraderDetailsDto>?> GetWaitingOwners()
         {
-            List<OwnerDto> ownerDtoList = null;
+            List<TraderDetailsDto> ownerDtoList = null;
 
             IEnumerable<Owner> ownerList = await _unitOfWork.Owners
-                .FindAllAsync(o => !o.IsDeleted && !o.Approved);
+                .FindAllAsync(o => !o.IsDeleted && !o.Approved, 
+                new List<Expression<Func<Owner, object>>>()
+                {
+                    o => o.AppUser,
+                });
 
             if (ownerList is not null)
             {
-                ownerDtoList = new List<OwnerDto>();
-                ownerDtoList = _mapper.Map<List<OwnerDto>>(ownerList);
+                ownerDtoList = new ();
+                ownerDtoList = _mapper.Map<List<TraderDetailsDto>>(ownerList);
             }
             return ownerDtoList;
         }

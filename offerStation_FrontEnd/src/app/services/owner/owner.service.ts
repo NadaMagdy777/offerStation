@@ -172,8 +172,8 @@ export class OwnerService {
       }));
   }
 
-  GetOfferProduct(offerId:number){
-    return this._httpClient.get<ApiResponce>(this.url+"/Offer/Products/Details?Offerid="+offerId).
+  GetOfferProduct(offerId: number) {
+    return this._httpClient.get<ApiResponce>(this.url + "/Offer/Products/Details?Offerid=" + offerId).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "server error")
       }));

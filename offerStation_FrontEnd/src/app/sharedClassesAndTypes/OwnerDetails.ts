@@ -4,9 +4,9 @@ export class OwnerDetails {
         public name: string,
         public image: string,
         public phoneNumber: string,
-        public rating:number,
-    
-    ){}
-   
-    
+        public rating: number,
+
+    ) { }
+
+
 }

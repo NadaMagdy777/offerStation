@@ -82,7 +82,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetWaitingSuppliers")]
         public async Task<ActionResult<ApiResponse>> GetWaitingSuppliers()
         {
-            List<SupplierDto> supplierList = await _supplierService.GetWaitingSuppliers();
+            List<TraderDetailsDto> supplierList = await _supplierService.GetWaitingSuppliers();
 
             if (supplierList is null)
             {
@@ -93,7 +93,7 @@ namespace offerStation.API.Controllers
         [HttpGet("GetSuspendedSuppliers")]
         public async Task<ActionResult<ApiResponse>> GetSuspendedSuppliers()
         {
-            List<SupplierDto> supplierList = await _supplierService.GetSuspendedSuppliers();
+            List<TraderDetailsDto> supplierList = await _supplierService.GetSuspendedSuppliers();
 
             if (supplierList is null)
             {
@@ -143,7 +143,7 @@ namespace offerStation.API.Controllers
             }
             return BadRequest(new ApiResponse(500, false, success));
         }
-        [HttpPut("Approve/id")]
+        [HttpGet("Approve/id")]
         public async Task<ActionResult<ApiResponse>> ApproveSupplier(int id)
         {
             bool success = await _supplierService.ApproveSupplier(id);
