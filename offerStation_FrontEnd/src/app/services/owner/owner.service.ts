@@ -193,4 +193,12 @@ export class OwnerService {
         return throwError(() => err.message || "server error")
       }));
   }
+  GetAllCustomerReviewByOwnerId(id:number)
+  {
+    return this._httpClient.get<ApiResponce>(Base.apiUrl+"/AllCustomerReviewsByOwnerId/id?ownerId="+id).
+    pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error")
+    }));
+    
+  }
 }

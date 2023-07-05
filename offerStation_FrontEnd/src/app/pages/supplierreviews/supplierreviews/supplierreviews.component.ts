@@ -24,11 +24,7 @@ export class SupplierreviewsComponent implements OnInit {
       this.id = Number(paramMap.get('id'));
 
     });
-    this.getAllreviews(1,this.pagesize,this.id)
-  }
-  getAllreviews(pgNum: number, pageSize: number,id:number)
-  {
-    this.suppler.GetAllOwnerReviewsbysupplierIDWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+    this.suppler.GetAllReviews(this.id).subscribe({
       next:(data: { data: any; })=>
       {
         console.log(data);
@@ -38,10 +34,22 @@ export class SupplierreviewsComponent implements OnInit {
       error:(error: any)=>this.errorMessage=error
     })
   }
+  // getAllreviews(pgNum: number, pageSize: number,id:number)
+  // {
+  //   this.suppler.GetAllReviews(this.id).subscribe({
+  //     next:(data: { data: any; })=>
+  //     {
+  //       console.log(data);
+  //       this.OwnerReview=data.data
+  //       console.log("list"+this.OwnerReview);
+  //     },
+  //     error:(error: any)=>this.errorMessage=error
+  //   })
+  // }
   pageNumberChanged(value:any)
   {
     this.pageNumber = value
-    this.getAllreviews(this.pageNumber,this.pagesize,this.id)
+    // this.getAllreviews(this.pageNumber,this.pagesize,this.id)
     this.pageNumber = 1
     console.log("page"+value); 
   }

@@ -32,7 +32,7 @@ PageNumberChanged(value: number) {
       this.id = Number(paramMap.get('id'));
 
     });
- this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber,this.pagesize,this.id).subscribe({
+ this.supplier.GetOffersBySupplierId(this.id).subscribe({
   
     next: (data: { data: any; }) => {
       console.log(data);
