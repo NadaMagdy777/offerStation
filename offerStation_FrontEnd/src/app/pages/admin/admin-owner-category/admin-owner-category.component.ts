@@ -129,10 +129,12 @@ export class AdminOwnerCategoryComponent {
     this.display1 = 'block';
     this.index = i;
     this.ownerCategory.id = division.id
+    console.log(division.image);
+    
     this.categoryForm.patchValue(
       {
         name: division.name,
-        image: division.image
+        image: division.image,//this._imageService.base64ArrayToImage(division.image)
       }
     )
   }

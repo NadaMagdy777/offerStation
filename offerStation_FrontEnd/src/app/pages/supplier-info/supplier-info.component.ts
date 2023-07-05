@@ -3,6 +3,7 @@ import { SupplierInfo } from 'src/app/sharedClassesAndTypes/SupplierInfo';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SupplierprofileService } from 'src/app/services/SupplierProfile/supplierprofile.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-supplier-info',
@@ -15,6 +16,7 @@ export class SupplierInfoComponent implements OnInit {
   errorMessage: any;
   isUpdated: boolean = false;
   imageUrl = '';
+  id: any;
 
   supplier: SupplierInfo = {
     name: '',
@@ -26,16 +28,24 @@ export class SupplierInfoComponent implements OnInit {
   SupplierInfoForm: any = this.fb.group({
     image: [[]],
     name: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]]
   });
 
   constructor(private fb: FormBuilder,
     private _supplierServ: SupplierprofileService,
-    private _imageService: ImageService) { }
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._supplierServ.GetSupplierById(1).subscribe({
+
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+    console.log(this.id);
+    
+
+    this._supplierServ.GetSupplierById(this.id).subscribe({
       next: (data: any) => {
         // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
@@ -45,7 +55,7 @@ export class SupplierInfoComponent implements OnInit {
           image: this.imageUrl,
           name: this.supplier.name,
           email: this.supplier.email,
-          phoneNumber: this.supplier.phoneNumber
+          phone: this.supplier.phoneNumber
         })
         // console.log(this.SupplierInfoForm.value)
       },
@@ -57,7 +67,7 @@ export class SupplierInfoComponent implements OnInit {
     console.log(this.SupplierInfoForm.value);
 
     if (window.confirm('Are you sure, you want to update?')) {
-      this._supplierServ.UpdateSupplierInfo(1, this.supplier).subscribe({
+      this._supplierServ.UpdateSupplierInfo(this.id, this.supplier).subscribe({
         next: (data: any) => {
           console.log(data);
           this.SupplierInfo = data;
@@ -95,8 +105,8 @@ export class SupplierInfoComponent implements OnInit {
   get email() {
     return this.SupplierInfoForm.get('email');
   }
-  get phoneNumber() {
-    return this.SupplierInfoForm.get('phoneNumber');
+  get phone() {
+    return this.SupplierInfoForm.get('phone');
   }
 
 }

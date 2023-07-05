@@ -61,7 +61,7 @@ export class SupplierproductComponent  implements OnInit{
     
     getAllProductsBySupplierId()
     {
-    this.supplier.allProductsBySupplierID(this.pageNumber,this.pagesize,this.id).subscribe({
+    this.supplier.GetAllProductsBySupplierId(this.id).subscribe({
 
       next: (data: { data: any; }) => {
         console.log(data);
@@ -75,18 +75,18 @@ export class SupplierproductComponent  implements OnInit{
  
 }
 
-getproductBycategoryId(id:number)
+getproductBycategoryId(value:number)
 {
-  if (id == 0) {
+  if (value== 0) {
    this.getAllProductsBySupplierId();
   } 
   else {
-    this.supplier.getProductsByCategoryId(this.pageNumber,this.pagesize,id).subscribe({
+    this.supplier.GetAllProductsByMenuCategoryID(value).subscribe({
       next: (data: { data: any; }) => {
         console.log(data);
         this.ProductListByCategoryName = data.data
         console.log("list" + this.ProductListByCategoryName);
-        console.log(id);
+       
       },
       error: (error: any) => this.errorMessage = error
 

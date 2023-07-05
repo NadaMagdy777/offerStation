@@ -25,6 +25,12 @@
                   <small *ngIf="Phone?.errors?.['required'] && (Phone?.dirty || Phone?.touched)" class="text-danger">
                     Phone Is Required
                   </small>
+                  <small *ngIf="registerForm.get('Phone')?.hasError('invalidSupplierPhone') && (Phone?.dirty )"  class="text-danger">
+                    Phone number is invalid. Please enter 11 digits without non-numeric characters.
+                  </small>
+                  
+               
+
               
   <br>
                     <div class="form-group">
@@ -79,7 +85,7 @@
                               </select>
                             </div>
                             <div class="input-group input-group-outline">
-                              <input type="text" class="form-control" placeholder="Details" formControlName="details">
+                              <input type="text"  placeholder="Details" formControlName="details">
                             </div>
                             <div class="input-group input-group-outline">
                               <button type="button" class="btn btn-danger btn-sm float-end my-3" (click)="deleteAddress(i)">Delete</button>
