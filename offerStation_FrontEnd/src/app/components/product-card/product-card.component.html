@@ -6,23 +6,23 @@
       </span>
       <button class="btn p-0 m-0 border-0 " (click)="openAddressModal()">
       <div class="card-up aqua-gradient h-25">
-        <img src="https://img.freepik.com/premium-photo/chicken-pork-beef-meat-skewers-with-vegetables-spicy-potatoes_52137-30827.jpg" class="img-fluid">
+        <img [src]="OfferImage" src="https://img.freepik.com/premium-photo/chicken-pork-beef-meat-skewers-with-vegetables-spicy-potatoes_52137-30827.jpg" class="img-fluid">
       </div>
       </button>
         
         <a class="link-warning avatar mx-auto white" *ngIf="Type=='owner'" href="owner/mainpage/{{SellerId}}">
           <div class="">
           
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
+            <img  [src]="sellerImage"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
             alt="woman avatar">
           
         
         </div>
         </a>
-        <a class="link-warning avatar mx-auto white" *ngIf="Type=='supplier'" href="">
+        <a class="link-warning avatar mx-auto white" *ngIf="Type=='supplier'" href="supplier/mainpage/{{SellerId}}">
           <div class="">
           
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
+            <img [src]="sellerImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQugZxo0PK3fADhEPA37fc2pWThFJjcZkeFUzzpDD8&s" class="rounded-circle img-fluid"
             alt="woman avatar">
           
         
@@ -41,6 +41,7 @@
           <p><i class="fas fa-quote-left"></i> {{description}}</p>
             <div class="">
             <button [hidden]="hideElement" class="btn btn-outline-warning w-100">Add To Cart</button>
+            
             </div>
                 </div>
       </div>
@@ -54,7 +55,7 @@
         <h2 class="modal-title" style="font-size: initial; color: #e7880a;">Offer Details </h2>
       </div>
       <div class="modal-body">
-         <app-offer-products *ngIf="Type=='supplier'" [id]="offerId" [Type]="Type"></app-offer-products>
+         <app-offer-products *ngIf="Type=='supplier'" [id]="offerId" [Type]="Type" ></app-offer-products>
          <app-offer-products *ngIf="Type=='owner'" [id]="offerId" [Type]="Type"></app-offer-products>
 
       </div>

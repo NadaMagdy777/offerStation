@@ -15,6 +15,7 @@ export class NavbarComponent {
   UserRole:any;
   ownercategoryList:any
   ownercategoryName:any
+  suppliercategoryList:any
   categoryList: any;
   categoryName: any;
   errorMessage: any;
@@ -57,15 +58,14 @@ export class NavbarComponent {
       },
       error: error => this.errorMessage = error
     })
+      
+
   this.ownerCategory.GetAllSupplierCategory().subscribe({
     next: data => {
       let dataJson = JSON.parse(JSON.stringify(data))
       console.log(data);
-      this.ownercategoryList = dataJson.data;
-      for (let category of this.ownercategoryList) {
-        this.ownercategoryName = category.name;
-        console.log(this.ownercategoryName)
-      }
+      this.suppliercategoryList = dataJson.data;
+      
     },
     error: error => this.errorMessage = error
   })
