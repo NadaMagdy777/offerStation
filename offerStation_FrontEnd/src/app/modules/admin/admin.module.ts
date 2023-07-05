@@ -7,6 +7,9 @@ import { AdminOwnerCategoryComponent } from 'src/app/pages/admin/admin-owner-cat
 import { AdminReviewsComponent } from 'src/app/pages/admin/admin-reviews/admin-reviews.component';
 import { AdminOwnerReviewsComponent } from 'src/app/pages/admin/admin-owner-reviews/admin-owner-reviews.component';
 import { AdminSupplierCategoryComponent } from 'src/app/pages/admin/admin-supplier-category/admin-supplier-category.component';
+import { AdminWaitingOwnersComponent } from 'src/app/pages/admin/admin-waiting-owners/admin-waiting-owners.component';
+import { AdminWaitingSuppliersComponent } from 'src/app/pages/admin/admin-waiting-suppliers/admin-waiting-suppliers.component';
+import { AdminDeliveryComponent } from 'src/app/pages/admin/admin-delivery/admin-delivery.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatTabsModule } from '@angular/material/tabs';
@@ -27,6 +30,9 @@ import { DataTablesModule } from 'angular-datatables';
     AdminSupplierCategoryComponent,
     AdminReviewsComponent,
     AdminOwnerReviewsComponent,
+    AdminWaitingOwnersComponent,
+    AdminWaitingSuppliersComponent,
+    AdminDeliveryComponent,
   ],
   imports: [
     CommonModule,

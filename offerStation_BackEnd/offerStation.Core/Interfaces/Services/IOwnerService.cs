@@ -13,8 +13,8 @@ namespace offerStation.Core.Interfaces.Services
         Task<PublicInfoDto?> GetOwner(int id);
         Task<OwnerInfoDto?> GetOwnerInfo(int id);
         Task<List<OwnerDto>?> GetAllOwners();
-        Task<List<OwnerDto>?> GetWaitingOwners();
-        Task<List<OwnerDto>?> GetSuspendedOwners();
+        Task<List<TraderDetailsDto>?> GetWaitingOwners();
+        Task<List<TraderDetailsDto>?> GetSuspendedOwners();
         Task<bool> EditOwner(int id, PublicInfoDto ownerInfo);
         Task<bool> PermanentDeleteOwner(int id);
         Task<bool> SuspendOwner(int id);
@@ -77,5 +77,15 @@ namespace offerStation.Core.Interfaces.Services
         Task<bool> AddMenuCategory(int ownerId, MenuCategoryDto menuCategoryDto);
         Task<bool> EditMenuCategory(int id, MenuCategoryDto menuCategoryDto);
         Task<bool> DeleteMenuCategory(int id);
+    }
+    public interface IOwnerCartService
+    {
+        Task<ApiResponse> AddProductToCart(int userIdentifier, ProductDetailsDto Product);
+        Task<ApiResponse> GetCartDetails(int userIdentifier);
+        Task<ApiResponse> AddOfferToCart(int userIdentifier, ProductDetailsDto Offer);
+        Task<ApiResponse> RemoveProductFromCart(int userIdentifier, int productId);
+        Task<ApiResponse> RemoveOfferFromCart(int userIdentifier, int offerId);
+        Task<ApiResponse> GetCreateOrder(int userIdentifier);
+        Task<ApiResponse> PostCreateOrder(int userIdentifier);
     }
 }

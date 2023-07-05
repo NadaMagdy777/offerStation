@@ -45,11 +45,11 @@ namespace offerStation.EF.Services
         {
             List<OfferDetailsDto> offersDtoList = null;
 
-            IEnumerable<SupplierOffer> offersList = await _unitOfWork.SupplierOffers.FindAllAsync(o => o.SupplierID == supplierId && !o.IsDeleted,
+            IEnumerable<SupplierOffer> offersList = await _unitOfWork.SupplierOffers.FindAllAsync(s => s.SupplierID == supplierId && !s.IsDeleted,
                 new List<Expression<Func<SupplierOffer, object>>>()
                 {
-                    o => o.Supplier,
-                    o => o.Products,
+                    s => s.Supplier,
+                    s => s.Products,
                 });
 
 

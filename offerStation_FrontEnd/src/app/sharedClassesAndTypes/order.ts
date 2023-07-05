@@ -55,6 +55,18 @@ export class RequestedOrders {
 
     ) { }
 }
+export class PendingOrders {
+
+    constructor(
+      public id: number,
+      public orderDate: Date,
+      public traderName: string,
+      public adminTotal: any,
+      public requesterName:string
+
+    ) { }
+}
+
 
 
 

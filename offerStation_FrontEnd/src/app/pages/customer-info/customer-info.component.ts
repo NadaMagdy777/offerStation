@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomerprofileService } from 'src/app/services/CustomerProfile/customerprofile-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerprofileService } from 'src/app/services/Customerprofile/customerprofile-service.service';
 
@@ -39,15 +40,15 @@ export class CustomerInfoComponent implements OnInit {
     });
     this.customerServ.GetCustomerById(this.id).subscribe({
       next: (data: any) => {
-        // console.log(data);
+
         let dataJson = JSON.parse(JSON.stringify(data))
         this.customer = dataJson.data;
+
         this.CustomerInfoForm.patchValue({
           name: this.customer.name,
           phoneNumber: this.customer.phoneNumber,
           email: this.customer.email
         })
-        // console.log(this.CustomerInfoForm.value)
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -55,13 +56,13 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   SubmitData() {
-    console.log(this.CustomerInfoForm.value);
 
     if (window.confirm('Are you sure, you want to update?')) {
       this.customerServ.UpdateCustomerInfo(1, this.CustomerInfoForm.value).subscribe({
         next: (data: any) => {
-          console.log(data);
           this.CustomerInfo = data;
+          console.log(this.CustomerInfo);
+          
         },
         error: (error: any) => this.errorMessage = error,
       });
@@ -69,8 +70,8 @@ export class CustomerInfoComponent implements OnInit {
     this.isUpdated = !this.isUpdated;
 
   }
-  //Customer Info Form
 
+  //Customer Info Form
   get name() {
     return this.CustomerInfoForm.get('name');
   }

@@ -15,90 +15,149 @@ import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters
 })
 export class AdminSupplierCategoryComponent {
 
+
+  errorMessage: any;
+  display = '';
+  display1 = '';
+  index!: any;
+  imageUrl: string = '';
+
   categories: Category[] = [];
   // pageNumber = 1;
   // pageSize = 5;
-  imageUrl: string = '';
 
-  newCategory: Category = {
+
+  supplierCategory: Category = {
     id: 0,
     name: '',
     image: ''
   };
 
-  dtOptions:DataTables.Settings = {};
-  dtTrigger:Subject<any> = new Subject<any>(); 
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
-  display: string = 'none';
-  categoryForm:FormGroup;
+  categoryForm: FormGroup;
 
   constructor(
-    private _categoryService: CategoryService,//AdminSupplierCategoryService,
-    private _imageService:ImageService,
-    private fb:FormBuilder,
-    ) 
-    {
-      this.categoryForm = this.fb.group({
-        name:['',[Validators.required]],
-        profilePicture:[[],[Validators.required]]
-      });
+    private _categoryService: CategoryService,
+    private _adminSupplierService: AdminSupplierCategoryService,
+    private _imageService: ImageService,
+    private fb: FormBuilder,
+  ) {
+    this.categoryForm = this.fb.group({
+      name: ['', [Validators.required]],
+      image: [[]]
+    });
 
-      this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
-        // this.categoryForm.name = data;
-      });
-      this.categoryForm.get('profilePicture')?.valueChanges.subscribe((data) => {
-        // this.categoryForm.profilePicture = data;
-      });
+    this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
+      this.supplierCategory.name = data;
+    });
+    this.categoryForm.get('image')?.valueChanges.subscribe((data) => {
+      this.supplierCategory.image = data;
+    });
+  }
+  ngOnInit(): void {
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      lengthMenu: [5, 10, 20],
+      processing: true
     }
-    ngOnInit(): void {
+    this.getCategories();
+  }
 
-      this.dtOptions={
-        pagingType:'full_numbers',
-        pageLength: 5,
-        lengthMenu : [5, 10, 20],
-        processing: true
+  getCategories(): void {
+    this._categoryService.GetAllSupplierCategory()
+      .subscribe(response => {
+        this.categories = response.data
+        console.log("categories: ", this.categories);
+        this.dtTrigger.next(null);
+        this.categories.forEach((category: Category) => {
+          category.image = this._imageService.base64ArrayToImage(category.image)
+        });
+      });
+  }
+  public async ProcessFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        this.imageUrl = e.target.result;
+        this.supplierCategory.image = await this._imageService.imageToBase64Array(this.imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // onPageChange(event: PageEvent) {
+  //   this.pageSize = event.pageSize;
+  // }
+  
+  onDelete(divisionId: number, index: number) {
+    this._adminSupplierService.DeleteCategory(divisionId).subscribe({
+      next: data => {
+        this.categories.splice(index, 1);
+        this.getCategories();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  OnSubmit() {
+
+    this._adminSupplierService.AddCategory(this.categoryForm.value).subscribe({
+      next: data => {
+        console.log(data);
+        this.getCategories()
+        this.onCloseCategoryHandled();
+        this.categoryForm.reset();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  openEditCategoryModal(division: any, i: any) {
+    this.display1 = 'block';
+    this.index = i;
+    this.supplierCategory.id = division.id
+    this.categoryForm.patchValue(
+      {
+        name: division.name,
+        image: division.image
       }
-      this.getCategories();
-    }
+    )
+  }
 
-    getCategories(): void {
-      this._categoryService.GetAllSupplierCategory()
-        .subscribe(response => 
-          {
-            this.categories = response.data
-            console.log("categories: ",this.categories);
-            this.dtTrigger.next(null);
-            this.categories.forEach((category:Category)=>{
-              category.image =this._imageService.base64ArrayToImage(category.image)          
-              });
-          });
-    }
-    public async ProcessFile(event: any) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = async (e: any) => {
-          this.imageUrl = e.target.result;
-          // this..image = await this._imageService.imageToBase64Array(this.imageUrl);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-    // onPageChange(event: PageEvent) {
-    //   this.pageSize = event.pageSize;
-    // }
-    onDelete(categoryId:number){
-  
-    }
-    onUpdate(category:Category){
-  
-    }
-    openModal(){
-      this.display = 'block';
-    }
-  
-    OnSubmit(){
-  
-    }
-    OnCancel(){}
+  onUpdate() {
+    this._adminSupplierService.UpdateCategory(this.supplierCategory.id, this.supplierCategory).subscribe({
+      next: data => {
+        this.getCategories()
+        this.onCloseEditCategoryHandled();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  openCategoryModal() {
+    this.display = 'block';
+    this.categoryForm.reset();
+  }
+
+  onCloseCategoryHandled() {
+    this.display = 'none';
+
+  }
+
+  onCloseEditCategoryHandled() {
+    this.display1 = 'none';
+  }
+
+  //Category Form
+  get name() {
+    return this.categoryForm.get('name');
+  }
+  get image() {
+    return this.categoryForm.get('image');
+  }
 }

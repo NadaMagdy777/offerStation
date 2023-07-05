@@ -14,62 +14,67 @@ import { PagingParameters } from 'src/app/sharedClassesAndTypes/PagingParameters
 })
 export class AdminOwnerCategoryComponent {
 
-  categories: Category[] = [];
+  errorMessage: any;
+  display = '';
+  display1 = '';
+  index!: any;
   imageUrl: string = '';
 
-  newCategory: Category = {
+  categories: Category[] = [];
+
+  ownerCategory: Category = {
     id: 0,
     name: '',
     image: ''
   };
 
-  dtOptions:DataTables.Settings = {};
-  dtTrigger:Subject<any> = new Subject<any>(); 
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
-  display: string = 'none';
-  categoryForm:FormGroup;
-  
+  categoryForm: FormGroup;
+
   constructor(
-    private _categoryService: CategoryService,//AdminCategoriesService,
-    private _imageService:ImageService,
-    private fb:FormBuilder,
-    ) 
-    {
-      this.categoryForm = this.fb.group({
-        name:['',[Validators.required]],
-        profilePicture:[[],[Validators.required]]
-      });
+    private _categoryService: CategoryService,
+    private _adminService: AdminCategoriesService,
+    private _imageService: ImageService,
+    private fb: FormBuilder,
+  ) {
+    this.categoryForm = this.fb.group({
+      name: ['', [Validators.required]],
+      image: [[]]
+    });
 
-      this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
-        //this.categoryForm.name = data;
-      });
-      this.categoryForm.get('profilePicture')?.valueChanges.subscribe((data) => {
-        //this.categoryForm.profilePicture = data;
-      });
-    }
+    this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
+      this.ownerCategory.name = data;
+    });
+    this.categoryForm.get('image')?.valueChanges.subscribe((data) => {
+      this.ownerCategory.image = data;
+    });
+  }
 
   ngOnInit(): void {
 
-    this.dtOptions={
-      pagingType:'full_numbers',
+    this.dtOptions = {
+      pagingType: 'full_numbers',
       pageLength: 5,
-      lengthMenu : [5, 10, 20],
-      processing: true
+      lengthMenu: [5, 10, 20],
+      processing: true,
+      destroy:true
     }
     this.getCategories();
   }
 
   getCategories(): void {
     this._categoryService.GetAllCategory()
-      .subscribe(response => 
-        {
-          this.categories = response.data
-          console.log("categories: ",this.categories);
-          this.dtTrigger.next(null);
-          this.categories.forEach((category:Category)=>{
-            category.image =this._imageService.base64ArrayToImage(category.image)          
-            });
+      .subscribe(response => {
+        this.categories = response.data
+        console.log("categories: ", this.categories);
+        this.dtTrigger.next(null);
+        // this.totalCount = this.categories.length;
+        this.categories.forEach((category: Category) => {
+          category.image = this._imageService.base64ArrayToImage(category.image)
         });
+      });
   }
 
   public async ProcessFile(event: any) {
@@ -78,26 +83,81 @@ export class AdminOwnerCategoryComponent {
       const reader = new FileReader();
       reader.onload = async (e: any) => {
         this.imageUrl = e.target.result;
-        // this..image = await this._imageService.imageToBase64Array(this.imageUrl);
+        this.ownerCategory.image = await this._imageService.imageToBase64Array(this.imageUrl);
       };
       reader.readAsDataURL(file);
     }
   }
-  // onPageChange(event: PageEvent) {
-  //   this.pageSize = event.pageSize;
-  // }
-  onDelete(categoryId:number){
 
+  onDelete(divisionId: number, index: number) {
+    this._adminService.DeleteCategory(divisionId).subscribe({
+      next: data => {
+        this.dtTrigger.unsubscribe();
+        this.categories.splice(index, 1);
+        this.getCategories();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
   }
-  onUpdate(category:Category){
 
+  OnSubmit() {
+
+    this._adminService.AddCategory(this.categoryForm.value).subscribe({
+      next: data => {
+        console.log(data);
+        this.dtTrigger.unsubscribe();
+        this.getCategories()
+        this.dtTrigger.next(null);
+        this.onCloseCategoryHandled();
+        this.categoryForm.reset();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
   }
-  openModal(){
+
+  openEditCategoryModal(division: any, i: any) {
+    this.display1 = 'block';
+    this.index = i;
+    this.ownerCategory.id = division.id
+    this.categoryForm.patchValue(
+      {
+        name: division.name,
+        image: division.image
+      }
+    )
+  }
+
+  onUpdate() {
+    this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
+      next: data => {
+        this.dtTrigger.unsubscribe();
+        this.getCategories()
+        this.onCloseEditCategoryHandled();
+      },
+      error: (error: any) => this.errorMessage = error,
+    });
+  }
+
+  openCategoryModal() {
     this.display = 'block';
+    this.categoryForm.reset();
   }
 
-  OnSubmit(){
+
+  onCloseCategoryHandled() {
+    this.display = 'none';
 
   }
-  OnCancel(){}
+
+  onCloseEditCategoryHandled() {
+    this.display1 = 'none';
+  }
+
+  //Category Form
+  get name() {
+    return this.categoryForm.get('name');
+  }
+  get image() {
+    return this.categoryForm.get('image');
+  }
 }

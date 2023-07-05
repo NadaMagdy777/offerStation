@@ -82,13 +82,13 @@ export class OrdersService {
   }
   
   postCustomerOrderDelivary(customerOrderId:number,deliveryId:number,):Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/customerOrderDelivery?customerOrderId=${customerOrderId}&deliveryId=${deliveryId}'`).
+    return this._httpClient.get<ApiResponce>(`${this.url}/customerOrderDelivery?customerOrderId=${customerOrderId}&deliveryId=${deliveryId}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "Server Error");
       }));
   }
   postOwnerOrderDelivary(OwnerOrderId:number,deliveryId:number,):Observable<ApiResponce> {
-    return this._httpClient.get<ApiResponce>(`${this.url}/ownerOrderDelivery?ownerOrderId=${OwnerOrderId}&deliveryId=${deliveryId}'`).
+    return this._httpClient.get<ApiResponce>(`${this.url}/ownerOrderDelivery?ownerOrderId=${OwnerOrderId}&deliveryId=${deliveryId}`).
       pipe(catchError((err: any) => {
         return throwError(() => err.message || "Server Error");
       }));

@@ -41,25 +41,28 @@ export class OwnerInfoComponent implements OnInit {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.owner = dataJson.data;
         this.imageUrl = this._imageService.base64ArrayToImage(this.owner.image);
+
         this.OwnerInfoForm.patchValue({
           image: this.imageUrl,
           name: this.owner.name,
           email: this.owner.email,
           phoneNumber: this.owner.phoneNumber
         })
-        // console.log(this.OwnerInfoForm.value)
+
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
   SubmitData() {
-    console.log(this.OwnerInfoForm.value);
 
     if (window.confirm('Are you sure, you want to update?')) {
       this._ownerrServ.UpdateOwnerInfo(1, this.owner).subscribe({
         next: (data: any) => {
+          console.log(data);
           this.OwnerInfo = data;
+          console.log(this.OwnerInfoForm.value);
+
         },
         error: (error: any) => this.errorMessage = error,
       });
