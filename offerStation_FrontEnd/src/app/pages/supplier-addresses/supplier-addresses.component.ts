@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AddressServiceService } from 'src/app/services/address/address';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AddressDetails } from 'src/app/sharedClassesAndTypes/AddressDetails';
@@ -17,6 +18,7 @@ export class SupplierAddressesComponent implements OnInit {
   errorMessage: any;
   display = '';
   display1 = '';
+  id: any;
 
   AddressList: any;
   Address: AddressDetails = {
@@ -35,7 +37,8 @@ export class SupplierAddressesComponent implements OnInit {
     private fb: FormBuilder,
     private _addressService: AddressServiceService,
     private _cityService: AddressServiceService,
-    private _userDataService: AuthenticationService
+    private _userDataService: AuthenticationService,
+    private activatedroute: ActivatedRoute
   ) {
     this.addressForm = this.fb.group({
       details: [''],
@@ -50,28 +53,30 @@ export class SupplierAddressesComponent implements OnInit {
       this.Address.cityId = data;
     });
   }
+  
   ngOnInit(): void {
 
-    this.ApplicationuserId = this._userDataService.userData;
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+      this.ApplicationuserId = paramMap.get('id');
+    });
 
     this.LoadData();
 
     this._cityService.GetAllCities().subscribe({
       next: data => {
-        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.cities = dataJson.data
-        // console.log(this.cities)
       },
       error: (error: any) => this.errorMessage = error,
     });
 
   }
+
   LoadData() {
-    //this.ApplicationuserId._value.nameid
-    this._addressService.GetUserAdresses("1").subscribe({
+
+    this._addressService.GetUserAdresses(this.ApplicationuserId).subscribe({
       next: data => {
-        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.AddressList = dataJson.data;
       },
@@ -80,8 +85,8 @@ export class SupplierAddressesComponent implements OnInit {
   }
 
   SubmitData() {
-    //this.ApplicationuserId._value.nameid
-    this._addressService.AddAddress("1", this.addressForm.value).subscribe({
+
+    this._addressService.AddAddress(this.ApplicationuserId, this.addressForm.value).subscribe({
       next: data => {
         this.LoadData()
         this.onCloseAddressHandled();
@@ -119,10 +124,8 @@ export class SupplierAddressesComponent implements OnInit {
     this.display1 = 'block';
     this._addressService.GetAdressesDetails(addressId).subscribe({
       next: data => {
-        // console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.Address = dataJson.data;
-        // console.log(this.Address)
       },
       error: (error: any) => this.errorMessage = error,
     });

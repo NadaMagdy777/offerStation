@@ -1,23 +1,33 @@
 <div class="container">
-  <button class="btn btn-success m-3 float-end" (click)="openCategoryModal()">Add New Category</button>
-  <table class="table table-hover mt-5">
-    <thead>
-      <tr>
-        <th scope="col">Image</th>
-        <th scope="col">Name</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let category of categories; index as i">
-        <td><img [src]="category.image" width="100" height="100" ></td>
-        <td>{{category.name}}</td>
-        <td><button class="btn btn-danger" (click)="DeleteCategory(category.id,i)">Delete</button></td>
-        <td><button class="btn btn-success" (click)="openEditCategoryModal(category.id)">Update</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="example-container mat-elevation-z8 p-2">
+    <div>
+      <button class="btn btn-success m-3 float-end" (click)="openCategoryModal()">Add New [+]</button>
+    </div>
+    <table datatable class="table table-bordered py-3">
+      <thead class="table-dark text-white">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories; index as i">
+          <td><img [src]="category.image" width="100" height="100"></td>
+          <td>{{category.name}}</td>
+
+          <td style="text-align: center;">
+            <button mat-icon-button (click)="openEditCategoryModal(category.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="DeleteCategory(category.id,i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- Start New Category Model -->
@@ -32,13 +42,12 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="CategoryForm" (ngSubmit)="SubmitData()">
-
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <div class="d-flex justify-content-between mb-1">
                   <div>
-                    <label for="name" class="col-form-label">Name</label>
+                    <label for="name" class="col-form-label">Category Name</label>
                     <input type="text" class="form-control" id="name" formControlName="name">
                   </div>
                 </div>
@@ -74,15 +83,12 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="CategoryForm" (ngSubmit)="UpdateCategory()">
-          <div class="mb-3">
-            <p>Edit Category Details</p>
-          </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
 
                 <div class="mb-3">
-                  <label class="col-form-label">Name</label>
+                  <label class="col-form-label">Category Name</label>
                   <input type="text" formControlName="name" class="form-control" [value]="supplierCategory.name">
                 </div>
 

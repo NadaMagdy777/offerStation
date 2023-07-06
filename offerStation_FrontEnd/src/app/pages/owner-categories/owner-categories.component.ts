@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { ownerCategory } from 'src/app/sharedClassesAndTypes/ownerCategory';
+import { Category } from 'src/app/sharedClassesAndTypes/Category';
 
 @Component({
   selector: 'app-owner-categories',
@@ -15,20 +16,22 @@ export class OwnerCategoriesComponent implements OnInit {
   errorMessage: any;
   display = '';
   display1 = '';
+  id: any;
   imageUrl: string = '';
 
-  ownerCategory: ownerCategory = {
+  ownerCategory: Category = {
     id: 0,
     image: '',
     name: '',
   }
-  categories!: ownerCategory[];
+  categories: Category[] = [];
   CategoryForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService,
-    private _imageService: ImageService) {
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) {
 
     this.CategoryForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -44,29 +47,32 @@ export class OwnerCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+
     this.LoadData();
 
   }
 
   LoadData() {
-    this._ownerService.getMenuCategorybyOwnerId(1).subscribe({
+    this._ownerService.getMenuCategorybyOwnerId(this.id).subscribe({
       next: data => {
 
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
+        this.categories.forEach((category: Category) => {
+          category.image = this._imageService.base64ArrayToImage(category.image)
+        });
 
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
-  OnImageLoad(image: any) {
-    this.imageUrl = this._imageService.base64ArrayToImage(image);
-  }
+  SubmitData() {
 
-  SubmitData() { 
-
-    this._ownerService.AddCategory(1, this.CategoryForm.value).subscribe({
+    this._ownerService.AddCategory(this.id, this.ownerCategory).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
@@ -130,7 +136,7 @@ export class OwnerCategoriesComponent implements OnInit {
 
   onCloseCategoryHandled() {
     this.display = 'none';
-    
+
   }
 
   onCloseEditCategoryHandled() {

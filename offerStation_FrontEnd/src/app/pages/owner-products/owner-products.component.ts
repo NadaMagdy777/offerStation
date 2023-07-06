@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { ProductDetails, ProductInfo } from 'src/app/sharedClassesAndTypes/ProductInfo';
@@ -15,6 +16,7 @@ export class OwnerProductsComponent implements OnInit {
   errorMessage: any;
   ProductList: any
   index!: any;
+  id: any;
   imageUrl: string = '';
 
   display = '';
@@ -33,6 +35,7 @@ export class OwnerProductsComponent implements OnInit {
 
   categories!: ownerCategory[]
   category!: ownerCategory
+
   productForm: any = this.fb.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -46,7 +49,8 @@ export class OwnerProductsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService,
-    private _imageService: ImageService) {
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) {
 
     // this.productForm.get('name')?.valueChanges.subscribe((data) => {
     //   this.ownerProduct.name = data;
@@ -70,6 +74,10 @@ export class OwnerProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+
     this.LoadData();
 
     this._ownerService.getMenuCategorybyOwnerId(1).subscribe({
@@ -83,7 +91,7 @@ export class OwnerProductsComponent implements OnInit {
   }
 
   LoadData() {
-    this._ownerService.getAllProductsByOwnerId(1).subscribe({
+    this._ownerService.getAllProductsByOwnerId(this.id).subscribe({
       next: data => {
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
@@ -101,7 +109,7 @@ export class OwnerProductsComponent implements OnInit {
   SubmitData() {
 
     console.log(this.productForm.value);
-    this._ownerService.AddProduct(1, this.productForm.value).subscribe({
+    this._ownerService.AddProduct(this.id, this.productForm.value).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
-import { SupplierCategory } from 'src/app/sharedClassesAndTypes/SupplierCategory';
+import { Category } from 'src/app/sharedClassesAndTypes/Category';
 
 @Component({
   selector: 'app-supplier-categories',
@@ -15,20 +16,22 @@ export class SupplierCategoriesComponent implements OnInit {
   errorMessage: any;
   display = '';
   display1 = '';
+  id: any;
   imageUrl: string = '';
 
-  supplierCategory: SupplierCategory = {
+  supplierCategory: Category = {
     id: 0,
     image: '',
     name: '',
   }
-  categories!: SupplierCategory[];
+  categories: Category[] = [];
   CategoryForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _supplierService: SupplierService,
-    private _imageService: ImageService) {
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) {
 
     this.CategoryForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -44,14 +47,19 @@ export class SupplierCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+
     this.LoadData();
   }
+
   LoadData() {
-    this._supplierService.GetMenuCategoiesBySupplierId(1).subscribe({
+    this._supplierService.GetMenuCategoiesBySupplierId(this.id).subscribe({
       next: data => {
         let dataJson = JSON.parse(JSON.stringify(data))
         this.categories = dataJson.data;
-        this.categories.forEach((category: SupplierCategory) => {
+        this.categories.forEach((category: Category) => {
           category.image = this._imageService.base64ArrayToImage(category.image)
         });
       },
@@ -61,7 +69,7 @@ export class SupplierCategoriesComponent implements OnInit {
 
   SubmitData() {
 
-    this._supplierService.AddCategory(1, this.CategoryForm.value).subscribe({
+    this._supplierService.AddCategory(this.id, this.supplierCategory).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
@@ -76,7 +84,6 @@ export class SupplierCategoriesComponent implements OnInit {
     console.log(categoryId);
     this._supplierService.DeleteCategory(categoryId).subscribe({
       next: data => {
-
         this.categories.splice(index, 1);
         console.log(this.categories)
         this.LoadData();

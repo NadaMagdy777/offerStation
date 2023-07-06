@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { OwnerdetailsComponent } from 'src/app/pages/owner-details/ownerdetails/ownerdetails.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwnerOffersComponent } from 'src/app/pages/owner-offers/owner-offers.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -63,7 +64,7 @@ const routes: Routes = [
     MatSliderModule,
     MatTabsModule,
     FormsModule,
-    
+    MatIconModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     MatSidenavModule,
