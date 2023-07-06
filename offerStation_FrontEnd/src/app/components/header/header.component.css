@@ -20,3 +20,9 @@
 .service-item h5{
 font-weight: bold;
 }
+.car-cont{
+  background-image: url(../../../assets/images/restaurantBanner.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
