@@ -16,6 +16,8 @@ export class SupplierOffersComponent implements OnInit {
   OfferList: any;
   ProductList: any;
 
+  offerProducts: OfferProduct[]=[];
+
   index!: any;
   imageUrl: string = '';
   errorMessage: any;
@@ -74,7 +76,6 @@ export class SupplierOffersComponent implements OnInit {
     this._supplierService.GetAllProductsBySupplierId(this.id).subscribe({
       next: data => {
 
-        console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ProductList = dataJson.data;
       },
@@ -116,7 +117,7 @@ export class SupplierOffersComponent implements OnInit {
         const response = await this._supplierService.GetProductDetails(product.productId).toPromise();
         let dataJson = JSON.parse(JSON.stringify(response));
         let productDetails = dataJson.data;
-        this.productsTotalPrice += (productDetails.price*product.quantity);
+        this.productsTotalPrice += (productDetails.price * product.quantity);
       }
 
       if (this.OfferForm.get('price')?.value != null) {

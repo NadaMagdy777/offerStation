@@ -58,6 +58,7 @@ export class OwnerMenuComponent implements OnInit{
         next: data => {
           console.log(data);
           this.MenucategoryList = data.data;
+           
         },
         error: error => this.errorMessage = error
 
