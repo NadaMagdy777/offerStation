@@ -12,12 +12,12 @@ export class Offer {
         public createdTime: string,
         public prefPrice: number,
         public traderImage: string,
-        public products: Product[],
+        public products: OfferProduct[],
 
     ) { }
 }
 
-export class Product {
+export class OfferProduct {
     constructor(
         public quantity: number,
         public productId: number,
