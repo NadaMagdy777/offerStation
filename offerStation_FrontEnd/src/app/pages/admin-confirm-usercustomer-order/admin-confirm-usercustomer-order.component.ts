@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -23,8 +23,17 @@ export class AdminConfirmUsercustomerOrderComponent implements OnInit {
   orderStatus!:any
 
  
+  closeModel(value: any) {
+    this.display = "none";
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
 
-  constructor(private OrderService:OrdersService, private route:ActivatedRoute  , private _userDataService: AuthenticationService
+    
+
+  } 
+  constructor(private OrderService:OrdersService, private route:ActivatedRoute  ,private router:Router, private _userDataService: AuthenticationService
 ) 
   {}
  

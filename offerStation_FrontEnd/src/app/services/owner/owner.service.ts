@@ -110,8 +110,8 @@ export class OwnerService {
     return this._httpClient.get<OwnerDetails>(this.url + "/GetOwnerInfo?id=" + id)
   }
 
-  GetAllOffersByOwnerIdWithPagination(pgNum: number, pageSize: number, id: number): Observable<any> {
-    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerIdWithPagination/id?pageNumber="+pgNum+"&pageSize="+pageSize+"&id="+id).
+  GetAllOffersByOwnerId( id: number): Observable<any> {
+    return this._httpClient.get<any>(this.url + "/GetAllOffersByOwnerId?id="+id).
     pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error")
     }));
@@ -195,7 +195,7 @@ export class OwnerService {
   }
   GetAllCustomerReviewByOwnerId(id:number)
   {
-    return this._httpClient.get<ApiResponce>(Base.apiUrl+"/AllCustomerReviewsByOwnerId/id?ownerId="+id).
+    return this._httpClient.get<ApiResponce>(this.url+"/AllCustomerReviewsByOwnerId/id?ownerId="+id).
     pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error")
     }));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -13,11 +13,10 @@ import { OfferProducts } from 'src/app/sharedClassesAndTypes/product';
   styleUrls: ['./customer-orders.component.css']
 })
 export class CustomerOrdersComponent implements OnInit {
-
-  orderId!: number
-  ownerId!: number;
-  customerId!: number;
-  ordertList: CustomerOrders[] = []
+  orderId!:number
+  ownerId!:number;
+  customerId!:number;
+  ordertList:CustomerOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   display: string = "none"
@@ -38,12 +37,10 @@ export class CustomerOrdersComponent implements OnInit {
 
   }
 
-  constructor(private OrderService: OrdersService,
-    private OwnerService: OwnerService,
-    private route: ActivatedRoute,
-    private _userDataService: AuthenticationService
-  ) { }
-
+  constructor(private OrderService:OrdersService,private OwnerService:OwnerService, private router:Router,private route:ActivatedRoute  , private _userDataService: AuthenticationService
+) 
+  {}
+ 
   ngOnInit(): void {
 
     this.customerId = this.route.snapshot.params['id']
@@ -55,6 +52,8 @@ export class CustomerOrdersComponent implements OnInit {
       processing: true
 
     };
+
+    
     this.OrderService.GetCustomerOrders(this.customerId).subscribe((res) => {
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
@@ -73,7 +72,18 @@ export class CustomerOrdersComponent implements OnInit {
 
   }
 
-  openAddressModal(offerlist: any, productList: any) {
+  closeModel(value: any) {
+    this.displayModel2 = "none";
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+
+    
+
+  }
+
+  openAddressModal(offerlist:any,productList:any) {
     this.display = 'block';
     this.offersResult = offerlist
     this.productResult = productList

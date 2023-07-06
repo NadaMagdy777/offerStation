@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -9,7 +10,6 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
 })
 export class SupplierproductComponent  implements OnInit{
   pageNumber:number=1
-  totalItems:number=0
   pagesize:number=1
   selectedValue=0
   min=0;
@@ -19,7 +19,8 @@ export class SupplierproductComponent  implements OnInit{
   MenucategoryList: any;
   ProductListByCategoryName: any
   errorMessage: any;
-  constructor(private supplier: SupplierService,private activatedroute:ActivatedRoute) {
+  selectedId: number | undefined;
+  constructor(private supplier: SupplierService,private activatedroute:ActivatedRoute, private imageService: ImageService) {
   }
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
@@ -56,7 +57,12 @@ export class SupplierproductComponent  implements OnInit{
       error: error => this.errorMessage = error
 
     });
+    this.getAllProductsBySupplierId()
 
+    }
+    setIndex(selectedId:number){
+      this.selectedId=selectedId  
+      this.getproductBycategoryId(selectedId)
     }
     
     getAllProductsBySupplierId()
@@ -67,12 +73,15 @@ export class SupplierproductComponent  implements OnInit{
         console.log(data);
         this.ProductListByCategoryName = data.data
         console.log(this.ProductListByCategoryName);
+        this.applayImages()
+
       },
       error: (error: any) => this.errorMessage = error
-
+      
     });
   
- 
+    this.pageNumber = 1
+
 }
 
 getproductBycategoryId(value:number)
@@ -94,26 +103,25 @@ getproductBycategoryId(value:number)
   }
 }
 
+applayImages(){
+  this.ProductListByCategoryName=this.ProductListByCategoryName.foreach((product:any)=>{
+     product.image=this.imageService.base64ArrayToImage(product.image) 
+  });
+}
+
 getselectedprice(value:number)
 {
-console.log("seleceted "+ value);
-this.supplier.GetProductsBySupplierIDAndPrice(this.id,value).subscribe({
-next: data => {
-  console.log(data);
-  this.ProductListByCategoryName = data.data
-  console.log("listprice" + this.ProductListByCategoryName);
 
-},
-error: error => this.errorMessage = error
+  this.ProductListByCategoryName=this.ProductListByCategoryName.filter((product:any)=>{
+    return product.price<=value
+  });
+  this.pageNumber = 1
 
-})
+
 }
 PageNumberChanged(value:any){
     this.pageNumber=value
-    // this.supplier.get(this.pageNumber,this.pagesize,1)
-    this.pageNumber=1
-    console.log("page"+value);
-    console.log("mayar"+value);
+   
 }
 }
 

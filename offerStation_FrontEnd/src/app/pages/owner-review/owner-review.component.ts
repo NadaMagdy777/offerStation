@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerReviewService } from 'src/app/services/customer-review/customer-review.service';
@@ -17,7 +17,8 @@ export class OwnerReviewComponent {
   @Input() ownerId!:number;
   @Input() supplierId!:number;
   @Input() OrderId!:number;
-  
+  @Output() modelClose: EventEmitter<number> = new EventEmitter<number>()
+
 
 
   constructor(private CustomerReviewService:CustomerReviewService,private router:Router ,private route:ActivatedRoute,
@@ -58,8 +59,7 @@ export class OwnerReviewComponent {
            console.log()
            this.orderService.OwnerOrderStatus(this.OrderId,orderStatus.delivered).subscribe((res) => {
             if (res.success) {   
-              console.log("status change seccss")
-               this.router.navigate(['owner/profile/ownerOrders/',this.ownerId])
+              this.modelClose.emit(1)
             } else {
               console.log(res.message); 
             }

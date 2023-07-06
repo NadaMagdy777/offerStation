@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -16,17 +17,15 @@ export class SupplierofferComponent implements OnInit{
 
 PageNumberChanged(value: number) {
   this.pageNumber = value
-  this.supplier.GetAllOffersBySupplierIdWithPagination(this.pageNumber, this.pagesize,this.id)
-  this.pageNumber = 1
-  console.log(value);
+  
 
 }
   errorMessage: any;
-  constructor(private supplier:SupplierService, private activatedroute: ActivatedRoute)
+  constructor(private supplier:SupplierService, private activatedroute: ActivatedRoute,private imageService: ImageService)
   {
 
   }
-
+ 
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
       this.id = Number(paramMap.get('id'));
@@ -37,7 +36,7 @@ PageNumberChanged(value: number) {
     next: (data: { data: any; }) => {
       console.log(data);
       this.supplieroffers = data.data
-      console.log(this.supplieroffers);
+      this.applayImages()
     },
     error: (error: any) => this.errorMessage = error
   
@@ -52,11 +51,17 @@ PageNumberChanged(value: number) {
       next: (data: any) => {
         console.log(data);
         this.ProductListofOffer = data.data;
+        this.ProductListofOffer=this.ProductListofOffer.foreach((product:any)=>{
+          product.image=this.imageService.base64ArrayToImage(product.image) })
       },
       error: (error: any) => this.errorMessage = error,
     })
   }
-  
+  applayImages(){
+    this.supplieroffers=this.supplieroffers.foreach((product:any)=>{
+       product.image=this.imageService.base64ArrayToImage(product.image) 
+    });
+  }
   closeModal() {
     this.display = 'none';
   }

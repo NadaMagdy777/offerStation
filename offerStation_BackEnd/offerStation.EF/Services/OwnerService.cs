@@ -352,7 +352,7 @@ namespace offerStation.EF.Services
             }
             return reviewListDto;
         }
-        public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination(int pageNumber, int pageSize, int id)
+        public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination( int id)
         {
             List<OfferDetailsDto> OfferListDto = null;
             IEnumerable<OwnerOffer> offerList = await _unitOfWork.OwnerOffers.FindAllAsync(o=>o.OwnerId==id);
@@ -361,10 +361,7 @@ namespace offerStation.EF.Services
             {
                 OfferListDto = _mapper.Map<List<OfferDetailsDto>>(offerList);
             }
-            ResultrDto<ProductInfoDto> offerFilterResult = new ResultrDto<ProductInfoDto>();
-            offerFilterResult.itemsCount = OfferListDto.Count();
-            int recSkip = (pageNumber - 1) * pageSize;
-            OfferListDto = OfferListDto.Skip(recSkip).Take(pageSize).ToList();
+           
             return OfferListDto;
         }
         public async Task<List<OwnerOfferProductsDto>?> GetOfferDetailsByOfferId(int id)

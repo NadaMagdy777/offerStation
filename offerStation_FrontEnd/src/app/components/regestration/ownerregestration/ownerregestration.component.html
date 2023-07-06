@@ -26,6 +26,7 @@
                     Phone Is Required
                   </small>
                   
+                  
                   <small *ngIf="registerForm.get('Phone')?.hasError('invalidPhone') && (Phone?.dirty )"  class="text-danger">
                     Phone number is invalid. Please enter 11 digits without non-numeric characters.
                   </small>
@@ -48,6 +49,12 @@
                     </div>
                     <small *ngIf="Password?.errors?.['required'] && (Password?.dirty || Password?.touched)" class="text-danger">
                       Password Is Required
+                    </small>
+                    <small *ngIf="Password?.errors?.['minLength'] && (Password?.dirty || Password?.touched)" class="text-danger">
+                      Password should be greater than 6
+                    </small>
+                    <small *ngIf="Password?.errors?.['maxLength'] && (Password?.dirty || Password?.touched)" class="text-danger">
+                      Password should be At max  10
                     </small>
                     <br>
                     <div class="form-group">

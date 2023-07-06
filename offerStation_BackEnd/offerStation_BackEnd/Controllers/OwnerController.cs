@@ -291,10 +291,10 @@ namespace offerStation.API.Controllers
             return Ok(new ApiResponse(200, true, data));
 
         }
-        [HttpGet("GetAllOffersByOwnerIdWithPagination/id")]
-        public async Task<ActionResult<ApiResponse>> GetAllOffersByOwnerIdWithPagination(int pageNumber, int pageSize, int id)
+        [HttpGet("GetAllOffersByOwnerId")]
+        public async Task<ActionResult<ApiResponse>> GetAllOffersByOwnerId( int id)
         {
-            IEnumerable<OfferDto> offer = await _ownerService.GetAllOffersByOwnerIdWithPagination(pageNumber, pageSize,id);
+            IEnumerable<OfferDto> offer = await _ownerService.GetAllOffersByOwnerIdWithPagination(id);
             if (offer is null)
             {
                 return BadRequest(new ApiResponse(404, false, "null object"));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
@@ -34,7 +34,17 @@ export class OwnerOrdersComponent implements OnInit {
     this.displayModel2="none"
 
   }
-  constructor(private OrderService:OrdersService,private OwnerService:OwnerService,private route:ActivatedRoute) 
+  closeModel(value: any) {
+    this.displayModel2 = "none";
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+
+    
+
+  }
+  constructor(private OrderService:OrdersService,private OwnerService:OwnerService,private route:ActivatedRoute,private router:Router) 
   {
     
   }
