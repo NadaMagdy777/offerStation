@@ -9,7 +9,7 @@
         <div class="accordion-item ">
           <h2 class="accordion-header" id="flush-headingOne">
             <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              data-bs-target="#flush-collapseOne" style="background-color:#FEA116;" aria-expanded="false" aria-controls="flush-collapseOne">
               Categories
             </button>
           </h2>
@@ -32,7 +32,8 @@
           </ul>
           </div>
         </div>
-
+            <div class="row" *ngIf="ProductListByCategoryName?.length; then success; else failed;" ></div>
+            <ng-template #success>
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingTwo">
             <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
@@ -56,7 +57,29 @@
             </div>
           </div>
         </div>
+      </ng-template>
+      <ng-template #failed>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button text-dark bg-light" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Prices
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="padding-top: 34px;">
+              
 
+              <label class="d-flex justify-content-center"> Sorry There is No Products </label>
+              <div class="d-flex justify-content-center">
+
+                <!-- <button type="button" class=" btn btn-primary" (click)="getselectedprice(selectedValue)">Apply</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
       </div>
     </div>
 
@@ -106,7 +129,8 @@
                   </div>
                   <p> {{item.description}}</p>
                   
-                  <p><button class="buttoncard btn  btn-success">Add to Cart</button></p>
+                  <p><button class="buttoncard btn  btn-success" (click)="AddToCart()">Add to Cart</button></p>
+                  
                 </div>
                 
               </div>
