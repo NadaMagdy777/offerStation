@@ -30,7 +30,7 @@ msg='';
   error: string = ''
   registerForm = this.fb.group({
     name: ['', [Validators.required]],
-    phone: ['', [Validators.required],SupplierPhoneValidator],
+    phoneNumber: ['', [Validators.required],SupplierPhoneValidator],
     address: this.fb.array([]),
     Password: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(6)]],
     supplierCategoryId:['',[Validators.required]],
@@ -42,8 +42,8 @@ msg='';
     return this.registerForm.get('name');
   }
   
-  get Phone() {
-    return this.registerForm.get('phone');
+  get phoneNumber() {
+    return this.registerForm.get('phoneNumber');
   }
   get Address() {
     return this.registerForm.get('address') as FormArray;
