@@ -4,6 +4,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { Product } from 'src/app/sharedClassesAndTypes/product';
 import { Offer, OfferProduct } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-owner-offers',
@@ -15,6 +16,7 @@ export class OwnerOffersComponent implements OnInit {
 
   OfferList: any;
   ProductList: any;
+  id: any;
 
   index!: any;
   imageUrl: string = '';
@@ -51,7 +53,8 @@ export class OwnerOffersComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService
-    , private _imageService: ImageService) { }
+    , private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) { }
 
   OfferForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -63,9 +66,12 @@ export class OwnerOffersComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
     this.LoadData()
 
-    this._ownerService.getAllProductsByOwnerId(1).subscribe({
+    this._ownerService.getAllProductsByOwnerId(this.id).subscribe({
       next: data => {
 
         console.log(data);
@@ -78,12 +84,15 @@ export class OwnerOffersComponent implements OnInit {
   }
 
   LoadData() {
-    this._ownerService.GetOffersByOwnerId(1).subscribe({
+    this._ownerService.GetOffersByOwnerId(this.id).subscribe({
       next: data => {
 
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.OfferList = dataJson.data;
+        this.OfferList.forEach((offer: Offer) => {
+          offer.image = this._imageService.base64ArrayToImage(offer.image)
+        });
 
       },
       error: error => this.errorMessage = error
@@ -120,7 +129,7 @@ export class OwnerOffersComponent implements OnInit {
           return;
         }
         else {
-          this._ownerService.AddOffer(1, this.OfferForm.value).subscribe({
+          this._ownerService.AddOffer(this.id, this.OfferForm.value).subscribe({
             next: data => {
 
               console.log(data);
