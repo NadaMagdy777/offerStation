@@ -10,29 +10,32 @@
             <div class="card-body text-center">
               <h4 class="card-title font-weight-bold">{{item.name}}</h4>
               <h5 class="card-title font-weight-bold">{{item.description}}</h5>
-             
+
 
               <div class="d-flex justify-content-between">
                 <h5 class="small text-danger " style=" text-decoration-line: line-through"></h5>
                 <h5 class="mb-0 text-danger">{{item.price}} EGP</h5>
               </div>
+<div class="d-flex ">
+  <p><button class="buttoncard btn btn-success me-3"(click)="openModal(item.id)">Offer Details</button></p>
+  <p><button class="buttoncard btn  btn-success" (click)="AddToCart(item)">Add to Cart</button></p>
+</div>
 
-              <p><button class="buttoncard btn btn-success"(click)="openModal(item.id)">Offer Details</button></p>
 
             </div>
 
           </div>
         </div>
         <div class="d-flex justify-content-center  mt-5">
-          <pagination-controls (pageChange)="OfferPageNumberChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>  
-        
+          <pagination-controls (pageChange)="OfferPageNumberChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+
         </div>
       </div>
     </div>
     <div class="col-lg-1">
     </div>
   </div>
-  
+
 </div>
 
 
@@ -48,7 +51,7 @@
         <h4 class="modal-title" style="font-size: initial;">OfferDetails </h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="card mb-3" *ngFor="let item of ProductListofOffer">
           <div class="card-body">
             <div class="d-flex justify-content-between">
@@ -74,11 +77,11 @@
                   <h5 class="mb-0">{{item.quantity}}</h5>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
-       
+
           <!-- <div class="row">
             <div class="col">
               <div class="form-group">
@@ -111,10 +114,10 @@
           </div> -->
         </div>
           <div class="modal-footer">
-     
+
           </div>
-      
-      
+
+
     </div>
   </div>
 </div>

@@ -32,4 +32,7 @@ export class LandingNewestComponent {
 
     })
 }
+AddToCart(offer:any){
+
+}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
@@ -20,7 +21,7 @@ export class SupplierproductComponent  implements OnInit{
   ProductListByCategoryName: any
   errorMessage: any;
   selectedId: number | undefined;
-  constructor(private supplier: SupplierService,private activatedroute:ActivatedRoute, private imageService: ImageService) {
+  constructor(private cartService:CartService,private supplier: SupplierService,private activatedroute:ActivatedRoute, private imageService: ImageService) {
   }
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap => {
@@ -32,7 +33,7 @@ export class SupplierproductComponent  implements OnInit{
       next: (data: { data: any; }) => {
         console.log(data);
         this.MenucategoryList = data.data
-      
+
       },
       error: (error: any) => this.errorMessage = error
 
@@ -61,10 +62,10 @@ export class SupplierproductComponent  implements OnInit{
 
     }
     setIndex(selectedId:number){
-      this.selectedId=selectedId  
+      this.selectedId=selectedId
       this.getproductBycategoryId(selectedId)
     }
-    
+
     getAllProductsBySupplierId()
     {
     this.supplier.GetAllProductsBySupplierId(this.id).subscribe({
@@ -77,9 +78,9 @@ export class SupplierproductComponent  implements OnInit{
 
       },
       error: (error: any) => this.errorMessage = error
-      
+
     });
-  
+
     this.pageNumber = 1
 
 }
@@ -88,14 +89,14 @@ getproductBycategoryId(value:number)
 {
   if (value== 0) {
    this.getAllProductsBySupplierId();
-  } 
+  }
   else {
     this.supplier.GetAllProductsByMenuCategoryID(value).subscribe({
       next: (data: { data: any; }) => {
         console.log(data);
         this.ProductListByCategoryName = data.data
         console.log("list" + this.ProductListByCategoryName);
-       
+
       },
       error: (error: any) => this.errorMessage = error
 
@@ -105,7 +106,7 @@ getproductBycategoryId(value:number)
 
 applayImages(){
   this.ProductListByCategoryName=this.ProductListByCategoryName.foreach((product:any)=>{
-     product.image=this.imageService.base64ArrayToImage(product.image) 
+     product.image=this.imageService.base64ArrayToImage(product.image)
   });
 }
 
@@ -121,7 +122,13 @@ getselectedprice(value:number)
 }
 PageNumberChanged(value:any){
     this.pageNumber=value
-   
+
+}
+AddToCart(Product:any)
+{
+  this.cartService.AddProductToOwnerCart(Product).subscribe({
+    error: error => this.errorMessage = error
+  });
 }
 }
 

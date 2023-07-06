@@ -96,7 +96,7 @@ export class OwnerOffersComponent implements OnInit {
 
   SubmitData() {
 
-    const productsValue = this.OfferForm.get('products')?.value; 
+    const productsValue = this.OfferForm.get('products')?.value;
     const offerProducts: OfferProduct[] = productsValue?.map((product: any) => ({
       productId: product.productId,
       quantity: product.quantity,

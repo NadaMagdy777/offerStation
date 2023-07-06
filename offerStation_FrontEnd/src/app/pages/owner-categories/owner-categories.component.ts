@@ -136,7 +136,6 @@ export class OwnerCategoriesComponent implements OnInit {
 
   onCloseCategoryHandled() {
     this.display = 'none';
-
   }
 
   onCloseEditCategoryHandled() {
