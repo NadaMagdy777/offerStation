@@ -13,6 +13,8 @@ export class CartUserComponent implements OnInit{
   display = '';
   productList:any;
    offerList:any;
+   totalItem:any;
+   totalPrice:any;
   errorMessage: any;
     constructor(private cartService:CartService){
 
@@ -24,6 +26,18 @@ export class CartUserComponent implements OnInit{
         console.log(data);
         this.offerList=data.data.offers;
         this.productList=data.data.products;
+      },
+      error:(error: any)=>this.errorMessage=error
+
+    })
+
+    this.cartService.GetCreateOrder().subscribe({
+      next:data=>
+      {
+        console.log(data);
+        this.totalItem=data.data.itemsCount;
+        this.totalPrice=data.data.total;
+
       },
       error:(error: any)=>this.errorMessage=error
 
@@ -43,4 +57,5 @@ this.cartService.RemoveProductToCart(ProductID).subscribe({
   Add(value:any){
   value++
   }
+
 }

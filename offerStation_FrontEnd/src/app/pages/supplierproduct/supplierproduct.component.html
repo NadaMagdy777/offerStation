@@ -15,15 +15,15 @@
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
             data-bs-parent="#accordionFlushExample">
             <ul  class="list-group w-100 border-0 ">
-              <li 
+              <li
                   class="list-group-item active border-0 m-0 filter-header"
-                  [class.active]="selectedId === 0" 
+                  [class.active]="selectedId === 0"
                   (click)="setIndex(0)">
                 All
               </li>
               <li *ngFor="let item of MenucategoryList"
                   class="list-group-item filter-header pe-auto border-0"
-                  [class.active]="selectedId === item.id" 
+                  [class.active]="selectedId === item.id"
                   (click)="setIndex(item.id)">
                 {{ item.name }}
               </li>
@@ -41,10 +41,10 @@
           <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body" style="padding-top: 34px;">
-              
+
               <mat-slider  min={{min}}  max={{max}}  value=min discrete="true">
                 <input matSliderThumb [(ngModel)]="selectedValue">
-            
+
               </mat-slider>
               <label class="d-flex justify-content-center"> Your Selected Range Price is {{selectedValue}} EGP</label>
               <div class="d-flex justify-content-center">
@@ -63,11 +63,11 @@
         <!-- <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName | paginate:{itemsPerPage:pagesize,currentPage:pageNumber ,totalItems: totalItems}">
           <div class="card mt-2 mb-2" style="width:400px">
             <span class="discount_3">
-     
+
 
               <span class="disc-val" style="margin-left: 4px">{{item.discount}}٪</span>
             </span>
-     
+
 
             <img class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
 
@@ -81,39 +81,39 @@
               <p> {{item.description}}</p>
               <p><button class="buttoncard btn  btn-success">Add to Cart</button></p>
             </div>
-            
+
           </div>
         </div> -->
-      
+
       <div class="row" *ngIf="ProductListByCategoryName?.length; then successblock; else failedblock;"></div>
       <ng-template #successblock>
         <div class="row d-flex ">
           <div class="row d-flex flex-wrap justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of ProductListByCategoryName| paginate:{itemsPerPage:pagesize,currentPage:pageNumber }">
               <div class="card mt-2 mb-2" style="width:400px">
-                
-         
-    
+
+
+
                 <img [src]="item.image" class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
-    
+
                 <div class="card-body text-center">
                   <h4 class="card-title font-weight-bold">{{item.name}}</h4>
-    
+
                   <div class="d-flex justify-content-between">
                     <h5 class="text-dark mb-0">{{item.discountPrice}} EGP</h5>
                   </div>
                   <p> {{item.description}}</p>
-                  <p><button class="buttoncard btn  btn-success">Add to Cart</button></p>
+                  <p><button class="buttoncard btn  btn-success" (click)="AddToCart(item)">Add to Cart</button></p>
                 </div>
-                
+
               </div>
             </div>
             <div class="d-flex justify-content-center  mt-5">
-              <pagination-controls (pageChange)="PageNumberChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>  
-            
+              <pagination-controls (pageChange)="PageNumberChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+
             </div>
           </div>
-         
+
         </div>
 
       </ng-template>

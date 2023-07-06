@@ -7,7 +7,7 @@
             <img src="../../../assets/imges/logo.PNG" width="200px">
           </a>
         </div>
-       
+
         <div class="order-lg-last col-lg-6 col-sm-8 col-8 me-4">
           <div class="d-flex float-end">
 
@@ -29,7 +29,7 @@
                   <li><a class="dropdown-item" routerLink="/customerRegister">Customer</a></li>
                   <li><a class="dropdown-item" routerLink="/ownerRegister">Owner</a></li>
                   <li><a class="dropdown-item" routerLink="/supplierRegister">Supplier</a></li>
-                 
+
                 </ul>
               </a>
             </ng-template>
@@ -59,9 +59,10 @@
               </a>
             </ng-template>
 
-          
+
             <!-- bydefault -->
-            <a   routerLink="" class="border rounded py-1 px-3 nav-link d-flex align-items-center">
+
+            <a *ngIf="UserRole =='owner'"  routerLink="/cart-owner" class="border rounded py-1 px-3 nav-link d-flex align-items-center">
               <i class="fas fa-shopping-cart m-1 me-md-2"></i>
               <p class="d-none d-md-block mb-0" >My cart</p>
             </a>
@@ -106,8 +107,8 @@
           <li class="nav-item" *ngIf="UserRole =='admin'">
             <a class="nav-link text-white" routerLink="/admin">Home</a>
           </li>
-         
-        
+
+
           <!-- <li class="nav-item">
             <a class="nav-link text-white" href="#">Gift boxes</a>
           </li>
@@ -126,8 +127,8 @@
               <li *ngFor="let category of categoryList"><a class="dropdown-item"
                   href="/owners/{{category.name}}">{{category.name}}</a></li>
 
-            </ul> 
-          </li> 
+            </ul>
+          </li>
 
 
           <li class="nav-item dropdown"  *ngIf="UserRole =='owner'">
@@ -138,8 +139,8 @@
               <li *ngFor="let category of suppliercategoryList"><a class="dropdown-item"
                   href="/owners/{{category.name}}">{{category.name}}</a></li>
 
-            </ul> 
-          </li> 
+            </ul>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link text-white" (click)="testToken()">test token</a>
