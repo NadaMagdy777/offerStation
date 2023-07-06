@@ -19,21 +19,21 @@ export class CustomerOrdersComponent implements OnInit {
   ordertList:CustomerOrders[]=[]
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  display:string="none"
-  displayModel2:string="none"
+  display: string = "none"
+  displayModel2: string = "none"
 
-  offersResult!:OrdersOffer[]
-  productResult!:OrdersProduct[]
-  orderStatus!:any
+  offersResult!: OrdersOffer[]
+  productResult!: OrdersProduct[]
+  orderStatus!: any
 
-  openReviewsModal(OwnerId:number,orderId:number){
-    this.ownerId=OwnerId
-    this.orderId=orderId
-    this.displayModel2="block"
+  openReviewsModal(OwnerId: number, orderId: number) {
+    this.ownerId = OwnerId
+    this.orderId = orderId
+    this.displayModel2 = "block"
 
   }
-  onCloseReviewHandled(){
-    this.displayModel2="none"
+  onCloseReviewHandled() {
+    this.displayModel2 = "none"
 
   }
 
@@ -42,27 +42,27 @@ export class CustomerOrdersComponent implements OnInit {
   {}
  
   ngOnInit(): void {
-    
-     this.customerId = this.route.snapshot.params['id']
+
+    this.customerId = this.route.snapshot.params['id']
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
-      lengthMenu : [5, 10, 20],
+      lengthMenu: [5, 10, 20],
       processing: true
-      
+
     };
 
     
     this.OrderService.GetCustomerOrders(this.customerId).subscribe((res) => {
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
-        this.ordertList=dataJson.data
+        this.ordertList = dataJson.data
         console.log(this.ordertList)
         this.dtTrigger.next(null);
 
       } else {
-        console.log(res.message); 
+        console.log(res.message);
       }
     })
   }
@@ -85,15 +85,15 @@ export class CustomerOrdersComponent implements OnInit {
 
   openAddressModal(offerlist:any,productList:any) {
     this.display = 'block';
-    this.offersResult=offerlist
-    this.productResult=productList
-    
-    
+    this.offersResult = offerlist
+    this.productResult = productList
+
+
   }
-  getOrderStatus(num:number){
-     return orderStatus[num] 
+  getOrderStatus(num: number) {
+    return orderStatus[num]
   }
   onCloseAddressHandled() {
     this.display = 'none';
-  }  
+  }
 }

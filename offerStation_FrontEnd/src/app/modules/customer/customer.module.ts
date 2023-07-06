@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
 
@@ -38,7 +39,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatIconModule,
   ]
 })
 export class CustomerModule { }
