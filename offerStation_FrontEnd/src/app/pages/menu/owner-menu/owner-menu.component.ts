@@ -14,7 +14,7 @@ import { ImageService } from 'src/app/services/image.service';
 export class OwnerMenuComponent implements OnInit{
   ProductpageNumber:number=1
   
-  Productpagesize:number=1
+  Productpagesize:number=3
   selectedValue=0
   selectedId=0
   id:any
@@ -121,7 +121,10 @@ export class OwnerMenuComponent implements OnInit{
   
 
   }
-  
+  AddToCart()
+  {
+    
+  }
   
   ProductPageNumberChanged(value: any) {
     this.ProductpageNumber = value

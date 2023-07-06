@@ -16,7 +16,7 @@ export class OwnerreviewComponent implements OnInit {
   totalItems=0;
   errorMessage: any;
   id:any
-  reviewShowed:number=5
+  reviewShowed:number=2
   viewMoreBtnShow:boolean=true
   constructor(private owner:OwnerService,private activatedroute:ActivatedRoute)
   {

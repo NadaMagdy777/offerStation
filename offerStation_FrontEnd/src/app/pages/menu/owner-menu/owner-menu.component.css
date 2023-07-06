@@ -38,6 +38,9 @@ li.active{
    
     
   }
+  .cart-container[_ngcontent-wrs-c12] button[_ngcontent-wrs-c12] {
+    border: 1px solid #FEA116;
+  }  
  
   .discount_3 {
     position: absolute;
