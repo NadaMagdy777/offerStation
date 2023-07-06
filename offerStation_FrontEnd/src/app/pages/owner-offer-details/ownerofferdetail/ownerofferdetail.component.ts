@@ -35,9 +35,10 @@ export class OwnerofferdetailComponent implements OnInit {
     })
   }
   applayImages(){
-    this.OwnerOffer=this.OwnerOffer.foreach((product:any)=>{
-       product.image=this.imageService.base64ArrayToImage(product.image)
-    });
+    for(let offer of this.OwnerOffer ){
+      offer.image=this.imageService.base64ArrayToImage(offer.image)
+    }
+   
   }
 
   display = '';

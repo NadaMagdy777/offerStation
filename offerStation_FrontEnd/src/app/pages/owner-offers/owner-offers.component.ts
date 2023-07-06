@@ -147,6 +147,10 @@ export class OwnerOffersComponent implements OnInit {
           return;
         }
         else {
+          console.log("BeforeOwnerrrOferr", this.ownerOffer);
+          this.ownerOffer.products = offerProducts;
+          console.log("AfterOwnerrrOferr", this.ownerOffer);
+
           this._ownerService.AddOffer(this.id, this.ownerOffer).subscribe({
             next: data => {
 

@@ -7,8 +7,13 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit{
+  constructor(private imageservice:ImageService){
+
+  }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.sellerImage=this.imageservice.base64ArrayToImage(this.sellerImage)
+    this.OfferImage=this.imageservice.base64ArrayToImage(this.OfferImage)
+
   }
 
   @Input() name:string=""

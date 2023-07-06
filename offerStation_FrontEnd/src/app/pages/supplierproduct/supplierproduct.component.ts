@@ -105,9 +105,10 @@ getproductBycategoryId(value:number)
 }
 
 applayImages(){
-  this.ProductListByCategoryName=this.ProductListByCategoryName.foreach((product:any)=>{
-     product.image=this.imageService.base64ArrayToImage(product.image)
-  });
+
+  for(let product of this.ProductListByCategoryName ){
+    product.image=this.imageService.base64ArrayToImage(product.image)
+  }
 }
 
 getselectedprice(value:number)

@@ -355,7 +355,7 @@ namespace offerStation.EF.Services
         public async Task<List<OfferDetailsDto>?> GetAllOffersByOwnerIdWithPagination( int id)
         {
             List<OfferDetailsDto> OfferListDto = null;
-            IEnumerable<OwnerOffer> offerList = await _unitOfWork.OwnerOffers.FindAllAsync(o=>o.OwnerId==id);
+            IEnumerable<OwnerOffer> offerList = await _unitOfWork.OwnerOffers.FindAllAsync(o=>o.OwnerId==id && !o.IsDeleted);
 
             if (offerList is not null)
             {

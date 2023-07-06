@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of OwnerOffer| paginate:{itemsPerPage:Offerpagesize,currentPage:OfferpageNumber}">
           <div class="card mt-2 mb-2" style="width:400px">
-            <img [src]="item.image" class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
+            <img [src]="item.image" class="card-img-top" alt="Card image">
             <div class="card-body text-center">
               <h4 class="card-title font-weight-bold">{{item.name}}</h4>
               <h5 class="card-title font-weight-bold">{{item.description}}</h5>

@@ -59,9 +59,12 @@ PageNumberChanged(value: number) {
     })
   }
   applayImages(){
-    this.supplieroffers=this.supplieroffers.foreach((product:any)=>{
-       product.image=this.imageService.base64ArrayToImage(product.image)
-    });
+    for(let product of this.ProductListofOffer ){
+      product.image=this.imageService.base64ArrayToImage(product.image)
+    }
+    // this.supplieroffers=this.supplieroffers.foreach((product:any)=>{
+    //    product.image=this.imageService.base64ArrayToImage(product.image)
+    // });
   }
   closeModal() {
     this.display = 'none';

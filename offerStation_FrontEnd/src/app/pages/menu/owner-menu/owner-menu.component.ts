@@ -105,9 +105,12 @@ export class OwnerMenuComponent implements OnInit{
 
   }
   applayImages(){
-    this.ProductListByCategoryName=this.ProductListByCategoryName.foreach((product:any)=>{
-       product.image=this.imageService.base64ArrayToImage(product.image)
-    });
+    for(let offer of this.ProductListByCategoryName ){
+      offer.image=this.imageService.base64ArrayToImage(offer.image)
+    }
+    // this.ProductListByCategoryName=this.ProductListByCategoryName.foreach((product:any)=>{
+    //    product.image=this.imageService.base64ArrayToImage(product.image)
+    // });
   }
   getselectedprice(value:number)
   {
