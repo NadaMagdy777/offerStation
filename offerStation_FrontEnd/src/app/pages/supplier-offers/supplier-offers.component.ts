@@ -40,19 +40,31 @@ export class SupplierOffersComponent implements OnInit {
     image: '',
     products: []
   }
-
-  OfferForm = this.fb.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    price: ['', [Validators.required]],
-    image: [''],
-    products: this.fb.array([]),
-  });
-
+  OfferForm:FormGroup;
   constructor(private fb: FormBuilder,
     private _supplierService: SupplierService
     , private _imageService: ImageService,
     private activatedroute: ActivatedRoute) {
+      this.OfferForm = this.fb.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        price: ['', [Validators.required]],
+        image: [''],
+        products: this.fb.array([]),
+      });
+
+      this.OfferForm.get('name')?.valueChanges.subscribe((data) => {
+        this.supplierOffer.name = data;
+      });
+      this.OfferForm.get('description')?.valueChanges.subscribe((data) => {
+        this.supplierOffer.description = data;
+      });
+      this.OfferForm.get('price')?.valueChanges.subscribe((data) => {
+        this.supplierOffer.price = data;
+      });
+      this.OfferForm.get('image')?.valueChanges.subscribe((data) => {
+        this.supplierOffer.image = data;
+      });
   }
   ngOnInit(): void {
 
@@ -66,7 +78,6 @@ export class SupplierOffersComponent implements OnInit {
 
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ProductList = dataJson.data;
-
       },
       error: error => this.errorMessage = error
     });
@@ -79,7 +90,9 @@ export class SupplierOffersComponent implements OnInit {
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.OfferList = dataJson.data;
-
+        this.OfferList.forEach((offer: Offer) => {
+          offer.image = this._imageService.base64ArrayToImage(offer.image)
+        });
       },
       error: error => this.errorMessage = error
     });
@@ -91,6 +104,8 @@ export class SupplierOffersComponent implements OnInit {
 
   SubmitData() {
 
+    console.log("Offerrr", this.supplierOffer);
+    
     const productsValue = this.OfferForm.get('products')?.value;
     const offerProducts: OfferProduct[] = productsValue?.map((product: any) => ({
       productId: product.productId,
@@ -114,7 +129,7 @@ export class SupplierOffersComponent implements OnInit {
           return;
         }
         else {
-          this._supplierService.AddOffer(this.id, this.OfferForm.value).subscribe({
+          this._supplierService.AddOffer(this.id, this.supplierOffer).subscribe({
             next: data => {
 
               console.log(data);

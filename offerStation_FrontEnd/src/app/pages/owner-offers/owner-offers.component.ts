@@ -50,19 +50,37 @@ export class OwnerOffersComponent implements OnInit {
     image: undefined,
     traderImage: undefined
   };
+  OfferForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService
     , private _imageService: ImageService,
-    private activatedroute: ActivatedRoute) { }
+    private activatedroute: ActivatedRoute) {
 
-  OfferForm = this.fb.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    price: ['', [Validators.required]],
-    image: [''],
-    products: this.fb.array([]),
-  });
+    this.OfferForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      image: [''],
+      products: this.fb.array([]),
+    });
+
+    this.OfferForm.get('name')?.valueChanges.subscribe((data) => {
+      this.ownerOffer.name = data;
+    });
+    this.OfferForm.get('description')?.valueChanges.subscribe((data) => {
+      this.ownerOffer.description = data;
+    });
+    this.OfferForm.get('price')?.valueChanges.subscribe((data) => {
+      this.ownerOffer.price = data;
+    });
+    this.OfferForm.get('image')?.valueChanges.subscribe((data) => {
+      this.ownerOffer.image = data;
+    });
+
+  }
+
+
 
   ngOnInit(): void {
 
@@ -116,7 +134,7 @@ export class OwnerOffersComponent implements OnInit {
         const response = await this._ownerService.GetProductDetails(product.productId).toPromise();
         let dataJson = JSON.parse(JSON.stringify(response));
         let productDetails = dataJson.data;
-        this.productsTotalPrice += (productDetails.price*product.quantity);
+        this.productsTotalPrice += (productDetails.price * product.quantity);
         console.log("total", this.productsTotalPrice);
       }
 
@@ -129,7 +147,7 @@ export class OwnerOffersComponent implements OnInit {
           return;
         }
         else {
-          this._ownerService.AddOffer(this.id, this.OfferForm.value).subscribe({
+          this._ownerService.AddOffer(this.id, this.ownerOffer).subscribe({
             next: data => {
 
               console.log(data);

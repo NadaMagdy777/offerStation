@@ -136,6 +136,7 @@ export class SupplierProductsComponent implements OnInit {
     this._supplierService.UpdateProduct(this.supplierProduct.id, this.supplierProduct).subscribe({
       next: data => {
         this.ProductList[this.index] = this.productForm.value;
+        this.LoadData();
         this.onCloseEditProductHandled();
       },
       error: (error: any) => this.errorMessage = error,
