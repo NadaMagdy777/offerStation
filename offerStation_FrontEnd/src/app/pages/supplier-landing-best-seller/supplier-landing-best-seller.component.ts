@@ -14,6 +14,7 @@ export class SupplierLandingBestSellerComponent {
   offerList: any;
   constructor(private SupplierCategory:CategoryService,private route:ActivatedRoute, private Router:Router){
   }
+  
   showAllOffers(catName:any){
     this.Router.navigate(['/owners/',catName]);
   }
@@ -25,21 +26,7 @@ export class SupplierLandingBestSellerComponent {
         let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
         this.categoryList=dataJson.data;
-        for(let category of this.categoryList){
-           this.categoryName=category.name;
-           console.log(this.categoryName)
-           this.SupplierCategory.GetOffersWithSupplier(this.categoryName,"MostPopular").subscribe({
-            next:data=>
-            {
-              let dataJson=JSON.parse(JSON.stringify(data))
-              console.log(dataJson);
-              this.offerList=dataJson.data;
-            },
-            error:error=>this.errorMessage=error
-
-          })
-        }
-
+        
       },
       error:error=>this.errorMessage=error
 

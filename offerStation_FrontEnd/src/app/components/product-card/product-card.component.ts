@@ -30,7 +30,10 @@ export class ProductCardComponent implements OnInit{
   onCloseAddressHandled() {
     this.display = 'none';
   }
-  // AddProductToCart(){
+  AddToCustomerCart(){
 
-  // }
+  }
+  AddToOwnerCart(){
+    
+  }
 }

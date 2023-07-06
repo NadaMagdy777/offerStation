@@ -25,23 +25,8 @@ export class LandingNewestComponent {
     this.ownerCategory.GetAllCategory().subscribe({
       next:data=>
       {
-        console.log(data);
         this.categoryList=data.data;
-        for(let category of this.categoryList){
-           this.categoryName=category.name;
-           console.log(this.categoryName)
-           this.ownerCategory.GetOffersWithOwner(this.categoryName,"Newest").subscribe({
-            next:data=>
-            {
-              let dataJson=JSON.parse(JSON.stringify(data))
-              console.log(dataJson);
-              this.offerList=dataJson.data;
-            },
-            error:error=>this.errorMessage=error
-
-          })
-        }
-
+       
       },
       error:error=>this.errorMessage=error
 

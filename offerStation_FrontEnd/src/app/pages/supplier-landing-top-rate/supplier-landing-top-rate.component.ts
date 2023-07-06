@@ -25,20 +25,7 @@ export class SupplierLandingTopRateComponent {
         let dataJson=JSON.parse(JSON.stringify(data))
         console.log(data);
         this.categoryList=dataJson.data;
-        for(let category of this.categoryList){
-           this.categoryName=category.name;
-           console.log(this.categoryName)
-           this.SupplierCategory.GetOffersWithSupplier(this.categoryName,"Cheapest").subscribe({
-            next:data=>
-            {
-              let dataJson=JSON.parse(JSON.stringify(data))
-              console.log(dataJson);
-              this.offerList=dataJson.data;
-            },
-            error:error=>this.errorMessage=error
-
-          })
-        }
+       
 
       },
       error:error=>this.errorMessage=error
