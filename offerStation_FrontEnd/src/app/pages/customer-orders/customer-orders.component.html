@@ -14,7 +14,7 @@
            
         </thead>
         <tbody>
-            <tr *ngFor="let order of ordertList let i = index ">
+            <tr *ngFor="let order of ordertList let i = index " >
                 <td>{{i}}</td>
                 <td>{{order.traderName}}</td>
                 <td>{{order.total}}</td>
@@ -61,7 +61,7 @@
         </div>
         <div class="modal-body">
           
-          <app-customer-review [customerId]="customerId" [ownerId]="ownerId" [OrderId]="orderId"></app-customer-review>
+          <app-customer-review [customerId]="customerId" (modelClose)="closeModel($event)"  [ownerId]="ownerId" [OrderId]="orderId"></app-customer-review>
            
   
         </div>

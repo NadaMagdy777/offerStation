@@ -11,7 +11,7 @@
   
           <div class="col-lg-4 col-md-4 col-sm-6 d-flex" *ngFor="let item of supplieroffers| paginate:{itemsPerPage:pagesize,currentPage:pageNumber}">
             <div class="card mt-2 mb-2" style="width:400px">
-              <img class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
+              <img [src]="item.image" class="card-img-top" src="https://fakeimg.pl/300/" alt="Card image">
   
               <div class="card-body text-center">
                 <h4 class="card-title font-weight-bold">{{item.name}}</h4>
@@ -61,7 +61,7 @@
               <div class="d-flex flex-row align-items-center">
                 <div>
                   <!-- {{item.image}} -->
-                  <img
+                  <img [src]="item.image"
                     src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
                     class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                 </div>

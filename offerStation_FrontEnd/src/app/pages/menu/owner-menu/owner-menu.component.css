@@ -38,6 +38,9 @@ li.active{
    
     
   }
+  .cart-container[_ngcontent-wrs-c12] button[_ngcontent-wrs-c12] {
+    border: 1px solid #FEA116;
+  }  
  
   .discount_3 {
     position: absolute;
@@ -76,4 +79,10 @@ li.active{
 }
 
 
+.filter-header:hover{
+  cursor: pointer;
+}
 
+li.active{
+  background-color: #ffc107;
+}

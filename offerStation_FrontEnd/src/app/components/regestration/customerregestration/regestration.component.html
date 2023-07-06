@@ -39,13 +39,18 @@
                   <div class="form-group">
                     
                       <label class="fa fa-lock"></label>
-                      <input type="password" #password formControlName="Password"  placeholder="Password" 
+                      <input type="password" #password  min="6" max="10" formControlName="Password"  placeholder="Password" 
                         [class.is-invalid]="Password?.errors && Password?.touched" />
                   </div>
                   <small *ngIf="Password?.errors?.['required'] && (Password?.dirty || Password?.touched)" class="text-danger">
                     Password Is Required
                   </small>
-
+                    <small *ngIf="Password?.errors?.['minLength'] " class="text-danger">
+                      Password should be greater than 6
+                    </small>
+                    <small *ngIf="Password?.errors?.['maxLength'] " class="text-danger">
+                      Password should be At max  10
+                    </small>
                   <div class="form-group">
                     
                       <label class="fa fa-lock"></label>

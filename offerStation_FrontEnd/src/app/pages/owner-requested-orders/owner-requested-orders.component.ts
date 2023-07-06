@@ -30,8 +30,10 @@ export class OwnerRequestedOrdersComponent implements OnInit {
   {
     this.OrderService.CustomerOrderStatus(orderId,orderStatus.shipped).subscribe((res) => {
       if (res.success) {
-        this.router.navigate(['owner/profile'])
-
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([currentUrl]);
+        });
 
       } else {
         console.log(res.message); 

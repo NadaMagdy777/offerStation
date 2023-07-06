@@ -1,40 +1,8 @@
 
-<header class="d-flex justify-content-center mt-2  ">
-
-  <div
-    id="bannerDiV"
-    class="text-align-left col-11 "
-    style="background-image: url('https://preview.colorlib.com/theme/pulse/img/slider/slider-3.jpg.webp');"
->
-    <div id="mask" class="p-5 h-100 w-100" style="background-color:rgb(13,23,41,0.5)">
-      <div class="d-flex h-100" >
-        <div class="text-white">
-   
-                   
-                      <h1 class="mb-3 mt-5">{{supplierinfo.name}}</h1>          
-        </div>    
-        </div>
-        <div class="row">
-          <div class="col-5">
-            <p class="text-white" style="font-size: 25px;"><i class=" fa fa-phone mb-4"></i> {{supplierinfo.phoneNumber}}</p>
-    
-            <!-- <h5 ><i class="fa-duotone fa-phone text-white">{{ownerInfo.phoneNumber}}</i></h5> -->
-          </div>
-          <div class="col-5">
-            <p class="text-white" style="font-size: 25px;"><i class=" fa fa-envelope mb-4"></i> {{supplierinfo.email}}</p>
-          </div>
-          <div class="col-2">
-           
-            <ngb-rating class="starRateColor " [max]="5" [rate]="supplierinfo.rating" [readonly]="true" style="margin-top: -17px;"></ngb-rating>
-          </div>
-        </div>
-        
-       
-     
-              
-    </div>
-  </div>
-</header>
+<div class="text-center" style="padding-top: 71px;">
+  <!-- src="{{ownerInfo.image}}" -->
+  <img data-test="brand-logo" class="brand-logo" src="https://fakeimg.pl/300/" alt="Gonn’s dir" width="250" height="250"></div><h1 data-test="brand-name" class="text-center f-30 f-m-20 primary-text mt-2">{{supplierinfo.name}}</h1>
+  <p data-test="brand-cusine" class="mt-2 text-center f-14 f-400 cuisine-string white"><ngb-rating class="starRateColor " [max]="5" [rate]="supplierinfo.rating" [readonly]="true" ></ngb-rating></p>
 
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
   <mat-tab>

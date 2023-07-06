@@ -54,7 +54,7 @@
                   <li  *ngIf="UserRole =='admin'">
                     <a class="dropdown-item " routerLink="/admin">Dashboard</a>
                   </li>
-                  <li><a class="dropdown-item"  routerLink="http://localhost:4200/" (click)="LogOut()">Log Out</a></li>
+                  <li><a class="dropdown-item"  routerLink="/login" (click)="LogOut()">Log Out</a></li>
                 </ul>
               </a>
             </ng-template>
@@ -107,8 +107,6 @@
             <a class="nav-link text-white" routerLink="/admin">Home</a>
           </li>
          
-            
-     
         
           <!-- <li class="nav-item">
             <a class="nav-link text-white" href="#">Gift boxes</a>

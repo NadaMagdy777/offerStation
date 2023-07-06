@@ -9,17 +9,27 @@ import { OwnerService } from 'src/app/services/owner/owner.service';
 
 })
 export class OwnerreviewComponent implements OnInit {
-
+  reviewList:any
   customerreview:any;
   pageNumber=1;
   pagesize=3;
   totalItems=0;
   errorMessage: any;
   id:any
+  reviewShowed:number=2
+  viewMoreBtnShow:boolean=true
   constructor(private owner:OwnerService,private activatedroute:ActivatedRoute)
   {
-
+    
   } 
+  showReview(){
+    this.reviewShowed+=1
+
+    this.reviewList=this.customerreview.slice(0,this.reviewShowed)
+    if(this.reviewShowed==this.customerreview.length){
+      this.viewMoreBtnShow=false
+    }
+  }
   ngOnInit(): void {
     this.activatedroute.paramMap.subscribe(paramMap=>
       {
@@ -33,6 +43,13 @@ export class OwnerreviewComponent implements OnInit {
           console.log(data);
           this.customerreview=data.data
           console.log("list"+this.customerreview);
+          this.reviewList=this.customerreview.slice(0,this.reviewShowed)
+          if(this.customerreview.length>this.reviewShowed){
+            this.viewMoreBtnShow=true
+          }
+          else{
+            this.viewMoreBtnShow=false
+          }
         },
         error:error=>this.errorMessage=error
       })
@@ -51,12 +68,5 @@ export class OwnerreviewComponent implements OnInit {
 // })
 // }
 
-  PageNumberChanged(value:number)
-  {
-    this.pageNumber = value
-    // this.getAllReviews(this.pageNumber, this.pagesize,this.id)
-    this.pageNumber = 1
-    console.log(value);
-    
-  }
+  
 }

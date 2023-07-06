@@ -46,7 +46,7 @@ const routes: Routes = [
     SupplierofferComponent,
     SupplierreviewsComponent,
     SupplierProfileComponent,
-    SuppliermainpageComponent, 
+    SuppliermainpageComponent,
     SupplierProductsComponent,
     SupplierCategoriesComponent,
     SupplierAddressesComponent,
@@ -63,7 +63,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
-   
+
     FormsModule,
     ReactiveFormsModule
 
