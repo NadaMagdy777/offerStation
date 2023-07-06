@@ -60,7 +60,7 @@
         </div>
         <div class="modal-body">
           
-          <app-owner-review [ownerId]="OwnerId" [supplierId]="SupplierId" [OrderId]="orderId"></app-owner-review>
+          <app-owner-review [ownerId]="OwnerId" (modelClose)="closeModel($event)" [supplierId]="SupplierId" [OrderId]="orderId"></app-owner-review>
            
   
         </div>

@@ -42,7 +42,7 @@
                     <div class="modal-body">
 
                         <app-admin-assign-delivery-order Type="customerOrder"
-                            [OrderId]="orderId"></app-admin-assign-delivery-order>
+                            [OrderId]="orderId" (modelClose)="closeModel($event)"></app-admin-assign-delivery-order>
 
                     </div>
                 </div>

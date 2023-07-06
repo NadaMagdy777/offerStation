@@ -29,8 +29,11 @@ export class SupplierRequestedOrdersComponent implements OnInit {
   {
     this.OrderService.OwnerOrderStatus(orderId,orderStatus.shipped).subscribe((res) => {
       if (res.success) {
-        this.router.navigate(['supplier/profile'])
 
+        const currentUrl = this.router.url;
+       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
 
       } else {
         console.log(res.message); 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -16,6 +16,8 @@ export class AdminAssignDeliveryOrderComponent implements OnInit {
   deliveryId:number=0
   @Input() Type!:string
   @Input() OrderId!:number
+  @Output() modelClose: EventEmitter<number> = new EventEmitter<number>()
+
 
   constructor(private OrderService:OrdersService, private route:ActivatedRoute ,private router:Router , private _userDataService: AuthenticationService) 
   {}
@@ -43,8 +45,8 @@ export class AdminAssignDeliveryOrderComponent implements OnInit {
       if (res.success) {
         this.OrderService.CustomerOrderStatus(this.OrderId,orderStatus.ordered).subscribe((res) => {
           if (res.success) {
-            console.log("success")
-            this.router.navigate(['/admin/userOrders'])
+            this.modelClose.emit(1)
+
     
           } else {
             console.log(res.message); 
