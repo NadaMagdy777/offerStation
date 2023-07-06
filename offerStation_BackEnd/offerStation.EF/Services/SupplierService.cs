@@ -711,14 +711,14 @@ namespace offerStation.EF.Services
         public async Task<double> GetMinPriceoFProductBySupplierID(int id)
         {
             IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts.FindAllAsync(o => o.SupplierId == id);
-            return supplierProducts.Min(o => o.Price - (o.Price * o.Discount / 100));
+            return supplierProducts.Min(o => o.Price);
 
         }
         public async Task<double> GetMaxPriceoFProductBySupplierID(int id)
         {
             IEnumerable<SupplierProduct> supplierProducts = await _unitOfWork.SupplierProducts.FindAllAsync(o => o.SupplierId == id);
 
-            return supplierProducts.Max(o => o.Price - (o.Price * o.Discount / 100));
+            return supplierProducts.Max(o => o.Price);
 
         }
         public async Task<List<ProductInfoDto>> GetProductsBySupplierIDAndPrice(int id, double selectedprice)

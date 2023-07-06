@@ -756,14 +756,14 @@ namespace offerStation.EF.Services
         public async Task<double> GetMinPriceoFProductByOwmerID(int id)
         {
             IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts.FindAllAsync(o => o.OwnerId == id );
-            return ownerProducts.Min(o => o.Price - (o.Price * o.Discount / 100));
+            return ownerProducts.Min(o => o.Price);
 
         }
         public async Task<double> GetMaxPriceoFProductByOwmerID(int id)
         {
             IEnumerable<OwnerProduct> ownerProducts = await _unitOfWork.OwnerProducts.FindAllAsync(o => o.OwnerId == id);
 
-            return ownerProducts.Max(o => o.Price - (o.Price * o.Discount / 100));
+            return ownerProducts.Max(o => o.Price);
 
         }
         public async Task<List<offerProductInfo>> getofferProduct(int OfferId)

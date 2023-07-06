@@ -13,7 +13,7 @@ namespace offerStation.Core.Dtos
     {
         public string Name { get; set; }
 
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         public List<AddressDTO> Address { get; set; }
         public int OwnerCategoryId { get; set; } 

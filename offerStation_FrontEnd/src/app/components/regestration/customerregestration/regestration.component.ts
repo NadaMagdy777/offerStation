@@ -25,7 +25,7 @@ export class RegestrationComponent {
 
   registerForm = this.fb.group({
     Name: ['', [Validators.required]],
-    Phone: ['', [Validators.required],PhoneValidator()],
+    phoneNumber: ['', [Validators.required],PhoneValidator()],
     Address: this.fb.array([]),
     Password: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(6)]],
     Confirm: ['', [Validators.required]],
@@ -38,8 +38,8 @@ export class RegestrationComponent {
   get LastName() {
     return this.registerForm.get('LastName');
   }
-  get Phone() {
-    return this.registerForm.get('Phone');
+  get phoneNumber() {
+    return this.registerForm.get('phoneNumber');
   }
   get Address() {
     return this.registerForm.get('Address') as FormArray;

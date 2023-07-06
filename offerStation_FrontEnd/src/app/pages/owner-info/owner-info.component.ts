@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { OwnerprofileService } from 'src/app/services/OwnerProfile/ownerprofile.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -25,17 +25,33 @@ export class OwnerInfoComponent implements OnInit {
     phoneNumber: ''
   };
 
-  OwnerInfoForm: any = this.fb.group({
-    image: [[]],
-    name: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]]
-  });
+  OwnerInfoForm: FormGroup;
 
   constructor(private fb: FormBuilder,
     private _ownerrServ: OwnerprofileService,
     private _imageService: ImageService,
-    private activatedroute: ActivatedRoute) { }
+    private activatedroute: ActivatedRoute) {
+
+    this.OwnerInfoForm = this.fb.group({
+      image: [''],
+      name: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.OwnerInfoForm.get('name')?.valueChanges.subscribe((data) => {
+      this.owner.name = data;
+    });
+    this.OwnerInfoForm.get('phoneNumber')?.valueChanges.subscribe((data) => {
+      this.owner.phoneNumber = data;
+    });
+    this.OwnerInfoForm.get('email')?.valueChanges.subscribe((data) => {
+      this.owner.email = data;
+    });
+    this.OwnerInfoForm.get('image')?.valueChanges.subscribe((data) => {
+      this.owner.image = data;
+    });
+  }
 
   ngOnInit(): void {
 
@@ -45,7 +61,7 @@ export class OwnerInfoComponent implements OnInit {
 
     this._ownerrServ.GetOwnerInfo(this.id).subscribe({
       next: (data: any) => {
-        // console.log(data);
+       
         let dataJson = JSON.parse(JSON.stringify(data))
         this.owner = dataJson.data;
         this.imageUrl = this._imageService.base64ArrayToImage(this.owner.image);
@@ -69,6 +85,7 @@ export class OwnerInfoComponent implements OnInit {
         next: (data: any) => {
           console.log(data);
           this.OwnerInfo = data;
+          this._ownerrServ.GetOwnerInfo(this.id);
           console.log(this.OwnerInfoForm.value);
 
         },

@@ -9,7 +9,7 @@ namespace offerStation.Core.Dtos
     public class SupplierRegestrationDto
     {
         public string Name { get; set; }
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         public List<AddressDTO> Address { get; set; }
         public int SupplierCategoryId { get; set; }
