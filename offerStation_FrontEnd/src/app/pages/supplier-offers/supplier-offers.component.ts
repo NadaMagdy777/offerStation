@@ -103,6 +103,8 @@ export class SupplierOffersComponent implements OnInit {
 
   SubmitData() {
 
+    console.log("Offerrr", this.supplierOffer);
+    
     const productsValue = this.OfferForm.get('products')?.value;
     const offerProducts: OfferProduct[] = productsValue?.map((product: any) => ({
       productId: product.productId,
@@ -126,7 +128,7 @@ export class SupplierOffersComponent implements OnInit {
           return;
         }
         else {
-          this._supplierService.AddOffer(this.id, this.OfferForm.value).subscribe({
+          this._supplierService.AddOffer(this.id, this.supplierOffer).subscribe({
             next: data => {
 
               console.log(data);

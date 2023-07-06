@@ -147,7 +147,7 @@ export class OwnerOffersComponent implements OnInit {
           return;
         }
         else {
-          this._ownerService.AddOffer(this.id, this.OfferForm.value).subscribe({
+          this._ownerService.AddOffer(this.id, this.ownerOffer).subscribe({
             next: data => {
 
               console.log(data);
