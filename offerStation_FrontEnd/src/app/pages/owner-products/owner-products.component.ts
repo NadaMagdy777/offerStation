@@ -137,6 +137,7 @@ export class OwnerProductsComponent implements OnInit {
     this._ownerService.UpdateProduct(this.ownerProduct.id, this.ownerProduct).subscribe({
       next: data => {
         this.ProductList[this.index] = this.productForm.value;
+        this.LoadData();
         this.onCloseEditProductHandled();
       },
       error: (error: any) => this.errorMessage = error,
