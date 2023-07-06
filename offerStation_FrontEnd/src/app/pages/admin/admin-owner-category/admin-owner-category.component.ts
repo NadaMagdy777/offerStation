@@ -44,7 +44,7 @@ export class AdminOwnerCategoryComponent {
   ) {
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      image: [[]]
+      image: ['']
     });
 
     this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -138,9 +138,10 @@ export class AdminOwnerCategoryComponent {
   }
 
   onUpdate() {
-    console.log("form", this.categoryForm.value);
-    console.log("category",this.ownerCategory);
-    this.ownerCategory.image = this._imageService.base64ArrayToImage(this.ownerCategory.image), //
+
+    if(this.ownerCategory.image.includes('blob')){
+      this.ownerCategory.image = '';
+    }
     this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
       next: data => {
         console.log("data",data);
