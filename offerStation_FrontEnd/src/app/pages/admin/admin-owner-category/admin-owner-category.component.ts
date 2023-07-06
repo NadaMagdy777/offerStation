@@ -137,10 +137,13 @@ export class AdminOwnerCategoryComponent {
     )
   }
 
-  onUpdate() {
-    console.log("form", this.categoryForm.value);
-    console.log("category",this.ownerCategory);
-    this.ownerCategory.image = this._imageService.base64ArrayToImage(this.ownerCategory.image), //
+  async onUpdate() {
+    console.log("imageBefore", this.ownerCategory.image);
+    if(this.categoryForm.get('image')?.value == null){
+      this.ownerCategory.image = await this._imageService.imageToBase64Array(this.ownerCategory.image)
+    }
+    console.log("imageAfter", this.ownerCategory.image);
+
     this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
       next: data => {
         console.log("data",data);
