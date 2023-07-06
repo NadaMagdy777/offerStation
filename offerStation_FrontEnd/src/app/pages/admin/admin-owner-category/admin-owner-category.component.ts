@@ -44,7 +44,7 @@ export class AdminOwnerCategoryComponent {
   ) {
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      image: [[]]
+      image: ['']
     });
 
     this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -110,7 +110,6 @@ export class AdminOwnerCategoryComponent {
   }
 
   OnSubmit() {
-
     this._adminService.AddCategory(this.categoryForm.value).subscribe({
       next: data => {
         this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -130,17 +129,20 @@ export class AdminOwnerCategoryComponent {
     this.index = i;
     this.ownerCategory.id = division.id
     console.log(division.image);
-    
     this.categoryForm.patchValue(
       {
         name: division.name,
-        image: division.image,//this._imageService.base64ArrayToImage(division.image)
+        image: division.image,//
       }
     )
   }
 
   onUpdate() {
-    this._adminService.UpdateCategory(this.ownerCategory.id, this.categoryForm.value).subscribe({
+
+    if(this.ownerCategory.image.includes('blob')){
+      this.ownerCategory.image = '';
+    }
+    this._adminService.UpdateCategory(this.ownerCategory.id, this.ownerCategory).subscribe({
       next: data => {
         console.log("data",data);
         

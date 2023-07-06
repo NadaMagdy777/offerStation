@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
 import { ProductDetails, ProductInfo } from 'src/app/sharedClassesAndTypes/ProductInfo';
@@ -15,6 +16,7 @@ export class OwnerProductsComponent implements OnInit {
   errorMessage: any;
   ProductList: any
   index!: any;
+  id: any;
   imageUrl: string = '';
 
   display = '';
@@ -33,79 +35,87 @@ export class OwnerProductsComponent implements OnInit {
 
   categories!: ownerCategory[]
   category!: ownerCategory
-  productForm: any = this.fb.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    price: ['', [Validators.required]],
-    discount: ['', [Validators.required]],
-    discountPrice: [''],
-    image: [''],
-    categoryId: ['', [Validators.required]],
-  });
+
+  productForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService,
-    private _imageService: ImageService) {
+    private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) {
 
-    // this.productForm.get('name')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.name = data;
-    // });
-    // this.productForm.get('description')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.description = data;
-    // });
-    // this.productForm.get('price')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.price = data;
-    // });
-    // this.productForm.get('discount')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.discount = data;
-    // });
-    // this.productForm.get('image')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.image = data;
-    // });
-    // this.productForm.get('categoryId')?.valueChanges.subscribe((data) => {
-    //   this.ownerProduct.categoryId = data;
-    // });
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      discount: ['', [Validators.required]],
+      discountPrice: [''],
+      image: [''],
+      categoryId: ['', [Validators.required]],
+    });
+
+    this.productForm.get('name')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.name = data;
+    });
+    this.productForm.get('description')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.description = data;
+    });
+    this.productForm.get('price')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.price = data;
+    });
+    this.productForm.get('discount')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.discount = data;
+    });
+    this.productForm.get('image')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.image = data;
+    });
+    this.productForm.get('categoryId')?.valueChanges.subscribe((data) => {
+      this.ownerProduct.categoryId = data;
+    });
   }
 
   ngOnInit(): void {
 
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
+
     this.LoadData();
 
-    this._ownerService.getMenuCategorybyOwnerId(1).subscribe({
+    this._ownerService.getMenuCategorybyOwnerId(this.id).subscribe({
       next: data => {
 
         let dataJson = JSON.parse(JSON.stringify(data))
-        this.categories = dataJson.data
+        this.categories = dataJson.data;
       },
       error: (error: any) => this.errorMessage = error,
     });
   }
 
   LoadData() {
-    this._ownerService.getAllProductsByOwnerId(1).subscribe({
+    this._ownerService.getAllProductsByOwnerId(this.id).subscribe({
       next: data => {
         console.log(data);
         let dataJson = JSON.parse(JSON.stringify(data))
         this.ProductList = dataJson.data;
+        this.ProductList.forEach((product: ProductInfo) => {
+          product.image = this._imageService.base64ArrayToImage(product.image)
+        });
 
       },
       error: error => this.errorMessage = error
     });
   }
 
-  OnImageLoad(image: any) {
-    this.imageUrl = this._imageService.base64ArrayToImage(image);
-  }
-
   SubmitData() {
 
     console.log(this.productForm.value);
-    this._ownerService.AddProduct(1, this.productForm.value).subscribe({
+    this._ownerService.AddProduct(this.id, this.ownerProduct).subscribe({
       next: data => {
         console.log(data);
         this.LoadData()
         this.onCloseProductHandled();
+        this.productForm.reset();
       },
       error: (error: any) => this.errorMessage = error,
     });
@@ -124,7 +134,7 @@ export class OwnerProductsComponent implements OnInit {
   }
 
   UpdateProduct() {
-    this._ownerService.UpdateProduct(this.ownerProduct.id, this.productForm.value).subscribe({
+    this._ownerService.UpdateProduct(this.ownerProduct.id, this.ownerProduct).subscribe({
       next: data => {
         this.ProductList[this.index] = this.productForm.value;
         this.onCloseEditProductHandled();

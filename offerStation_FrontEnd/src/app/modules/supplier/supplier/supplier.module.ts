@@ -21,6 +21,7 @@ import { SupplierOffersComponent } from 'src/app/pages/supplier-offers/supplier-
 import { SupplierproductComponent } from 'src/app/pages/supplierproduct/supplierproduct.component';
 import { SuppliermainpageComponent } from 'src/app/pages/supplier-menu/suppliermainpage/suppliermainpage/suppliermainpage.component';
 import { SupplieraddressesComponent } from 'src/app/pages/supplieraddresses/supplieraddresses/supplieraddresses.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 const routes: Routes = [
@@ -63,7 +64,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatSliderModule,
-
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule
 

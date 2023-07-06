@@ -41,6 +41,7 @@ export class CustomerInfoComponent implements OnInit {
       this.id = Number(paramMap.get('id'));
 
     });
+
     this.customerServ.GetCustomerById(this.id).subscribe({
       next: (data: any) => {
 

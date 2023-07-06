@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
-import { Offer } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
+import { Product } from 'src/app/sharedClassesAndTypes/product';
+import { Offer, OfferProduct } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
 
 @Component({
   selector: 'app-owner-offers',
@@ -18,6 +19,7 @@ export class OwnerOffersComponent implements OnInit {
   index!: any;
   imageUrl: string = '';
   errorMessage: any;
+  productsTotalPrice: number = 0.0;
 
   display = '';
   display1 = '';
@@ -35,6 +37,17 @@ export class OwnerOffersComponent implements OnInit {
     products: []
   }
 
+  prods: OfferProduct[] = [];
+  productDetails: Product = {
+    id: 0,
+    name: '',
+    description: '',
+    price: undefined,
+    prefPrice: undefined,
+    ownerId: 0,
+    image: undefined,
+    traderImage: undefined
+  };
   constructor(
     private fb: FormBuilder,
     private _ownerService: OwnerService
@@ -83,15 +96,44 @@ export class OwnerOffersComponent implements OnInit {
 
   SubmitData() {
 
-    this._ownerService.AddOffer(1, this.OfferForm.value).subscribe({
-      next: data => {
-        console.log(data);
-        this.LoadData()
-        this.onCloseOfferHandled();
-        this.OfferForm.reset();
-      },
-      error: (error: any) => this.errorMessage = error,
-    });
+    const productsValue = this.OfferForm.get('products')?.value;
+    const offerProducts: OfferProduct[] = productsValue?.map((product: any) => ({
+      productId: product.productId,
+      quantity: product.quantity,
+    })) ?? [];
+
+    const calculateProductsTotalPrice = async () => {
+      for (const product of offerProducts) {
+        const response = await this._ownerService.GetProductDetails(product.productId).toPromise();
+        let dataJson = JSON.parse(JSON.stringify(response));
+        let productDetails = dataJson.data;
+        this.productsTotalPrice += productDetails.price;
+        console.log("total", this.productsTotalPrice);
+      }
+
+      if (this.OfferForm.get('price')?.value != null) {
+        let offerPrice = parseInt(this.OfferForm?.get('price')?.value ?? '0');
+        console.log("offerPrice", offerPrice);
+
+        if (offerPrice && offerPrice > this.productsTotalPrice) {
+          alert("cant be");
+          return;
+        }
+        else {
+          this._ownerService.AddOffer(1, this.OfferForm.value).subscribe({
+            next: data => {
+
+              console.log(data);
+              this.LoadData()
+              this.onCloseOfferHandled();
+              this.OfferForm.reset();
+            },
+            error: (error: any) => this.errorMessage = error,
+          });
+        }
+      }
+    }
+    calculateProductsTotalPrice();
   }
 
   AddProduct() {
