@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
-import { Offer } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
+import { Offer, OfferProduct } from 'src/app/sharedClassesAndTypes/OwnerOfferInfo';
 
 @Component({
   selector: 'app-supplier-offers',
@@ -21,6 +22,9 @@ export class SupplierOffersComponent implements OnInit {
 
   display = '';
   display1 = '';
+
+  productsTotalPrice: number = 0.0;
+  id: any;
 
   supplierOffer: Offer = {
     ownerId: 0,
@@ -45,12 +49,17 @@ export class SupplierOffersComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private _supplierService: SupplierService
-    , private _imageService: ImageService) {
+    , private _imageService: ImageService,
+    private activatedroute: ActivatedRoute) {
   }
   ngOnInit(): void {
+
+    this.activatedroute.paramMap.subscribe(paramMap => {
+      this.id = Number(paramMap.get('id'));
+    });
     this.LoadData()
 
-    this._supplierService.GetAllProductsBySupplierId(1).subscribe({
+    this._supplierService.GetAllProductsBySupplierId(this.id).subscribe({
       next: data => {
 
         console.log(data);
@@ -63,7 +72,7 @@ export class SupplierOffersComponent implements OnInit {
   }
 
   LoadData() {
-    this._supplierService.GetOffersBySupplierId(1).subscribe({
+    this._supplierService.GetOffersBySupplierId(this.id).subscribe({
       next: data => {
 
         console.log(data);
@@ -81,15 +90,43 @@ export class SupplierOffersComponent implements OnInit {
 
   SubmitData() {
 
-    this._supplierService.AddOffer(1, this.OfferForm.value).subscribe({
-      next: data => {
-        console.log(data);
-        this.LoadData()
-        this.onCloseOfferHandled();
-        this.OfferForm.reset();
-      },
-      error: (error: any) => this.errorMessage = error,
-    });
+    const productsValue = this.OfferForm.get('products')?.value;
+    const offerProducts: OfferProduct[] = productsValue?.map((product: any) => ({
+      productId: product.productId,
+      quantity: product.quantity,
+    })) ?? [];
+
+    const calculateProductsTotalPrice = async () => {
+      for (const product of offerProducts) {
+        const response = await this._supplierService.GetProductDetails(product.productId).toPromise();
+        let dataJson = JSON.parse(JSON.stringify(response));
+        let productDetails = dataJson.data;
+        this.productsTotalPrice += (productDetails.price*product.quantity);
+      }
+
+      if (this.OfferForm.get('price')?.value != null) {
+        let offerPrice = parseInt(this.OfferForm?.get('price')?.value ?? '0');
+        console.log("offerPrice", offerPrice);
+
+        if (offerPrice && offerPrice > this.productsTotalPrice) {
+          alert("cant be");
+          return;
+        }
+        else {
+          this._supplierService.AddOffer(this.id, this.OfferForm.value).subscribe({
+            next: data => {
+
+              console.log(data);
+              this.LoadData()
+              this.onCloseOfferHandled();
+              this.OfferForm.reset();
+            },
+            error: (error: any) => this.errorMessage = error,
+          });
+        }
+      }
+    }
+    calculateProductsTotalPrice();
   }
 
   AddProduct() {

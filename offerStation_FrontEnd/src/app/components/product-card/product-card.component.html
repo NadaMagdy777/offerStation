@@ -2,7 +2,7 @@
     (mouseleave)="hideElement = true">
       <div class="card testimonial-card mt-2 mb-3 " >
         <span class="discount_3" >
-          <span class="disc-val text-center" >{{(((prefPrice-afterPrice)/prefPrice)*100)|number}}</span>
+          <span class="disc-val text-center" >{{(((prefPrice-afterPrice)/prefPrice)*100)|number}} %</span>
       </span>
       <button class="btn p-0 m-0 border-0 " (click)="openAddressModal()">
       <div class="card-up aqua-gradient h-25">
@@ -40,7 +40,8 @@
 
           <p><i class="fas fa-quote-left"></i> {{description}}</p>
             <div class="">
-            <button [hidden]="hideElement" class="btn btn-outline-warning w-100">Add To Cart</button>
+            <button [hidden]="hideElement" class="btn btn-outline-warning w-100" *ngIf="Type=='owner'" (click)="AddToCustomerCart()">Add To Cart</button>
+            <button [hidden]="hideElement" class="btn btn-outline-warning w-100" *ngIf="Type=='supplier'" (click)="AddToOwnerCart()">Add To Cart</button>
             
             </div>
                 </div>

@@ -36,6 +36,8 @@ import { OrderUserComponent } from './pages/order-user/order-user.component';
 import {DataTablesModule} from 'angular-datatables';
 import { ProductCardModule } from './modules/components-shared/product-card/product-card.module';
 import { HomeComponent } from './components/Home/home/home.component';
+import { HomeCategoriesListComponent } from './pages/home-categories-list/home-categories-list.component';
+import { HomeCategoriesListSupplierComponent } from './pages/home-categories-list-supplier/home-categories-list-supplier.component';
 
  
  
@@ -66,6 +68,8 @@ import { HomeComponent } from './components/Home/home/home.component';
     CheckoutComponent,
     OrderUserComponent,
     HomeComponent,
+    HomeCategoriesListComponent,
+    HomeCategoriesListSupplierComponent,
      
       
       
