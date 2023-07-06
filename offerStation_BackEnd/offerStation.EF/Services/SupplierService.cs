@@ -682,7 +682,7 @@ namespace offerStation.EF.Services
         public async Task<List<OfferDto>> GetAllOffersWithoutPagination(string CategoryName, string sortBy)
         {
 
-            return filterOffersData(1, 9, 0, CategoryName, sortBy).Result.List;
+            return filterOffersData(1, 3, 0, CategoryName, sortBy).Result.List;
 
         }
         public async Task<List<AddressInfoDTO>> GetAddressesBySupplierID(int id)
