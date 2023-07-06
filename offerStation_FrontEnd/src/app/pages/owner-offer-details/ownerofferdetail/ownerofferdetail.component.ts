@@ -27,6 +27,7 @@ export class OwnerofferdetailComponent implements OnInit {
       next: (data: any) => {
         console.log(data.data);
         this.OwnerOffer = data.data;
+        this.applayImages()
       },
       error: (error: any) => this.errorMessage = error,
     })

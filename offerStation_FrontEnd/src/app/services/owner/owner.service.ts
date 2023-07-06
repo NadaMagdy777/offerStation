@@ -195,7 +195,7 @@ export class OwnerService {
   }
   GetAllCustomerReviewByOwnerId(id:number)
   {
-    return this._httpClient.get<ApiResponce>(Base.apiUrl+"/AllCustomerReviewsByOwnerId/id?ownerId="+id).
+    return this._httpClient.get<ApiResponce>(this.url+"/AllCustomerReviewsByOwnerId/id?ownerId="+id).
     pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error")
     }));
