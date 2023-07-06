@@ -44,6 +44,12 @@ export class OwnerreviewComponent implements OnInit {
           this.customerreview=data.data
           console.log("list"+this.customerreview);
           this.reviewList=this.customerreview.slice(0,this.reviewShowed)
+          if(this.reviewList.length>this.reviewShowed){
+            this.viewMoreBtnShow=true
+          }
+          else{
+            this.viewMoreBtnShow=false
+          }
         },
         error:error=>this.errorMessage=error
       })
