@@ -180,7 +180,7 @@ namespace offerStation.API.Controllers
             bool success = await _ownerService.EditCategory(id, category);
             if (success)
             {
-                return Ok(new ApiResponse(200, true, success));
+                return Ok(new ApiResponse(201, true, success));
             }
             return BadRequest(new ApiResponse(500, false, "server error"));
         }

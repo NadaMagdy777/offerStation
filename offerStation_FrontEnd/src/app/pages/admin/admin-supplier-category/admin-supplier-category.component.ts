@@ -24,9 +24,6 @@ export class AdminSupplierCategoryComponent {
   imageUrl: string = '';
 
   categories: Category[] = [];
-  // pageNumber = 1;
-  // pageSize = 5;
-
 
   supplierCategory: Category = {
     id: 0,
@@ -47,7 +44,7 @@ export class AdminSupplierCategoryComponent {
   ) {
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      image: [[]]
+      image: ['']
     });
 
     this.categoryForm.get('name')?.valueChanges.subscribe((data) => {
@@ -139,6 +136,9 @@ export class AdminSupplierCategoryComponent {
   }
 
   onUpdate() {
+    if(this.supplierCategory.image.includes('blob')){
+      this.supplierCategory.image = '';
+    }
     this._adminSupplierService.UpdateCategory(this.supplierCategory.id, this.supplierCategory).subscribe({
       next: data => {
         this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
