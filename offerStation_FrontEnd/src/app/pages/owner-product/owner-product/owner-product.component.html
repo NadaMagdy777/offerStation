@@ -56,7 +56,7 @@
 
 <div class="text-center" style="padding-top: 71px;">
   <!-- src="{{ownerInfo.image}}" -->
-  <img data-test="brand-logo" class="brand-logo" src="https://fakeimg.pl/300/" alt="Gonn’s dir" width="250" height="250"></div><h1 data-test="brand-name" class="text-center f-30 f-m-20 primary-text mt-2">{{ownerInfo.name}}</h1>
+  <img data-test="brand-logo" class="brand-logo" [src]="ownerInfo.image" src="https://fakeimg.pl/300/" alt="Gonn’s dir" width="250" height="250"></div><h1 data-test="brand-name" class="text-center f-30 f-m-20 primary-text mt-2">{{ownerInfo.name}}</h1>
   <p data-test="brand-cusine" class="mt-2 text-center f-14 f-400 cuisine-string white"><ngb-rating class="starRateColor " [max]="5" [rate]="ownerInfo.rating" [readonly]="true" ></ngb-rating></p>
 
  
@@ -64,14 +64,14 @@
 
 
 
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+<mat-tab-group mat-stretch-tabs="false" class="m-3" mat-align-tabs="center">
   <mat-tab>
     
     <ng-template mat-tab-label><i class="fa-light fa-book"  aria-hidden="true"></i> 
       
       Menu
     </ng-template>
-    <app-owner-menu></app-owner-menu>
+    <app-owner-menu class="mt-5"></app-owner-menu>
   </mat-tab>
 
   <mat-tab>
@@ -80,21 +80,21 @@
     
       Offers
       </ng-template>
-      <app-ownerofferdetail></app-ownerofferdetail>
+      <app-ownerofferdetail class="mt-5"></app-ownerofferdetail>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label><i class="fa fa-map-marker-alt" aria-hidden="true"> </i>
 
       Addreses
       </ng-template>
-  <app-ownerdetails></app-ownerdetails>
+  <app-ownerdetails class="mt-5"></app-ownerdetails>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label><i class="far fa-comments"> </i>
 
         Reviews  
       </ng-template>
- <app-ownerreview></app-ownerreview>
+ <app-ownerreview class="mt-5"></app-ownerreview>
     </mat-tab>
   
   </mat-tab-group>

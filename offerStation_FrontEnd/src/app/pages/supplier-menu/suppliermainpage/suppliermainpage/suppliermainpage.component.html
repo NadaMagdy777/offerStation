@@ -1,7 +1,7 @@
 
 <div class="text-center" style="padding-top: 71px;">
   <!-- src="{{ownerInfo.image}}" -->
-  <img data-test="brand-logo" class="brand-logo" src="https://fakeimg.pl/300/" alt="Gonn’s dir" width="250" height="250"></div><h1 data-test="brand-name" class="text-center f-30 f-m-20 primary-text mt-2">{{supplierinfo.name}}</h1>
+  <img [src]="supplierinfo.image" data-test="brand-logo" class="brand-logo" src="https://fakeimg.pl/300/" alt="Gonn’s dir" width="250" height="250"></div><h1 data-test="brand-name" class="text-center f-30 f-m-20 primary-text mt-2">{{supplierinfo.name}}</h1>
   <p data-test="brand-cusine" class="mt-2 text-center f-14 f-400 cuisine-string white"><ngb-rating class="starRateColor " [max]="5" [rate]="supplierinfo.rating" [readonly]="true" ></ngb-rating></p>
 
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
