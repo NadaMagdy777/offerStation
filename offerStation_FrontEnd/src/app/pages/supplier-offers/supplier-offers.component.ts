@@ -101,8 +101,7 @@ export class SupplierOffersComponent implements OnInit {
         const response = await this._supplierService.GetProductDetails(product.productId).toPromise();
         let dataJson = JSON.parse(JSON.stringify(response));
         let productDetails = dataJson.data;
-        this._supplierService += productDetails.price;
-        console.log("total", this._supplierService);
+        this.productsTotalPrice += (productDetails.price*product.quantity);
       }
 
       if (this.OfferForm.get('price')?.value != null) {

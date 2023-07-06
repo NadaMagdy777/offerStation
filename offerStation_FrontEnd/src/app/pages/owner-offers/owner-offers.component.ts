@@ -116,7 +116,7 @@ export class OwnerOffersComponent implements OnInit {
         const response = await this._ownerService.GetProductDetails(product.productId).toPromise();
         let dataJson = JSON.parse(JSON.stringify(response));
         let productDetails = dataJson.data;
-        this.productsTotalPrice += productDetails.price;
+        this.productsTotalPrice += (productDetails.price*product.quantity);
         console.log("total", this.productsTotalPrice);
       }
 
