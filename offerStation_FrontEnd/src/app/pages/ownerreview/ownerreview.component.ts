@@ -44,7 +44,7 @@ export class OwnerreviewComponent implements OnInit {
           this.customerreview=data.data
           console.log("list"+this.customerreview);
           this.reviewList=this.customerreview.slice(0,this.reviewShowed)
-          if(this.reviewList.length>this.reviewShowed){
+          if(this.customerreview.length>this.reviewShowed){
             this.viewMoreBtnShow=true
           }
           else{
@@ -68,12 +68,5 @@ export class OwnerreviewComponent implements OnInit {
 // })
 // }
 
-  PageNumberChanged(value:number)
-  {
-    this.pageNumber = value
-    // this.getAllReviews(this.pageNumber, this.pagesize,this.id)
-    this.pageNumber = 1
-    console.log(value);
-    
-  }
+  
 }

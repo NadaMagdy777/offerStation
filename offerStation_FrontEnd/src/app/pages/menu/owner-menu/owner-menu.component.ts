@@ -38,7 +38,6 @@ export class OwnerMenuComponent implements OnInit{
       next: data => {
         console.log(data);
         this.min = data.data;
-        console.log("min "+this.min)
       },
       error: error => this.errorMessage = error
 
@@ -48,7 +47,6 @@ export class OwnerMenuComponent implements OnInit{
       next: data => {
         console.log(data);
         this.max = data.data;
-        console.log("max "+this.max)
       },
       error: error => this.errorMessage = error
 
@@ -59,7 +57,6 @@ export class OwnerMenuComponent implements OnInit{
         next: data => {
           console.log(data);
           this.MenucategoryList = data.data;
-          console.log("menulist"+this.MenucategoryList)
         },
         error: error => this.errorMessage = error
   
@@ -92,6 +89,7 @@ export class OwnerMenuComponent implements OnInit{
       if (res.success) {
         let dataJson = JSON.parse(JSON.stringify(res))
         this.ProductListByCategoryName=dataJson.data
+        
         this.applayImages()
 
       } else {
