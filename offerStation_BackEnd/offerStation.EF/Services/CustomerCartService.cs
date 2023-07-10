@@ -655,6 +655,9 @@ namespace offerStation.EF
             
             _unitOfWork.Complete();
 
+            customer.CustomerCart = null;
+            _unitOfWork.Complete();
+
             return new ApiResponse(200, true, null, "The Order Created Successfully");
 
         }
