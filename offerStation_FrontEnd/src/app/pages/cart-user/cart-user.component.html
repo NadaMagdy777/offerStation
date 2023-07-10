@@ -116,10 +116,10 @@
 
 
 
-                    <button type="button checkout-container" routerLink="/checkout" class="btn btn-light  btn-block btn-lg">
+                    <button type="button checkout-container" class="btn btn-light  btn-block btn-lg">
                       <div class="d-flex justify-content-between">
 
-                        <span routerLink="/checkout">Confirm Order ({{totalPrice}}) <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                        <span (click)="makeorder()">Confirm Order ({{totalPrice}}) <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                       </div>
                     </button>
 

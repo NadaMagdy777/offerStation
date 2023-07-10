@@ -44,6 +44,16 @@ export class CartUserComponent implements OnInit{
     })
   }
 
+  makeorder(){
+    this.cartService.MakeOrder().subscribe({
+      next:data=>
+      {
+        console.log(data);  
+
+      },
+      error:(error: any)=>this.errorMessage=error
+    })
+  }
   onDeleteProduct(ProductID:any){
     // this.display = 'none';
 this.cartService.RemoveProductToCart(ProductID).subscribe({
